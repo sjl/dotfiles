@@ -1,0 +1,31 @@
+[ui]
+username = Steve Losh <steve@stevelosh.com>
+editor = vim
+
+[extensions]
+hgext.graphlog =
+hgext.record = 
+hgext.bookmarks = 
+hgext.rebase = 
+hgext.purge = 
+hgext.mq = 
+parentrevspec = 
+color = 
+alias = 
+
+[color]
+status.modified = cyan bold
+status.added = green bold
+status.removed = red bold
+status.deleted = yellow bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold
+
+[bookmarks]
+track.current = True
+
+[defaults]
+glog = -l7 --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
+diff = --color always
+status = --color always
+serve = --style=gitweb

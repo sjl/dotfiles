@@ -1,0 +1,9 @@
+[user]
+name = Steve Losh
+email = steve@stevelosh.com
+
+[alias]
+glog = log --graph --topo-order --pretty='format:%an: %s (%h)%n'
+com = commit
+co = checkout
+stat = status
