@@ -27,7 +27,7 @@ status.ignored = black bold
 track.current = True
 
 [defaults]
-glog = -l7 --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
+glog = -l7 --template 'changeset:   {rev}:{node|short} \033[35;40m{tags}\033[37;40m\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
 diff   = --color always
 status = --color always
 serve  = --style=gitweb
