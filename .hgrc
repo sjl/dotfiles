@@ -13,6 +13,9 @@ parentrevspec =
 color = 
 alias = 
 
+[diff]
+git = True
+
 [color]
 status.modified = cyan bold
 status.added = green bold
@@ -26,6 +29,7 @@ track.current = True
 
 [defaults]
 glog = -l7 --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
-diff = --color always
+diff   = --color always
 status = --color always
-serve = --style=gitweb
+serve  = --style=gitweb
+addremove = --similarity 100
