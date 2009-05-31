@@ -9,11 +9,21 @@ hgext.bookmarks =
 hgext.rebase = 
 hgext.purge = 
 hgext.mq = 
+hgext.patchbomb =
 parentrevspec = 
 color = 
 
 [diff]
 git = True
+
+[email]
+method = smtp
+from = Steve Losh <steve@stevelosh.com>
+
+[smtp]
+host = smtp.stevelosh.com
+username = sjl
+tls = True
 
 [color]
 status.modified = cyan bold
