@@ -11,7 +11,6 @@ hgext.purge =
 hgext.mq = 
 parentrevspec = 
 color = 
-alias = 
 
 [diff]
 git = True
