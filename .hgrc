@@ -11,6 +11,7 @@ hgext.purge =
 hgext.mq = 
 hgext.patchbomb =
 color = 
+parentrevspec =
 
 [diff]
 git = True
@@ -21,6 +22,7 @@ from = Steve Losh <steve@stevelosh.com>
 
 [smtp]
 host = smtp.stevelosh.com
+port = 587
 username = sjl
 tls = True
 
