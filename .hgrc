@@ -10,8 +10,11 @@ hgext.rebase =
 hgext.purge = 
 hgext.mq = 
 hgext.patchbomb =
+hgext.convert = 
 color = 
 parentrevspec =
+hgshelve = ~/lib/hg/hgshelve/hgshelve.py
+prompt = ~/src/hg-prompt/prompt.py
 
 [diff]
 git = True
