@@ -15,6 +15,7 @@ color =
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 prompt = ~/src/hg-prompt/prompt.py
+histedit = ~/lib/hg/histedit
 
 [diff]
 git = True
