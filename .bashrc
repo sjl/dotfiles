@@ -4,13 +4,24 @@ alias hl='less -R'
 alias pm='python manage.py '
 alias tunnel_webf_mysql='ssh -NL 3306/web45.webfaction.com/3306 webf'
 
+bind 'set completion-ignore-case on'
+bind 'set show-all-if-ambiguous on'
+bind 'set visible-stats on'
+
+shopt -s cdspell
+
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
 export PATH="/usr/local/bin:${PATH}:/opt/local/bin"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
+export GREP_OPTIONS='--color=auto'
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+export HISTCONTROL=erasedups
+export JPY="${HOME}/lib/j2/j.py"
 
 # Extra shell extensions like j and tab completion for Mercurial -------------
-source ~/lib/j/j.sh
+source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
 source ~/lib/virtualenvwrapper_bashrc
 
