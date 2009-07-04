@@ -12,6 +12,7 @@ hgext.mq =
 hgext.patchbomb =
 hgext.convert = 
 color = 
+pager = 
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 prompt = ~/src/hg-prompt/prompt.py
@@ -20,6 +21,9 @@ hg-git = ~/lib/hg/hg-git
 
 [diff]
 git = True
+
+[pager]
+pager = LESS='FSRX' less
 
 [email]
 method = smtp
