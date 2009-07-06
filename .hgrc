@@ -11,12 +11,16 @@ hgext.purge =
 hgext.mq = 
 hgext.patchbomb =
 hgext.convert = 
+hgext.transplant = 
 color = 
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 prompt = ~/src/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
-hg-git = ~/lib/hg/hg-git
+hg-git = ~/lib/hg/hg-git-abderrahim
+
+[alias]
+rewrite = histedit
 
 [diff]
 git = True
