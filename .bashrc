@@ -15,6 +15,7 @@ shopt -s cdspell
 export EDITOR='vim'
 export PATH="/usr/local/bin:${PATH}:/opt/local/bin"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
 export HISTFILESIZE=1000
