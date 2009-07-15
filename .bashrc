@@ -35,7 +35,7 @@ GREEN=$'\e[32;40m'
 ORANGE=$'\e[33;40m'
 
 hg_ps1() {
-    hg prompt "{${D} on ${PINK}{branch}}{${D} at ${ORANGE}{bookmark}}{${GREEN}{status}}" 2> /dev/null
+    hg prompt "{${D} on ${GREEN}{[+{incoming|count}]-->}${PINK}{branch}}${GREEN}{-->[+{outgoing|count}]}{${D} at ${ORANGE}{bookmark}}{${GREEN}{status}}" 2> /dev/null
 }
 
 export PS1='\n${PINK}\u ${D}at ${ORANGE}\h ${D}in ${GREEN}\w$(hg_ps1)\
