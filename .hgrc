@@ -21,6 +21,7 @@ hg-git = ~/lib/hg/hg-git-abderrahim
 
 [alias]
 rewrite = histedit
+killitwithfire = revert --no-backup --all
 
 [diff]
 git = True
