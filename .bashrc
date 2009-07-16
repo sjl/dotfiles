@@ -27,6 +27,15 @@ source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
 source ~/lib/virtualenvwrapper_bashrc
 
+# Useful functions -----------------------------------------------------------
+
+pull_everything() {
+    for repo in $( ls -1 ); do
+        [ -d $repo ] && [ -d $repo/.hg ] && hg -R $repo pull
+        echo
+    done
+}
+
 # Prompt stuff ---------------------------------------------------------------
 
 D=$'\e[37;40m'
