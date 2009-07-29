@@ -18,10 +18,12 @@ hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 prompt = ~/src/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
 hg-git = ~/lib/hg/hg-git-abderrahim
+collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 
 [alias]
 rewrite = histedit
 killitwithfire = revert --no-backup --all
+fold = collapse
 
 [diff]
 git = True
