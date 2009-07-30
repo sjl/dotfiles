@@ -36,6 +36,10 @@ pull_everything() {
     done
 }
 
+wo() {
+    [ -f './.venv' ] && workon `cat ./.venv`
+}
+
 # Prompt stuff ---------------------------------------------------------------
 
 D=$'\e[37;40m'
