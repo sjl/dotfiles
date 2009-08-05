@@ -11,7 +11,8 @@ hgext.purge =
 hgext.mq = 
 hgext.patchbomb =
 hgext.convert = 
-hgext.transplant = 
+hgext.transplant =
+hgext.extdiff = 
 color = 
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
@@ -27,6 +28,9 @@ fold = collapse
 
 [diff]
 git = True
+
+[extdiff]
+cmd.fmdiff = fmdiff
 
 [email]
 method = smtp

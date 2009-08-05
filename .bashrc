@@ -14,7 +14,7 @@ shopt -s cdspell
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
-export PATH="/usr/local/bin:${PATH}:/opt/local/bin"
+export PATH="/usr/local/bin:~/lib/fmscripts:${PATH}:/opt/local/bin"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export GREP_OPTIONS='--color=auto'
