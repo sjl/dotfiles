@@ -32,8 +32,11 @@ source ~/lib/virtualenvwrapper_bashrc
 
 pull_everything() {
     for repo in $( ls -1 ); do
-        [ -d $repo ] && [ -d $repo/.hg ] && hg -R $repo pull -u
-        echo
+        if [[ -d $repo && -d $repo/.hg ]]; then
+            echo "Pulling" $repo
+            hg -R $repo pull -u
+            echo
+        fi
     done
 }
 
