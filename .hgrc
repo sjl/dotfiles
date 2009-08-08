@@ -3,16 +3,16 @@ username = Steve Losh <steve@stevelosh.com>
 editor = vim
 
 [extensions]
-hgext.graphlog =
-hgext.record = 
-hgext.bookmarks = 
-hgext.rebase = 
-hgext.purge = 
-hgext.mq = 
-hgext.patchbomb =
-hgext.convert = 
-hgext.transplant =
-hgext.extdiff = 
+graphlog =
+record = 
+bookmarks = 
+rebase = 
+purge = 
+mq = 
+patchbomb =
+convert = 
+transplant =
+extdiff = 
 color = 
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
