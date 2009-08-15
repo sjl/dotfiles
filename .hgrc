@@ -24,6 +24,7 @@ collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 [alias]
 rewrite = histedit
 killitwithfire = revert --no-backup --all
+kittens = parents
 fold = collapse
 
 [diff]
