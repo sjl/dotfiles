@@ -26,6 +26,7 @@ rewrite = histedit
 killitwithfire = revert --no-backup --all
 kittens = parents
 fold = collapse
+show = log -pr 
 
 [diff]
 git = True
