@@ -48,14 +48,17 @@ wo() {
 
 # Prompt stuff ---------------------------------------------------------------
 
-D=$'\e[37;40m'
-PINK=$'\e[35;40m'
-GREEN=$'\e[32;40m'
-ORANGE=$'\e[33;40m'
+D=$'\[\e[37;40m\]'
+PINK=$'\[\e[35;40m\]'
+GREEN=$'\[\e[32;40m\]'
+ORANGE=$'\[\e[33;40m\]'
 
 hg_ps1() {
     hg prompt "{${D} on ${PINK}{branch}}{${D} at ${ORANGE}{bookmark}}{${GREEN}{status}}{${GREEN}{update}}" 2> /dev/null
 }
 
-export PS1='\n${PINK}\u ${D}at ${ORANGE}\h ${D}in ${GREEN}\w$(hg_ps1)\
-${D}\n$ '
+render_ps1() {
+    echo "\n${PINK}\u ${D}at ${ORANGE}\h ${D}in ${GREEN}\w$(hg_ps1)${D}\n$ "
+}
+
+PROMPT_COMMAND='PS1="`render_ps1`"'"; $PROMPT_COMMAND"
