@@ -64,4 +64,5 @@ render_ps1() {
   echo "\n${PINK}\u ${D}at ${ORANGE}\h ${D}in ${GREEN}\w$(hg_ps1)${D}\n$ "
 }
 
-PROMPT_COMMAND='PS1="`render_ps1`"'"; $PROMPT_COMMAND"
+PROMPT_COMMAND="$(echo "$PROMPT_COMMAND"|sed -e's/PS1="`render_ps1`";//g')"
+PROMPT_COMMAND='PS1="`render_ps1`";'"$PROMPT_COMMAND"
