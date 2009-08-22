@@ -1,2 +1,4 @@
 --type-set
 log=.log
+--type-set
+django=.py,.html
