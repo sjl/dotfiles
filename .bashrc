@@ -70,7 +70,7 @@ tasks_ps1() {
 render_ps1() {
   echo "\n\
 ${PINK}\u ${D}at ${ORANGE}\h ${D}in ${GREEN}\w$(hg_ps1)${D}\n\
-$([ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') ' )$ "
+[$(tasks_ps1)] $([ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') ' )$ "
 }
 
 PROMPT_COMMAND="$(echo "$PROMPT_COMMAND"|sed -e's/PS1="`render_ps1`";//g')"
