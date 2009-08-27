@@ -8,6 +8,8 @@ alias oo='open .'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
 alias t='~/src/t/t.py --task-dir="~/tasks"'
+alias m='~/src/t/t.py --task-dir="~/tasks" --list=groceries'
+alias g='~/src/t/t.py --task-dir="~/tasks" --list=music'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
@@ -59,6 +61,10 @@ hg_ps1() {
 {${D} on ${PINK}{branch}}\
 {${D} at ${ORANGE}{bookmark}}\
 {${GREEN}{status}}{${GREEN}{update}}" 2> /dev/null
+}
+
+tasks_ps1() {
+    t | wc -l | sed -e's/ *//'
 }
 
 render_ps1() {
