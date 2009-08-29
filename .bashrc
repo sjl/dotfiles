@@ -10,6 +10,7 @@ alias fab='fab -i ~/.ssh/stevelosh'
 alias t='~/src/t/t.py --task-dir="~/tasks"'
 alias m='~/src/t/t.py --task-dir="~/tasks" --list=groceries'
 alias g='~/src/t/t.py --task-dir="~/tasks" --list=music'
+alias b='~/src/t/t.py --list=bugs'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
