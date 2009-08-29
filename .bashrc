@@ -29,6 +29,7 @@ export HISTFILESIZE=1000
 export HISTCONTROL=erasedups
 export JPY="${HOME}/lib/j2/j.py"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export COMMAND_MODE=unix2003
 
 # Extra shell extensions like j and tab completion for Mercurial -------------
 source ~/lib/j2/j.sh
