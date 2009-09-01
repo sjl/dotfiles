@@ -7,10 +7,6 @@ alias mq='hg -R $(hg root)/.hg/patches'
 alias oo='open .'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
-alias t='~/src/t/t.py --task-dir="~/tasks"'
-alias m='~/src/t/t.py --task-dir="~/tasks" --list=groceries'
-alias g='~/src/t/t.py --task-dir="~/tasks" --list=music'
-alias b='~/src/t/t.py --list=bugs'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
@@ -36,6 +32,21 @@ export R_LIBS="$HOME/lib/r"
 source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
 source ~/lib/virtualenvwrapper_bashrc
+
+# Task stuff -----------------------------------------------------------------
+alias t='~/src/t/t.py --task-dir="~/tasks"'
+alias m='~/src/t/t.py --task-dir="~/tasks" --list=music'
+alias g='~/src/t/t.py --task-dir="~/tasks" --list=groceries'
+alias p='~/src/t/t.py --task-dir="~/tasks" --list=pack'
+alias b='~/src/t/t.py --list=bugs'
+
+alias pa='~/src/t/t.py --task-dir="~/tasks" --list=pack-archive'
+packfor() {
+    cp "$HOME/tasks/pack-archive" "$HOME/tasks/pack";
+    touch "$HOME/tasks/.pack.done"
+    hg -R ~/tasks add 'pack' '.pack.done';
+    hg com -m 'Starting to pack.'
+}
 
 # Useful functions -----------------------------------------------------------
 
