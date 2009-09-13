@@ -7,6 +7,7 @@ alias mq='hg -R $(hg root)/.hg/patches'
 alias oo='open .'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
+alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
