@@ -16,6 +16,7 @@ extdiff =
 color = 
 parentrevspec =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
+paste = ~/src/hg-paste/paste.py
 prompt = ~/src/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
 hg-git = ~/lib/hg/hg-git-abderrahim
