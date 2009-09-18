@@ -47,7 +47,7 @@ packfor() {
     cp "$HOME/tasks/pack-archive" "$HOME/tasks/pack";
     touch "$HOME/tasks/.pack.done"
     hg -R ~/tasks add 'pack' '.pack.done';
-    hg com -m 'Starting to pack.'
+    hg -R ~/tasks com -m 'Starting to pack.'
 }
 
 # Useful functions -----------------------------------------------------------
