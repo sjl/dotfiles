@@ -8,7 +8,7 @@ alias oo='open .'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
 alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
-alias mememe="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
+alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
