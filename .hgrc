@@ -45,6 +45,10 @@ port = 587
 username = sjl
 tls = True
 
+[web]
+allow_archive = gz zip bz2
+motd = more info at <a href="http://stevelosh.com/projects/">stevelosh.com/projects</a>
+
 [color]
 status.modified = cyan bold
 status.added = green bold
