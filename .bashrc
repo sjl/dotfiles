@@ -79,7 +79,7 @@ hg_ps1() {
   hg prompt "\
 {${D} on ${PINK}{branch}}\
 {${D} at ${ORANGE}{tags|${D}, ${ORANGE}}}\
-{${GREEN}{status}}{${GREEN}{update}}" 2> /dev/null
+{${GREEN}{status|modified|unknown}}{${GREEN}{update}}" 2> /dev/null
 }
 
 tasks_ps1() {
