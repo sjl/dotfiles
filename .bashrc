@@ -31,6 +31,11 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 
+# Accomodate the updated version of Subversion -------------------------------
+export DYLD_LIBRARY_PATH="/opt/subversion/lib:$DYLD_LIBRARY_PATH"
+export PYTHONPATH="/opt/subversion/lib/svn-python:$PYTHONPATH"
+export PATH="/opt/subversion/bin:$PATH"
+
 # Extra shell extensions like j and tab completion for Mercurial -------------
 source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
