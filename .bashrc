@@ -41,6 +41,16 @@ source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
 source ~/lib/virtualenvwrapper_bashrc
 
+# Wrap pip to prevent stupid mistakes ----------------------------------------
+export PIP_BIN="`which pip`"
+alias pip-sys="$PIP_BIN"
+pip() {
+    if [ -n "$VIRTUAL_ENV" ]
+    then $PIP_BIN -E "$VIRTUAL_ENV" "$@"
+    else echo "Not currently in a venv -- use pip-sys to work system-wide."
+    fi
+}
+
 # Task stuff -----------------------------------------------------------------
 alias t='~/src/t/t.py --task-dir="~/tasks"'
 alias m='~/src/t/t.py --task-dir="~/tasks" --list=music'
