@@ -51,12 +51,21 @@ allow_archive = gz zip bz2
 motd = more info at <a href="http://stevelosh.com/projects/">stevelosh.com/projects</a>
 
 [color]
-status.modified = cyan bold
-status.added = green bold
-status.removed = red bold
+status.modified = cyan
+status.added = green
+status.removed = red
 status.deleted = yellow bold underline
 status.unknown = magenta bold underline
 status.ignored = black bold
+diff.diffline = none
+diff.extended = cyan
+diff.file_a = red
+diff.file_b = green
+diff.hunk = yellow bold
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = white_background
 
 [bookmarks]
 track.current = True
