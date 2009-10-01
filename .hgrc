@@ -21,6 +21,7 @@ prompt = ~/src/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
 hg-git = ~/lib/hg/hg-git-abderrahim
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
+diffstat = ~/lib/hg/hgdiffstat/hgext/diffstat.py
 
 [alias]
 rewrite = histedit
