@@ -1,6 +1,6 @@
 [ui]
 username = Steve Losh <steve@stevelosh.com>
-editor = vim
+editor = mate -w
 
 [extensions]
 graphlog =
