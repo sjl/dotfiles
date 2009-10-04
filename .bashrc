@@ -10,6 +10,7 @@ alias fab='fab -i ~/.ssh/stevelosh'
 alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
 alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
 alias hyde='python /Users/sjl/lib/virtualenvs/hyde-site/lib/hyde/hyde.py'
+alias deact='deactivate'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
