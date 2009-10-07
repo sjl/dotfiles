@@ -2,7 +2,6 @@ alias ls='ls -Goh '
 alias less='less -R '
 alias hl='less -R'
 alias pm='python manage.py '
-alias tunnel_webf_mysql='ssh -NL 3306/web45.webfaction.com/3306 webf'
 alias mq='hg -R $(hg root)/.hg/patches'
 alias oo='open .'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
