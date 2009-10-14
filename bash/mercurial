@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 alias mq='hg -R $(hg root)/.hg/patches'
+alias tmd='hg tmd | mate'
 
 pull_everything() {
     for repo in $( ls -1 ); do
