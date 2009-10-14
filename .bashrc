@@ -41,6 +41,10 @@ source ~/.bash/tasks
 source ~/.bash/pip
 source ~/.bash/prompt
 
+# Homebrew -------------------------------------------------------------------
+export PATH=`brew --prefix`/bin:$PATH
+export MANPATH=`brew --prefix`/share/man:$MANPATH
+
 # Useful functions -----------------------------------------------------------
 
 wo() {
