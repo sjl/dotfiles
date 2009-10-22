@@ -33,6 +33,7 @@ show = log --template 'changeset:  {rev}:{node|short} \033[33;40m{tags}\033[37;4
 slog = log --template '{rev}:{node|short} {desc|firstline}\n'
 nudge = push --rev .
 tmd = diff --no-color -U 10
+, = glog -l15 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \033[1;30;40m({date|age} ago by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\n\n'
 
 [diff]
 git = True
