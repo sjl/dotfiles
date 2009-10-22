@@ -14,7 +14,7 @@ pull_everything() {
 }
 
 bitb() {
-    local P="$(grep 'bitbucket.org' `hg root`/.hg/hgrc 2>/dev/null | head -1)"
+    local P="$(hg paths 2>/dev/null | grep 'bitbucket.org' | head -1)"
     local URL="$(echo $P | sed -e's|.*\(bitbucket.org.*\)|http://\1|')"
     [[ -n $URL ]] && open $URL || echo "No BitBucket path found!"
 }

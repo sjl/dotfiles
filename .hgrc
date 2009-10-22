@@ -22,6 +22,7 @@ histedit = ~/lib/hg/histedit
 hg-git = ~/lib/hg/hg-git-abderrahim
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 diffstat = ~/lib/hg/hgdiffstat/hgext/diffstat.py
+review = ~/src/hg-review/review
 
 [alias]
 rewrite = histedit
