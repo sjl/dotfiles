@@ -50,3 +50,9 @@ export MANPATH=`brew --prefix`/share/man:$MANPATH
 wo() {
     [ -f './.venv' ] && workon `cat ./.venv`
 }
+
+# Gorilla --------------------------------------------------------------------
+
+export PATH="~/src/gorilla/bin:$PATH"
+export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
+
