@@ -22,6 +22,7 @@ histedit = ~/lib/hg/histedit
 hg-git = ~/lib/hg/hg-git-abderrahim
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 diffstat = ~/lib/hg/hgdiffstat/hgext/diffstat.py
+compass = ~/lib/hg/hg-compass/compass.py
 review = ~/src/hg-review/review
 
 [diff]
@@ -80,6 +81,9 @@ fold = collapse
 slog = log --template '{rev}:{node|short} {desc|firstline}\n'
 nudge = push --rev .
 cm = commit -m
+up = update --check
+? = compass --hide-closed
+: = status
 
 show = log --template 'changeset:  {rev}:{node|short} \033[33;40m{tags}\033[37;40m\033[35;40m{branches}\033[37;40m\nauthor:     {author}\ndate:       {date|rfc822date} ({date|age} ago)\nsummary:    {desc|firstline}\n\nadded:   \033[32;40m{file_adds}\033[37;40m\nremoved: \033[31;40m{file_dels}\033[37;40m\nchanged: \033[36;40m{file_mods}\033[37;40m\n\n' --color=always -pr
 
@@ -90,3 +94,4 @@ gl+ = gl -l100000000
 , = glog -l15 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \033[1;30;40m({date|age} ago by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\n\n'
 
 ,+ = , -l100000000
+
