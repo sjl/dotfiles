@@ -44,6 +44,9 @@ source ~/.bash/prompt
 # Homebrew -------------------------------------------------------------------
 export PATH=`brew --prefix`/bin:$PATH
 export MANPATH=`brew --prefix`/share/man:$MANPATH
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
 
 # Useful functions -----------------------------------------------------------
 
