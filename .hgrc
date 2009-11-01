@@ -80,6 +80,7 @@ kittens = parents
 fold = collapse
 slog = log --template '{rev}:{node|short} {desc|firstline}\n'
 nudge = push --rev .
+tmd = diff --no-color -U 10
 cm = commit -m
 up = update --check
 ? = compass --hide-closed
