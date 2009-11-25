@@ -19,7 +19,7 @@ hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 paste = ~/src/hg-paste/paste.py
 prompt = ~/src/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
-hg-git = ~/lib/hg/hg-git-abderrahim
+hg-git = ~/lib/hg/hg-git
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 diffstat = ~/lib/hg/hgdiffstat/hgext/diffstat.py
 compass = ~/lib/hg/hg-compass/compass.py
@@ -93,7 +93,7 @@ gl = glog -l8 --template 'changeset: {rev}:{node|short} \033[1;30;40m{author|per
 
 gl+ = gl -l100000000
 
-, = glog -l15 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \033[1;30;40m({date|age} ago by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\n\n'
+, = glog -l15 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\n\n'
 
 ,+ = , -l100000000
 
