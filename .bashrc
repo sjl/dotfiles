@@ -9,6 +9,7 @@ alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/ste
 alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
 alias hyde='python /Users/sjl/lib/virtualenvs/hyde-site/lib/hyde/hyde.py'
 alias deact='deactivate'
+alias serve_this='python -m SimpleHTTPServer'
 
 bind 'set completion-ignore-case on'
 bind 'set show-all-if-ambiguous on'
@@ -32,7 +33,7 @@ export R_LIBS="$HOME/lib/r"
 # Extra shell extensions like j and tab completion for Mercurial -------------
 source ~/lib/j2/j.sh
 source ~/lib/hg/bash_completion
-source ~/lib/virtualenvwrapper_bashrc
+source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
 
 # Separate stuff -------------------------------------------------------------
 source ~/.bash/mercurial
