@@ -11,6 +11,6 @@ alias pa='~/src/t/t.py --task-dir="~/tasks" --list=pack-archive'
 packfor() {
     cp "$HOME/tasks/pack-archive" "$HOME/tasks/pack";
     touch "$HOME/tasks/.pack.done"
-    hg -R ~/tasks add 'pack' '.pack.done';
-    hg -R ~/tasks com -m 'Starting to pack.'
+    hg --cwd ~/tasks add 'pack' '.pack.done';
+    hg -R ~/tasks commit -m 'Starting to pack.'
 }
