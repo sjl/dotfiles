@@ -29,6 +29,8 @@ review = ~/src/hg-review/review
 [schemes]
 webf = ssh://sjl@sjl.webfactional.com/repos/
 bbs = ssh://hg@bitbucket.org/
+gh = git://github.com/
+ghs = git+ssh://git@github.com/
 
 [diff]
 git = True
