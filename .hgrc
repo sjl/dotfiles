@@ -78,25 +78,20 @@ addremove = --similarity 100
 
 
 [alias]
-
-killitwithfire = revert --no-backup --all
-kittens = parents
 fold = collapse
-slog = log --template '\033[33;40m{rev}\033[37;40m {desc|firstline} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m\n'
 nudge = push --rev .
 tmd = diff --no-color -U 10
 cm = commit -m
-up = update --check
 ? = summary
 : = status
 
 show = log --template 'changeset:  {rev}:{node|short} \033[33;40m{tags}\033[37;40m\033[35;40m{branches}\033[37;40m\nauthor:     {author}\ndate:       {date|rfc822date} ({date|age} ago)\nsummary:    {desc|firstline}\n\nadded:   \033[32;40m{file_adds}\033[37;40m\nremoved: \033[31;40m{file_dels}\033[37;40m\nchanged: \033[36;40m{file_mods}\033[37;40m\n\n' --color=always -pr
 
-gl = glog -l8 --template 'changeset: {rev}:{node|short} \033[1;30;40m{author|person}\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\nsummary:   {desc|firstline|fill68|tabindent|tabindent}\n\n'
+slog = log --template '\033[33;40m{rev}\033[37;40m {desc|firstline} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m\n'
 
-gl+ = gl -l100000000
+. = slog -l15
 
-, = glog -l13 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags}\033[37;40m \033[35;40m{branches}\033[37;40m\n\n'
+, = glog -l10 --template '\033[33;40m{rev} \033[37;40m{desc|firstline|fill68} \n\033[35;40m{branches}\033[37;40m \033[33;40m{tags}\033[37;40m\033[1;30;40m({date|age} by {author|person})\033[0;37;40m\n\n'
 
 ,+ = , -l100000000
 
