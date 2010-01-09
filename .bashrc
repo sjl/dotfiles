@@ -3,6 +3,7 @@ alias less='less -R '
 alias hl='less -R'
 alias pm='python manage.py '
 alias oo='open .'
+alias j='z'
 alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
 alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
@@ -31,7 +32,7 @@ export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 
 # Extra shell extensions like j and tab completion for Mercurial -------------
-source ~/lib/j2/j.sh
+source ~/lib/z/z.sh
 source ~/lib/hg/bash_completion
 source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
 
