@@ -22,7 +22,8 @@ alias serve_this='python -m SimpleHTTPServer'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
-export PATH="/usr/local/bin:~/lib/fmscripts:~/bin:${PATH}"
+export PATH="/usr/local/bin:$HOME/lib/fmscripts:$HOME/bin:$PATH"
+export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
@@ -45,6 +46,5 @@ function wo() {
 }
 
 # Gorilla --------------------------------------------------------------------
-
 export PATH="/Users/sjl/src/gorilla/bin:$PATH"
 export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
