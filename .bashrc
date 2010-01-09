@@ -31,7 +31,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 
-# Extra shell extensions like j and tab completion for Mercurial -------------
+# Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
 source ~/lib/hg/bash_completion
 source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
