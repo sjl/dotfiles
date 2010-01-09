@@ -32,6 +32,7 @@ export JPY="${HOME}/lib/j2/j.py"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
+export BAT_CHARGE="$HOME/bin/batcharge.py"
 
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
