@@ -3,6 +3,9 @@ export ZSH_THEME="prose"
 export DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 
+# Custom options -------------------------------------------------------------
+unsetopt promptcr
+
 # Useful aliases -------------------------------------------------------------
 alias ls='ls -Goh'
 alias less='less -R'
