@@ -76,16 +76,12 @@ serve  = --style=gitweb
 rebase = --keepbranches
 addremove = --similarity 100
 
-
 [alias]
-fold = collapse
 nudge = push --rev .
 tmd = diff --no-color -U 10
 cm = commit -m
+st = status -C
 ? = summary
-: = status
-
-show = log --template 'changeset:  {rev}:{node|short} \033[33;40m{tags}\033[37;40m\033[35;40m{branches}\033[37;40m\nauthor:     {author}\ndate:       {date|rfc822date} ({date|age} ago)\nsummary:    {desc|firstline}\n\nadded:   \033[32;40m{file_adds}\033[37;40m\nremoved: \033[31;40m{file_dels}\033[37;40m\nchanged: \033[36;40m{file_mods}\033[37;40m\n\n' --color=always -pr
 
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/cli-templates/map-cmdline.slog
 . = slog -l15
@@ -94,3 +90,6 @@ slog = log --style=/Users/sjl/lib/dotfiles/mercurial/cli-templates/map-cmdline.s
 , = glog -l10 --style=/Users/sjl/lib/dotfiles/mercurial/cli-templates/map-cmdline.sglog
 ,, = , -l100000000
 
+nlog = log --style=/Users/sjl/lib/dotfiles/mercurial/cli-templates/map-cmdline.nlog
+n = nlog -vr
+show = nlog -vpr
