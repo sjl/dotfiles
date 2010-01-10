@@ -1,16 +1,14 @@
 #!/usr/bin/env zsh
 
-alias t='~/src/t/t.py --task-dir="~/tasks"'
-alias m='~/src/t/t.py --task-dir="~/tasks" --list=music'
-alias g='~/src/t/t.py --task-dir="~/tasks" --list=groceries'
-alias k='~/src/t/t.py --task-dir="~/tasks" --list=books'
-alias p='~/src/t/t.py --task-dir="~/tasks" --list=pack'
+alias t='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=tasks.txt'
+alias m='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=music.txt'
+alias g='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=groceries.txt'
+alias k='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=books.txt'
+alias p='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=pack.txt'
 alias b='~/src/t/t.py --list=bugs'
 
-alias pa='~/src/t/t.py --task-dir="~/tasks" --list=pack-archive'
+alias pa='~/src/t/t.py --task-dir="~/Documents/Dropbox/tasks" --list=pack-archive'
 function packfor() {
-    cp "$HOME/tasks/pack-archive" "$HOME/tasks/pack";
-    touch "$HOME/tasks/.pack.done"
-    hg --cwd ~/tasks add 'pack' '.pack.done';
-    hg -R ~/tasks commit -m 'Starting to pack.'
+    cp "$HOME/Documents/Dropbox/tasks/pack-archive" "$HOME/Documents/Dropbox/tasks/pack.txt"
+    touch "$HOME/Documents/Dropbox/tasks/.pack.txt.done"
 }
