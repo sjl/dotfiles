@@ -1,0 +1,7 @@
+changeset: {rev}:{node|short}
+author:    {author}
+date:      {date|rfc822date} ({date|age})
+summary:   {desc|firstline|strip}
+
+{file_adds}{file_dels}{file_mods}
+
