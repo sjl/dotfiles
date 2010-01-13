@@ -19,6 +19,7 @@ alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/ste
 alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
 alias deact='deactivate'
 alias serve_this='python -m SimpleHTTPServer'
+alias oldgcc='export CC=/usr/bin/gcc-4.0'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'

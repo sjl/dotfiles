@@ -35,13 +35,13 @@ git = True
 [extdiff]
 cmd.fmdiff = fmdiff
 
-[merge-patterns]
-** = filemerge
+#[merge-patterns]
+#** = filemerge
 
-[merge-tools]
-filemerge.executable = /Developer/Applications/Utilities/FileMerge.app/Contents/MacOS/FileMerge
-filemerge.args = -left $other -right $local -ancestor $base -merge $output
-filemerge.gui = True
+#[merge-tools]
+#filemerge.executable = /Developer/Applications/Utilities/FileMerge.app/Contents/MacOS/FileMerge
+#filemerge.args = -left $other -right $local -ancestor $base -merge $output
+#filemerge.gui = True
 
 [email]
 method = smtp
@@ -90,6 +90,10 @@ tmd = diff --no-color -U 10
 cm = commit -m
 st = status -C
 ? = summary
+
+#mlocal = merge --config 'ui.merge=internal:local'
+#mother = merge --config 'ui.merge=internal:other'
+#mfail = merge --config 'ui.merge=internal:fail'
 
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/cli-templates/map-cmdline.slog
 . = slog -l15
