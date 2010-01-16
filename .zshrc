@@ -49,3 +49,8 @@ function wo() {
 # Gorilla --------------------------------------------------------------------
 export PATH="/Users/sjl/src/gorilla/bin:$PATH"
 export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
+
+# Pre-Prompt Command ---------------------------------------------------------
+function precmd () {
+    z --add "$(pwd -P)"
+}
