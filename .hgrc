@@ -87,9 +87,11 @@ addremove = --similarity 100
 [alias]
 nudge = push --rev .
 tmd = diff --no-color -U 10
-cm = commit -m
 st = status -C
 ? = summary
+
+cm = commit -m
+cus = commit -m 'Update subrepository state.'
 
 #mlocal = merge --config 'ui.merge=internal:local'
 #mother = merge --config 'ui.merge=internal:other'
