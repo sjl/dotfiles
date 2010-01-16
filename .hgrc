@@ -99,7 +99,8 @@ slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
 
-, = glog -l10 --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+sglog = glog --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+, = sglog -l10
 ,, = , -l100000000
 
 nlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.nlog
