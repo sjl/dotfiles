@@ -28,6 +28,7 @@ webf = ssh://sjl@sjl.webfactional.com/repos/
 bbs = ssh://hg@bitbucket.org/
 gh = git://github.com/
 ghs = git+ssh://git@github.com/
+cb = ssh://hg@codebasehq.com/
 
 [diff]
 git = True

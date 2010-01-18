@@ -20,6 +20,7 @@ alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
 alias deact='deactivate'
 alias serve_this='python -m SimpleHTTPServer'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
+alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
