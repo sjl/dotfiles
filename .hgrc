@@ -36,14 +36,6 @@ git = True
 [extdiff]
 cmd.fmdiff = fmdiff
 
-#[merge-patterns]
-#** = filemerge
-
-#[merge-tools]
-#filemerge.executable = /Developer/Applications/Utilities/FileMerge.app/Contents/MacOS/FileMerge
-#filemerge.args = -left $other -right $local -ancestor $base -merge $output
-#filemerge.gui = True
-
 [email]
 method = smtp
 from = Steve Losh <steve@stevelosh.com>
