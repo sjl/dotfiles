@@ -37,6 +37,10 @@ export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 export BAT_CHARGE="$HOME/bin/batcharge.py"
 
+# Mercurial variables --------------------------------------------------------
+export PATH="$HOME/lib/hg/hg-stable:$PATH"
+export PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
+
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
 source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
