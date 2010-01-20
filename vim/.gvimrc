@@ -1,1 +1,2 @@
-set guifont=Monaco:h12
+set guifont=Monaco:h11
+colorscheme molokai
