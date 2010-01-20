@@ -15,13 +15,12 @@ color =
 parentrevspec =
 schemes = 
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
-paste = ~/src/hg-paste/paste.py
-prompt = ~/src/hg-prompt/prompt.py
+paste = ~/lib/hg/hg-paste/paste.py
+prompt = ~/lib/hg/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
-diffstat = ~/lib/hg/hgdiffstat/hgext/diffstat.py
-review = ~/src/hg-review/review
+review = ~/lib/hg/hg-review/review
 
 [schemes]
 webf = ssh://sjl@sjl.webfactional.com/repos/
