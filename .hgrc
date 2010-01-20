@@ -28,6 +28,7 @@ bbs = ssh://hg@bitbucket.org/
 gh = git://github.com/
 ghs = git+ssh://git@github.com/
 cb = ssh://hg@codebasehq.com/
+cbdw = ssh://hg@codebasehq.com/dwaiter/
 
 [diff]
 git = True
