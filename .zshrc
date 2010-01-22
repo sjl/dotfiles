@@ -24,7 +24,7 @@ alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
-export PATH="/usr/local/bin:$HOME/lib/fmscripts:$HOME/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$HOME/lib/fmscripts:$HOME/bin:$PATH"
 export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export GREP_OPTIONS='--color=auto'
