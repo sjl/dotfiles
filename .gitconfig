@@ -4,6 +4,7 @@ email = steve@stevelosh.com
 
 [core]
 pager = cat
+editor = mate -w
 
 [alias]
 gl = log -10 --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
@@ -15,6 +16,9 @@ co = checkout
 
 stat = status
 st = status
+
+unstage = reset HEAD
+uns = reset HEAD
 
 [color]
 branch = auto
