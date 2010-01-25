@@ -71,8 +71,8 @@ diff.trailingwhitespace = white_background
 track.current = True
 
 [defaults]
-diff   = --color always
-status = --color always
+diff   = --color auto
+status = --color auto
 serve  = --style=gitweb
 rebase = --keepbranches
 addremove = --similarity 100

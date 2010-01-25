@@ -58,4 +58,5 @@ export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
 # Pre-Prompt Command ---------------------------------------------------------
 function precmd () {
     z --add "$(pwd -P)"
+    title zsh "$(pwd)"
 }
