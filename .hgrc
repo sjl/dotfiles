@@ -93,11 +93,15 @@ cus = commit -m 'Update subrepository state.'
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
+o. = outgoing --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
+i. = incoming --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 
 sglog = glog --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 , = sglog -l10
 ,, = , -l100000000
+o, = outgoing --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+i, = incoming --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 
 nlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.nlog
 n = nlog -vr
-show = nlog -vpr
+show = nlog --color=always -vpr
