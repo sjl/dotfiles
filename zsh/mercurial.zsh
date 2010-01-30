@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 alias mq='hg -R $(hg root)/.hg/patches'
-alias tmd='hg tmd | mate'
+alias tmd="hg tmd -X '**fixtures**' | mate"
 alias hgt='hg log -vd "`date -j \"+%Y-%m-%d\"`" -u steve | grep "{t:"'
 
 function pull_everything() {
