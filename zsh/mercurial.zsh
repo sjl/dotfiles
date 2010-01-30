@@ -2,6 +2,7 @@
 
 alias mq='hg -R $(hg root)/.hg/patches'
 alias tmd='hg tmd | mate'
+alias hgt='hg log -vd "`date -j \"+%Y-%m-%d\"`" -u steve | grep "{t:"'
 
 function pull_everything() {
     for repo in $( ls -1 ); do
