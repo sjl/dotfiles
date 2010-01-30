@@ -1,5 +1,7 @@
 user = steve@stevelosh.com
 history = 10
+audio_format = aacplus
+download_dir = /Users/sjl/Desktop
 
 lastfm_user = stevelosh
 lastfm_password = cold!last
