@@ -47,6 +47,8 @@ source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
 
 # Useful functions -----------------------------------------------------------
 
+autoload -U zmv
+
 function wo() {
     [ -f './.venv' ] && workon `cat ./.venv`
 }
