@@ -45,14 +45,6 @@ export PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
 source ~/lib/z/z.sh
 source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
 
-# Useful functions -----------------------------------------------------------
-
-autoload -U zmv
-
-function wo() {
-    [ -f './.venv' ] && workon `cat ./.venv`
-}
-
 # Gorilla --------------------------------------------------------------------
 export PATH="/Users/sjl/src/gorilla/bin:$PATH"
 export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
