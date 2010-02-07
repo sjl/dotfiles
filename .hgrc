@@ -32,6 +32,7 @@ cbdw = ssh://hg@codebasehq.com/dwaiter/
 
 [diff]
 git = True
+unified = 10
 
 [extdiff]
 cmd.fmdiff = fmdiff
