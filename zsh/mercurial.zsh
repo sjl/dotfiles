@@ -2,6 +2,9 @@
 
 alias mq='hg -R $(hg root)/.hg/patches'
 alias tmd="hg tmd -X '**fixtures**' | mate"
+function tms () {
+    hg show $1 | sed -E -e "s/\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g" | mate
+}
 alias calctime="sed -e 's/{t: *\([0-9]*\)*.*/\1/' | python -c 'import sys; print sum(map(int, sys.stdin.readlines())) / 60.0, \"hours\"'"
 alias hgt='hg log -vd "`date -j \"+%Y-%m-%d\"`" -u steve | grep "{t:" | calctime'
 
