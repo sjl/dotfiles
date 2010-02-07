@@ -80,7 +80,6 @@ addremove = --similarity 100
 
 [alias]
 nudge = push --rev .
-tmd = diff --no-color -U 10
 st = status -C
 ? = summary
 
