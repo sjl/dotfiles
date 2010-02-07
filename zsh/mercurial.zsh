@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
 
 alias mq='hg -R $(hg root)/.hg/patches'
-alias tmd="hg tmd -X '**fixtures**' | mate"
+function tmd () {
+    hg diff --no-color | mate
+}
 function tms () {
     hg show $1 | sed -E -e "s/\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g" | mate
 }
