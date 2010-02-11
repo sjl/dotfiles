@@ -90,6 +90,9 @@ cus = commit -m 'Update subrepository state.'
 #mother = merge --config 'ui.merge=internal:other'
 #mfail = merge --config 'ui.merge=internal:fail'
 
+fdiff = diff -U 10000000000000
+qfdiff = qdiff -U 10000000000000
+
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
