@@ -85,6 +85,7 @@ st = status -C
 
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
+cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 
 #mlocal = merge --config 'ui.merge=internal:local'
 #mother = merge --config 'ui.merge=internal:other'
@@ -96,8 +97,8 @@ qfdiff = qdiff -U 10000000000000
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
-o. = outgoing --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
-i. = incoming --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
+o. = outgoing -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
+i. = incoming -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 
 sglog = glog --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 , = sglog -l10

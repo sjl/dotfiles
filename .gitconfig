@@ -8,6 +8,7 @@ editor = mate -w
 
 [alias]
 gl = log -10 --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
+gll = log --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'
 
 com = commit
 cm = commit -m
