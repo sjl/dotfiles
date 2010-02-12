@@ -101,7 +101,7 @@ o. = outgoing -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline
 i. = incoming -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 
 sglog = glog --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
-, = sglog -l10
+, = sglog -l7
 ,, = , -l100000000
 o, = outgoing --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 i, = incoming --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
@@ -109,3 +109,5 @@ i, = incoming --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cm
 nlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.nlog
 n = nlog -vr
 show = nlog --color=always -vpr
+
+qcm = qcommit -m 
