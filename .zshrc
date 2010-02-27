@@ -26,6 +26,7 @@ alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 export EDITOR='vim'
 export PATH="/usr/local/bin:/usr/local/sbin:$HOME/lib/fmscripts:$HOME/bin:$PATH"
 export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
+export PATH="${PATH}:/usr/local/Cellar/PyPi/3.6/bin"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
@@ -39,7 +40,7 @@ export BAT_CHARGE="$HOME/bin/batcharge.py"
 
 # Mercurial variables --------------------------------------------------------
 export PATH="$HOME/lib/hg/hg-stable:$PATH"
-export PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
+export PYTHONPATH="$HOME/lib/hg/hg-stable:/usr/local/lib/python2.6/site-packages:$PYTHONPATH"
 
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
