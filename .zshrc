@@ -13,7 +13,6 @@ alias hl='less -R'
 alias pm='python manage.py'
 alias oo='open .'
 alias j='z'
-alias flakes="find . -name '*.py' -print0 | xargs -0 pyflakes"
 alias fab='fab -i ~/.ssh/stevelosh'
 alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
 alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
@@ -21,6 +20,9 @@ alias deact='deactivate'
 alias serve_this='python -m SimpleHTTPServer'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
 alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
+alias fic='~/src/fictiongen/generate.py -c 5 | pbcopy'
+alias ficp='~/src/fictiongen/generate.py -p -c 5 | pbcopy'
+alias fict='~/src/fictiongen/generate.py -t | pbcopy'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
