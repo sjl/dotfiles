@@ -40,6 +40,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 export BAT_CHARGE="$HOME/bin/batcharge.py"
+export RUBYOPT=rubygems
 
 # Mercurial variables --------------------------------------------------------
 export PATH="$HOME/lib/hg/hg-stable:$PATH"
