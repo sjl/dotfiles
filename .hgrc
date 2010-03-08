@@ -95,6 +95,12 @@ cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
 
+dlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+_ = dlog -l15
+__ = _ -l100000000
+o_ = outgoing -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+i_ = incoming -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+
 slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
