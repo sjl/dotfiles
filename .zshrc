@@ -23,6 +23,9 @@ alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 alias fic='~/src/fictiongen/generate.py -c 5 | pbcopy'
 alias ficp='~/src/fictiongen/generate.py -p -c 5 | pbcopy'
 alias fict='~/src/fictiongen/generate.py -t | pbcopy'
+alias gs='./gunicorn/start'
+alias gr='./gunicorn/restart'
+alias gk='./gunicorn/stop'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
