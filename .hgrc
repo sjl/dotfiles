@@ -82,6 +82,8 @@ addremove = --similarity 100
 nudge = push --rev .
 st = status -C
 ? = summary
+pullr = pull --remotecmd '~/bin/hg'
+pushr = push --remotecmd '~/bin/hg'
 
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
