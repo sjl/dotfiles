@@ -51,7 +51,7 @@ export PYTHONPATH="$HOME/lib/hg/hg-stable:/usr/local/lib/python2.6/site-packages
 
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
-source ~/lib/python/virtualenvwrapper/virtualenvwrapper_bashrc
+source ~/lib/python/virtualenvwrapper/virtualenvwrapper.sh
 
 # Gorilla --------------------------------------------------------------------
 export PATH="/Users/sjl/src/gorilla/bin:$PATH"
