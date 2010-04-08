@@ -14,6 +14,7 @@ extdiff =
 color = 
 parentrevspec =
 schemes = 
+progress =
 hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
@@ -21,6 +22,9 @@ histedit = ~/lib/hg/histedit
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 review = ~/lib/hg/hg-review/review
+
+[progress]
+delay = 1.0
 
 [schemes]
 webf = ssh://sjl@sjl.webfactional.com/repos/
@@ -88,6 +92,7 @@ pushr = push --remotecmd '~/bin/hg'
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
+cmwn = commit -m 'Merge with Nick.'
 
 #mlocal = merge --config 'ui.merge=internal:local'
 #mother = merge --config 'ui.merge=internal:other'
