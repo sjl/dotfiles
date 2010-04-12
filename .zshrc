@@ -62,3 +62,10 @@ function precmd () {
     z --add "$(pwd -P)"
     title zsh "$(pwd)"
 }
+
+# -- start rip config -- #
+RIPDIR=/Users/sjl/.rip
+RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
+PATH="$PATH:$RIPDIR/active/bin"
+export RIPDIR RUBYLIB PATH
+# -- end rip config -- #
