@@ -53,9 +53,8 @@ export PYTHONPATH="$HOME/lib/hg/hg-stable:/usr/local/lib/python2.6/site-packages
 source ~/lib/z/z.sh
 source ~/lib/python/virtualenvwrapper/virtualenvwrapper.sh
 
-# Gorilla --------------------------------------------------------------------
-export PATH="/Users/sjl/src/gorilla/bin:$PATH"
-export PYTHONPATH="/Users/sjl/src/gorilla/lib:$PYTHONPATH"
+# See ------------------------------------------------------------------------
+export PYTHONPATH="$HOME/lib/python/see:$PYTHONPATH"
 
 # Pre-Prompt Command ---------------------------------------------------------
 function precmd () {
