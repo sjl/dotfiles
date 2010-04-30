@@ -7,18 +7,10 @@ source $ZSH/oh-my-zsh.sh
 unsetopt promptcr
 
 # Useful aliases -------------------------------------------------------------
-alias ls='ls -Goh'
-alias less='less -R'
-alias hl='less -R'
-alias pm='python manage.py'
 alias j='z'
 alias fab='fab -i ~/.ssh/stevelosh'
 alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
-alias meme="curl -q --silent meme.boxofjunk.ws/moar.txt?lines=1"
-alias deact='deactivate'
-alias serve_this='python -m SimpleHTTPServer'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
-alias smtpconsole='python -m smtpd -n -c DebuggingServer localhost:1025'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
@@ -32,7 +24,6 @@ export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
 export HISTFILESIZE=1000
 export HISTCONTROL=erasedups
-export JPY="${HOME}/lib/j2/j.py"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
@@ -55,10 +46,3 @@ function precmd () {
     z --add "$(pwd -P)"
     title zsh "$(pwd)"
 }
-
-# -- start rip config -- #
-RIPDIR=/Users/sjl/.rip
-RUBYLIB="$RUBYLIB:$RIPDIR/active/lib"
-PATH="$PATH:$RIPDIR/active/bin"
-export RIPDIR RUBYLIB PATH
-# -- end rip config -- #
