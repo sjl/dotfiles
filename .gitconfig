@@ -26,3 +26,8 @@ branch = auto
 diff = auto
 interactive = auto
 status = auto
+
+[codebase]
+username = steve
+apikey = zl2b3od1ln9g23438nhvug0yoppe5lkia9ro3pun
+domain = dwaiter.codebasehq.com
