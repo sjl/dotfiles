@@ -1,1 +1,2 @@
 mercurial/templates = ../mercurial-cli-templates
+vim/bundle/nerdtree = git+http://github.com/scrooloose/nerdtree.git
