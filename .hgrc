@@ -15,13 +15,11 @@ color =
 parentrevspec =
 schemes = 
 progress =
-hgshelve = ~/lib/hg/hgshelve/hgshelve.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
-review = ~/lib/hg/hg-review/review
 
 [progress]
 delay = 1.0
