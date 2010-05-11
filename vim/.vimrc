@@ -56,3 +56,6 @@ let g:miniBufExplModSelTarget = 1
 " Use F1 to fold/unfold
 nnoremap <F1> za
 vnoremap <F1> za
+
+" NERDTree ignore filters
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
