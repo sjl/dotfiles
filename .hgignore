@@ -3,3 +3,4 @@ syntax: glob
 .DS_Store
 *.pyc
 .netrwhist
+*.swp
