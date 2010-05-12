@@ -12,6 +12,30 @@ set expandtab
 
 set autoindent
 set smartindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+
+" Backups
+set nobackup
+set nowritebackup
+set directory=$HOME/.vim/tmp//,.
+
+" Leader
+let mapleader = ","
+
+" FuzzyFinder
+map <Leader>t :FuzzyFinderTextMate<Enter>
+
+" Searching
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set hlsearch
 
 " Soft/hard wrapping
 set wrap
@@ -19,8 +43,6 @@ set textwidth=79
 set formatoptions=qrn1
 
 set ruler
-set incsearch
-set showmatch
 set backspace=indent,eol,start
 
 " Use the same symbols as TextMate for tabstops and EOLs
@@ -29,9 +51,6 @@ set listchars=tab:▸\ ,eol:¬
 
 " Line numbers
 set nu
-
-" Highlight search results
-set hls
 
 " Color scheme (terminal)
 syntax on
