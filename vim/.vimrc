@@ -81,3 +81,6 @@ vnoremap <F1> za
 
 " NERDTree ignore filters
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
+
+" Various syntax stuff
+au BufNewFile,BufRead *.less set filetype=less
