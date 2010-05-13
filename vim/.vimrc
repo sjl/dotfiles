@@ -33,7 +33,6 @@ map <Leader>b :FuzzyFinderBuffer<Enter>
 let g:fuzzy_ignore = "*.pyc;log/*;.svn/*;.git/*;.hg/*;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;media/admin/*;media/ckeditor/*;media/filebrowser/*;media/pages/*"
 let g:fuzzy_matching_limit = 70
 
-
 " Searching
 set ignorecase
 set smartcase
@@ -72,9 +71,11 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Minibufexplorer
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplModSelTarget = 1
+" Easy buffer navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " Use F1 to fold/unfold
 nnoremap <F1> za
