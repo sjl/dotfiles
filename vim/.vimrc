@@ -30,7 +30,7 @@ let mapleader = ","
 " FuzzyFinder
 map <Leader>t :FuzzyFinderTextMate<Enter>
 map <Leader>b :FuzzyFinderBuffer<Enter>
-let g:fuzzy_ignore = "*.pyc;log/*;.svn/*;.git/*;.hg/*;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;media/admin/*;media/ckeditor/*;media/filebrowser/*;media/pages/*"
+let g:fuzzy_ignore = "*.pyc;log/**;.svn/**;.git/**;.hg/**;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;media/admin/**;media/ckeditor/**;media/filebrowser/**;media/pages/**;**/src/**;**/build/**;**/_build/**;**/cache/**"
 let g:fuzzy_matching_limit = 70
 
 " Searching
