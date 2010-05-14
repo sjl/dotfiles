@@ -38,6 +38,8 @@ unified = 10
 
 [extdiff]
 cmd.fmdiff = fmdiff
+cmd.vd = mvim
+opts.vd = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 
 [email]
 method = smtp
