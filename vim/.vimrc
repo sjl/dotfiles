@@ -86,3 +86,4 @@ let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.markdown set filetype=markdown
