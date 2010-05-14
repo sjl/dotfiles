@@ -39,6 +39,7 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+map <leader>c :let @/=''<CR>
 
 " Soft/hard wrapping
 set wrap
