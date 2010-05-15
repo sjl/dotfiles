@@ -9,8 +9,3 @@ if has("gui_macvim")
 end
 
 let g:sparkupExecuteMapping = '<D-e>'
-
-"Invisible character colors
-highlight NonText    guifg=#444444 guibg=#1a1c1d
-highlight SpecialKey guifg=#444444 guibg=#1a1c1d
-

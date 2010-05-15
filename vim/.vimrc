@@ -18,6 +18,7 @@ set hidden
 set wildmenu
 set wildmode=list:longest
 set visualbell
+set cursorline
 
 " Backups
 set nobackup
@@ -74,10 +75,15 @@ map <left> <nop>
 map <right> <nop>
 
 " Easy buffer navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+map <D-h> <C-w>h
+map <D-j> <C-w>j
+map <D-k> <C-w>k
+map <D-l> <C-w>l
+
+map <C-h> :vertical resize -10<CR>
+map <C-j> :resize -10<CR>
+map <C-k> :resize +10<CR>
+map <C-l> :vertical resize +10<CR>
 
 " Use F1 to fold/unfold
 nnoremap <F1> za
