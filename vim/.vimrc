@@ -91,3 +91,9 @@ au BufNewFile,BufRead *.markdown set filetype=markdown
 
 " Sort CSS
 map <leader>s ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
+
+" Exuberant ctags!
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+let Tlist_WinWidth = 50
+map <F3> :TlistToggle<cr>
+map <F4> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
