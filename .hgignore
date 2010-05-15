@@ -4,3 +4,4 @@ syntax: glob
 *.pyc
 .netrwhist
 *.swp
+tags
