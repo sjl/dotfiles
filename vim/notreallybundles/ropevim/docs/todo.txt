@@ -1,0 +1,6 @@
+==============
+ Ropevim TODO
+==============
+
+* better progress bar
+* prefixing functions
