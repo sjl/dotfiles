@@ -75,15 +75,15 @@ map <left> <nop>
 map <right> <nop>
 
 " Easy buffer navigation
-map <D-h> <C-w>h
-map <D-j> <C-w>j
-map <D-k> <C-w>k
-map <D-l> <C-w>l
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
-map <C-h> :vertical resize -10<CR>
-map <C-j> :resize -10<CR>
-map <C-k> :resize +10<CR>
-map <C-l> :vertical resize +10<CR>
+map <D-h> :vertical resize -10<CR>
+map <D-j> :resize -10<CR>
+map <D-k> :resize +10<CR>
+map <D-l> :vertical resize +10<CR>
 
 " Use F1 to fold/unfold
 nnoremap <F1> za
@@ -97,7 +97,7 @@ au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.markdown set filetype=markdown
 
 " Sort CSS
-map <leader>s ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
+map <leader>cs ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
 
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
@@ -110,3 +110,5 @@ let $PYTHONPATH .= ":" . $HOME . "/lib/python/rope"
 let $PYTHONPATH .= ":" . $HOME . "/lib/dotfiles/vim/notreallybundles/ropevim/ropevim"
 source ~/lib/dotfiles/vim/notreallybundles/ropevim/ropevim.vim
 
+" Ack
+map <leader>a :Ack 
