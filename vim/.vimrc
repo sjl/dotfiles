@@ -104,3 +104,9 @@ let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 map <F3> :TlistToggle<cr>
 map <F4> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+" Ropevim
+let $PYTHONPATH .= ":" . $HOME . "/lib/python/rope"
+let $PYTHONPATH .= ":" . $HOME . "/lib/dotfiles/vim/notreallybundles/ropevim/ropevim"
+source ~/lib/dotfiles/vim/notreallybundles/ropevim/ropevim.vim
+
