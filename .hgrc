@@ -40,7 +40,7 @@ unified = 10
 [extdiff]
 cmd.fmdiff = fmdiff
 cmd.vd = mvim
-opts.vd = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
+opts.vd = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 
 [email]
 method = smtp
