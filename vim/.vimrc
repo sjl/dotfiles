@@ -97,7 +97,7 @@ au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.markdown set filetype=markdown
 
 " Sort CSS
-map <leader>cs ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
+map <leader>S ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
 
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
