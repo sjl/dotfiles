@@ -16,6 +16,7 @@ color =
 parentrevspec =
 schemes = 
 progress =
+attic = ~/lib/hg/hgattic/attic.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit

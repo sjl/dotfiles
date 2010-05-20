@@ -89,6 +89,9 @@ map <D-l> :vertical resize +10<CR>
 nnoremap <F1> za
 vnoremap <F1> za
 
+" Fuck you, help key.
+imap <F1> <nop>
+
 " NERDTree ignore filters
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
