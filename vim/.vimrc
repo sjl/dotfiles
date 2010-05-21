@@ -118,3 +118,9 @@ source ~/lib/dotfiles/vim/notreallybundles/ropevim/ropevim.vim
 
 " Ack
 map <leader>a :Ack 
+
+" Spellbad Coloring
+if has("gui_running")
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+endif
+
