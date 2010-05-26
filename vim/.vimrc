@@ -64,7 +64,7 @@ colorscheme delek
 
 " Use Pathogen to load bundles
 call pathogen#runtime_append_all_bundles()
-map <leader>HALP :call pathogen#helptags()<CR>
+cmap HALP call pathogen#helptags()<CR>
 
 map <F2> :NERDTreeToggle<CR>
 
