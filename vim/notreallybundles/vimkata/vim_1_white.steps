@@ -1,0 +1,29 @@
+[movement-along-a-path]
+(1) Follow the path from 'o' to 'x':
+o---|  |--|   |--|
+    |--|  | |-|  |
+  |-----| |-|  |-|
+  |---x |------|
+
+> lllljlllkllljjllkllkllljjhhjhhhhhhhkhhhhhhjllll
+
+(2) Follow the path from 'o' to 'x':
+o-| |-|  |--| |--|
+  |-| ||-|  | |  |
+ |----||--| | |x-|
+ |--------| |-|
+
+> lljllklljjhhhhhjlllllllllkhhhkllkllljjjllkkkllljjhh
+
+[move-and-delete]
+(1) Delete the .'s in the following lines:
+.*..*.***.*
+***.**.*.**
+
+> xlxxlxlllxjhhxllxlx
+
+(2) Delete the .'s in the following lines:
+***.**.*.**
+.*..*.***.*
+
+> lllxllxlxjhxhhxhxhhxlllllx

@@ -1,0 +1,7 @@
+I haven't created a proper plugin for this project yet.
+For now, create the following symlinks to the corresponding files in this tree:
+
+~/.vim/ftdetect/kata.vim
+~/.vim/ftplugin/kata.vim
+~/.vim/syntax/kata.vim
+
