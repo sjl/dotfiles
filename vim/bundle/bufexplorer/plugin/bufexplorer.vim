@@ -17,7 +17,7 @@
 "
 "               You may use the default keymappings of
 "
-"                 <Leader>be  - Opens BE.
+"                 <Leader>B  - Opens BE.
 "                 <Leader>bs  - Opens horizontally window BE.
 "                 <Leader>bv  - Opens vertically window BE.
 "
@@ -47,8 +47,8 @@ if v:version < 700
 endif
 
 " Public Interface {{{1
-if maparg("<Leader>be") =~ 'BufExplorer'
-  nunmap <Leader>be
+if maparg("<Leader>B") =~ 'BufExplorer'
+  nunmap <Leader>B
 endif
 
 if maparg("<Leader>bs") =~ 'BufExplorerHorizontalSplit'
@@ -59,7 +59,7 @@ if maparg("<Leader>bv") =~ 'BufExplorerVerticalSplit'
   nunmap <Leader>bv
 endif
 
-nmap <script> <silent> <unique> <Leader>be :BufExplorer<CR>
+nmap <script> <silent> <unique> <Leader>B :BufExplorer<CR>
 nmap <script> <silent> <unique> <Leader>bs :BufExplorerHorizontalSplit<CR>
 nmap <script> <silent> <unique> <Leader>bv :BufExplorerVerticalSplit<CR>
 
