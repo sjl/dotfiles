@@ -1,0 +1,51 @@
+= VimKata: The path to Vim Mastery
+
+VimKata is a series of exercises specially graded to progressively develop your
+skills in the venerable vim editor.
+
+    Tell me and I'll forget;
+    Show me and I may remember;
+    Involve me and I'll understand.
+                 -- Chinese Proverb
+
+VimKata assumes the student has taken VimTutor before and feels somewhat comfortable with the concepts there.  Our objective is to bring the student from the basic lessons learned in VimTutor to a place of mastery--both of the VimTutor concepts as well as more advanced concepts.
+
+VimKata is intended to unite the discipline of martial arts to the methods of modern science.  The premise for the learning style of VimKata is what psychologists call "Deliberate Practice" which:
+
+	- is explicitly intended to improve performance
+	- reaches for objectives just beyond one's level of competence
+	- provides feedback on results
+	- involves high levels of repetition
+
+(These 4 takeaways are from "What it takes to be great". See also the original paper, "The Role of Deliberate Practice in the Acquisition of Expert Performance.")
+
+The VimKata moves through 6 belts: white, yellow, green, blue, red and black.  After the 6 belts, there will be even more detailed kata for further development (e.g. kata for the NERD Comment plugin, other plugins, etc.)
+
+The project is currently maintained by Duane Johnson and Barry Arthur.
+
+== Quick Start
+
+Once installed, diving into VimKata is as simple as:
+
+  :VimKata <belt>
+
+where <belt> is a color such as white, yellow, green, blue, red, or black.
+
+== Resources
+
+=== Website:
+
+http://github.com/canadaduane/VimKata
+
+=== Katas:
+
+http://github.com/canadaduane/VimKata/blob/master/vim_1_white.kata
+
+=== Bug Tracker / Wiki:
+
+http://github.com/canadaduane/VimKata/issues
+
+=== Source Code:
+
+http://github.com/canadaduane/VimKata
+

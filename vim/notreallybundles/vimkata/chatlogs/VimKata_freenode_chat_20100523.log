@@ -1,0 +1,500 @@
+**** BEGIN LOGGING AT Sun May 23 01:53:01 2010
+
+May 23 08:25:25 <canadaduane>	yeah i'm glad you found that stack overflow thread
+May 23 08:25:49 <canadaduane>	kind of puts some objections out there for us to consider
+May 23 08:26:09 <canadaduane>	so...
+May 23 08:26:36 <canadaduane>	what do you think of my thoughts written on the github wiki?
+May 23 08:26:44 <dahu>	i have no objections
+May 23 08:29:42 <dahu>	naming scheme sounds good - i like the story idea
+May 23 08:30:01 <canadaduane>	ok
+May 23 08:30:11 <dahu>	as for vim_1.p et al, I think we can have multiple indexes
+May 23 08:30:22 <dahu>	you suggest something similar with your helptags idea
+May 23 08:30:38 <canadaduane>	yeah, well, I have a question about this area
+May 23 08:30:48 <dahu>	i have no objections to unfolded questions
+May 23 08:31:03 <canadaduane>	do we want to lump all functionality of each type of task into one practice session, or spread them out?
+May 23 08:31:09 <dahu>	have you ever used anki?
+May 23 08:31:15 <canadaduane>	for example, if we have "folding" in chapter 1
+May 23 08:31:17 <canadaduane>	(no)
+May 23 08:31:25 <canadaduane>	should we have "advanced folding" in chapter 2?
+May 23 08:31:32 <canadaduane>	or keep all folding practice in chapter 1
+May 23 08:31:37 <dahu>	no
+May 23 08:31:46 <dahu>	definitely progress with the belts
+May 23 08:31:52 <canadaduane>	ok, good
+May 23 08:31:56 <dahu>	advanced folding should reappear in a higher belt level
+May 23 08:32:25 <canadaduane>	I was thinking our objective should be to provide basic skills, and then tie them together in useful task-oriented ways
+May 23 08:32:26 <dahu>	as an aside, folding may not even appear in level 1
+May 23 08:32:42 <canadaduane>	yes, that may be a good idea :)
+May 23 08:32:46 <canadaduane>	kind of like vimtutor?
+May 23 08:32:50 <dahu>	yes
+May 23 08:32:57 <canadaduane>	sounds good
+May 23 08:33:15 <dahu>	hmm... I wonder
+May 23 08:33:49 <canadaduane>	so what I mean by task-oriented, is we could find clever ways to use things together, such as "comment this block of code" and "tab this block of code over by 2"
+May 23 08:33:53 <canadaduane>	(or whatever)
+May 23 08:34:05 <dahu>	each nugget is a separate concept, sometimes standalone, sometimes related to other concepts
+May 23 08:34:07 <canadaduane>	then we get the benefit of wiring our skills up together in the brain
+May 23 08:34:11 <canadaduane>	right
+May 23 08:34:20 <dahu>	I would like to be able to thread concepts in different ways
+May 23 08:34:26 <dahu>	but that might not be easy to achieve
+May 23 08:34:27 <canadaduane>	yes, me too
+May 23 08:34:36 <canadaduane>	right, because there are so many options
+May 23 08:34:45 <dahu>	let's say we have a big pool (right) of concepts
+May 23 08:35:05 <canadaduane>	yeah, basic concepts
+May 23 08:35:16 <canadaduane>	and then related concepts
+May 23 08:35:17 <dahu>	we might create a vim_1.p that has some of those concepts
+May 23 08:35:29 <canadaduane>	for some reason this reminds me of a game like Mortal Kombat or something
+May 23 08:35:31 <dahu>	and then a vim_patterns.p that has some of the same concepts plus others
+May 23 08:35:38 <canadaduane>	where you learn some basic punches and kicks
+May 23 08:35:43 <canadaduane>	and then get powerful with the combos
+May 23 08:35:44 <canadaduane>	lol
+May 23 08:35:57 <dahu>	(hehe... haven't played games since 2nd year in uni ^_^ )
+May 23 08:36:14 <dahu>	but the story is powerful
+May 23 08:36:20 <dahu>	and if people want to think of it like that
+May 23 08:36:25 <dahu>	then it will help their learning
+May 23 08:36:28 <dahu>	which is all good
+May 23 08:36:46 <canadaduane>	what is vim_patterns.practice? (sorry, I didn't quite understand)
+May 23 08:36:55 <dahu>	pattern matching
+May 23 08:37:03 <dahu>	I was thinking of having separate paths
+May 23 08:37:11 <canadaduane>	oh, I thought we were going to move away from topics
+May 23 08:37:11 <dahu>	one path might be for newbies
+May 23 08:37:14 <canadaduane>	in the filenames?
+May 23 08:37:19 <dahu>	numbered as in vim_1, _2, etc
+May 23 08:37:50 <dahu>	other paths might be names after the concepts they teach (for more advanced users who now know *what* they want to focus on)
+May 23 08:37:57 <dahu>	named*
+May 23 08:38:01 <canadaduane>	Ah, I see
+May 23 08:38:15 <canadaduane>	so we have the color belts for the first round, then separate tracks?
+May 23 08:38:24 <dahu>	well... in martial arts
+May 23 08:38:29 <dahu>	the colours are for newbies
+May 23 08:38:40 <canadaduane>	even black?
+May 23 08:38:46 <dahu>	the black belts have their own separate ranks, called dans
+May 23 08:38:52 <canadaduane>	oh, ok
+May 23 08:38:53 <dahu>	usually around 9 dans
+May 23 08:39:37 <dahu>	we don't have to copy that exactly, but maybe the named threads could be considered for either advanced users...
+May 23 08:39:45 <canadaduane>	idea: why not use .vimkata as the filetype? 
+May 23 08:39:47 <dahu>	or a different way to approach the learning
+May 23 08:39:55 <dahu>	for example, what level do you or I jump in at?
+May 23 08:40:01 <dahu>	Are we a 2 or a 3 or a 4?
+May 23 08:40:11 <dahu>	I know I wanna know more about x, though...
+May 23 08:40:11 <canadaduane>	I'm not sure
+May 23 08:40:16 <canadaduane>	I see
+May 23 08:40:26 <canadaduane>	hmm
+May 23 08:48:49 <canadaduane>	ok, so I think I'm following your plan
+May 23 08:49:00 <canadaduane>	basically we'll have a bunch of "beginner" files
+May 23 08:49:03 <dahu>	yep
+May 23 08:49:16 <dahu>	and they can just be numbered
+May 23 08:49:16 <canadaduane>	but these will become fairly broad in topics, as you suggested in the original txt file
+May 23 08:49:20 <dahu>	(and coloured)
+May 23 08:49:49 <canadaduane>	and then we'll branch off into more advanced topics from there
+May 23 08:49:54 <canadaduane>	so what should the filetype be?
+May 23 08:50:04 <canadaduane>	.vimkata? .practice? .vimpractice?
+May 23 08:50:13 <dahu>	.kata
+May 23 08:50:26 <canadaduane>	I like it
+May 23 08:50:32 <canadaduane>	short and simple :)
+May 23 08:50:33 <dahu>	sorry - that was just a brainstorm
+May 23 08:50:39 <dahu>	not concrete :-)
+May 23 08:50:41 <dahu>	but yes
+May 23 08:50:43 <dahu>	it is short
+May 23 08:50:47 <dahu>	and to the point...
+May 23 08:50:50 <dahu>	does it clash?
+May 23 08:51:25 <canadaduane>	i think it goes well with the project name
+May 23 08:51:47 <dahu>	agreed
+May 23 08:53:13 <canadaduane>	how long should it take to do a kata file (for the user)?
+May 23 08:53:35 <dahu>	hmm... good question...
+May 23 08:53:42 <canadaduane>	20 min?
+May 23 08:53:44 <dahu>	it will depend on the grade, of course
+May 23 08:53:48 <dahu>	seems reasonable
+May 23 08:53:56 <dahu>	just asking around. hangon.
+May 23 08:54:23 <dahu>	anki sets a 20 min learning session by default
+May 23 08:54:24 <canadaduane>	also, is that time target for the "first time" or the "last time"?
+May 23 08:54:27 <dahu>	my wife suggests 15 - 20
+May 23 08:54:34 <dahu>	good point
+May 23 08:54:57 <dahu>	hmm..
+May 23 08:55:03 <canadaduane>	so maybe for intermediate
+May 23 08:55:05 <dahu>	i'd say that should be the learn time...
+May 23 08:55:14 <dahu>	the goal time should be *much* quicker
+May 23 08:55:16 <dahu>	right?
+May 23 08:55:25 <canadaduane>	right
+May 23 08:56:16 <canadaduane>	I think we could say something like this though: "Each kata will take you about 20 minutes, but possibly longer for your first attempt.  If you reach 5 minutes or less, you've mastered it."
+May 23 08:56:28 <dahu>	that sounds good
+May 23 08:57:02 <canadaduane>	so this time target actually limits us quite a bit with our "belts" idea
+May 23 08:57:09 <canadaduane>	what we can pack into 20 minutes for a beginner
+May 23 08:57:13 <dahu>	maybe
+May 23 08:57:18 <canadaduane>	might not be the full scope of everything you mentioned in the .txt
+May 23 08:57:30 <canadaduane>	but anyway, I think it's a good target
+May 23 08:57:34 <canadaduane>	so we should work with it
+May 23 08:57:36 <dahu>	no - just have less nuggets in the file
+May 23 08:57:38 <canadaduane>	and split things out as necessary
+May 23 08:57:45 <dahu>	agreed
+May 23 08:58:46 <dahu>	as you go up in levels, your skills will be improving, so you're faster at doing the simpler things (covered in lower belt levels)
+May 23 08:59:10 <canadaduane>	right
+May 23 08:59:11 <canadaduane>	good point
+May 23 08:59:19 <canadaduane>	Great! I'm pumped
+May 23 08:59:26 <canadaduane>	this is going to be really useful
+May 23 09:00:38 <dahu>	me too. It sounds good. I've wanted to do a project like this for a while now
+May 23 09:00:49 <dahu>	I never thought it would be based on vim, though. lol
+May 23 09:00:54 <canadaduane>	heh
+May 23 09:01:04 <dahu>	I mean, I've wanted to do an OSS project
+May 23 09:01:05 <canadaduane>	oh, btw, I have seen anki before
+May 23 09:01:13 <canadaduane>	I haven't used it, but something similar called spicy elephant
+May 23 09:01:18 <dahu>	cool. I use it to study Chinese
+May 23 09:01:24 <canadaduane>	nice
+May 23 09:02:01 <dahu>	i was dreaming of incorporating some of the spaced repetition algorithms into our learning paths
+May 23 09:02:51 <canadaduane>	wow, that would be quite something... in vim
+May 23 09:03:01 <canadaduane>	hey so the github issue tracker has upvoting
+May 23 09:03:04 <canadaduane>	so i was thinking...
+May 23 09:03:14 <canadaduane>	we could go around the vim wiki collecting tidbits
+May 23 09:03:19 <canadaduane>	and also invite others to help out
+May 23 09:03:36 <canadaduane>	and then use the issue tracker as a way of both voting on what should be included and making corrections
+May 23 09:03:37 <dahu>	you might have to explain more - upvoting?
+May 23 09:03:41 <dahu>	ok
+May 23 09:03:42 <dahu>	ic
+May 23 09:03:53 <canadaduane>	not at first of course
+May 23 09:03:58 <canadaduane>	we need to make a skeleton ourselves
+May 23 09:04:02 <dahu>	agreed
+May 23 09:04:08 <canadaduane>	but the community has so much to offer here
+May 23 09:04:18 <dahu>	we might go through a few iterations before we're happy
+May 23 09:04:24 <canadaduane>	I am a very small "vim user" :)
+May 23 09:04:28 <dahu>	let's do that inside the fence before inviting a crowd :-)
+May 23 09:04:34 <canadaduane>	sounds good
+May 23 09:04:49 <dahu>	i have spoken to some of the #vim gurus about deliberate practice
+May 23 09:04:54 <dahu>	and it falls on deaf ears
+May 23 09:05:05 <canadaduane>	interesting, but that's fine
+May 23 09:05:06 <dahu>	but I think, if we build it, they will come :-)
+May 23 09:05:21 <canadaduane>	they don't have to recognize a great thing until it slaps them in the face
+May 23 09:05:22 <canadaduane>	hehe
+May 23 09:05:26 <canadaduane>	what you said
+May 23 09:05:28 <canadaduane>	:)
+May 23 09:05:48 <canadaduane>	So it sounds like my original file format is going to work pretty much as is?
+May 23 09:05:56 <canadaduane>	We'll keep the answers folded
+May 23 09:05:59 <canadaduane>	but the questions open
+May 23 09:06:00 <dahu>	oh
+May 23 09:06:02 <dahu>	one thing
+May 23 09:06:05 <canadaduane>	sure
+May 23 09:06:12 <dahu>	not sure if I like the leading > in the answers...
+May 23 09:06:16 <dahu>	wanna explain the point?
+May 23 09:06:31 <canadaduane>	it was only for making it a different color
+May 23 09:06:47 <dahu>	the folded answer block not obvious enough? ;-)
+May 23 09:06:47 <canadaduane>	but I'm happy with anything that makes it easy to read and differentiate
+May 23 09:07:29 <canadaduane>	Actually, there might be a good use for some kind of marker
+May 23 09:07:40 <canadaduane>	I noticed you provided some alternate answers
+May 23 09:07:44 <canadaduane>	and that made sense to me
+May 23 09:07:53 <canadaduane>	I think we should have a "canonical" answer
+May 23 09:07:57 <canadaduane>	and then 1 or 2 alternates
+May 23 09:07:59 <dahu>	yep - I'd like to separate them - so it's clear they are alternates
+May 23 09:08:04 <dahu>	fine
+May 23 09:08:04 <canadaduane>	right
+May 23 09:08:06 <dahu>	sounds good
+May 23 09:08:12 <canadaduane>	so maybe that could be the purpose of color coding there
+May 23 09:08:32 <canadaduane>	how should we designate the lines that are "canonical"? with a ">" ?
+May 23 09:08:32 <dahu>	one colour for the definitive answer? a separate colour for alternates?
+May 23 09:08:37 <canadaduane>	right
+May 23 09:08:41 <canadaduane>	that's what I was thinking
+May 23 09:08:44 <dahu>	urgh.... lemme think about it...
+May 23 09:08:47 <dahu>	can I just dump a few crazy ideas I've had about this on you? I'm not suggesting that we can implement all of these, or maybe any...
+May 23 09:08:53 <canadaduane>	sure
+May 23 09:08:58 <dahu>	idea 1:
+May 23 09:09:08 <dahu>	executing the definitive answer
+May 23 09:09:14 <dahu>	do this on the 'practice' block
+May 23 09:09:23 <dahu>	as a demonstration of workingness
+May 23 09:09:32 <dahu>	crazy idea 2: timing
+May 23 09:09:46 <dahu>	have the user start his practice session which kicks off a timer
+May 23 09:09:57 <dahu>	when he's done, he's shown the time
+May 23 09:10:21 <dahu>	there are more CI, but when I explain one, the others flee :-)
+May 23 09:10:31 <canadaduane>	heh
+May 23 09:10:53 <canadaduane>	I like idea 1
+May 23 09:10:58 <canadaduane>	idea 2, not sure if it's important
+May 23 09:11:43 <dahu>	idea 2: hmm... only in that it might serve as nice feedback. Well done, you're 3 minutes under your personal best today!    that sort of thing...
+May 23 09:11:58 <canadaduane>	I see
+May 23 09:12:14 <dahu>	initially I didn't like your > because I thought it might clash with idea 1
+May 23 09:12:20 <dahu>	but now I see it will actually help
+May 23 09:12:27 <dahu>	so, liking the > now :-)
+May 23 09:12:56 <canadaduane>	what I meant was it might not be important for us to implement as part of the practice since people can time themselves
+May 23 09:13:04 <canadaduane>	but maybe as a feature later on...
+May 23 09:13:15 <dahu>	of course
+May 23 09:13:33 <canadaduane>	you know what
+May 23 09:13:35 <canadaduane>	I take that all back
+May 23 09:13:38 <canadaduane>	timing is really important
+May 23 09:13:44 <canadaduane>	that's one of the reasons DP works
+May 23 09:13:50 <dahu>	ok
+May 23 09:13:53 <dahu>	that sounds fair
+May 23 09:13:56 <canadaduane>	you have to have a clear objective
+May 23 09:14:05 <canadaduane>	what are we trying to help users do? lower their time
+May 23 09:14:25 <dahu>	ok - an objectives brainstorm
+May 23 09:14:33 <dahu>	lower times
+May 23 09:14:39 <dahu>	increase knowledge
+May 23 09:14:43 <dahu>	(skills)
+May 23 09:15:27 <canadaduane>	right
+May 23 09:15:29 <dahu>	identify bad habbits
+May 23 09:15:34 <dahu>	and correct them
+May 23 09:16:00 <dahu>	hmm... just had another crazy idea... but it reminds me too much of the paperclip to even utter it :-)
+May 23 09:26:28 <dahu>	you mentioned taking stuff from the vim wiki, which I fully agree with. This vim tips page also has an unordered mess of useful nuggets too: http://rayninfo.co.uk/vimtips.html
+May 23 09:26:49 <dahu>	but we'll want to be... judicious about checking our facts.
+May 23 09:28:12 <dahu>	some of the #vim gurus criticise the vim wiki as being populated by newbies as they discover a new vim trick, quite often not showing the full story or abusing a tool for an unintended purpose (missing the canonical tool vim does provide for that purpose)
+May 23 09:28:24 <dahu>	just saying, we need to make sure we're promoting good practice
+May 23 09:28:34 <dahu>	best, even, where appropriate
+May 23 09:37:28 <canadaduane>	back
+May 23 09:37:42 <canadaduane>	I agree with everything you said while I was away :)
+May 23 09:38:12 <canadaduane>	so your talk of objectives reminded me of a "touch typing" course I took in high school
+May 23 09:38:21 <canadaduane>	it was actually very much like this DP idea
+May 23 09:38:25 <canadaduane>	and it had some similar objectives
+May 23 09:38:53 <canadaduane>	I had forgotten about the "identify bad habits"-related objective of "minimizing typing mistakes"
+May 23 09:38:58 <canadaduane>	I think this is an important one as well
+May 23 09:39:03 <dahu>	agreed
+May 23 09:39:08 <canadaduane>	the way they integrated the idea
+May 23 09:39:13 <canadaduane>	was by penalizing the time for mistakes
+May 23 09:39:28 <canadaduane>	so if you were typing at a good 90 WPM but made several mistakes and had to back up and re-type
+May 23 09:39:32 <canadaduane>	you were double-penalized
+May 23 09:39:33 <dahu>	i think there is a lot of overlap with these ideas over the years, but I hadn't put them together until recently - reading Ericsson's stuff
+May 23 09:39:42 <dahu>	right
+May 23 09:39:53 <canadaduane>	Can you point me to a link?
+May 23 09:39:57 <dahu>	and that was my last crazy idea - of having vim 'watch' you and comment...
+May 23 09:40:08 <dahu>	but like I said, paperclip territory. :-/
+May 23 09:40:44 <canadaduane>	yes, we'll have to see
+May 23 09:41:31 <canadaduane>	is it possible to create a vim plugin like you seek?
+May 23 09:41:47 <canadaduane>	Compiled C code perhaps?
+May 23 09:42:11 <dahu>	I guess it doesn't really matter what language it's in
+May 23 09:42:18 <dahu>	C might be better for pure portability purposes
+May 23 09:42:21 <dahu>	do you Ruby?
+May 23 09:42:24 <canadaduane>	yeah
+May 23 09:42:31 <dahu>	cool
+May 23 09:42:44 <canadaduane>	Vim plugins can be written in Ruby?
+May 23 09:42:56 <dahu>	maybe we could cut early stuff in ruby - as a good... (yep) proving ground
+May 23 09:43:06 <canadaduane>	interesting
+May 23 09:43:15 <canadaduane>	you'll have to lead the way there, but I'm intrigued
+May 23 09:43:16 <dahu>	https://wincent.com/products/command-t
+May 23 09:43:48 <canadaduane>	nice
+May 23 09:43:49 <dahu>	sorry, a better link would be: https://wincent.com/blog/bringing-textmate-style-command-t-to-vim
+May 23 09:44:17 <dahu>	and some good Ericsson links: http://www.hooversbiz.com/2008/04/14/deliberate-practice-in-the-working-world/
+May 23 09:44:50 <canadaduane>	great! thanks
+May 23 09:45:03 <canadaduane>	wow, this is really good stuff, plugins
+May 23 09:45:09 <canadaduane>	I hadn't realized how much you could do
+May 23 09:45:13 <dahu>	learning vimscript has been my latest project
+May 23 09:45:26 <dahu>	but I will be learning to write Ruby plugins in vim too
+May 23 09:45:41 <dahu>	I intended to use Wincent's plugin as a guide
+May 23 09:45:47 <dahu>	perhaps we could learn each other :-)
+May 23 09:46:09 <dahu>	Ruby is my preferred language
+May 23 09:47:08 <dahu>	Damian Conway has a great vimscript series here: http://www.ibm.com/developerworks/linux/library/l-vim-script-1/index.html
+May 23 09:47:17 <dahu>	i'm eagerly awaiting number 6 - plugins :-)
+May 23 09:48:14 <dahu>	(aside: someone just posted this gem on #vim: http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118)
+May 23 09:48:28 <canadaduane>	nice
+May 23 09:49:26 <canadaduane>	so I have one more question for discussion
+May 23 09:49:29 <dahu>	ok
+May 23 09:49:37 <canadaduane>	What should we do about the infinite customizations that people make?
+May 23 09:49:38 <canadaduane>	for example,
+May 23 09:49:58 <canadaduane>	I realized that my practice file for NERD Comment includes a reference to the '?' key
+May 23 09:50:04 <canadaduane>	which I remapped to mean "toggle comment"
+May 23 09:50:12 <canadaduane>	in visual momde
+May 23 09:50:13 <canadaduane>	mode
+May 23 09:50:17 <dahu>	hmm... we *should* stick to vanilla vim
+May 23 09:50:32 <dahu>	I have seen this before (Blender), where all the tutorials are given on a vanilla install
+May 23 09:50:45 <dahu>	I think the Ubuntu community does something similar
+May 23 09:50:47 <canadaduane>	so no kata for plugins?
+May 23 09:50:51 <dahu>	no
+May 23 09:50:53 <dahu>	not saying that
+May 23 09:51:01 <dahu>	kata for plugins is fine
+May 23 09:51:11 <canadaduane>	so vanilla vim = (vim + plugins) without customizations
+May 23 09:51:15 <dahu>	yep
+May 23 09:51:19 <canadaduane>	k
+May 23 09:51:21 <canadaduane>	that makes sense
+May 23 09:51:39 <dahu>	if there are customisations, then the kata should be explicit about them
+May 23 09:51:52 <dahu>	say, given the map blah, use it to do blah
+May 23 09:52:00 <canadaduane>	Right
+May 23 09:52:16 <canadaduane>	so I will have to take that part out of the nerd comment kata
+May 23 09:52:38 <dahu>	but every kata that uses that map should mention it (either explicitly, or implicitly through a Dependencies chain)
+May 23 09:53:04 <dahu>	I wonder... can we auto-source the dependent kata...
+May 23 09:53:11 <dahu>	so the maps are inherited
+May 23 09:53:36 <dahu>	might shelve that idea for now.
+May 23 09:53:40 <canadaduane>	sounds complicated
+May 23 09:54:40 <canadaduane>	alright, so plan of attack
+May 23 09:54:58 <canadaduane>	Should we focus entirely on the kata first?
+May 23 09:55:03 <dahu>	yep
+May 23 09:55:09 <dahu>	we need to create a test case
+May 23 09:55:14 <dahu>	that we can throw rocks at
+May 23 09:55:19 <dahu>	that's our core
+May 23 09:55:24 <dahu>	let's get it working
+May 23 09:55:30 <canadaduane>	what do you mean by test case?
+May 23 09:55:39 <dahu>	a single kata
+May 23 09:55:56 <dahu>	that serves as a test of the engine: file format, supporting plugin code, etc
+May 23 09:56:20 <dahu>	like your suggested vimtutor kata
+May 23 09:56:37 <canadaduane>	question about terminology: is a "kata" a group of practices (i.e. a .kata file) or is a "kata" a single question/answer?
+May 23 09:56:50 <dahu>	kata = group
+May 23 09:56:54 <dahu>	i was thinking
+May 23 09:57:00 <canadaduane>	ok
+May 23 09:57:14 <canadaduane>	I see
+May 23 09:57:14 <dahu>	a kata contains a set of related steps
+May 23 09:58:16 <dahu>	ideally, related
+May 23 09:58:39 <dahu>	so - as your issue tracker says: we need our first kata
+May 23 09:59:30 <dahu>	we can also start building a plugin that supports kata mode
+May 23 10:00:32 <dahu>	the 'plugin' doesn't have to be fancy at this stage - it's nothing more than the practice.vim (renamed to kata.vim ?) that we've been playing with, along with some autocmd stuff so .kata files are recognised
+May 23 10:00:44 <dahu>	oh, and the syntax file
+May 23 10:01:00 <canadaduane>	yeah, that syntax file I wrote is pretty rudimentary
+May 23 10:01:04 <canadaduane>	I don't really know much about vim :)
+May 23 10:01:07 <dahu>	that's ok
+May 23 10:01:15 <dahu>	we can put what we have together for now
+May 23 10:01:19 <dahu>	and stepwise refine it
+May 23 10:01:28 <dahu>	release early, release often! :-)
+May 23 10:01:41 <canadaduane>	sounds like a good philosophy
+May 23 10:01:46 <canadaduane>	:)
+May 23 10:02:00 <dahu>	it's one of the OSS mantras
+May 23 10:02:12 <dahu>	ok
+May 23 10:02:20 <dahu>	so, which part do you want to focus on?
+May 23 10:02:24 <canadaduane>	yes, sorry, it's hard to communicate subtlety
+May 23 10:02:45 <canadaduane>	I'd be happy to start the first kata based on vimtutor
+May 23 10:02:52 <canadaduane>	I'm sure I will learn some more just by doing it
+May 23 10:03:06 <dahu>	cool. I look forward to doing your first kata. :-)
+May 23 10:03:19 <dahu>	I'll have a look at bundling the plugin code then
+May 23 10:03:30 <canadaduane>	ok
+May 23 10:03:53 <canadaduane>	Oh, and I'll switch the code and filenames we have so far to reflect the change to ".kata"
+May 23 10:03:57 <dahu>	any idea how long vimtutor takes a newbie to complete?
+May 23 10:04:05 <dahu>	I wonder how long it takes me to do...
+May 23 10:04:12 <dahu>	the name switch sounds good
+May 23 10:04:14 <canadaduane>	It took me about a half hour
+May 23 10:04:29 <dahu>	ok. I'll do it later and see how I go.
+May 23 10:05:27 <dahu>	so you'll need to have slightly less than the vimtutor file for your kata, yeah? So it stays around 20 mins...
+May 23 10:05:49 <canadaduane>	right
+May 23 10:06:17 <dahu>	just had a look - it says it should take 25-30 mins
+May 23 10:06:48 <canadaduane>	Is the license open enough that we can do what we want with it?
+May 23 10:06:57 <dahu>	for vimtutor?
+May 23 10:07:03 <canadaduane>	Should I begin our "story" ?
+May 23 10:07:06 <canadaduane>	yeah, vimtutor
+May 23 10:07:21 <dahu>	just looking now... no mention of license
+May 23 10:07:31 <canadaduane>	k
+May 23 10:07:36 <canadaduane>	probably the same as vim then
+May 23 10:07:48 <dahu>	probably
+May 23 10:07:52 <canadaduane>	GPL compatible
+May 23 10:08:02 <dahu>	three authors are mentioned at the bottom
+May 23 10:08:05 <dahu>	including Bram
+May 23 10:08:18 <dahu>	there's an email
+May 23 10:08:32 <dahu>	if you're worried, you could drop him a line - he might even like the kata idea...
+May 23 10:09:00 <canadaduane>	might as well, it would be courteous at the least
+May 23 10:09:03 <dahu>	bware, I mean, not Bram
+May 23 10:09:12 <canadaduane>	what's the email?
+May 23 10:09:29 <dahu>	bware@mines.colorado.edu
+May 23 10:09:33 <canadaduane>	thx
+May 23 10:09:41 <dahu>	np
+May 23 10:14:08 <canadaduane>	How will we license our project?
+May 23 10:14:14 <canadaduane>	GPL compatible?
+May 23 10:14:20 <canadaduane>	You mentioned CC
+May 23 10:14:38 <canadaduane>	I think there are many variants of CC if I'm not mistaken
+May 23 10:15:05 <dahu>	urgh... I'm not that familiar with the merits of the various licenses
+May 23 10:15:10 <dahu>	I don't mind GPL
+May 23 10:15:29 <dahu>	but I'm not sure if GPL3 is right for our purposes...
+May 23 10:15:39 <canadaduane>	Maybe we can do a dual MIT/GPL type license
+May 23 10:15:40 <dahu>	there are various CC licenses, yes
+May 23 10:15:45 <dahu>	sure
+May 23 10:15:46 <canadaduane>	"take your pick"
+May 23 10:16:05 <dahu>	as long as that works (from both camp
+May 23 10:16:10 <dahu>	's perspectives)
+May 23 10:16:14 <dahu>	damn enter key :-)
+May 23 10:16:48 <dahu>	I'm flexible, so long as it's open source
+May 23 10:16:51 <canadaduane>	yes, as far as I understand, many projects do this nowadays
+May 23 10:16:57 <canadaduane>	makes both camps happy
+May 23 10:16:58 <canadaduane>	and me too
+May 23 10:16:59 <dahu>	cool. then that's fine.
+May 23 10:17:09 <canadaduane>	because then I can use it at work (as opposed to pure GPL projects... :) )
+May 23 10:17:16 <dahu>	agreed
+May 23 10:17:51 <dahu>	not that I think there will be any commercial derivatives of this work, but never say never, eh?
+May 23 10:18:01 <canadaduane>	right
+May 23 10:19:52 <canadaduane>	email sent
+May 23 10:19:55 <dahu>	cool
+May 23 10:20:23 <canadaduane>	DNS Error: Domain name not found
+May 23 10:20:47 <dahu>	i feared that when I saw it was an edu...
+May 23 10:20:52 <canadaduane>	well, I guess he'll be ok with us using it then
+May 23 10:20:59 <canadaduane>	although it means if we use it, we can't license using MIT
+May 23 10:21:17 <canadaduane>	I'll base my work off of it
+May 23 10:21:19 <dahu>	his full name is Robert K. Ware
+May 23 10:21:20 <canadaduane>	but do my own thing
+May 23 10:21:43 <dahu>	i think that's the best way - then it's wholly our work
+May 23 10:21:49 <canadaduane>	yeah
+May 23 10:22:39 <dahu>	nice email. pity he won't see it. :-)
+May 23 10:22:40 <dahu>	ok
+May 23 10:22:53 <canadaduane>	lol
+May 23 10:22:54 <dahu>	what is it, Saturday there?
+May 23 10:22:58 <canadaduane>	yes
+May 23 10:23:13 <dahu>	You'll like it. It was good.
+May 23 10:23:16 <dahu>	:-)
+May 23 10:23:24 <canadaduane>	ha
+May 23 10:24:39 <dahu>	well, time for some DP! :-) I'm gonna dive into Wincent's ruby plugin to see how he did it.
+May 23 10:24:49 <canadaduane>	super
+May 23 10:24:51 <canadaduane>	thanks for the chat
+May 23 10:24:55 <dahu>	same here
+May 23 10:24:59 <dahu>	have a lovely night
+May 23 10:25:03 <canadaduane>	it's been nice meeting you and beginning the work
+May 23 10:25:11 <dahu>	likewise
+May 23 10:25:32 <dahu>	let's stay in touch. My presence on github might be... low in the beginning.
+May 23 10:25:43 <dahu>	(not much of a public contributor yet)
+May 23 10:25:51 <dahu>	but my email contact should be fine
+May 23 10:26:55 <dahu>	(I was having difficulty setting up my ssh for github, so that's another thing I'll look into today)
+May 23 10:27:12 <dahu>	anyway, I'll let you go.
+May 23 10:27:14 <dahu>	bye for now
+May 23 10:28:30 <canadaduane>	take care
+May 23 11:32:16 <canadaduane>	Are you there?
+May 23 11:33:07 <dahu>	yep
+May 23 11:33:17 <canadaduane>	oh good. Question for you
+May 23 11:33:35 <canadaduane>	So in my original practice file, I put the answers *before* the question for one (kind of silly) reason
+May 23 11:33:51 <dahu>	i noticed that... I kinda like after. What's your reasoning?
+May 23 11:33:53 <canadaduane>	It was so I could skip from one question to the next by using "zj" (next fold) command
+May 23 11:34:05 <dahu>	we can code our way around that...
+May 23 11:34:22 <canadaduane>	I might like that
+May 23 11:34:23 <canadaduane>	but
+May 23 11:34:31 <dahu>	I think it makes more logical sense to seek the answer after the question
+May 23 11:34:33 <canadaduane>	it is kind of nice to force the user to get used to navigating folds
+May 23 11:34:39 <dahu>	that is true
+May 23 11:34:40 <canadaduane>	rather than some arbitrary "vim kata" command
+May 23 11:34:54 <canadaduane>	but yeah, the answer before the question is kind of weird
+May 23 11:35:10 <canadaduane>	so here's another possibility
+May 23 11:35:17 <canadaduane>	we could teach the search command / first
+May 23 11:35:27 <canadaduane>	and mark our questions with a common something
+May 23 11:35:30 <canadaduane>	like ~
+May 23 11:35:38 <canadaduane>	or > or whatever
+May 23 11:35:45 <canadaduane>	then doing "n" for next question
+May 23 11:35:56 <canadaduane>	this kind of makes sense to me
+May 23 11:35:56 <dahu>	yeah, I was thinking along those lines... I think you'll find the common /^\w will be sufficient
+May 23 11:36:07 <canadaduane>	since navigating search terms is much more common than navigating folds
+May 23 11:36:12 <dahu>	agreed
+May 23 11:36:31 <dahu>	we could number the steps in the kata...
+May 23 11:36:37 <dahu>	so /^3
+May 23 11:36:52 <canadaduane>	Well, but then you can't press "n" for next
+May 23 11:36:56 <dahu>	and /^\d
+May 23 11:37:02 <canadaduane>	I see
+May 23 11:37:08 <canadaduane>	I wish there were something easier
+May 23 11:37:14 <dahu>	let me have a look at it
+May 23 11:37:27 <dahu>	I'll get back to you later if I find a vimier way
+May 23 11:37:28 <dahu>	:-)
+May 23 11:37:31 <canadaduane>	since ^ and \d are not intuitive for first-time users (esp. if they've never used regexp)
+May 23 11:37:37 <canadaduane>	ok
+May 23 11:37:38 <dahu>	any other concerns?
+May 23 11:37:47 <canadaduane>	No, that was it
+May 23 11:37:52 <canadaduane>	I'm having fun with the first kata
+May 23 11:37:56 <dahu>	you might be able to "story" your way around the /^\d
+May 23 11:37:59 <canadaduane>	I'll check in what I have tonight before going to bed
+May 23 11:38:01 <dahu>	sweet
+May 23 11:38:05 <dahu>	I look forward to seeing it :-D
+May 23 11:38:41 <dahu>	as for the stories (given my lack of bloginess), I'll leave the narratives up to you. :-)
+May 23 11:38:56 <canadaduane>	heh, ok
+May 23 11:39:03 <canadaduane>	but it is open to your review
+May 23 11:39:19 <dahu>	cool
+May 23 11:39:34 <canadaduane>	hey, how about wrapping the numbers in ()?
+May 23 11:39:36 <canadaduane>	(1)
+May 23 11:39:41 <canadaduane>	then search using /(
+May 23 11:39:59 <dahu>	might work... depends on whether we have other () in the file
+May 23 11:40:07 <dahu>	not start of line bound, I mean
+May 23 11:40:24 <dahu>	is     /^(     that ugly?
+May 23 11:40:35 <canadaduane>	well, we can introduce that later
+May 23 11:40:42 <canadaduane>	but /( will get people started
+May 23 11:41:11 <canadaduane>	I like line numbers, but we may have to create a line re-numberer if it gets crazy
+May 23 11:41:15 <dahu>	heh... then     /^<     takes you to the squinting master and his answer     ;-p
+May 23 11:41:25 <canadaduane>	e.g. if we have to insert something between Q2 and Q3 and there are 40 questions...
+May 23 11:41:30 <dahu>	i understand
+May 23 11:41:31 <canadaduane>	hehe
+May 23 11:41:37 <dahu>	that might not be too hard
+May 23 11:41:41 <canadaduane>	k
+May 23 11:41:50 <dahu>	i think i've done similar work for asciidoc numbered lists in the past
+May 23 11:41:59 <dahu>	i'll dig through my old code and have a look
+May 23 11:42:10 <canadaduane>	cool
+May 23 11:42:15 <canadaduane>	thanks for the dialog
+May 23 11:42:16 <canadaduane>	ttyl
+May 23 11:42:25 <dahu>	same here. bye
+May 23 12:26:31 <canadaduane>	ok, headed to bed. Files checked in.
+May 23 12:27:06 <dahu>	sweet. have a good night. :-)
+May 23 12:36:54 *	canadaduane has quit (Quit: canadaduane)
+May 23 12:44:09 *	canadaduane has quit (Client Quit)
