@@ -123,10 +123,3 @@ map <leader>a :Ack
 if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
-
-" Pylint
-let g:pylint_onwrite = 0
-let g:pylint_show_rate = 0
-let g:pylint_signs = 0
-autocmd FileType python compiler pylint
-map <leader>l :Pylint<cr>
