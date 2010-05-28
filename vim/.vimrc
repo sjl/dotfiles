@@ -105,6 +105,9 @@ au BufNewFile,BufRead *.markdown set filetype=markdown
 " Sort CSS
 map <leader>S ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
 
+" Clean whitespace
+map <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
