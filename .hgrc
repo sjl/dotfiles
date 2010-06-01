@@ -42,6 +42,8 @@ unified = 10
 cmd.fmdiff = fmdiff
 cmd.vd = mvim
 opts.vd = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
+cmd.kd = /usr/local/bin/ksdiff-wrapper
+opts.kd = hg
 
 [email]
 method = smtp
