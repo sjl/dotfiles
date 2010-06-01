@@ -105,6 +105,8 @@ cmwn = commit -m 'Merge with Nick.'
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
 
+ks = kd -c
+
 dlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 _ = dlog -l15
 __ = _ -l100000000
