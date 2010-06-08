@@ -5,3 +5,4 @@ syntax: glob
 .netrwhist
 *.swp
 tags
+config/bcvi
