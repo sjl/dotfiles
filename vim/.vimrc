@@ -19,11 +19,12 @@ set wildmenu
 set wildmode=list:longest
 set visualbell
 set cursorline
+set ttyfast
 
 " Backups
-set nobackup
-set nowritebackup
-set directory=$HOME/.vim/tmp//,.
+set backupdir=~/tmp,/tmp " backups (~)
+set directory=~/tmp,/tmp " swap files
+set backup               " enable backups
 
 " Leader
 let mapleader = ","
@@ -40,7 +41,8 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
-map <leader>c :let @/=''<CR>
+set gdefault
+map <leader><space> :let @/=''<CR>
 
 " Soft/hard wrapping
 set wrap
@@ -85,7 +87,8 @@ map <D-j> :resize -10<CR>
 map <D-k> :resize +10<CR>
 map <D-l> :vertical resize +10<CR>
 
-" Use F1 to fold/unfold
+" Folding
+set foldlevelstart=1
 nnoremap <F1> za
 vnoremap <F1> za
 
@@ -126,3 +129,6 @@ map <leader>a :Ack
 if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
+
+" Yankring
+nnoremap <silent> <F3> :YRShow<CR>
