@@ -5,7 +5,7 @@ set go-=T
 
 if has("gui_macvim")
     macmenu &File.New\ Tab key=<nop>
-    map <D-t> <Plug>PeepOpen
+    map <leader>t <Plug>PeepOpen
 end
 
 let g:sparkupExecuteMapping = '<D-e>'
