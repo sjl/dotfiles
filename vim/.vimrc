@@ -91,6 +91,25 @@ map <D-l> :vertical resize +10<CR>
 set foldlevelstart=1
 nnoremap <F1> za
 vnoremap <F1> za
+au BufNewFile,BufRead *.html map <leader>ft Vatzf
+
+setlocal foldtext=MyFoldText()
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 1
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+
 
 " Fuck you, help key.
 imap <F1> <nop>
