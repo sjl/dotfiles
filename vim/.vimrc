@@ -137,3 +137,6 @@ map <leader>a :Ack
 
 " Yankring
 nnoremap <silent> <F3> :YRShow<CR>
+
+" Formatting, TextMate-style
+map <leader>q gqip
