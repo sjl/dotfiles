@@ -9,3 +9,5 @@ if has("gui_macvim")
 end
 
 let g:sparkupExecuteMapping = '<D-e>'
+
+highlight SpellBad term=underline gui=undercurl guisp=Orange

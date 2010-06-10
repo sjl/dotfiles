@@ -36,10 +36,9 @@ cbdw = ssh://hg@codebasehq.com/dwaiter/
 
 [diff]
 git = True
-unified = 10
+unified = 5
 
 [extdiff]
-cmd.fmdiff = fmdiff
 cmd.vd = mvim
 opts.vd = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 cmd.kd = /usr/local/bin/ksdiff-wrapper
@@ -54,10 +53,6 @@ host = smtp.stevelosh.com
 port = 587
 username = sjl
 tls = True
-
-[web]
-allow_archive = gz zip bz2
-motd = more info at <a href="http://stevelosh.com/projects/">stevelosh.com/projects</a>
 
 [color]
 status.modified = cyan
@@ -80,9 +75,6 @@ diff.trailingwhitespace = white_background
 track.current = True
 
 [defaults]
-diff   = --color auto
-status = --color auto
-serve  = --style=gitweb
 rebase = --keepbranches
 addremove = --similarity 100
 
@@ -107,26 +99,24 @@ qfdiff = qdiff -U 10000000000000
 
 ks = kd -c
 
-dlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+dlog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 _ = dlog -l15
 __ = _ -l100000000
-o_ = outgoing -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
-i_ = incoming -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+o_ = outgoing -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
+i_ = incoming -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 
-slog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
+slog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
-o. = outgoing -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
-i. = incoming -n --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.slog
+o. = outgoing -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
+i. = incoming -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
 
-sglog = glog --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+sglog = glog --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 , = sglog -l7
 ,, = , -l100000000
-o, = outgoing --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
-i, = incoming --graph --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+o, = outgoing --graph --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
+i, = incoming --graph --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 
-nlog = log --style=/Users/sjl/lib/dotfiles/mercurial/templates/map-cmdline.nlog
+nlog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.nlog
 n = nlog -vr
 show = nlog --color=always -vpr
-
-qcm = qcommit -m 

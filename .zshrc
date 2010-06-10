@@ -9,7 +9,6 @@ unsetopt promptcr
 # Useful aliases -------------------------------------------------------------
 alias j='z'
 alias fab='fab -i ~/.ssh/stevelosh'
-alias tweets-stevelosh='~/src/grabtweets/grabtweets.py -p ~/Documents/tweets/stevelosh'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
 
 # Environment variables ------------------------------------------------------
