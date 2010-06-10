@@ -93,7 +93,7 @@ nnoremap <F1> za
 vnoremap <F1> za
 au BufNewFile,BufRead *.html map <leader>ft Vatzf
 
-setlocal foldtext=MyFoldText()
+set foldtext=MyFoldText()
 function! MyFoldText()
     let line = getline(v:foldstart)
 
