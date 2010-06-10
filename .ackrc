@@ -2,3 +2,5 @@
 log=.log
 --type-set
 django=.py,.html
+--type-set
+less=.less

@@ -4,5 +4,6 @@ syntax: glob
 *.pyc
 .netrwhist
 *.swp
+*.swo
 tags
 config/bcvi

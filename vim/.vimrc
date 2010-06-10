@@ -9,6 +9,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+" Basic options
 set scrolloff=3
 set autoindent
 set smartindent
@@ -20,6 +21,9 @@ set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
+set ruler
+set backspace=indent,eol,start
+set nu
 
 " Backups
 set backupdir=~/tmp,/tmp " backups (~)
@@ -49,15 +53,9 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 
-set ruler
-set backspace=indent,eol,start
-
 " Use the same symbols as TextMate for tabstops and EOLs
 set list
 set listchars=tab:▸\ ,eol:¬
-
-" Line numbers
-set nu
 
 " Color scheme (terminal)
 syntax on
@@ -66,9 +64,11 @@ colorscheme delek
 
 " Use Pathogen to load bundles
 call pathogen#runtime_append_all_bundles()
-cmap HALP call pathogen#helptags()<CR>
+cab HALP call pathogen#helptags()<CR>
 
+" NERD Tree
 map <F2> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
 " Use the damn hjkl keys
 map <up> <nop>
@@ -81,11 +81,6 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-
-map <D-h> :vertical resize -10<CR>
-map <D-j> :resize -10<CR>
-map <D-k> :resize +10<CR>
-map <D-l> :vertical resize +10<CR>
 
 " Folding
 set foldlevelstart=1
@@ -110,12 +105,8 @@ function! MyFoldText()
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 
-
 " Fuck you, help key.
 imap <F1> <nop>
-
-" NERDTree ignore filters
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
@@ -133,8 +124,8 @@ map <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
-map <F3> :TlistToggle<cr>
-map <F4> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F4> :TlistToggle<cr>
+map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Ropevim
 let $PYTHONPATH .= ":" . $HOME . "/lib/python/rope"
@@ -143,11 +134,6 @@ source ~/lib/dotfiles/vim/notreallybundles/ropevim/ropevim.vim
 
 " Ack
 map <leader>a :Ack 
-
-" Spellbad Coloring
-if has("gui_running")
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-endif
 
 " Yankring
 nnoremap <silent> <F3> :YRShow<CR>
