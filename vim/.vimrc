@@ -125,7 +125,7 @@ map <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
-map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --exclude='@.ctagsignore' .<CR>
 
 " Ropevim
 let $PYTHONPATH .= ":" . $HOME . "/lib/python/rope"
