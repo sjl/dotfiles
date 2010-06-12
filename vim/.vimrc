@@ -144,3 +144,6 @@ map <leader>q gqip
 
 " TODO: Put this in a Python-specific file
 map <leader>n :!nosetests<CR>
+
+" Easier linewise reselection
+map <leader>v V`]
