@@ -24,6 +24,7 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set nu
+set laststatus=2
 
 " Backups
 set backupdir=~/tmp,/tmp " backups (~)
@@ -140,3 +141,6 @@ nnoremap <silent> <F3> :YRShow<CR>
 
 " Formatting, TextMate-style
 map <leader>q gqip
+
+" TODO: Put this in a Python-specific file
+map <leader>n :!nosetests<CR>
