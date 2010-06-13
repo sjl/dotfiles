@@ -1,0 +1,17 @@
+# Generic Tags
+snippet %
+	{% ${1} %}${2}
+snippet {
+	{{ ${1} }}${2}
+snippet %%
+	{% ${1:tag_name} %}
+	${2}
+	{% end$1 %}
+
+snippet block
+	{% block ${1:content} %}
+		${2}
+	{% endblock %}
+snippet blocki
+	{% block ${1:content} %}${2}{% endblock %}
+

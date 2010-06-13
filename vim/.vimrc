@@ -111,9 +111,6 @@ imap <F1> <nop>
 
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
-au BufNewFile,BufRead *.less set foldmethod=marker
-au BufNewFile,BufRead *.less set foldmarker={,}
-au BufNewFile,BufRead *.less set nocursorline
 au BufNewFile,BufRead *.markdown set filetype=markdown
 
 " Sort CSS
@@ -142,8 +139,12 @@ nnoremap <silent> <F3> :YRShow<CR>
 " Formatting, TextMate-style
 map <leader>q gqip
 
-" TODO: Put this in a Python-specific file
+" TODO: Put this in filetype-specific files
 map <leader>n :!nosetests<CR>
+au BufNewFile,BufRead *.less set foldmethod=marker
+au BufNewFile,BufRead *.less set foldmarker={,}
+au BufNewFile,BufRead *.less set nocursorline
+au BufNewFile,BufRead *.less map <leader>p o<ESC>pV`]>
 
 " Easier linewise reselection
 map <leader>v V`]
