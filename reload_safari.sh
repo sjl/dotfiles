@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sleep 1
 echo "reloading..."
 
 osascript  &>/dev/null <<EOF
