@@ -148,3 +148,7 @@ au BufNewFile,BufRead *.less map <leader>p o<ESC>pV`]>
 
 " Easier linewise reselection
 map <leader>v V`]
+
+" HTML tag closing
+imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<CR>a
+
