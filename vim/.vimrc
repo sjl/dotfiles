@@ -151,4 +151,3 @@ map <leader>v V`]
 
 " HTML tag closing
 imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<CR>a
-
