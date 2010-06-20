@@ -142,6 +142,7 @@ map <leader>q gqip
 
 " TODO: Put this in filetype-specific files
 map <leader>n :!nosetests<CR>
+map <leader>N :!nosetests "%:p"<CR>
 au BufNewFile,BufRead *.less set foldmethod=marker
 au BufNewFile,BufRead *.less set foldmarker={,}
 au BufNewFile,BufRead *.less set nocursorline
