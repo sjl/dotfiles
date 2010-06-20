@@ -67,6 +67,7 @@ hg clone bb://tksoh/hgshelve/ "$HOME/lib/hg/hgshelve"
 hg clone bb://durin42/histedit/ "$HOME/lib/hg/histedit"
 hg clone bb://durin42/hg-git/ "$HOME/lib/hg/hg-git"
 hg clone bb://Bill_Barry/hgattic "$HOME/lib/hg/hgattic"
+hg clone bb://edgimar/crecord "$HOME/lib/hg/crecord"
 
 git clone git://github.com/jelmer/dulwich.git "$HOME/lib/dulwich"
 ln -s "$HOME/lib/dulwich/dulwich" "$HOME/lib/hg/hg-stable/dulwich"
