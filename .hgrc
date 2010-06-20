@@ -20,6 +20,7 @@ attic = ~/lib/hg/hgattic/attic.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit
+crecord = ~/lib/hg/crecord/crecord
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
 
