@@ -65,7 +65,6 @@ colorscheme delek
 
 " Use Pathogen to load bundles
 call pathogen#runtime_append_all_bundles()
-cab HALP call pathogen#helptags()<CR>
 
 " NERD Tree
 map <F2> :NERDTreeToggle<CR>
@@ -136,6 +135,7 @@ map <leader>a :Ack
 
 " Yankring
 nnoremap <silent> <F3> :YRShow<CR>
+nnoremap <silent> <leader>y :YRShow<cr>
 
 " Formatting, TextMate-style
 map <leader>q gqip
@@ -153,3 +153,10 @@ map <leader>v V`]
 
 " HTML tag closing
 imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<CR>a
+
+" Conque
+nmap <leader>sh :ConqueTermVSplit zsh<CR>
+nmap <leader>SH :ConqueTermSplit zsh<CR>
+nmap <leader>r :ConqueTermVSplit 
+nmap <leader>R :ConqueTermSplit 
+
