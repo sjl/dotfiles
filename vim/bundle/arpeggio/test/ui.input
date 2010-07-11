@@ -1,0 +1,46 @@
+runtime! plugin/arpeggio.vim
+
+function! CheckMapModes(lhs)
+  let _ = ['n', 'x', 's', 'o', 'i', 'c', 'l']
+  call map(_, 'maparg(' . string(a:lhs) . ', v:val)')
+  call map(_, 'v:val != ""')
+  return _
+endfunction
+
+function s:describe__Arpeggio()  "{{{1
+  " Set up.
+
+  tabnew
+
+  It should define key mappings properly.
+
+  silent! execute 'Arpeggio inoremap lhs1  rhs1"rhs2'
+  silent! execute 'Arpeggio inoremap lhs2  rhs1<Bar>rhs2'
+  silent! execute 'Arpeggio inoremap lhs3  rhs1|rhs2'
+  Should CheckMapModes('o') ==# [0, 0, 0, 0, 0, 0, 0]
+  Should CheckMapModes('l') ==# [0, 0, 0, 0, 1, 0, 0]
+  Should CheckMapModes('h') ==# [0, 0, 0, 0, 1, 0, 0]
+  Should CheckMapModes('s') ==# [0, 0, 0, 0, 1, 0, 0]
+  Should CheckMapModes('1') ==# [0, 0, 0, 0, 1, 0, 0]
+  Should CheckMapModes('2') ==# [0, 0, 0, 0, 1, 0, 0]
+  Should CheckMapModes('3') ==# [0, 0, 0, 0, 1, 0, 0]
+
+  normal olhs0
+  Should getline('.') ==# 'lhs0'
+  normal olhs1
+  Should getline('.') ==# 'rhs1"rhs2'
+  normal olhs2
+  Should getline('.') ==# 'rhs1|rhs2'
+  normal olhs3
+  Should getline('.') ==# 'rhs1'
+
+  " Tear down.
+
+  tabclose!
+endfunction
+
+
+
+
+" __END__  "{{{1
+" vim: filetype=vim foldmethod=marker
