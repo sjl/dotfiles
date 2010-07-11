@@ -50,9 +50,9 @@ method = smtp
 from = Steve Losh <steve@stevelosh.com>
 
 [smtp]
-host = smtp.stevelosh.com
+host = smtp.gmail.com
 port = 587
-username = sjl
+username = steve@stevelosh.com
 tls = True
 
 [color]

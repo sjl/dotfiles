@@ -10,6 +10,7 @@ set softtabstop=4
 set expandtab
 
 " Basic options
+set encoding=utf-8
 set scrolloff=3
 set autoindent
 set smartindent
@@ -35,19 +36,24 @@ set backup               " enable backups
 let mapleader = ","
 
 " FuzzyFinder
-map <Leader>t :FuzzyFinderTextMate<Enter>
-map <Leader>b :FuzzyFinderBuffer<Enter>
-let g:fuzzy_ignore = "*.pyc;log/**;.svn/**;.git/**;.hg/**;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;**media/admin/**;**media/ckeditor/**;**media/filebrowser/**;**media/pages/**;**src/**;**build/**;**_build/**;**media/cache/**"
-let g:fuzzy_matching_limit = 70
+if !has("gui_macvim")
+    map <Leader>t :FuzzyFinderTextMate<Enter>
+    map <Leader>b :FuzzyFinderBuffer<Enter>
+    let g:fuzzy_ignore = "*.pyc;log/**;.svn/**;.git/**;.hg/**;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;**media/admin/**;**media/ckeditor/**;**media/filebrowser/**;**media/pages/**;**src/**;**build/**;**_build/**;**media/cache/**"
+    let g:fuzzy_matching_limit = 70
+end
 
 " Searching
+nnoremap / /\v
+vnoremap / /\v
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set hlsearch
 set gdefault
-map <leader><space> :let @/=''<CR>
+map <leader><space> :let @/=''<cr>
+runtime macros/matchit.vim
 
 " Soft/hard wrapping
 set wrap
@@ -67,7 +73,7 @@ colorscheme delek
 call pathogen#runtime_append_all_bundles()
 
 " NERD Tree
-map <F2> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
 " Use the damn hjkl keys
@@ -114,16 +120,16 @@ au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.markdown set filetype=markdown
 
 " Sort CSS
-map <leader>S ?{<CR>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
+map <leader>S ?{<cr>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
 
 " Clean whitespace
-map <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
-map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --exclude='@.ctagsignore' .<CR>
+map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --exclude='@.ctagsignore' .<cr>
 
 " Ropevim
 let $PYTHONPATH .= ":" . $HOME . "/lib/python/rope"
@@ -134,15 +140,35 @@ source ~/lib/dotfiles/vim/notreallybundles/ropevim/ropevim.vim
 map <leader>a :Ack 
 
 " Yankring
-nnoremap <silent> <F3> :YRShow<CR>
+nnoremap <silent> <F3> :YRShow<cr>
 nnoremap <silent> <leader>y :YRShow<cr>
 
 " Formatting, TextMate-style
 map <leader>q gqip
 
+" TESTING GOAT APPROVES OF THESE LINES
+au BufNewFile,BufRead test_*.py set makeprg=nosetests\ --machine-out\ --nocapture
+au BufNewFile,BufRead test_*.py set shellpipe=2>&1\ >/dev/null\ \|\ tee
+au BufNewFile,BufRead test_*.py set errorformat=%f:%l:\ %m
+au BufNewFile,BufRead test_*.py nmap <silent> <Leader>n <Plug>MakeGreen
+au BufNewFile,BufRead test_*.py nmap <Leader>N :make<cr>
+nmap <silent> <leader>ff :QFix<cr>
+nmap <leader>fn :cn<cr>
+nmap <leader>fp :cp<cr>
+
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+
+
 " TODO: Put this in filetype-specific files
-map <leader>n :!nosetests<CR>
-map <leader>N :!nosetests "%:p"<CR>
 au BufNewFile,BufRead *.less set foldmethod=marker
 au BufNewFile,BufRead *.less set foldmarker={,}
 au BufNewFile,BufRead *.less set nocursorline
@@ -152,11 +178,11 @@ au BufNewFile,BufRead *.less map <leader>p o<ESC>pV`]>
 map <leader>v V`]
 
 " HTML tag closing
-imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<CR>a
+imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Conque
-nmap <leader>sh :ConqueTermVSplit zsh<CR>
-nmap <leader>SH :ConqueTermSplit zsh<CR>
+nmap <leader>sh :ConqueTermVSplit zsh<cr>
+nmap <leader>SH :ConqueTermSplit zsh<cr>
 nmap <leader>r :ConqueTermVSplit 
 nmap <leader>R :ConqueTermSplit 
 

@@ -31,7 +31,9 @@ export RUBYOPT=rubygems
 
 # Mercurial variables --------------------------------------------------------
 export PATH="$HOME/lib/hg/hg-stable:$PATH"
-export PYTHONPATH="$HOME/lib/hg/hg-stable:/usr/local/lib/python2.6/site-packages:$PYTHONPATH"
+export PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
+export PYTHONPATH="/usr/local/lib/python2.6/site-packages:$PYTHONPATH"
+export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh

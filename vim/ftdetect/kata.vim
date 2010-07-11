@@ -1,1 +1,0 @@
-/Users/sjl/lib/dotfiles/vim/notreallybundles/vimkata/ftdetect/kata.vim
