@@ -93,6 +93,8 @@ map <leader>w <C-w>v<C-w>l
 set foldlevelstart=1
 nnoremap <F1> za
 vnoremap <F1> za
+nnoremap <Space> za
+vnoremap <Space> za
 au BufNewFile,BufRead *.html map <leader>ft Vatzf
 
 set foldtext=MyFoldText()
