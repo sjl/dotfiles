@@ -180,9 +180,9 @@ map <leader>v V`]
 " HTML tag closing
 imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
-" Conque
-nmap <leader>sh :ConqueTermVSplit zsh<cr>
-nmap <leader>SH :ConqueTermSplit zsh<cr>
-nmap <leader>r :ConqueTermVSplit 
-nmap <leader>R :ConqueTermSplit 
-
+" Arpeggio
+call arpeggio#load()
+Arpeggio inoremap jk <Esc>
+Arpeggio inoremap fh <Esc>
+Arpeggio inoremap fj <Esc>
+inoremap <Esc> <nop>
