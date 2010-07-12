@@ -186,5 +186,6 @@ imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 call arpeggio#load()
 Arpeggio inoremap jk <Esc>
 Arpeggio inoremap fh <Esc>
+Arpeggio inoremap hj <Esc>
 Arpeggio inoremap fj <Esc>
 inoremap <Esc> <nop>
