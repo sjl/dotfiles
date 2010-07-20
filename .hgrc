@@ -23,6 +23,7 @@ histedit = ~/lib/hg/histedit
 crecord = ~/lib/hg/crecord/crecord
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
+review = ~/src/hg-review/review
 
 [progress]
 delay = 1.0
