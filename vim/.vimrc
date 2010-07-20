@@ -82,6 +82,10 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
+" And make them fucking work, too.
+nnoremap j gj
+nnoremap k gk
+
 " Easy buffer navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -119,7 +123,10 @@ imap <F1> <nop>
 
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
-au BufNewFile,BufRead *.markdown set filetype=markdown
+
+au BufNewFile,BufRead *.m*down set filetype=markdown
+au BufNewFile,BufRead *.m*down map <leader>h1 yypVr=
+au BufNewFile,BufRead *.m*down map <leader>h2 yypVr-
 
 " Sort CSS
 map <leader>S ?{<cr>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
@@ -174,13 +181,12 @@ endfunction
 au BufNewFile,BufRead *.less set foldmethod=marker
 au BufNewFile,BufRead *.less set foldmarker={,}
 au BufNewFile,BufRead *.less set nocursorline
-au BufNewFile,BufRead *.less map <leader>p o<ESC>pV`]>
 
 " Easier linewise reselection
 map <leader>v V`]
 
 " HTML tag closing
-imap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Arpeggio
 call arpeggio#load()
@@ -188,4 +194,5 @@ Arpeggio inoremap jk <Esc>
 Arpeggio inoremap fh <Esc>
 Arpeggio inoremap hj <Esc>
 Arpeggio inoremap fj <Esc>
+Arpeggio inoremap asdf <Esc>
 inoremap <Esc> <nop>
