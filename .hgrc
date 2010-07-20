@@ -16,6 +16,7 @@ color =
 parentrevspec =
 schemes = 
 progress =
+fetch =
 attic = ~/lib/hg/hgattic/attic.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
@@ -121,3 +122,5 @@ i, = incoming --graph --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline
 nlog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.nlog
 n = nlog -vr
 show = nlog --color=always -vpr
+
+fet = fetch --message 'Automated merge.'
