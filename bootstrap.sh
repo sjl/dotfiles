@@ -38,7 +38,6 @@ sudo python setup.py install
 cd
 
 sudo pip install virtualenv
-sudo pip install rope
 
 hg clone http://bitbucket.org/dhellmann/virtualenvwrapper ~/lib/python/virtualenvwrapper
 cd ~/lib/python/virtualenvwrapper
