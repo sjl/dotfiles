@@ -25,7 +25,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-vmap <C-c><C-c> "ry :call Send_to_Screen(@r)<CR>
-nmap <C-c><C-c> vip<C-c><C-c>
+vmap <C-c><C-c> "ry:call Send_to_Screen(@r."\n")<CR>
+nmap <C-c><C-c> V<C-c><C-c>
 
 nmap <C-c>v :call Screen_Vars()<CR>
