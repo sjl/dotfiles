@@ -194,3 +194,6 @@ inoremap <Esc> <nop>
 
 " Scratch
 nmap <tab><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
+
+" Diff
+nmap <leader>d :!hg diff %<cr>
