@@ -193,4 +193,4 @@ Arpeggio inoremap asdf <Esc>
 inoremap <Esc> <nop>
 
 " Scratch
-nmap <tab><tab> :Sscratch<cr>
+nmap <tab><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
