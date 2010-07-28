@@ -197,3 +197,9 @@ nmap <tab><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Diff
 nmap <leader>d :!hg diff %<cr>
+
+" Autosource .vimrc
+autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd bufwritepost .vimrc source $MYGVIMRC
+nmap <leader>V <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
