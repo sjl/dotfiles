@@ -3,6 +3,9 @@ filetype plugin indent on
 
 set nocompatible
 
+" Security
+set modelines=0
+
 " Tabs/spaces
 set tabstop=4
 set shiftwidth=4
