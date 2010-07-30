@@ -3,6 +3,9 @@ filetype plugin indent on
 
 set nocompatible
 
+" Security
+set modelines=0
+
 " Tabs/spaces
 set tabstop=4
 set shiftwidth=4
@@ -203,3 +206,6 @@ nmap <leader>d :!hg diff %<cr>
 
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
+
+" Edit .vimrc
+nmap <leader>V <C-w><C-v><C-l>:e $MYVIMRC<cr>
