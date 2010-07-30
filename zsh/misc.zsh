@@ -16,7 +16,6 @@ function mdown () {
                     padding-bottom: 80px;
                 }
                 h1, h2, h3, h4, h5, h6 {
-                    font-family: Garamond;
                     font-weight: normal;
                     margin-top: 48px;
                 }
