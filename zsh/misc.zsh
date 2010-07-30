@@ -8,19 +8,34 @@ function mdown () {
                 body {
                     font-family: Georgia;
                     font-size: 17px;
-                    line-height: 1.4;
+                    line-height: 24px;
                     color: #222;
                     text-rendering: optimizeLegibility;
-                    width: 700px;
+                    width: 670px;
                     margin: 20px auto;
+                    padding-bottom: 80px;
                 }
                 h1, h2, h3, h4, h5, h6 {
                     font-family: Garamond;
                     font-weight: normal;
+                    margin-top: 48px;
                 }
+                h1 { font-size: 48px; }
+                h2 {
+                    font-size: 36px;
+                    border-bottom: 6px solid #ddd;
+                    padding: 0 0 6px 0;
+                }
+                h3 {
+                    font-size: 24px;
+                    border-bottom: 6px solid #eee;
+                    padding: 0 0 2px 0;
+                }
+                h4 { font-size: 20px; }
                 pre {
                     background-color: #f5f5f5;
-                    font: normal 16px Menlo;
+                    font: normal 15px Menlo;
+                    line-height: 24px;
                     padding: 8px 10px;
                     overflow-x: scroll;
                 }
