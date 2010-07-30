@@ -22,6 +22,7 @@ function mdown () {
                     background-color: #f5f5f5;
                     font: normal 16px Menlo;
                     padding: 8px 10px;
+                    overflow-x: scroll;
                 }
             </style>
         </head>

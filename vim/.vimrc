@@ -54,6 +54,8 @@ set hlsearch
 set gdefault
 map <leader><space> :let @/=''<cr>
 runtime macros/matchit.vim
+nnoremap <tab> %
+vnoremap <tab> %
 
 " Soft/hard wrapping
 set wrap
@@ -125,8 +127,9 @@ imap <F1> <nop>
 au BufNewFile,BufRead *.less set filetype=less
 
 au BufNewFile,BufRead *.m*down set filetype=markdown
-au BufNewFile,BufRead *.m*down map <leader>h1 yypVr=
-au BufNewFile,BufRead *.m*down map <leader>h2 yypVr-
+au BufNewFile,BufRead *.m*down nnoremap <leader>1 yypVr=
+au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
+au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 
 " Sort CSS
 map <leader>S ?{<cr>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
@@ -193,7 +196,10 @@ Arpeggio inoremap asdf <Esc>
 inoremap <Esc> <nop>
 
 " Scratch
-nmap <tab><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
+nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Diff
 nmap <leader>d :!hg diff %<cr>
+
+" Rainbows!
+nmap <leader>R :RainbowParenthesesToggle<CR>
