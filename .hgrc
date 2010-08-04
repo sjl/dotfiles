@@ -82,7 +82,7 @@ rebase = --keepbranches
 addremove = --similarity 100
 
 [alias]
-nudge = push --rev .
+nudge = push --branch .
 st = status -C
 ? = summary
 pullr = pull --remotecmd '~/bin/hg'
