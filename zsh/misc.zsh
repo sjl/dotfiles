@@ -1,6 +1,8 @@
 alias pbc='pbcopy'
 alias pbp='pbpaste'
 
+alias M='mvim .'
+
 function mdown () {
     (echo '
         <head>
