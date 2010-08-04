@@ -135,7 +135,7 @@ au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
 au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 
 " Sort CSS
-map <leader>S ?{<cr>jV/^\s*\}\=$<CR>k:sort<CR>:let @/=''<CR>
+map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:let @/=''<CR>
 
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
