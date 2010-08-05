@@ -38,14 +38,6 @@ set backup               " enable backups
 " Leader
 let mapleader = ","
 
-" FuzzyFinder
-if !has("gui_macvim")
-    map <Leader>t :FuzzyFinderTextMate<Enter>
-    map <Leader>b :FuzzyFinderBuffer<Enter>
-    let g:fuzzy_ignore = "*.pyc;log/**;.svn/**;.git/**;.hg/**;pip-log.txt;*.gif;*.jpg;*.jpeg;*.png;**media/admin/**;**media/ckeditor/**;**media/filebrowser/**;**media/pages/**;**src/**;**build/**;**_build/**;**media/cache/**"
-    let g:fuzzy_matching_limit = 70
-end
-
 " Searching
 nnoremap / /\v
 vnoremap / /\v
