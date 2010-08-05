@@ -182,6 +182,9 @@ endfunction
 au BufNewFile,BufRead *.less set foldmethod=marker
 au BufNewFile,BufRead *.less set foldmarker={,}
 au BufNewFile,BufRead *.less set nocursorline
+au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
+au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
+au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 
 " Easier linewise reselection
 map <leader>v V`]
