@@ -1,6 +1,0 @@
-all_files_in_repos :=          Makefile after/syntax/vim/arpeggio.vim autoload/arpeggio.vim doc/arpeggio.txt plugin/arpeggio.vim test/ui.expected test/ui.input
-current_branch := master
-origin_name := origin
-origin_uri := ../.
-repos_name := vim-arpeggio
-version := 0.0.6

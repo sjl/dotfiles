@@ -16,7 +16,6 @@ set expandtab
 set encoding=utf-8
 set scrolloff=3
 set autoindent
-set smartindent
 set showmode
 set showcmd
 set hidden
@@ -92,8 +91,6 @@ map <leader>w <C-w>v<C-w>l
 
 " Folding
 set foldlevelstart=1
-nnoremap <F1> za
-vnoremap <F1> za
 nnoremap <Space> za
 vnoremap <Space> za
 au BufNewFile,BufRead *.html map <leader>ft Vatzf
@@ -116,7 +113,9 @@ function! MyFoldText()
 endfunction
 
 " Fuck you, help key.
-imap <F1> <nop>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+nnoremap <F1> :set invfullscreen<CR>
+vnoremap <F1> :set invfullscreen<CR>
 
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
@@ -184,14 +183,9 @@ map <leader>v V`]
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
-" Arpeggio
-call arpeggio#load()
-Arpeggio inoremap jk <Esc>
-Arpeggio inoremap fh <Esc>
-Arpeggio inoremap hj <Esc>
-Arpeggio inoremap fj <Esc>
-Arpeggio inoremap asdf <Esc>
+" Faster Esc
 inoremap <Esc> <nop>
+inoremap jj <ESC>
 
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
@@ -204,3 +198,7 @@ nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Edit .vimrc
 nmap <leader>V <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Sudo to write
+cmap w!! w !sudo tee % >/dev/null
+
