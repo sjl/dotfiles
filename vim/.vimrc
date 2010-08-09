@@ -202,3 +202,6 @@ nmap <leader>V <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
 
+" Easy filetype switching
+nnoremap _dt :set ft=htmldjango<CR>
+nnoremap _jt :set ft=htmljinja<CR>
