@@ -126,3 +126,15 @@ n = nlog -vr
 show = nlog --color=always -vpr
 
 fet = fetch --message 'Automated merge.'
+
+[merge-tools]
+#vimmerge.executable=mvim
+#vimmerge.args=--nofork +HgmergeStartup $local $base $other
+#vimmerge.priority=1
+#vimmerge.premerge=true
+#p4merge.args=$base $local $other $output
+#p4merge.gui=True
+#p4merge.priority=1
+#p4merge.diffargs=$parent $child
+#p4merge.executable=/Applications/p4merge.app/Contents/MacOS/p4merge
+
