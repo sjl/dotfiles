@@ -26,22 +26,22 @@
 " Section: highlight {{{1
 
 function rainbow_parentheses#Activate()
-    highlight default level1c   guifg=ivory1
-    highlight default level2c   guifg=yellow           " Yellow
-    highlight default level3c   guifg=MediumOrchid1    " Purple
-    highlight default level4c   guifg=SpringGreen1     " Green
-    highlight default level5c   guifg=LightGoldenRod1  " Tan
-    highlight default level6c   guifg=firebrick1       " Red
-    highlight default level7c   guifg=turquoise1       " Cyan
-    highlight default level8c   guifg=grey50
-    highlight default level9c   guifg=grey70
-    highlight default level10c  guifg=turquoise1
-    highlight default level11c  guifg=firebrick1
+    highlight default level1c   guifg=OrangeRed1
+    highlight default level2c   guifg=LightGoldenRod1
+    highlight default level3c   guifg=DeepSkyBlue1
+    highlight default level4c   guifg=HotPink1
+    highlight default level5c   guifg=chartreuse1
+    highlight default level6c   guifg=OrangeRed1
+    highlight default level7c   guifg=LightGoldenRod1
+    highlight default level8c   guifg=DeepSkyBlue1
+    highlight default level9c   guifg=HotPink1
+    highlight default level10c  guifg=chartreuse1
+    highlight default level11c  guifg=OrangeRed1
     highlight default level12c  guifg=LightGoldenRod1
-    highlight default level13c  guifg=SpringGreen1
-    highlight default level14c  guifg=pink1
-    highlight default level15c  guifg=yellow
-    highlight default level16c  guifg=ivory1
+    highlight default level13c  guifg=DeepSkyBlue1
+    highlight default level14c  guifg=HotPink1
+    highlight default level15c  guifg=chartreuse1
+    highlight default level16c  guifg=Yellow
     let s:rainbow_parenthesis_active = 1
 endfunction
 
