@@ -37,7 +37,7 @@ export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
-source ~/lib/python/virtualenvwrapper/virtualenvwrapper.sh
+export VEW_PATH="$HOME/lib/python/virtualenvwrapper/virtualenvwrapper.sh"
 
 # See ------------------------------------------------------------------------
 export PYTHONPATH="$HOME/lib/python/see:$PYTHONPATH"
