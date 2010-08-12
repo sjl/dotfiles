@@ -44,3 +44,18 @@ function mdown () {
         </head>
     '; markdown $@) | bcat
 }
+
+function pull_everything() {
+    for repo in $( ls -1 ); do
+        if [[ -d $repo && -d $repo/.hg ]]; then
+            echo "Pulling" $repo
+            hg -R $repo pull -u
+            echo
+        fi
+    done
+}
+
+# Updated verison of SVN.
+export DYLD_LIBRARY_PATH="/opt/subversion/lib:$DYLD_LIBRARY_PATH"
+export PYTHONPATH="/opt/subversion/lib/svn-python:$PYTHONPATH"
+export PATH="/opt/subversion/bin:$PATH"
