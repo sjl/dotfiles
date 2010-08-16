@@ -7,3 +7,4 @@ syntax: glob
 *.swo
 tags
 config/bcvi
+*.un~
