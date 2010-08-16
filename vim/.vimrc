@@ -48,8 +48,8 @@ set hlsearch
 set gdefault
 map <leader><space> :let @/=''<cr>
 runtime macros/matchit.vim
-nnoremap <tab> %
-vnoremap <tab> %
+nmap <tab> %
+vmap <tab> %
 
 " Soft/hard wrapping
 set wrap
