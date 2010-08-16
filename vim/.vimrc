@@ -26,8 +26,9 @@ set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set nu
+set relativenumber
 set laststatus=2
+set undofile
 
 " Backups
 set backupdir=~/tmp,/tmp " backups (~)
@@ -55,6 +56,7 @@ vmap <tab> %
 set wrap
 set textwidth=79
 set formatoptions=qrn1
+set colorcolumn=85
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set list

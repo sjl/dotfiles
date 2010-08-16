@@ -113,6 +113,7 @@ if s:molokai_original == 1
    hi Comment         guifg=#75715E
    hi CursorLine                    guibg=#3E3D32
    hi CursorColumn                  guibg=#3E3D32
+   hi ColorColumn                   guibg=#3E3D32
    hi LineNr          guifg=#BCBCBC guibg=#3B3A32
    hi NonText         guifg=#BCBCBC guibg=#3B3A32
 else
@@ -121,6 +122,7 @@ else
    hi Comment         guifg=#465457
    hi CursorLine                    guibg=#232728
    hi CursorColumn                  guibg=#232728
+   hi ColorColumn                   guibg=#232728
    hi LineNr          guifg=#BCBCBC guibg=#1B1D1E
    
    " Invisible character colors
