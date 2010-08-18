@@ -114,7 +114,7 @@ if s:molokai_original == 1
    hi CursorLine                    guibg=#3E3D32
    hi CursorColumn                  guibg=#3E3D32
    hi ColorColumn                   guibg=#3E3D32
-   hi LineNr          guifg=#BCBCBC guibg=#3B3A32
+   hi LineNr          guifg=#AAAAAA guibg=#3B3A32
    hi NonText         guifg=#BCBCBC guibg=#3B3A32
 else
    hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
@@ -123,7 +123,7 @@ else
    hi CursorLine                    guibg=#232728
    hi CursorColumn                  guibg=#232728
    hi ColorColumn                   guibg=#232728
-   hi LineNr          guifg=#BCBCBC guibg=#1B1D1E
+   hi LineNr          guifg=#AAAAAA guibg=#1B1D1E
    
    " Invisible character colors
    highlight NonText    guifg=#444444 guibg=#1a1c1d

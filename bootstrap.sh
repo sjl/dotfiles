@@ -16,17 +16,11 @@ echo '#!/usr/bin/env python' > bin/batcharge.py
 echo 'pass' >> bin/batcharge.py
 chmod u+x bin/batcharge.py
 
-wget 'http://mercurial.selenic.com/release/mercurial-1.5.tar.gz'
-tar xzf mercurial-1.5.tar.gz
-cd mercurial-1.5
-make local
-
-./hg clone 'http://selenic.com/repo/hg#stable' ~/lib/hg/hg-stable
+hg clone 'http://selenic.com/repo/hg#stable' ~/lib/hg/hg-stable
 cd ~/lib/hg/hg-stable
 make local
 cd
-export PATH="$PATH:$HOME/lib/hg/hg-stable"
-rm -rf mercurial-1.5 mercurial-1.5.tar.gz
+export PATH="$HOME/lib/hg/hg-stable:$PATH"
 
 hg clone http://bitbucket.org/sjl/dotfiles ~/lib/dotfiles
 git clone git://github.com/sjl/oh-my-zsh ~/lib/oh-my-zsh
