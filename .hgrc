@@ -127,14 +127,29 @@ show = nlog --color=always -vpr
 
 fet = fetch --message 'Automated merge.'
 
-[merge-tools]
-#vimmerge.executable=mvim
-#vimmerge.args=--nofork +HgmergeStartup $local $base $other
-#vimmerge.priority=1
-#vimmerge.premerge=true
-#p4merge.args=$base $local $other $output
-#p4merge.gui=True
-#p4merge.priority=1
-#p4merge.diffargs=$parent $child
-#p4merge.executable=/Applications/p4merge.app/Contents/MacOS/p4merge
+mkrepo = !$HG init $1 && cd $1 && \
+         echo 'syntax: glob'  > .hgignore && \
+         echo ''             >> .hgignore && \
+         echo '.DS_Store'    >> .hgignore && \
+         echo '*.pyc'        >> .hgignore && \
+         echo '*.swp'        >> .hgignore && \
+         echo '*.swo'        >> .hgignore && \
+         echo '*.un~'        >> .hgignore && \
+         echo "[paths]\n" >> .hg/hgrc
 
+qempty = !$HG qrefresh -X `$HG root`
+
+ciunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
+           $HG qnew temp-for-under && \
+           $HG qpop -a && \
+           $HG qpush --move temp-for-under && \
+           $HG qrefresh -e && \
+           $HG qfinish temp-for-under && \
+           $HG qpush $HG_CUR_PATCH
+cmunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
+           $HG qnew temp-for-under && \
+           $HG qpop -a && \
+           $HG qpush --move temp-for-under && \
+           $HG qrefresh -m "$@" && \
+           $HG qfinish temp-for-under && \
+           $HG qpush $HG_CUR_PATCH
