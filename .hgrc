@@ -128,14 +128,14 @@ show = nlog --color=always -vpr
 fet = fetch --message 'Automated merge.'
 
 mkrepo = !$HG init $1 && cd $1 && \
-         echo 'syntax: glob'  > .hgignore && \
-         echo ''             >> .hgignore && \
-         echo '.DS_Store'    >> .hgignore && \
-         echo '*.pyc'        >> .hgignore && \
-         echo '*.swp'        >> .hgignore && \
-         echo '*.swo'        >> .hgignore && \
-         echo '*.un~'        >> .hgignore && \
-         echo "[paths]\n" >> .hg/hgrc
+          echo 'syntax: glob'  > .hgignore && \
+          echo ''             >> .hgignore && \
+          echo '.DS_Store'    >> .hgignore && \
+          echo '*.pyc'        >> .hgignore && \
+          echo '*.swp'        >> .hgignore && \
+          echo '*.swo'        >> .hgignore && \
+          echo '*.un~'        >> .hgignore && \
+          echo "[paths]\n" >> .hg/hgrc
 
 qempty = !$HG qrefresh -X `$HG root`
 
@@ -153,3 +153,8 @@ cmunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
            $HG qrefresh -m "$@" && \
            $HG qfinish temp-for-under && \
            $HG qpush $HG_CUR_PATCH
+erc = !$EDITOR `$HG root`/.hg/hgrc
+
+# Install t first: http://bitbucket.org/sjl/t/
+bug = !~/lib/t/t.py --task-dir="`$HG root`" --list=BUGS $@
+todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
