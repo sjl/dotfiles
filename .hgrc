@@ -127,6 +127,7 @@ show = nlog --color=always -vpr
 
 fet = fetch --message 'Automated merge.'
 
+# Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
           echo 'syntax: glob'  > .hgignore && \
           echo ''             >> .hgignore && \
@@ -137,8 +138,12 @@ mkrepo = !$HG init $1 && cd $1 && \
           echo '*.un~'        >> .hgignore && \
           echo "[paths]\n" >> .hg/hgrc
 
+# Empty the current MQ patch.
 qempty = !$HG qrefresh -X `$HG root`
 
+# Commit under any applied MQ patches, and go back to where you were after doing so.
+# `hg ciunder` will use `$EDITOR` to get the commit message
+# `hg cmunder 'message'` takes it on the command line
 ciunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
            $HG qnew temp-for-under && \
            $HG qpop -a && \
@@ -153,8 +158,12 @@ cmunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
            $HG qrefresh -m "$@" && \
            $HG qfinish temp-for-under && \
            $HG qpush $HG_CUR_PATCH
+
+# Edit the current repo's hgrc file.
 erc = !$EDITOR `$HG root`/.hg/hgrc
 
+# Simple bug/todo tracking
+# Idea from Justin: http://gist.github.com/464871
 # Install t first: http://bitbucket.org/sjl/t/
 bug = !~/lib/t/t.py --task-dir="`$HG root`" --list=BUGS $@
 todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
