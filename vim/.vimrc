@@ -97,7 +97,6 @@ nnoremap <Space> za
 vnoremap <Space> za
 au BufNewFile,BufRead *.html map <leader>ft Vatzf
 
-set foldtext=MyFoldText()
 function! MyFoldText()
     let line = getline(v:foldstart)
 
@@ -110,9 +109,10 @@ function! MyFoldText()
     let line = substitute(line, '\t', onetab, 'g')
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 1
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
+set foldtext=MyFoldText()
 
 " Fuck you, help key.
 inoremap <F1> <ESC>:set invfullscreen<CR>a

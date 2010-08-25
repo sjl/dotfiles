@@ -167,3 +167,7 @@ erc = !$EDITOR `$HG root`/.hg/hgrc
 # Install t first: http://bitbucket.org/sjl/t/
 bug = !~/lib/t/t.py --task-dir="`$HG root`" --list=BUGS $@
 todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
+
+# Easily add ignore patterns.
+ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
+          $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'

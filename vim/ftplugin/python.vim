@@ -64,7 +64,7 @@ function! PythonFoldText()
     let line = substitute(line, '\t', onetab, 'g')
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 1
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 
