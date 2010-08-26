@@ -159,6 +159,11 @@ cmunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
            $HG qfinish temp-for-under && \
            $HG qpush $HG_CUR_PATCH
 
+pushunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
+             $HG qpop -a && \
+             $HG push $@ && \
+             $HG qpush --goto $HG_CUR_PATCH
+
 # Edit the current repo's hgrc file.
 erc = !$EDITOR `$HG root`/.hg/hgrc
 
