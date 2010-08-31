@@ -75,10 +75,10 @@ map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
 " Use the damn hjkl keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
 
 " And make them fucking work, too.
 nnoremap j gj
@@ -208,3 +208,9 @@ cmap w!! w !sudo tee % >/dev/null
 " Easy filetype switching
 nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
+
+" Learn to backspace the right way
+inoremap <BS> <nop>
+
+" VCS Stuff
+let VCSCommandMapPrefix = "<leader>h"
