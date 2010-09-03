@@ -215,8 +215,5 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 
-" Learn to backspace the right way
-inoremap <BS> <nop>
-
 " VCS Stuff
 let VCSCommandMapPrefix = "<leader>h"
