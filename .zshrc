@@ -29,6 +29,7 @@ export COMMAND_MODE=unix2003
 export R_LIBS="$HOME/lib/r"
 export BAT_CHARGE="$HOME/bin/batcharge.py"
 export RUBYOPT=rubygems
+export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
 
 # Mercurial variables --------------------------------------------------------
 export PATH="$HOME/lib/hg/hg-stable:$PATH"
