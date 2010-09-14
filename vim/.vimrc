@@ -206,7 +206,7 @@ nmap <leader>d :!hg diff %<cr>
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Edit .vimrc
-nmap <leader>V <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nmap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -217,3 +217,13 @@ nnoremap _jt :set ft=htmljinja<CR>
 
 " VCS Stuff
 let VCSCommandMapPrefix = "<leader>h"
+
+" Disable useless HTML5 junk
+let g:event_handler_attributes_complete = 0
+let g:rdfa_attributes_complete = 0
+let g:microdata_attributes_complete = 0
+let g:atia_attributes_complete = 0
+
+" Shouldn't need shift
+nnoremap ; :
+
