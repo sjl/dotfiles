@@ -227,3 +227,6 @@ let g:atia_attributes_complete = 0
 " Shouldn't need shift
 nnoremap ; :
 
+" Save when losing focus
+au FocusLost * :wa
+
