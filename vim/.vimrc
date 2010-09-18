@@ -230,3 +230,5 @@ nnoremap ; :
 " Save when losing focus
 au FocusLost * :wa
 
+" Stop it, hash key
+inoremap # X<BS>#
