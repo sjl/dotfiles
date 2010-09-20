@@ -31,9 +31,9 @@ set laststatus=2
 set undofile
 
 " Backups
-set backupdir=~/tmp,/tmp " backups (~)
-set directory=~/tmp,/tmp " swap files
-set backup               " enable backups
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set backup                        " enable backups
 
 " Leader
 let mapleader = ","
@@ -232,3 +232,24 @@ au FocusLost * :wa
 
 " Stop it, hash key
 inoremap # X<BS>#
+
+if has('gui_running')
+    set guifont=Menlo:h12
+    colorscheme molokai
+    set background=dark
+
+    set go-=T
+    set go-=l
+    set go-=L
+    set go-=r
+    set go-=R
+
+    if has("gui_macvim")
+        macmenu &File.New\ Tab key=<nop>
+        map <leader>t <Plug>PeepOpen
+    end
+
+    let g:sparkupExecuteMapping = '<D-e>'
+
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+endif

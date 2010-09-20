@@ -8,3 +8,4 @@ syntax: glob
 tags
 config/bcvi
 *.un~
+vim/tmp
