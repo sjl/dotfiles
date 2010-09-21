@@ -47,7 +47,7 @@ set incsearch
 set showmatch
 set hlsearch
 set gdefault
-map <leader><space> :let @/=''<cr>
+map <leader><space> :noh<cr>
 runtime macros/matchit.vim
 nmap <tab> %
 vmap <tab> %
@@ -129,7 +129,7 @@ au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
 au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 
 " Sort CSS
-map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:let @/=''<CR>
+map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
