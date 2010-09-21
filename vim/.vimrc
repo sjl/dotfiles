@@ -1,4 +1,5 @@
 filetype off
+call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 set nocompatible
@@ -66,9 +67,6 @@ set listchars=tab:▸\ ,eol:¬
 syntax on
 set background=dark
 colorscheme delek
-
-" Use Pathogen to load bundles
-call pathogen#runtime_append_all_bundles()
 
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
