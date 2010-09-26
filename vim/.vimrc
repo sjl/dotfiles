@@ -232,6 +232,9 @@ au FocusLost * :wa
 " Stop it, hash key
 inoremap # X<BS>#
 
+" Cram tests
+au BufNewFile,BufRead *.t set filetype=cram
+
 if has('gui_running')
     set guifont=Menlo:h12
     colorscheme molokai
