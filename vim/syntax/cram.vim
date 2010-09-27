@@ -32,6 +32,6 @@ if exists("cram_fold")
 endif
 
 syn sync match cramSync grouphere NONE "^$"
-syn sync maxlines=2000
+syn sync maxlines=200
 
 let b:current_syntax = "cram"
