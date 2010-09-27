@@ -234,6 +234,8 @@ inoremap # X<BS>#
 
 " Cram tests
 au BufNewFile,BufRead *.t set filetype=cram
+let cram_fold=1
+autocmd Syntax cram setlocal foldlevel=1
 
 if has('gui_running')
     set guifont=Menlo:h12
