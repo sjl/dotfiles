@@ -237,6 +237,16 @@ au BufNewFile,BufRead *.t set filetype=cram
 let cram_fold=1
 autocmd Syntax cram setlocal foldlevel=1
 
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+
 if has('gui_running')
     set guifont=Menlo:h12
     colorscheme molokai
