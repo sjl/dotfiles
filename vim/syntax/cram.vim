@@ -34,4 +34,8 @@ endif
 syn sync match cramSync grouphere NONE "^$"
 syn sync maxlines=200
 
+" It's okay to set tab settings here, because an indent of two spaces is specified
+" by the file format.
+setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
 let b:current_syntax = "cram"
