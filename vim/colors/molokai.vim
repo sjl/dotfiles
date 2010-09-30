@@ -105,6 +105,8 @@ hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
 hi WildMenu        guifg=#66D9EF guibg=#000000
 
+hi MyTagListFileName guifg=#F92672 guibg=#1B1D1E gui=bold
+
 
 
 if s:molokai_original == 1
