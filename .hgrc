@@ -96,9 +96,9 @@ cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 cmwn = commit -m 'Merge with Nick.'
 
-#mlocal = merge --config 'ui.merge=internal:local'
-#mother = merge --config 'ui.merge=internal:other'
-#mfail = merge --config 'ui.merge=internal:fail'
+mergelocal = $HG --config ui.merge=internal:local merge $@
+mergeother = $HG --config ui.merge=internal:other merge $@
+mergefail = $HG --config ui.merge=internal:fail merge $@
 
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
