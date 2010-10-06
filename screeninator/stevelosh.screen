@@ -1,0 +1,19 @@
+startup_message off
+vbell off
+escape ``
+autodetach on
+defscrollback 10000
+hardstatus alwayslastline
+hardstatus string '%{= kg}[ %{G} stevelosh.com %{g}][%= %{= kw}%?%-Lw%?%{r} (%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m/%d %{W}%c %{g}]'
+
+chdir "$HOME/src/stevelosh/"
+
+
+screen -t shell 1
+stuff "wo && hg pull\012"
+
+screen -t server 2
+stuff "wo && hyde -w -s . -k\012"
+
+
+select 1
