@@ -40,6 +40,7 @@ export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 # Extra shell extensions like z and tab completion for Mercurial -------------
 source ~/lib/z/z.sh
 export VEW_PATH="$HOME/lib/python/virtualenvwrapper/virtualenvwrapper.sh"
+if [[ -s $HOME/.screeninator/scripts/screeninator ]] ; then source $HOME/.screeninator/scripts/screeninator ; fi
 
 # See ------------------------------------------------------------------------
 export PYTHONPATH="$HOME/lib/python/see:$PYTHONPATH"
@@ -47,7 +48,6 @@ export PYTHONPATH="$HOME/lib/python/see:$PYTHONPATH"
 # Pre-Prompt Command ---------------------------------------------------------
 function precmd () {
     z --add "$(pwd -P)"
-    title zsh "$(pwd)"
 }
 
 # BCVI -----------------------------------------------------------------------
