@@ -252,6 +252,9 @@ let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
 map <leader>T :!/usr/local/bin/ctags -R .<CR>
 
+" Rope
+source $HOME/.vim/sadness/ropevim/rope.vim
+
 if has('gui_running')
     set guifont=Menlo:h12
     colorscheme molokai
