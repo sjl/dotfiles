@@ -121,6 +121,7 @@ vnoremap <F1> :set invfullscreen<CR>
 " Various syntax stuff
 au BufNewFile,BufRead *.less set filetype=less
 au BufRead,BufNewFile *.scss set filetype=scss
+au BufRead,BufNewFile *.confluencewiki set filetype=confluencewiki
 
 au BufNewFile,BufRead *.m*down set filetype=markdown
 au BufNewFile,BufRead *.m*down nnoremap <leader>1 yypVr=
