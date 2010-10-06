@@ -250,7 +250,7 @@ endfunc
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
-map <leader>T :!/usr/local/bin/ctags -R .<CR>
+map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " Rope
 source $HOME/.vim/sadness/ropevim/rope.vim
