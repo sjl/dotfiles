@@ -213,6 +213,10 @@ cmap w!! w !sudo tee % >/dev/null
 " Easy filetype switching
 nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
+nnoremap _cw :set ft=confluencewiki<CR>
+"
+" HALP
+nnoremap _wtfcw :!open 'http://confluence.atlassian.com/renderer/notationhelp.action?section=all'<cr>
 
 " VCS Stuff
 let VCSCommandMapPrefix = "<leader>h"
