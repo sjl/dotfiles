@@ -201,6 +201,9 @@ inoremap jj <ESC>
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
+" Make selecting inside an HTML tag less dumb
+nnoremap Vit vitVkoj
+
 " Diff
 nmap <leader>d :!hg diff %<cr>
 
@@ -256,11 +259,17 @@ endfunc
 " Tags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
+let Tlist_Show_One_File = 1
 map <F4> :TlistToggle<cr>
 map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " Rope
 source $HOME/.vim/sadness/ropevim/rope.vim
+let ropevim_enable_shortcuts = 0
+let ropevim_guess_project = 1
+noremap <leader>rr :RopeRename<CR>
+vnoremap <leader>rm :RopeExtractMethod<CR>
+noremap <leader>roi :RopeOrganizeImports<CR>
 
 if has('gui_running')
     set guifont=Menlo:h12
