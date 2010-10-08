@@ -93,7 +93,7 @@ map <leader>w <C-w>v<C-w>l
 set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
-au BufNewFile,BufRead *.html map <leader>ft Vatzf
+noremap <leader>ft Vatzf
 
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -203,6 +203,7 @@ nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
+nnoremap Vat vatV
 
 " Diff
 nmap <leader>d :!hg diff %<cr>
