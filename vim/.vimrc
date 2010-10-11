@@ -211,8 +211,9 @@ nmap <leader>d :!hg diff %<cr>
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
-" Edit .vimrc
+" Edit vim stuff.
 nmap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nmap <leader>es <C-w><C-v><C-l>:e ~/.vim/snippets/<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
