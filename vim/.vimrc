@@ -93,7 +93,7 @@ map <leader>w <C-w>v<C-w>l
 set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
-au BufNewFile,BufRead *.html map <leader>ft Vatzf
+noremap <leader>ft Vatzf
 
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -203,6 +203,7 @@ nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
+nnoremap Vat vatV
 
 " Diff
 nmap <leader>d :!hg diff %<cr>
@@ -210,8 +211,9 @@ nmap <leader>d :!hg diff %<cr>
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
-" Edit .vimrc
+" Edit vim stuff.
 nmap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nmap <leader>es <C-w><C-v><C-l>:e ~/.vim/snippets/<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
