@@ -9,3 +9,4 @@ tags
 config/bcvi
 *.un~
 vim/tmp
+vim/bundle/gundo
