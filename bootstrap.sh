@@ -12,10 +12,6 @@ mkdir -p lib/virtualenvs
 mkdir bin
 mkdir src
 
-echo '#!/usr/bin/env python' > bin/batcharge.py
-echo 'pass' >> bin/batcharge.py
-chmod u+x bin/batcharge.py
-
 hg clone 'http://selenic.com/repo/hg#stable' ~/lib/hg/hg-stable
 cd ~/lib/hg/hg-stable
 make local
@@ -43,7 +39,7 @@ ln -s "$HOME/lib/dotfiles/zsh" "$HOME/lib/oh-my-zsh/custom"
 ln -s "$HOME/lib/dotfiles/.ackrc" "$HOME/.ackrc"
 ln -s "$HOME/lib/dotfiles/.gitconfig" "$HOME/.gitconfig"
 ln -s "$HOME/lib/dotfiles/.hgrc" "$HOME/.hgrc"
-ln -s "$HOME/lib/dotfiles/vim/.vim" "$HOME/.vim"
+ln -s "$HOME/lib/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/lib/dotfiles/vim/.vimrc" "$HOME/.vimrc"
 ln -s "$HOME/lib/dotfiles/.screenrc" "$HOME/.screenrc"
 
