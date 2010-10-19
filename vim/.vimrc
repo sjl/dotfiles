@@ -273,6 +273,9 @@ noremap <leader>rr :RopeRename<CR>
 vnoremap <leader>rm :RopeExtractMethod<CR>
 noremap <leader>roi :RopeOrganizeImports<CR>
 
+" Gundo
+nnoremap <F5> :GundoToggle<CR>
+
 if has('gui_running')
     set guifont=Menlo:h12
     colorscheme molokai
