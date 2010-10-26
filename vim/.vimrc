@@ -30,6 +30,7 @@ set backspace=indent,eol,start
 set relativenumber
 set laststatus=2
 set undofile
+set undoreload=10000
 
 " Backups
 set backupdir=~/.vim/tmp/backup// " backups
@@ -130,17 +131,13 @@ au BufNewFile,BufRead *.m*down nnoremap <leader>1 yypVr=
 au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
 au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 
+au BufNewFile,BufRead *.vim set foldmethod=marker
+
 " Sort CSS
 map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Exuberant ctags!
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-let Tlist_WinWidth = 50
-map <F4> :TlistToggle<cr>
-map <F5> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --exclude='@.ctagsignore' .<cr>
 
 " Ack
 map <leader>a :Ack 
@@ -274,7 +271,8 @@ vnoremap <leader>rm :RopeExtractMethod<CR>
 noremap <leader>roi :RopeOrganizeImports<CR>
 
 " Gundo
-nnoremap <F5> :GundoToggle<CR>
+nnoremap U :GundoToggle<cr>
+let g:gundo_debug = 1
 
 if has('gui_running')
     set guifont=Menlo:h12
