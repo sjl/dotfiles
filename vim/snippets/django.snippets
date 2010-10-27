@@ -69,6 +69,12 @@ snippet form
 		"""${2:docstring}"""
 		${3}
 
+snippet manager
+	class $1:{ModelName}Manager(models.Manager):
+		def get_query_set(self):
+			return super($1Manager, self).get_query_set()
+		${3}
+
 snippet model
 	class ${1:ModelName}(models.Model):
 		"""${2:docstring}"""
