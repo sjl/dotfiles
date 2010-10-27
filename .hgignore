@@ -8,5 +8,9 @@ syntax: glob
 tags
 config/bcvi
 *.un~
+
 vim/tmp
 vim/bundle/gundo
+
+mutt/temp
+mutt/cache

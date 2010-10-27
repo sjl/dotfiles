@@ -19,6 +19,7 @@ export PATH="/opt/subversion/bin:${PATH}"
 export PATH="${PATH}:/usr/local/Cellar/PyPi/3.6/bin"
 export PATH="${PATH}:/usr/local/Cellar/python/2.6.4/bin"
 export PATH="${PATH}:/usr/local/Cellar/python/2.6.5/bin"
+export PATH="${PATH}:/usr/local/Cellar/python/2.7/bin"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
