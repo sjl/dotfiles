@@ -1,0 +1,56 @@
+# set default
+color normal     white         default
+
+# main colors
+color status     green         default
+color indicator  yellow        default
+color tree       blue          default
+color error      red     default
+color message    yellow  default
+
+# uncolor certain messages
+uncolor index "~P"
+uncolor index "~N ~u"
+uncolor index "~N !~u"
+uncolor index "~T"
+uncolor index "~D"
+
+# and recolor them appropriately
+color index      brightblack   default "~P"
+color index      brightcyan    default "~N ~u"  # new ML mail
+color index      brightyellow  default "~N !~u" # new non-ML mail
+color index      brightgreen   default "~T"
+color index      brightred     default "~D"
+
+# set up the headers
+color header     brightyellow  default "^from:"
+color header     yellow        default "^to:"
+color header     yellow        default "^cc:"
+color header     blue          default "^date:"
+color header     brightblue    default "^subject:"
+
+# message bodies
+color attachment brightblack   default
+color search     red           brightblack
+color signature  cyan          default
+color tilde      blue          default
+
+# urls
+color body       brightblue    default "(^|<| )mailto:[^ ]+@[^ ]( |>|$)"
+color body       brightblue    default "(^|<| )(http|https|ftp|file|telnet|news|finger)://[^ ]+( |>|$)"
+
+# *bold*, _underline_, and /italic/
+color body       brightcyan    default "(^| )\\*[^*]+\\*( |$)"
+color body       brightcyan    default "(^| )_[^_]+_( |$)"
+color body       brightcyan    default "(^| )/[^/]+/( |$)"
+
+# quote blocks
+color quoted     magenta       default
+color quoted1    cyan          default
+color quoted2    green         default
+color quoted3    magenta       default
+color quoted4    cyan          default
+color quoted5    green         default
+color quoted6    magenta       default
+color quoted7    cyan          default
+

@@ -1,0 +1,116 @@
+# directories and commands
+set alias_file          = ~/.mutt/alias                         # alias file
+set header_cache        = ~/.mutt/cache/headers                 # where to store headers        
+set message_cachedir    = ~/.mutt/cache/bodies                  # where to store bodies
+set certificate_file    = ~/.mutt/certificates                  # where to store certs
+set mailcap_path        = ~/.mutt/mailcap                       # entrys for filetypes
+set signature           = ~/.mutt/sig                           # my signature file
+set tmpdir              = ~/.mutt/temp                          # where to keep temp files
+set editor              = "mvim -f +/^$"                        # use vim and skip to first blank line
+set print_command       = /usr/bin/enscript                     # print with enscript
+
+# main options
+set mbox_type           = Maildir                               # mailbox type
+set folder              = ~/.mail                               # mailbox location
+set spoolfile           = "+steve-stevelosh.com/INBOX"          # GMail is default inbox
+set timeout             = 3                                     # idle time before scanning
+set mail_check          = 0                                     # minimum time between scans
+set sort_alias          = alias                                 # sort alias file by alias
+set reverse_alias                                               # show names from alias file in index
+unset move                                                      # gmail does that
+set delete                                                      # don't ask, just do
+unset confirmappend                                             # don't ask, just do!
+set quit                                                        # don't ask, just do!!
+unset mark_old                                                  # read/new is good enough for me
+set beep_new                                                    # bell on new mails
+set pipe_decode                                                 # strip headers and eval mimes when piping
+set thorough_search                                             # strip headers and eval mimes before searching
+
+# index options
+set sort                = threads                               # like gmail 
+set sort_aux            = reverse-last-date-received            # like gmail
+set uncollapse_jump                                             # don't collapse on an unread message 
+set sort_re                                                     # thread based on regex
+set reply_regexp        = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# pager options
+set pager_index_lines   = 10                                    # number of index lines to show 
+set pager_context       = 5                                     # number of context lines to show
+set pager_stop                                                  # don't go to next message automatically
+set menu_scroll                                                 # scroll in menus 
+set smart_wrap                                                  # don't split words
+set tilde                                                       # show tildes like in vim
+unset markers                                                   # no ugly plus signs
+auto_view text/html                                             # view html automatically
+alternative_order text/plain text/enriched text/html            # save html for last
+set quote_regexp        = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+# formats
+set date_format         = "%m/%d/%y at %I:%M%P"
+set index_format        = "[%Z]  %D  %-20.20F  %s"
+set status_format       = "-%r- %v ---[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
+set alias_format        = "%4n %t %-20a  %r"
+
+# composing mail
+set realname            = "Steve Losh"                          # who am i?
+set envelope_from                                               # which from?
+set sig_dashes                                                  # dashes before my sig... sweet
+set edit_headers                                                # show headers when composing
+set fast_reply                                                  # skip to compose when replying
+set sendmail_wait       = -1                                    # don't wait for sending... to complete
+set askcc                                                       # ask for CC:
+set fcc_attach                                                  # save attachments with the body
+unset mime_forward                                              # forward attachments as part of body
+set forward_format      = "Fwd: %s"                             # format for subject when forwarding
+set forward_decode                                              # decode when forwarding
+set attribution         = "On %d, %n wrote:"                    # set the attribution
+set reply_to                                                    # reply to Reply to: field
+set reverse_name                                                # reply as whomever it was to
+set include                                                     # include message in replies
+set forward_quote                                               # include message in forwards
+
+# headers to show
+ignore *                                                        # ignore all headers
+unignore from: to: cc: date: subject:                           # show only these
+hdr_order from: to: cc: date: subject:                          # and in this order
+
+# boxes
+mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts +steve-stevelosh.com/spam +steve-stevelosh.com/trash
+
+# always sourced
+#source $alias_file                                              # required for functionality
+source ~/.mutt/colors.muttrc                                    # source colors file
+source ~/.mutt/steve-stevelosh.com.muttrc                                     # source gmail as default
+source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
+
+# account specific sources
+folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
+
+# these just give me headaches
+bind index,pager \#     noop
+bind index i            noop
+
+# bindings
+bind pager i            exit
+bind pager /            search
+bind pager <up>         previous-line
+bind pager <down>       next-line
+bind pager k            previous-line
+bind pager j            next-line
+bind pager gg           top
+bind pager G            bottom
+bind index gg           first-entry
+bind index G            last-entry
+bind pager K            previous-undeleted
+bind pager J            next-undeleted
+bind index K            previous-unread
+bind index J            next-unread
+bind index,pager R      group-reply
+
+# macros
+macro index \Cr "<tag-prefix><clear-flag>N" "mark tagged messages as read"
+macro index B   "<limit>~b "                "search message bodies"
+macro index I   "<change-folder>!<enter>"   "go to Inbox"
+
+# save a decoded copy in ~
+macro index P   "<pipe-message>cat > ~/Desktop/"    "save message as"
