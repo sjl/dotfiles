@@ -69,9 +69,9 @@ endfunction
 noremap <unique> <script> <Plug>MakeGreen <SID>Make
 noremap <SID>Make :call <SID>RunMake()<CR>
 
-if !hasmapto('<Plug>MakeGreen')
-  map <unique> <silent> <Leader>test <Plug>MakeGreen
-endif
+"if !hasmapto('<Plug>MakeGreen')
+  "map <unique> <silent> <Leader>test <Plug>MakeGreen
+"endif
 " }}}1
 
 let &cpo = s:save_cpo
