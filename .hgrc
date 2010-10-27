@@ -89,8 +89,6 @@ addremove = --similarity 100
 nudge = push --branch .
 st = status -C
 ? = summary
-pullr = pull --remotecmd '~/bin/hg'
-pushr = push --remotecmd '~/bin/hg'
 
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
@@ -129,6 +127,7 @@ n = nlog -vr
 show = nlog --color=always -vpr
 
 fet = fetch --message 'Automated merge.'
+qpp = push -r qparent
 
 # Make a new repo with some sensible defaults.
 mkrepo = !$HG init $1 && cd $1 && \
