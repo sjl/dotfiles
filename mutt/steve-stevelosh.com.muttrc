@@ -1,0 +1,13 @@
+color status green default
+
+set from      = "steve@stevelosh.com"
+set sendmail  = "/usr/local/bin/msmtp -a stevelosh"
+set mbox      = "+steve-stevelosh.com/archive"
+unset record
+set postponed = "+steve-stevelosh.com/drafts"
+
+macro index E "<change-folder>+steve-stevelosh.com/archive<enter><limit>~B " "search everything"
+macro index A "<save-message>+steve-stevelosh.com/archive<enter>"            "move message to the archive"
+macro index D "<save-message>+steve-stevelosh.com/trash<enter>"              "move message to the trash"
+macro index S "<save-message>+steve-stevelosh.com/spam<enter>"               "mark message as spam"
+
