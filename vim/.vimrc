@@ -222,6 +222,7 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
+nnoremap _pd :set ft=python.django<CR>
 "
 " HALP
 nnoremap _wtfcw :!open 'http://confluence.atlassian.com/renderer/notationhelp.action?section=all'<cr>
@@ -274,7 +275,158 @@ vnoremap <leader>rm :RopeExtractMethod<CR>
 noremap <leader>roi :RopeOrganizeImports<CR>
 
 " Gundo
-nnoremap <F5> :GundoToggle<CR>
+nnoremap U :GundoToggle<CR>
+
+" Next
+nnoremap cinb f(ci(
+nnoremap canb f(ca(
+nnoremap cinB f{ci{
+nnoremap canB f{ca{
+nnoremap cin( f(ci(
+nnoremap can( f(ca(
+nnoremap cin{ f{ci{
+nnoremap can{ f{ca{
+nnoremap cin) f(ci(
+nnoremap can) f(ca(
+nnoremap cin} f{ci{
+nnoremap can} f{ca{
+nnoremap cin[ f[ci[
+nnoremap can[ f[ca[
+nnoremap cin] f[ci[
+nnoremap can] f[ca[
+nnoremap cin< f<ci<
+nnoremap can< f<ca<
+nnoremap cin> f<ci<
+nnoremap can> f<ca<
+nnoremap cin' f'ci'
+nnoremap can' f'ca'
+nnoremap cin" f"ci"
+nnoremap can" f"ca"
+
+nnoremap dinb f(di(
+nnoremap danb f(da(
+nnoremap dinB f{di{
+nnoremap danB f{da{
+nnoremap din( f(di(
+nnoremap dan( f(da(
+nnoremap din{ f{di{
+nnoremap dan{ f{da{
+nnoremap din) f(di(
+nnoremap dan) f(da(
+nnoremap din} f{di{
+nnoremap dan} f{da{
+nnoremap din[ f[di[
+nnoremap dan[ f[da[
+nnoremap din] f[di[
+nnoremap dan] f[da[
+nnoremap din< f<di<
+nnoremap dan< f<da<
+nnoremap din> f<di<
+nnoremap dan> f<da<
+nnoremap din' f'di'
+nnoremap dan' f'da'
+nnoremap din" f"di"
+nnoremap dan" f"da"
+
+nnoremap yinb f(yi(
+nnoremap yanb f(ya(
+nnoremap yinB f{yi{
+nnoremap yanB f{ya{
+nnoremap yin( f(yi(
+nnoremap yan( f(ya(
+nnoremap yin{ f{yi{
+nnoremap yan{ f{ya{
+nnoremap yin) f(yi(
+nnoremap yan) f(ya(
+nnoremap yin} f{yi{
+nnoremap yan} f{ya{
+nnoremap yin[ f[yi[
+nnoremap yan[ f[ya[
+nnoremap yin] f[yi[
+nnoremap yan] f[ya[
+nnoremap yin< f<yi<
+nnoremap yan< f<ya<
+nnoremap yin> f<yi<
+nnoremap yan> f<ya<
+nnoremap yin' f'yi'
+nnoremap yan' f'ya'
+nnoremap yin" f"yi"
+nnoremap yan" f"ya"
+
+nnoremap ciNb F(ci(
+nnoremap caNb F(ca(
+nnoremap ciNB F{ci{
+nnoremap caNB F{ca{
+nnoremap ciN( F(ci(
+nnoremap caN( F(ca(
+nnoremap ciN{ F{ci{
+nnoremap caN{ F{ca{
+nnoremap ciN) F(ci(
+nnoremap caN) F(ca(
+nnoremap ciN} F{ci{
+nnoremap caN} F{ca{
+nnoremap ciN[ F[ci[
+nnoremap caN[ F[ca[
+nnoremap ciN] F[ci[
+nnoremap caN] F[ca[
+nnoremap ciN< F<ci<
+nnoremap caN< F<ca<
+nnoremap ciN> F<ci<
+nnoremap caN> F<ca<
+nnoremap ciN' F'ci'
+nnoremap caN' F'ca'
+nnoremap ciN" F"ci"
+nnoremap caN" F"ca"
+
+nnoremap diNb F(di(
+nnoremap daNb F(da(
+nnoremap diNB F{di{
+nnoremap daNB F{da{
+nnoremap diN( F(di(
+nnoremap daN( F(da(
+nnoremap diN{ F{di{
+nnoremap daN{ F{da{
+nnoremap diN) F(di(
+nnoremap daN) F(da(
+nnoremap diN} F{di{
+nnoremap daN} F{da{
+nnoremap diN[ F[di[
+nnoremap daN[ F[da[
+nnoremap diN] F[di[
+nnoremap daN] F[da[
+nnoremap diN< F<di<
+nnoremap daN< F<da<
+nnoremap diN> F<di<
+nnoremap daN> F<da<
+nnoremap diN' F'di'
+nnoremap daN' F'da'
+nnoremap diN" F"di"
+nnoremap daN" F"da"
+
+nnoremap yiNb F(yi(
+nnoremap yaNb F(ya(
+nnoremap yiNB F{yi{
+nnoremap yaNB F{ya{
+nnoremap yiN( F(yi(
+nnoremap yaN( F(ya(
+nnoremap yiN{ F{yi{
+nnoremap yaN{ F{ya{
+nnoremap yiN) F(yi(
+nnoremap yaN) F(ya(
+nnoremap yiN} F{yi{
+nnoremap yaN} F{ya{
+nnoremap yiN[ F[yi[
+nnoremap yaN[ F[ya[
+nnoremap yiN] F[yi[
+nnoremap yaN] F[ya[
+nnoremap yiN< F<yi<
+nnoremap yaN< F<ya<
+nnoremap yiN> F<yi<
+nnoremap yaN> F<ya<
+nnoremap yiN' F'yi'
+nnoremap yaN' F'ya'
+nnoremap yiN" F"yi"
+nnoremap yaN" F"ya"
 
 if has('gui_running')
     set guifont=Menlo:h12
