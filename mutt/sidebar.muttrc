@@ -1,0 +1,17 @@
+###
+# options specific to mutt's sidebar patch
+###
+
+# settings
+  set sidebar_delim       = '  │'
+  set sidebar_visible     = yes
+  set sidebar_width       = 20
+
+# colors
+color sidebar_new cyan default
+
+# bindings
+bind index,pager \CN    sidebar-next
+bind index,pager \CP    sidebar-prev
+bind index,pager \CO    sidebar-open
+
