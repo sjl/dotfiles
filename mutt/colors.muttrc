@@ -1,56 +1,39 @@
-# set default
-color normal     white         default
+# general-doesn't-fit stuff
+color normal color252 color233
+color error color193 color124
+color markers color142 color233
+color tilde color142 color233
+color status color172 color233
 
-# main colors
-color status     green         default
-color indicator  yellow        default
-color tree       blue          default
-color error      red     default
-color message    yellow  default
+# index stuff
+color tree color244 color233
+color indicator color255 color235
+color index color117 color233 ~N
+color index color124 color233 ~D
 
-# uncolor certain messages
-uncolor index "~P"
-uncolor index "~N ~u"
-uncolor index "~N !~u"
-uncolor index "~T"
-uncolor index "~D"
+# header stuff
+color hdrdefault color248 color233
+color header color226 color233 "^Subject"
 
-# and recolor them appropriately
-color index      brightblack   default "~P"
-color index      brightcyan    default "~N ~u"  # new ML mail
-color index      brightyellow  default "~N !~u" # new non-ML mail
-color index      brightgreen   default "~T"
-color index      brightred     default "~D"
+# url, email and web stuff
+color body color68 color233 "(finger|ftp|http|https|news|telnet)://[^ >]*"
+color body color111 color233 "<URL:[^ ]*>"
+color body color111 color233 "www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+color body color111 color233 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 
-# set up the headers
-color header     brightyellow  default "^from:"
-color header     yellow        default "^to:"
-color header     yellow        default "^cc:"
-color header     blue          default "^date:"
-color header     brightblue    default "^subject:"
+# misc body stuff
+color attachment color111 color233
+color signature color244 color233
 
-# message bodies
-color attachment brightblack   default
-color search     red           brightblack
-color signature  cyan          default
-color tilde      blue          default
-
-# urls
-color body       brightblue    default "(^|<| )mailto:[^ ]+@[^ ]( |>|$)"
-color body       brightblue    default "(^|<| )(http|https|ftp|file|telnet|news|finger)://[^ ]+( |>|$)"
-
-# *bold*, _underline_, and /italic/
-color body       brightcyan    default "(^| )\\*[^*]+\\*( |$)"
-color body       brightcyan    default "(^| )_[^_]+_( |$)"
-color body       brightcyan    default "(^| )/[^/]+/( |$)"
-
-# quote blocks
-color quoted     magenta       default
-color quoted1    cyan          default
-color quoted2    green         default
-color quoted3    magenta       default
-color quoted4    cyan          default
-color quoted5    green         default
-color quoted6    magenta       default
-color quoted7    cyan          default
+# quote levels
+color quoted color34   default
+color quoted1 color142 default
+color quoted2 color34  default
+color quoted3 color142 default
+color quoted4 color34  default
+color quoted5 color142 default
+color quoted6 color34  default
+color quoted7 color142 default
+color quoted8 color34  default
+color quoted9 color142 default
 

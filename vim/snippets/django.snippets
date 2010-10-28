@@ -70,7 +70,7 @@ snippet form
 		${3}
 
 snippet manager
-	class $1:{ModelName}Manager(models.Manager):
+	class ${1:ModelName}Manager(models.Manager):
 		def get_query_set(self):
 			return super($1Manager, self).get_query_set()
 		${3}
@@ -119,3 +119,8 @@ snippet stackedinline
 	class ${1:ModelName}Inline(admin.StackedInline):
 		model = $1
 		extra = ${2:3}
+
+# Ugly crap.
+
+snippet reverse
+	reverse('${1:view-name}'${2:, args=[]}${3:, kwargs=None})${4}
