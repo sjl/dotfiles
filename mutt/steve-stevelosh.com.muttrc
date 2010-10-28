@@ -1,5 +1,3 @@
-color status green default
-
 set from      = "steve@stevelosh.com"
 set sendmail  = "/usr/local/bin/msmtp -a stevelosh"
 set mbox      = "+steve-stevelosh.com/archive"
