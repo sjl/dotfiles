@@ -1,0 +1,5 @@
+apropos
+dir
+dir-fn
+source
+source-fn
