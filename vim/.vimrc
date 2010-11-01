@@ -274,6 +274,7 @@ noremap <leader>roi :RopeOrganizeImports<CR>
 " Gundo
 nnoremap U :GundoToggle<CR>
 let g:gundo_debug = 1
+let g:gundo_preview_bottom = 1
 
 " Next
 nnoremap cinb f(ci(
