@@ -1,7 +1,22 @@
 [general]
 ui = TTY.TTYUI
-accounts = SteveLosh
+accounts = SteveLosh, Dumbwaiter
 pythonfile=~/.mutt/offlineimap.py
+
+[Account Dumbwaiter]
+localrepository = Dumbwaiter-Local
+remoterepository = Dumbwaiter-Remote
+
+[Repository Dumbwaiter-Local]
+type = Maildir
+localfolders = ~/.mail/steve-dumbwaiterdesign.com
+
+[Repository Dumbwaiter-Remote]
+type = Gmail
+remoteuser = steve@dumbwaiterdesign.com
+remotepasseval = get_keychain_pass(account="steve@dumbwaiterdesign.com", server="imap.gmail.com")
+realdelete = no
+nametrans = lambda folder: re.sub('.*Spam$', 'spam', re.sub('.*Drafts$', 'drafts', re.sub('.*Sent Mail$', 'sent', re.sub('.*Starred$', 'flagged', re.sub('.*Trash$', 'trash', re.sub('.*All Mail$', 'archive', folder))))))
 
 [Account SteveLosh]
 localrepository = SteveLosh-Local
