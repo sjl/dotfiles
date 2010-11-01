@@ -111,6 +111,11 @@ macro index \Cr "<tag-prefix><clear-flag>N"                                 "mar
 macro index \CR "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 macro index B   "<limit>~b "                                                "search message bodies"
 macro index I   "<change-folder>!<enter>"                                   "go to Inbox"
+macro pager \Cu |urlview<enter>                                             "call urlview to extract URLs out of a message"
+
+# mailbox
+macro index ( "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
+macro index ) "<change-folder>+steve-dumbwaiterdesign.com/INBOX<enter>"   "go to dwaiter/INBOX"
 
 # save a decoded copy in ~
 macro index P   "<pipe-message>cat > ~/Desktop/"    "save message as"
