@@ -40,6 +40,9 @@ set backup                        " enable backups
 " Leader
 let mapleader = ","
 
+" Make Y not dumb
+nnoremap Y y$
+
 " Searching
 nnoremap / /\v
 vnoremap / /\v
@@ -426,6 +429,10 @@ nnoremap yiN' F'yi'
 nnoremap yaN' F'ya'
 nnoremap yiN" F"yi"
 nnoremap yaN" F"ya"
+
+" VimClojure
+let vimclojure#HighlightBuiltins=1
+let vimclojure#ParenRainbow=1
 
 if has('gui_running')
     set guifont=Menlo:h12
