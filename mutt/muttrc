@@ -75,16 +75,17 @@ unignore from: to: cc: date: subject:                           # show only thes
 hdr_order from: to: cc: date: subject:                          # and in this order
 
 # boxes
-mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts +steve-stevelosh.com/spam +steve-stevelosh.com/trash
+mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts +steve-stevelosh.com/spam +steve-stevelosh.com/trash +steve-dumbwaiterdesign.com/INBOX +steve-dumbwaiterdesign.com/archive +steve-dumbwaiterdesign.com/sent +steve-dumbwaiterdesign.com/drafts +steve-dumbwaiterdesign.com/spam +steve-dumbwaiterdesign.com/trash
 
 # always sourced
-#source $alias_file                                              # required for functionality
+#source $alias_file                                             # required for functionality
 source ~/.mutt/colors.muttrc                                    # source colors file
-source ~/.mutt/steve-stevelosh.com.muttrc                                     # source gmail as default
+source ~/.mutt/steve-stevelosh.com.muttrc                       # source gmail as default
 source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
 
 # account specific sources
 folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
+folder-hook steve-dumbwaiterdesign.com/* source ~/.mutt/steve-dumbwaiterdesign.com.muttrc
 
 # these just give me headaches
 bind index,pager \#     noop
@@ -93,8 +94,6 @@ bind index i            noop
 # bindings
 bind pager i            exit
 bind pager /            search
-bind pager <up>         previous-line
-bind pager <down>       next-line
 bind pager k            previous-line
 bind pager j            next-line
 bind pager gg           top
@@ -108,9 +107,10 @@ bind index J            next-unread
 bind index,pager R      group-reply
 
 # macros
-macro index \Cr "<tag-prefix><clear-flag>N" "mark tagged messages as read"
-macro index B   "<limit>~b "                "search message bodies"
-macro index I   "<change-folder>!<enter>"   "go to Inbox"
+macro index \Cr "<tag-prefix><clear-flag>N"                                 "mark tagged messages as read"
+macro index \CR "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index B   "<limit>~b "                                                "search message bodies"
+macro index I   "<change-folder>!<enter>"                                   "go to Inbox"
 
 # save a decoded copy in ~
 macro index P   "<pipe-message>cat > ~/Desktop/"    "save message as"

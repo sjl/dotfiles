@@ -11,7 +11,7 @@ set sidebar_width       = 20
 color sidebar_new color117 color233
 
 # bindings
-bind index,pager \CN    sidebar-next
-bind index,pager \CP    sidebar-prev
-bind index,pager \CO    sidebar-open
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
 
