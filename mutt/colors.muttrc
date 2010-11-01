@@ -26,14 +26,14 @@ color attachment color111 color233
 color signature color244 color233
 
 # quote levels
-color quoted color34   default
-color quoted1 color142 default
-color quoted2 color34  default
-color quoted3 color142 default
-color quoted4 color34  default
-color quoted5 color142 default
-color quoted6 color34  default
-color quoted7 color142 default
-color quoted8 color34  default
-color quoted9 color142 default
+color quoted color34   color233
+color quoted1 color142 color233
+color quoted2 color34  color233
+color quoted3 color142 color233
+color quoted4 color34  color233
+color quoted5 color142 color233
+color quoted6 color34  color233
+color quoted7 color142 color233
+color quoted8 color34  color233
+color quoted9 color142 color233
 
