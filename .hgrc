@@ -138,6 +138,8 @@ mkrepo = !$HG init $1 && cd $1 && \
           echo '*.swp'        >> .hgignore && \
           echo '*.swo'        >> .hgignore && \
           echo '*.un~'        >> .hgignore && \
+          echo '.ropeproject' >> .hgignore && \
+          echo 'tags'         >> .hgignore && \
           echo "[paths]\n" >> .hg/hgrc
 
 # Empty the current MQ patch.
