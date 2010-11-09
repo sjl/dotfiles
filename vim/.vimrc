@@ -455,4 +455,6 @@ if has('gui_running')
     let g:sparkupExecuteMapping = '<D-e>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
+else
+    set nocursorline
 endif
