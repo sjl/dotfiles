@@ -281,156 +281,39 @@ nnoremap U :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
 
-" Next
-nnoremap cinb f(ci(
-nnoremap canb f(ca(
-nnoremap cinB f{ci{
-nnoremap canB f{ca{
-nnoremap cin( f(ci(
-nnoremap can( f(ca(
-nnoremap cin{ f{ci{
-nnoremap can{ f{ca{
-nnoremap cin) f(ci(
-nnoremap can) f(ca(
-nnoremap cin} f{ci{
-nnoremap can} f{ca{
-nnoremap cin[ f[ci[
-nnoremap can[ f[ca[
-nnoremap cin] f[ci[
-nnoremap can] f[ca[
-nnoremap cin< f<ci<
-nnoremap can< f<ca<
-nnoremap cin> f<ci<
-nnoremap can> f<ca<
-nnoremap cin' f'ci'
-nnoremap can' f'ca'
-nnoremap cin" f"ci"
-nnoremap can" f"ca"
+" Shortcut for square brackets
+onoremap id i[
+onoremap ad a[
 
-nnoremap dinb f(di(
-nnoremap danb f(da(
-nnoremap dinB f{di{
-nnoremap danB f{da{
-nnoremap din( f(di(
-nnoremap dan( f(da(
-nnoremap din{ f{di{
-nnoremap dan{ f{da{
-nnoremap din) f(di(
-nnoremap dan) f(da(
-nnoremap din} f{di{
-nnoremap dan} f{da{
-nnoremap din[ f[di[
-nnoremap dan[ f[da[
-nnoremap din] f[di[
-nnoremap dan] f[da[
-nnoremap din< f<di<
-nnoremap dan< f<da<
-nnoremap din> f<di<
-nnoremap dan> f<da<
-nnoremap din' f'di'
-nnoremap dan' f'da'
-nnoremap din" f"di"
-nnoremap dan" f"da"
+" Next ()
+onoremap <silent> inb :<C-U>normal! f(vib<cr>
+onoremap <silent> anb :<C-U>normal! f(vab<cr>
+onoremap <silent> in( :<C-U>normal! f(vi(<cr>
+onoremap <silent> an( :<C-U>normal! f(va(<cr>
 
-nnoremap yinb f(yi(
-nnoremap yanb f(ya(
-nnoremap yinB f{yi{
-nnoremap yanB f{ya{
-nnoremap yin( f(yi(
-nnoremap yan( f(ya(
-nnoremap yin{ f{yi{
-nnoremap yan{ f{ya{
-nnoremap yin) f(yi(
-nnoremap yan) f(ya(
-nnoremap yin} f{yi{
-nnoremap yan} f{ya{
-nnoremap yin[ f[yi[
-nnoremap yan[ f[ya[
-nnoremap yin] f[yi[
-nnoremap yan] f[ya[
-nnoremap yin< f<yi<
-nnoremap yan< f<ya<
-nnoremap yin> f<yi<
-nnoremap yan> f<ya<
-nnoremap yin' f'yi'
-nnoremap yan' f'ya'
-nnoremap yin" f"yi"
-nnoremap yan" f"ya"
+" Next {}
+onoremap <silent> inB :<C-U>normal! f{viB<cr>
+onoremap <silent> anB :<C-U>normal! f{vaB<cr>
+onoremap <silent> in{ :<C-U>normal! f{vi{<cr>
+onoremap <silent> an{ :<C-U>normal! f{va{<cr>
 
-nnoremap ciNb F(ci(
-nnoremap caNb F(ca(
-nnoremap ciNB F{ci{
-nnoremap caNB F{ca{
-nnoremap ciN( F(ci(
-nnoremap caN( F(ca(
-nnoremap ciN{ F{ci{
-nnoremap caN{ F{ca{
-nnoremap ciN) F(ci(
-nnoremap caN) F(ca(
-nnoremap ciN} F{ci{
-nnoremap caN} F{ca{
-nnoremap ciN[ F[ci[
-nnoremap caN[ F[ca[
-nnoremap ciN] F[ci[
-nnoremap caN] F[ca[
-nnoremap ciN< F<ci<
-nnoremap caN< F<ca<
-nnoremap ciN> F<ci<
-nnoremap caN> F<ca<
-nnoremap ciN' F'ci'
-nnoremap caN' F'ca'
-nnoremap ciN" F"ci"
-nnoremap caN" F"ca"
+" Next []
+onoremap <silent> ind :<C-U>normal! f[vi[<cr>
+onoremap <silent> and :<C-U>normal! f[va[<cr>
+onoremap <silent> in[ :<C-U>normal! f[vi[<cr>
+onoremap <silent> an[ :<C-U>normal! f[va[<cr>
 
-nnoremap diNb F(di(
-nnoremap daNb F(da(
-nnoremap diNB F{di{
-nnoremap daNB F{da{
-nnoremap diN( F(di(
-nnoremap daN( F(da(
-nnoremap diN{ F{di{
-nnoremap daN{ F{da{
-nnoremap diN) F(di(
-nnoremap daN) F(da(
-nnoremap diN} F{di{
-nnoremap daN} F{da{
-nnoremap diN[ F[di[
-nnoremap daN[ F[da[
-nnoremap diN] F[di[
-nnoremap daN] F[da[
-nnoremap diN< F<di<
-nnoremap daN< F<da<
-nnoremap diN> F<di<
-nnoremap daN> F<da<
-nnoremap diN' F'di'
-nnoremap daN' F'da'
-nnoremap diN" F"di"
-nnoremap daN" F"da"
+" Next <>
+onoremap <silent> in< :<C-U>normal! f<vi<<cr>
+onoremap <silent> an< :<C-U>normal! f<va<<cr>
 
-nnoremap yiNb F(yi(
-nnoremap yaNb F(ya(
-nnoremap yiNB F{yi{
-nnoremap yaNB F{ya{
-nnoremap yiN( F(yi(
-nnoremap yaN( F(ya(
-nnoremap yiN{ F{yi{
-nnoremap yaN{ F{ya{
-nnoremap yiN) F(yi(
-nnoremap yaN) F(ya(
-nnoremap yiN} F{yi{
-nnoremap yaN} F{ya{
-nnoremap yiN[ F[yi[
-nnoremap yaN[ F[ya[
-nnoremap yiN] F[yi[
-nnoremap yaN] F[ya[
-nnoremap yiN< F<yi<
-nnoremap yaN< F<ya<
-nnoremap yiN> F<yi<
-nnoremap yaN> F<ya<
-nnoremap yiN' F'yi'
-nnoremap yaN' F'ya'
-nnoremap yiN" F"yi"
-nnoremap yaN" F"ya"
+" Next ''
+onoremap <silent> in' :<C-U>normal! f'vi'<cr>
+onoremap <silent> an' :<C-U>normal! f'va'<cr>
+
+" Next ""
+onoremap <silent> in" :<C-U>normal! f"vi"<cr>
+onoremap <silent> an" :<C-U>normal! f"va"<cr>
 
 " VimClojure
 let vimclojure#HighlightBuiltins=1
