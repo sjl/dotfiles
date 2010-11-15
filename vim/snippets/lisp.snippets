@@ -1,33 +1,34 @@
 snippet defp
-	(defparameter ${1:name} ${2:value})${3}
+	(defparameter ${1} ${2})${3}
 snippet defv
-	(defvar ${1:name} ${2:value})${3}
+	(defvar ${1} ${2})${3}
 snippet defun
-	(defun ${1:name} (${2:arguments})
-	  ${3:body})
+	(defun ${1} (${2})
+	  ${3})
+snippet defm
+	(defmethod ${1} (${2})
+	  ${3})
 snippet let
-	(let ((${1:name} ${2:value})${3: others})
-	  ${4:body})
+	(let ((${1} ${2})${3})
+	  ${4})
 snippet flet
-	(flet ((${1:name} (${2:arguments})
-	         ${3:body})${4: others})
-	  ${5:body})
+	(flet ((${1} (${2})
+	         ${3})${4})
+	  ${5})
 snippet labels
-	(labels ((${1:name} (${2:arguments})
-	           ${3:body})${4: others})
-	  ${5:body})
+	(labels ((${1} (${2})
+	           ${3})${4})
+	  ${5})
 snippet when
-	(when ${1:condition}
-	      ${2:body})
+	(when ${1}
+	      ${2})
 snippet unless
-	(unless ${1:condition}
-	        ${2:body})
+	(unless ${1}
+	        ${2})
 snippet cond
-	(cond (${1:condition} ${2:body})
-		  ${3:others})
+	(cond (${1} ${2})
+		  ${3})
 snippet case
-	(case ${1:item}
-		 (${2:option} ${3:body})
-		 ${4:others})
-snippet mem
-	(member ${1:item} ${2:list})
+	(case ${1}
+		 (${2} ${3})
+		 ${4})
