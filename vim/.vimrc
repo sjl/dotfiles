@@ -318,6 +318,9 @@ onoremap <silent> an' :<C-U>normal! f'va'<cr>
 onoremap <silent> in" :<C-U>normal! f"vi"<cr>
 onoremap <silent> an" :<C-U>normal! f"va"<cr>
 
+" Skipreturn
+inoremap <c-cr> <esc>A<cr>
+
 " VimClojure
 let vimclojure#HighlightBuiltins=1
 let vimclojure#ParenRainbow=1
@@ -336,6 +339,7 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
+        map <D-t> <Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
