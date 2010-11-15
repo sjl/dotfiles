@@ -77,26 +77,16 @@ snippet manager
 
 snippet model
 	class ${1:ModelName}(models.Model):
-		"""${2:docstring}"""
-		${3}
+		${2}
 
 		created = models.DateTimeField(auto_now_add=True, editable=False)
 		modified = models.DateTimeField(auto_now=True, editable=False)
 	
 		class Meta:
 			ordering = ['-created']
-			${4}
 		
 		def __unicode__(self):
-			return u'%s' % self.${5}
-		
-		def save(self, *args, **kwargs):
-			${6}
-			return super($1, self).save(*args, **kwargs)
-		
-		@models.permalink
-		def get_absolute_url(self):
-			return ('${7:view_or_url_name}', (), {})
+			return u'%s' % self.${3}
 
 snippet modeladmin
 	class ${1:ModelName}Admin(admin.ModelAdmin):
