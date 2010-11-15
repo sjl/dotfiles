@@ -152,7 +152,6 @@ map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 map <leader>a :Ack 
 
 " Yankring
-nnoremap <silent> <F3> :YRShow<cr>
 nnoremap <silent> <leader>y :YRShow<cr>
 
 " Formatting, TextMate-style
@@ -220,8 +219,8 @@ nmap <leader>d :!hg diff %<cr>
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Edit vim stuff.
-nmap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
-nmap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
+nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -231,7 +230,10 @@ nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
-"
+
+" Python docs
+nnoremap <leader>p :Pydoc<space>
+
 " HALP
 nnoremap _wtfcw :!open 'http://confluence.atlassian.com/renderer/notationhelp.action?section=all'<cr>
 
@@ -289,37 +291,56 @@ onoremap id i[
 onoremap ad a[
 
 " Next ()
+vnoremap <silent> inb :<C-U>normal! f(vib<cr>
 onoremap <silent> inb :<C-U>normal! f(vib<cr>
+vnoremap <silent> anb :<C-U>normal! f(vab<cr>
 onoremap <silent> anb :<C-U>normal! f(vab<cr>
+vnoremap <silent> in( :<C-U>normal! f(vi(<cr>
 onoremap <silent> in( :<C-U>normal! f(vi(<cr>
+vnoremap <silent> an( :<C-U>normal! f(va(<cr>
 onoremap <silent> an( :<C-U>normal! f(va(<cr>
 
 " Next {}
+vnoremap <silent> inB :<C-U>normal! f{viB<cr>
 onoremap <silent> inB :<C-U>normal! f{viB<cr>
+vnoremap <silent> anB :<C-U>normal! f{vaB<cr>
 onoremap <silent> anB :<C-U>normal! f{vaB<cr>
+vnoremap <silent> in{ :<C-U>normal! f{vi{<cr>
 onoremap <silent> in{ :<C-U>normal! f{vi{<cr>
+vnoremap <silent> an{ :<C-U>normal! f{va{<cr>
 onoremap <silent> an{ :<C-U>normal! f{va{<cr>
 
 " Next []
+vnoremap <silent> ind :<C-U>normal! f[vi[<cr>
 onoremap <silent> ind :<C-U>normal! f[vi[<cr>
+vnoremap <silent> and :<C-U>normal! f[va[<cr>
 onoremap <silent> and :<C-U>normal! f[va[<cr>
+vnoremap <silent> in[ :<C-U>normal! f[vi[<cr>
 onoremap <silent> in[ :<C-U>normal! f[vi[<cr>
+vnoremap <silent> an[ :<C-U>normal! f[va[<cr>
 onoremap <silent> an[ :<C-U>normal! f[va[<cr>
 
 " Next <>
+vnoremap <silent> in< :<C-U>normal! f<vi<<cr>
 onoremap <silent> in< :<C-U>normal! f<vi<<cr>
+vnoremap <silent> an< :<C-U>normal! f<va<<cr>
 onoremap <silent> an< :<C-U>normal! f<va<<cr>
 
 " Next ''
+vnoremap <silent> in' :<C-U>normal! f'vi'<cr>
 onoremap <silent> in' :<C-U>normal! f'vi'<cr>
+vnoremap <silent> an' :<C-U>normal! f'va'<cr>
 onoremap <silent> an' :<C-U>normal! f'va'<cr>
 
 " Next ""
+vnoremap <silent> in" :<C-U>normal! f"vi"<cr>
 onoremap <silent> in" :<C-U>normal! f"vi"<cr>
+vnoremap <silent> an" :<C-U>normal! f"va"<cr>
 onoremap <silent> an" :<C-U>normal! f"va"<cr>
 
 " Skipreturn
 inoremap <c-cr> <esc>A<cr>
+inoremap <s-cr> <esc>A:<cr>
 
 " VimClojure
 let vimclojure#HighlightBuiltins=1
