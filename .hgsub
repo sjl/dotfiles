@@ -1,2 +1,3 @@
 mercurial/templates = ../mercurial-cli-templates
 vim/bundle/ack = [git]git://github.com/mileszs/ack.vim.git
+vim/bundle/delimitmate = [git]git://github.com/Raimondi/delimitMate.git
