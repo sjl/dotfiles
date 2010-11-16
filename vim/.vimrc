@@ -231,7 +231,7 @@ nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 
 " Python docs
-nnoremap <leader>p :Pydoc<space>
+nnoremap <leader>P :Pydoc<space>
 
 " HALP
 nnoremap _wtfcw :!open 'http://confluence.atlassian.com/renderer/notationhelp.action?section=all'<cr>
@@ -359,7 +359,6 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
-        map <D-t> <Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
