@@ -1,1 +1,2 @@
 mercurial/templates = ../mercurial-cli-templates
+vim/bundle/ack = [git]git://github.com/mileszs/ack.vim.git
