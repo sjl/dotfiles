@@ -1,0 +1,89 @@
+Test Steps for testing idle integration
+---------------------------------------
+
+N.B. this test script is not expected to test all of bicyclerepairman
+- the pyunit tests do that. It is merely there to test the integration
+with idle (which doesnt get tested by pyunit).
+
+
+------------- Rename * -----------------------------------------
+
+- Load scrap.py
+
+- Rename Class to MyRenamedClass
+     (Check it renames the class)
+
+- Undo the rename
+
+- Create scrap3.py, containing the following:
+
+---------------------------
+import scrap
+
+a = scrap.MyClass()
+a.myMethod()
+--------------------------
+
+- Go back to scrap.py and rename the method to MyRenamedMethod
+     (Check that it prompts for rename in scrap2.py - rename the
+     first, but not the second)
+	 (Check that it renames all the methods in scrap2.py and scrap3.py
+	 except for the one you said no to)
+
+- Undo the rename
+     (Check that it undid all the renamings in all the files)
+
+------------- Find References ----------------------------------
+
+
+- Goto scrap.py, select 'find references'. Check that it tells you to
+highlight a class/function/method.
+
+- Highlight 'myMethod' and try again Check that it displays a list of
+references to this method.
+
+
+------------- Find Definition ----------------------------------
+
+- Goto scrap2.py, click 'myMethod' on d.myMethod(), then select 'find
+definition'. Check that it displays both the myMethod in MyClass and
+in AnotherClass.
+
+
+- Goto scrap2.py, click 'myMethod' on e.myMethod(), then select 'find
+definition'. Check that it takes you to the definition, and doesn't
+display a list of myMethod() references.
+
+
+------------- Extract Method / Function ------------------------
+
+- Load extractMethod.py into idle
+
+- select 'Extract Method' without first selecting a region
+      (Check that it tells you to select the region)
+
+- Use extractMethod to extract the marked line from the function
+
+- Use extractMethod to extract the lines of code from the method
+
+- Undo the extract Method
+
+- Undo the extract Function
+
+- Undo again - confirm that a dialog box pops up telling you the stack
+is empty.
+
+
+------------- Extract / Inline local variable ------------------
+
+- Load extractMethod.py into the ide
+
+- In the function 'inlineVariableTest', extract the marked code into a
+variable
+
+- Inline the variable back into the code
+
+----------------------------------------------------------------
+
+- exit from the ide, and delete scrap3.py from the directory
+

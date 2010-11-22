@@ -1,0 +1,17 @@
+Bicycle Repair Man - a Python Refactoring Browser
+=================================================
+
+$Id: INSTALL,v 1.4 2002/03/29 13:10:49 pdawes Exp $
+
+-----------------------------------------------------------------------------
+
+Bicycle Repair Man requires Python 2.2 and above. 
+
+Run 
+% python setup.py install
+
+
+Then look for at the relevant README file to integrate Bicycle Repair
+Man with your IDE.
+
+-----------------------------------------------------------------------------

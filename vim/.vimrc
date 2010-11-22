@@ -272,8 +272,10 @@ let Tlist_Show_One_File = 1
 map <F4> :TlistToggle<cr>
 map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
-" Rope
-source $HOME/.vim/sadness/ropevim/rope.vim
+" Rope and Bike.
+let g:bike_exceptions=1
+source $HOME/.vim/sadness/sadness.vim
+
 let ropevim_enable_shortcuts = 0
 let ropevim_guess_project = 1
 noremap <leader>rr :RopeRename<CR>
