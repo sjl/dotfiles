@@ -7,3 +7,4 @@ vim/bundle/markdown = [git]git://github.com/tpope/vim-markdown.git
 vim/bundle/nerdcommenter = [git]git://github.com/scrooloose/nerdcommenter.git
 vim/bundle/nerdtree = [git]git://github.com/scrooloose/nerdtree.git
 vim/sadness/sparkup = [git]git://github.com/rstacruz/sparkup.git
+vim/bundle/surround = [git]git://github.com/tpope/vim-surround.git
