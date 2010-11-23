@@ -342,6 +342,7 @@ onoremap <silent> an" :<C-U>normal! f"va"<cr>
 " Skipreturn
 inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
+au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
 " VimClojure
 let vimclojure#HighlightBuiltins=1
