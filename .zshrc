@@ -56,3 +56,6 @@ test -n "$(which bcvi)" && eval "$(bcvi --unpack-term)"
 test -n "${BCVI_CONF}"  && alias vi="bcvi"
 test -n "${BCVI_CONF}"  && alias suvi="EDITOR='bcvi -c viwait' sudoedit"
 test -n "${BCVI_CONF}"  && alias bcp="bcvi -c scpd"
+
+# Local Settings -------------------------------------------------------------
+if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
