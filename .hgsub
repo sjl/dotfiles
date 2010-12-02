@@ -1,5 +1,5 @@
 mercurial/templates = ../mercurial-cli-templates
-vim/bundle/ack = [git]ssh://git@github.com:mileszs/ack.vim.git
+vim/bundle/ack = [git]git://github.com/mileszs/ack.vim.git
 vim/bundle/delimitmate = [git]git://github.com/Raimondi/delimitMate.git
 vim/bundle/gundo = [hg]ssh://hg@bitbucket.org/sjl/gundo.vim/
 vim/bundle/html5 = [git]git://github.com/othree/html5.vim.git
