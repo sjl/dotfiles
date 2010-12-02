@@ -168,7 +168,7 @@ au BufNewFile,BufRead test_*.py set makeprg=nosetests\ --machine-out\ --nocaptur
 au BufNewFile,BufRead test_*.py set shellpipe=2>&1\ >/dev/null\ \|\ tee
 au BufNewFile,BufRead test_*.py set errorformat=%f:%l:\ %m
 au BufNewFile,BufRead test_*.py nmap <Leader>N :make<cr>
-nmap <silent> <leader>ff :QFix<cr>
+nmap <silent> <f3> :QFix<cr>
 nmap <leader>fn :cn<cr>
 nmap <leader>fp :cp<cr>
 
@@ -179,6 +179,7 @@ function! QFixToggle(forced)
     unlet g:qfix_win
   else
     copen 10
+    wincmd J
     let g:qfix_win = bufnr("$")
   endif
 endfunction
