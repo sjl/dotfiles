@@ -168,22 +168,8 @@ au BufNewFile,BufRead test_*.py set makeprg=nosetests\ --machine-out\ --nocaptur
 au BufNewFile,BufRead test_*.py set shellpipe=2>&1\ >/dev/null\ \|\ tee
 au BufNewFile,BufRead test_*.py set errorformat=%f:%l:\ %m
 au BufNewFile,BufRead test_*.py nmap <Leader>N :make<cr>
-nmap <silent> <f3> :QFix<cr>
 nmap <leader>fn :cn<cr>
 nmap <leader>fp :cp<cr>
-
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    wincmd J
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-
 
 " TODO: Put this in filetype-specific files
 au BufNewFile,BufRead *.less set foldmethod=marker
@@ -348,6 +334,22 @@ au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><es
 " VimClojure
 let vimclojure#HighlightBuiltins=1
 let vimclojure#ParenRainbow=1
+
+" Syntastic
+let g:syntastic_enable_signs=1
+
+nmap <silent> <f3> :ErrorsToggle<cr>
+command! ErrorsToggle call ErrorsToggle()
+function! ErrorsToggle()
+  if exists("w:is_error_window")
+    unlet w:is_error_window
+    exec "q"
+  else
+    exec "Errors"
+    lopen
+    let w:is_error_window = 1
+  endif
+endfunction
 
 if has('gui_running')
     set guifont=Menlo:h12
