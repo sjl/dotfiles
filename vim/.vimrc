@@ -142,6 +142,8 @@ au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 
 au BufNewFile,BufRead *.vim set foldmethod=marker
 
+au BufNewFile,BufRead urls.py set nowrap
+
 " Sort CSS
 map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 

@@ -50,7 +50,13 @@ cmd.vd = mvim
 opts.vd = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 cmd.kd = /usr/local/bin/ksdiff-wrapper
 opts.kd = hg
+cmd.ksdiff = /usr/local/bin/ksdiff-wrapper
+opts.ksdiff = hg
+cmd.sleep = /bin/sleep
+opts.sleep = 30 #
 
+[alias]
+kk = !/opt/local/Library/Frameworks/Python.framework/Versions/2.6/Resources/Python.app/Contents/MacOS/Python /opt/local/bin/hg kd $@
 [email]
 method = smtp
 from = Steve Losh <steve@stevelosh.com>
