@@ -1,8 +1,8 @@
 alias pbc='pbcopy'
 alias pbp='pbpaste'
 
-alias M='open -a MacVim .'
-alias m='open -a MacVim'
+alias M='mvim .'
+alias m='mvim'
 
 function mdown () {
     (echo '
