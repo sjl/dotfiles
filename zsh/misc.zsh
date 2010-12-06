@@ -60,3 +60,6 @@ function pull_everything() {
 export DYLD_LIBRARY_PATH="/opt/subversion/lib:$DYLD_LIBRARY_PATH"
 export PYTHONPATH="/opt/subversion/lib/svn-python:$PYTHONPATH"
 export PATH="/opt/subversion/bin:$PATH"
+
+# hgd
+alias h='~/src/hgd/hd'
