@@ -9,7 +9,7 @@ function! InsertCloseTag()
 " by Smylers  http://www.stripey.com/vim/
 " 2000 May 3
 
-  if &filetype == 'html'
+  if &filetype == 'html' || &filetype == 'htmldjango'
   
     " list of tags which shouldn't be closed:
     let UnaryTags = ' Area Base Br DD DT HR Img Input Link Meta Param '
