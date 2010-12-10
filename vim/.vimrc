@@ -339,6 +339,7 @@ let vimclojure#ParenRainbow=1
 
 " Syntastic
 let g:syntastic_enable_signs=1
+let g:syntastic_disabled_filetypes = ['html', 'python']
 
 nmap <silent> <f3> :ErrorsToggle<cr>
 command! ErrorsToggle call ErrorsToggle()
