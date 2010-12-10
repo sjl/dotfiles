@@ -354,6 +354,13 @@ function! ErrorsToggle()
   endif
 endfunction
 
+" Camel Case Motion
+map <silent> \w <Plug>CamelCaseMotion_w
+map <silent> \b <Plug>CamelCaseMotion_b
+map <silent> \e <Plug>CamelCaseMotion_e
+omap <silent> i\w <Plug>CamelCaseMotion_iw
+xmap <silent> i\w <Plug>CamelCaseMotion_iw
+
 if has('gui_running')
     set guifont=Menlo:h12
     colorscheme molokai
