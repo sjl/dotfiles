@@ -190,8 +190,11 @@ map <leader>v V`]
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
-inoremap <Esc> <nop>
 inoremap jj <ESC>
+
+" TextMate-Style Autocomplete
+inoremap <ESC> <C-P>
+inoremap <S-ESC> <C-N>
 
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
@@ -355,11 +358,11 @@ function! ErrorsToggle()
 endfunction
 
 " Camel Case Motion
-map <silent> \w <Plug>CamelCaseMotion_w
-map <silent> \b <Plug>CamelCaseMotion_b
+map <silent> ∑ <Plug>CamelCaseMotion_w
+map <silent> ∫ <Plug>CamelCaseMotion_b
 map <silent> \e <Plug>CamelCaseMotion_e
-omap <silent> i\w <Plug>CamelCaseMotion_iw
-xmap <silent> i\w <Plug>CamelCaseMotion_iw
+omap <silent> i∑ <Plug>CamelCaseMotion_iw
+xmap <silent> i∑ <Plug>CamelCaseMotion_iw
 
 if has('gui_running')
     set guifont=Menlo:h12
