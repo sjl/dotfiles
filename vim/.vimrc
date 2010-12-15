@@ -73,7 +73,7 @@ set listchars=tab:▸\ ,eol:¬
 " Color scheme (terminal)
 syntax on
 set background=dark
-colorscheme delek
+colorscheme molokai
 
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
@@ -366,8 +366,6 @@ xmap <silent> i∑ <Plug>CamelCaseMotion_iw
 
 if has('gui_running')
     set guifont=Menlo:h12
-    colorscheme molokai
-    set background=dark
 
     set go-=T
     set go-=l
