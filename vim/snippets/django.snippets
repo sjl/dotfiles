@@ -114,3 +114,7 @@ snippet stackedinline
 
 snippet reverse
 	reverse('${1:view-name}'${2:, args=[]}${3:, kwargs=None})${4}
+snippet view
+	@render_to('${1}')
+	def ${2:view_name}(request${3:, ...}):${4}
+		return {}
