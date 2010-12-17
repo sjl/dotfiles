@@ -92,18 +92,20 @@ bind index,pager \#     noop
 bind index i            noop
 
 # bindings
+bind index l            previous-entry
+bind index k            next-entry
 bind pager i            exit
 bind pager /            search
-bind pager k            previous-line
-bind pager j            next-line
+bind pager l            previous-line
+bind pager k            next-line
 bind pager gg           top
 bind pager G            bottom
 bind index gg           first-entry
 bind index G            last-entry
-bind pager K            previous-undeleted
-bind pager J            next-undeleted
-bind index K            previous-unread
-bind index J            next-unread
+bind pager L            previous-undeleted
+bind pager K            next-undeleted
+bind index L            previous-unread
+bind index K            next-unread
 bind index,pager R      group-reply
 
 # macros

@@ -15,25 +15,25 @@ function! InsertCloseTag()
     let UnaryTags = ' Area Base Br DD DT HR Img Input Link Meta Param '
 
     " remember current position:
-    normal mz
+    normal! mz
 
     " loop backwards looking for tags:
     let Found = 0
     while Found == 0
       " find the previous <, then go forwards one character and grab the first
       " character plus the entire word:
-      execute "normal ?\<LT>\<CR>l"
-      normal "zyl
+      execute "normal! ?\<LT>\<CR>l"
+      normal! "zyl
       let Tag = expand('<cword>')
 
       " if this is a closing tag, skip back to its matching opening tag:
       if @z == '/'
-        execute "normal ?\<LT>" . Tag . "\<CR>"
+        execute "normal! ?\<LT>" . Tag . "\<CR>"
 
       " if this is a unary tag, then position the cursor for the next
       " iteration:
       elseif match(UnaryTags, ' ' . Tag . ' ') > 0
-        normal h
+        normal! h
 
       " otherwise this is the tag that needs closing:
       else
@@ -44,7 +44,7 @@ function! InsertCloseTag()
 
     " create the closing tag and insert it:
     let @z = '</' . Tag . '>'
-    normal `z"zp
+    normal! `z"zp
 
   else " filetype is not HTML
     echohl ErrorMsg

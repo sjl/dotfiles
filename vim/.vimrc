@@ -79,24 +79,36 @@ colorscheme molokai
 map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 
-" Use the damn hjkl keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+" MOVEMENT ---------------------------------------
 
-" And make them fucking work, too.
-nnoremap j gj
-nnoremap k gk
+" Use the damn jkl; keys
+"nnoremap <up> <nop>
+"nnoremap <down> <nop>
+"nnoremap <left> <nop>
+"nnoremap <right> <nop>
+
+" Why stretch?
+noremap h ;
+noremap j h
+noremap k gj
+noremap l gk
+noremap ; l
 
 " Easy buffer navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-map <leader>w <C-w>v<C-w>l
+" Note: For this section to make any sense you need to remap Ctrl-; to Ctrl-m at
+"       the KEYBOARD level.  The reason is that for some reason the OS X doesn't
+"       recognize the Ctrl+; combination as something special, so it just passes it
+"       to Vim as a semicolon.
+"
+"       Yeah, it's dumb.
+noremap <C-j>  <C-w>h
+noremap <C-k>  <C-w>j
+noremap <C-l>  <C-w>k
+noremap <C-m>  <C-w>l
+noremap <leader>w <C-w>v<C-w>l
 
-" Folding
+" Folding ----------------------------------------
+
 set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
@@ -191,6 +203,7 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
 inoremap jj <ESC>
+inoremap kk <ESC>
 
 " TextMate-Style Autocomplete
 inoremap <ESC> <C-P>
