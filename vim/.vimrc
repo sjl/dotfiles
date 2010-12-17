@@ -95,7 +95,7 @@ noremap l gk
 noremap ; l
 
 " Easy buffer navigation
-" Note: For this section to make any sense you need to remap Ctrl-; to Ctrl-m at
+" Note: For this section to make any sense you need to remap Ctrl-; to Ctrl-g at
 "       the KEYBOARD level.  The reason is that for some reason the OS X doesn't
 "       recognize the Ctrl+; combination as something special, so it just passes it
 "       to Vim as a semicolon.
@@ -104,7 +104,7 @@ noremap ; l
 noremap <C-j>  <C-w>h
 noremap <C-k>  <C-w>j
 noremap <C-l>  <C-w>k
-noremap <C-m>  <C-w>l
+noremap <C-g>  <C-w>l
 noremap <leader>w <C-w>v<C-w>l
 
 " Folding ----------------------------------------

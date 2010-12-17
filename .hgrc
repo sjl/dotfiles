@@ -99,7 +99,7 @@ st = status -C
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
-cmwn = commit -m 'Merge with Nick.'
+cmm = commit -m 'Merge.'
 
 mergelocal = $HG --config ui.merge=internal:local merge $@
 mergeother = $HG --config ui.merge=internal:other merge $@
