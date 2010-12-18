@@ -29,6 +29,7 @@ export RUBYOPT=rubygems
 export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
 
 # Python variables -----------------------------------------------------------
+export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export WORKON_HOME="${HOME}/lib/virtualenvs"
 export PATH="${PATH}:/usr/local/Cellar/PyPi/3.6/bin"
