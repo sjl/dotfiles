@@ -1,6 +1,7 @@
 " Vim color file
 "
 " Author: Tomas Restrepo <tomas@winterdom.com>
+" Modified by: Steve Losh <steve@stevelosh.com>
 "
 " Note: Based on the monokai theme for textmate
 " by Wimer Hazenberg and its darker variant 
@@ -10,22 +11,16 @@
 hi clear
 
 set background=dark
-if version > 580
-    " no guarantees for version 5.8 and below, but this makes it stop
-    " complaining
-    hi clear
-    if exists("syntax_on")
-        syntax reset
-    endif
-endif
 let g:colors_name="molokai"
 
-if exists("g:molokai_original")
-    let s:molokai_original = g:molokai_original
-else
-    let s:molokai_original = 0
-endif
-
+hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
+hi Folded          guifg=#666666 guibg=#1B1D1E
+hi Comment         guifg=#5c7176
+hi CursorLine                    guibg=#232728
+hi CursorColumn                  guibg=#232728
+hi ColorColumn                   guibg=#232728
+hi LineNr          guifg=#AAAAAA guibg=#1B1D1E
+hi FoldColumn      guifg=#AAAAAA guibg=#1B1D1E
 
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#E6DB74
@@ -47,7 +42,6 @@ hi Error           guifg=#960050 guibg=#1E0010
 hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
 hi Exception       guifg=#A6E22E               gui=bold
 hi Float           guifg=#AE81FF
-hi Folded          guifg=#465457 guibg=#000000
 hi Function        guifg=#A6E22E
 hi Identifier      guifg=#FD971F
 hi Ignore          guifg=#808080 guibg=bg
@@ -75,7 +69,7 @@ hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
 hi Search          guifg=#FFFFFF guibg=#455354
 " marks column
-hi SignColumn      guifg=#A6E22E guibg=#232526
+hi SignColumn      guifg=#A6E22E guibg=#1B1D1E
 hi SpecialChar     guifg=#F92672               gui=bold
 hi SpecialComment  guifg=#465457               gui=bold
 hi Special         guifg=#66D9EF guibg=bg      gui=italic
@@ -108,30 +102,9 @@ hi WildMenu        guifg=#66D9EF guibg=#000000
 hi MyTagListFileName guifg=#F92672 guibg=#1B1D1E gui=bold
 
 
-
-if s:molokai_original == 1
-   hi Normal          guifg=#F8F8F2 guibg=#272822
-   hi Comment         guifg=#75715E
-   hi CursorLine                    guibg=#3E3D32
-   hi CursorColumn                  guibg=#3E3D32
-   hi ColorColumn                   guibg=#3E3D32
-   hi LineNr          guifg=#AAAAAA guibg=#3B3A32
-   hi FoldColumn      guifg=#AAAAAA guibg=#3B3A32
-   hi NonText         guifg=#BCBCBC guibg=#3B3A32
-else
-   hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
-   hi Folded          guifg=#666666 guibg=#1B1D1E
-   hi Comment         guifg=#5c7176
-   hi CursorLine                    guibg=#232728
-   hi CursorColumn                  guibg=#232728
-   hi ColorColumn                   guibg=#232728
-   hi LineNr          guifg=#AAAAAA guibg=#1B1D1E
-   hi FoldColumn      guifg=#AAAAAA guibg=#1B1D1E
-   
-   " Invisible character colors
-   highlight NonText    guifg=#444444 guibg=#1a1c1d
-   highlight SpecialKey guifg=#444444 guibg=#1a1c1d
-end
+" Invisible character colors
+highlight NonText    guifg=#444444 guibg=#1B1D1E
+highlight SpecialKey guifg=#444444 guibg=#1B1D1E
 
 "
 " Support for 256-color terminal
@@ -217,6 +190,7 @@ if &t_Co > 255
    hi Comment         ctermfg=59
    hi CursorLine                  ctermbg=234   cterm=none
    hi CursorColumn                ctermbg=234
-   hi LineNr          ctermfg=250 ctermbg=234
-   hi NonText         ctermfg=250 ctermbg=234
+   hi ColorColumn                 ctermbg=234
+   hi LineNr          ctermfg=250 ctermbg=233
+   hi NonText         ctermfg=240 ctermbg=233
 end
