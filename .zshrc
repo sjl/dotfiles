@@ -1,7 +1,7 @@
 export ZSH="$HOME/lib/oh-my-zsh"
 export ZSH_THEME="prose"
 export DISABLE_AUTO_UPDATE="true"
-plugins=(command-coloring pip brew)
+plugins=(command-coloring pip brew fabric)
 source $ZSH/oh-my-zsh.sh
 
 # Custom options -------------------------------------------------------------
