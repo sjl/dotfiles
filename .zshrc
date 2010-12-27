@@ -17,7 +17,7 @@ alias c='clear'
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
 export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
-export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:/opt/local/bin:$PATH"
 export PATH="/opt/subversion/bin:${PATH}"
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
