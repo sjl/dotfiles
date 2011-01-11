@@ -54,10 +54,6 @@ cmd.dd = diffuse
 opts.dd = 
 
 [merge-tools]
-diffuse.priority=-3
-diffuse.args=$local $base $other
-diffuse.gui=True
-diffuse.diffargs=$parent $child
 
 [email]
 method = smtp
