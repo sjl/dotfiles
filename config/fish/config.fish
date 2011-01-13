@@ -41,7 +41,7 @@ set -g PATH="$HOME/lib/hg/hg-stable:$PATH"
 set -g PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
 
 # Extra ----------------------------------------------------------------------
-. ~/src/z-fish/z.sh
+. ~/src/z-fish/z.fish
 
 # Local Settings -------------------------------------------------------------
 if test -s $HOME/.config/fish/local.fish
