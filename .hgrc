@@ -186,3 +186,8 @@ todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
 
+# hgd management commands
+rund = !dtach -n /tmp/hgd.sock ~/lib/virtualenvs/hgd/bin/python ~/src/hgd/hgd.py
+statd = !ps auxww | grep -v grep | grep hgd.py >/dev/null && echo 'running' || echo "not running"
+killt = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut -d" " -f2 | cat
+killd = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut -d" " -f2 | xargs kill
