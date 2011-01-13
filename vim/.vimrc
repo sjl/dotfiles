@@ -156,6 +156,8 @@ au BufNewFile,BufRead *.js setlocal foldmarker={,}
 au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
 au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
 
+au BufNewFile,BufRead *.fish set filetype=fish
+
 au BufNewFile,BufRead *.m*down set filetype=markdown
 au BufNewFile,BufRead *.m*down nnoremap <localleader>1 yypVr=
 au BufNewFile,BufRead *.m*down nnoremap <localleader>2 yypVr-
