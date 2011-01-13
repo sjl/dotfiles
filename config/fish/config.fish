@@ -20,6 +20,7 @@ set -g PATH "/opt/subversion/bin:$PATH"
 set -g COMMAND_MODE unix2003
 set -g RUBYOPT rubygems
 set -g CLASSPATH "$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar"
+
 # Python variables -----------------------------------------------------------
 set -g PIP_DOWNLOAD_CACHE "$HOME/.pip/cache"
 set -g PYTHONSTARTUP "$HOME/.pythonrc.py"
@@ -41,11 +42,6 @@ set -g PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
 
 # Extra ----------------------------------------------------------------------
 . ~/src/z-fish/z.sh
-
-# Pre-Prompt Command ---------------------------------------------------------
-#function precmd () {
-#    z --add "$(pwd -P)"
-#}
 
 # Local Settings -------------------------------------------------------------
 if test -s $HOME/.config/fish/local.fish
