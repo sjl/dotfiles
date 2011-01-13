@@ -42,6 +42,7 @@ set backup                        " enable backups
 
 " Leader
 let mapleader = ","
+let maplocalleader = "\\"
 
 " Make Y not dumb
 nnoremap Y y$
@@ -155,6 +156,8 @@ au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
 au BufNewFile,BufRead *.vim set foldmethod=marker
 
 au BufNewFile,BufRead urls.py set nowrap
+
+autocmd FileType clojure call TurnOnClojureFolding()
 
 " Sort CSS
 map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
@@ -350,8 +353,11 @@ inoremap <s-cr> <esc>A:<cr>
 au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
 " VimClojure
-let vimclojure#HighlightBuiltins=1
-let vimclojure#ParenRainbow=1
+let vimclojure#HighlightBuiltins = 1
+let vimclojure#ParenRainbow = 1
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = $HOME . "/.vim/bundle/vimclojure/bin/ng"
+let vimclojure#SplitPos = "right"
 
 " Syntastic
 let g:syntastic_enable_signs=1

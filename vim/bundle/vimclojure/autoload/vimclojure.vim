@@ -77,25 +77,6 @@ function! vimclojure#SynIdName()
 	return synIDattr(synID(line("."), col("."), 0), "name")
 endfunction
 
-function! vimclojure#GetExceptionFoldLevel(lnum)
-	if a:lnum == 1
-		return 0
-	endif
-
-	let pline = getline(a:lnum - 1)
-	let line  = getline(a:lnum)
-
-	if line[0] == '+' && pline[0] == '!'
-		return ">1"
-	endif
-
-	if line[0] != '+' && line[0] != '|'
-		return 0
-	endif
-
-	return "="
-endfunction
-
 function! vimclojure#WithSaved(closure)
 	let v = a:closure.get(a:closure.tosafe)
 	try
@@ -403,9 +384,7 @@ let vimclojure#ClojureResultBuffer["__superResultBufferShowOutput"] =
 
 function! vimclojure#ClojureResultBuffer.Init(instance) dict
 	call self.__superResultBufferInit(a:instance)
-	let b:vimclojure_clojure_result_buffer = 1
-
-	set filetype=clojure
+	setfiletype clojure
 
 	return a:instance
 endfunction
