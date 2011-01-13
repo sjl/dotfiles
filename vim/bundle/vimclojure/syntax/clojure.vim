@@ -168,7 +168,7 @@ if g:vimclojure#DynamicHighlighting != 0 && exists("b:vimclojure_namespace")
 	endtry
 endif
 
-syn cluster clojureAtomCluster   contains=clojureError,clojureFunc,clojureMacro,clojureCond,clojureDefine,clojureRepeat,clojureConstant,clojureVariable,clojureSpecial,clojureKeyword,clojureString,clojureCharacter,clojureNumber,clojureBoolean,clojureQuote,clojureUnquote,clojureDispatch,clojurePattern
+syn cluster clojureAtomCluster   contains=clojureError,clojureFunc,clojureMacro,clojureCond,clojureDefine,clojureRepeat,clojureException,clojureConstant,clojureVariable,clojureSpecial,clojureKeyword,clojureString,clojureCharacter,clojureNumber,clojureBoolean,clojureQuote,clojureUnquote,clojureDispatch,clojurePattern
 syn cluster clojureTopCluster    contains=@clojureAtomCluster,clojureComment,clojureSexp,clojureAnonFn,clojureVector,clojureMap,clojureSet
 
 syn keyword clojureTodo contained FIXME XXX TODO FIXME: XXX: TODO:
@@ -233,10 +233,6 @@ syn region  clojureComment     matchgroup=clojureParen0 start="(comment"rs=s+1 m
 syn region  clojureComment                              start="#!" end="\n"
 syn match   clojureComment "#_"
 
-if exists("b:vimclojure_repl") || exists("b:vimclojure_clojure_result_buffer")
-	syn region  clojureException start=/^!!/ end=/\n/
-endif
-
 syn sync fromstart
 
 if version >= 600
@@ -256,6 +252,7 @@ HiLink clojurePattern   Constant
 HiLink clojureVariable  Identifier
 HiLink clojureCond      Conditional
 HiLink clojureDefine    Define
+HiLink clojureException Exception
 HiLink clojureFunc      Function
 HiLink clojureMacro     Macro
 HiLink clojureRepeat    Repeat
@@ -271,7 +268,6 @@ HiLink clojureComment   Comment
 HiLink clojureTodo      Todo
 
 HiLink clojureError     Error
-HiLink clojureException Error
 
 HiLink clojureParen0    Delimiter
 
