@@ -10,6 +10,7 @@ alias fab     'fab -i ~/.ssh/stevelosh'
 alias oldgcc  'set -g CC /usr/bin/gcc-4.0'
 alias tm      'tmux -u2'
 alias c       'clear'
+alias M       'mvim .'
 
 # Environment variables ------------------------------------------------------
 set -g EDITOR vim
