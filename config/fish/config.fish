@@ -1,7 +1,6 @@
 set tacklebox_path ~/lib/tacklebox
 set tacklebox_theme prose
 set tacklebox_plugins directories python django misc web osx
-set tacklebox_short true
 
 . $tacklebox_path/tacklebox.fish
 
