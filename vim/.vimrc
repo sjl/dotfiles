@@ -113,7 +113,6 @@ noremap <leader>w <C-w>v<C-w>l
 set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
-noremap <leader>ft Vatzf
 
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -135,27 +134,44 @@ set foldtext=MyFoldText()
 " Fuck you, help key.
 set fuoptions=maxvert,maxhorz
 inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
+noremap <F1> :set invfullscreen<CR>
 
 " Fuck you too, manual key
 nnoremap K <nop>
 
-" Various syntax stuff
-au BufNewFile,BufRead *.less set filetype=less
-au BufRead,BufNewFile *.scss set filetype=scss
+" Various filetype-specific stuff
 
-au BufRead,BufNewFile *.confluencewiki set filetype=confluencewiki
-au BufRead,BufNewFile *.confluencewiki set wrap linebreak nolist
+au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+au BufNewFile,BufRead *.html setlocal foldmethod=manual
+au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+
+au BufNewFile,BufRead *.less setlocal filetype=less
+au BufNewFile,BufRead *.less setlocal foldmethod=marker
+au BufNewFile,BufRead *.less setlocal foldmarker={,}
+au BufNewFile,BufRead *.less setlocal nocursorline
+
+au BufNewFile,BufRead *.js setlocal foldmethod=marker
+au BufNewFile,BufRead *.js setlocal foldmarker={,}
+
+au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
+au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
+
+au BufNewFile,BufRead *.fish set filetype=fish
 
 au BufNewFile,BufRead *.m*down set filetype=markdown
-au BufNewFile,BufRead *.m*down nnoremap <leader>1 yypVr=
-au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
-au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
+au BufNewFile,BufRead *.m*down nnoremap <localleader>1 yypVr=
+au BufNewFile,BufRead *.m*down nnoremap <localleader>2 yypVr-
+au BufNewFile,BufRead *.m*down nnoremap <localleader>3 I### <ESC>
 
-au BufNewFile,BufRead *.vim set foldmethod=marker
+au BufNewFile,BufRead *.vim setlocal foldmethod=marker
 
-au BufNewFile,BufRead urls.py set nowrap
+au BufNewFile,BufRead urls.py      setlocal nowrap
+au BufNewFile,BufRead settings.py  normal! zR
+au BufNewFile,BufRead dashboard.py normal! zR
+
+au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
+au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
+au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 
 autocmd FileType clojure call TurnOnClojureFolding()
 
@@ -181,22 +197,8 @@ au BufNewFile,BufRead *.js set makeprg=gjslint\ %
 au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
 
 " TESTING GOAT APPROVES OF THESE LINES
-au BufNewFile,BufRead test_*.py set makeprg=nosetests\ --machine-out\ --nocapture
-au BufNewFile,BufRead test_*.py set shellpipe=2>&1\ >/dev/null\ \|\ tee
-au BufNewFile,BufRead test_*.py set errorformat=%f:%l:\ %m
-au BufNewFile,BufRead test_*.py nmap <Leader>N :make<cr>
 nmap <leader>fn :cn<cr>
 nmap <leader>fp :cp<cr>
-
-" TODO: Put this in filetype-specific files
-au BufNewFile,BufRead *.less set foldmethod=marker
-au BufNewFile,BufRead *.less set foldmarker={,}
-au BufNewFile,BufRead *.less set nocursorline
-au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
-au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
-au BufNewFile,BufRead *.js set foldmethod=marker
-au BufNewFile,BufRead *.js set foldmarker={,}
 
 " Easier linewise reselection
 map <leader>v V`]
@@ -218,9 +220,6 @@ nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
 nnoremap Vat vatV
-
-" Diff
-nmap <leader>d :!hg diff %<cr>
 
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
@@ -383,6 +382,56 @@ map <silent> \e <Plug>CamelCaseMotion_e
 omap <silent> i∑ <Plug>CamelCaseMotion_iw
 xmap <silent> i∑ <Plug>CamelCaseMotion_iw
 
+" Diff
+let g:HgDiffing = 0
+function! s:HgDiffCurrentFile()
+    if g:HgDiffing == 1
+        if bufwinnr(bufnr('__HGDIFF__')) != -1
+            exe bufwinnr(bufnr('__HGDIFF__')) . "wincmd w"
+            bdelete
+        endif
+
+        diffoff!
+
+        let g:HgDiffing = 0
+
+        return
+    endif
+
+    let fname = bufname('%')
+    let ftype = &ft
+    diffthis
+
+    vnew __HGDIFF__
+
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+    setlocal nobuflisted
+    exec 'setlocal filetype='.ftype
+
+    setlocal modifiable
+
+    silent normal! ggdG
+    silent exec ':r!hg cat ' . fname
+    silent normal! ggdd
+
+    setlocal nomodifiable
+
+    diffthis
+
+    wincmd l
+
+    let g:HgDiffing = 1
+
+    return
+endfunction
+
+command! HgDiffCurrent call s:HgDiffCurrentFile()
+
+nmap <leader>d :HgDiffCurrent<cr>
+
+" MacVim
 if has('gui_running')
     set guifont=Menlo:h12
 
@@ -400,6 +449,9 @@ if has('gui_running')
     let g:sparkupExecuteMapping = '<D-e>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    inoremenu <silent>&Plugin.QuickCursor.CloseBuffer <Esc>:w<cr>:BufClose<cr>
+    nnoremenu <silent>&Plugin.QuickCursor.CloseBuffer :w<cr>:BufClose<cr>
 else
     set nocursorline
 endif
