@@ -11,6 +11,10 @@ alias oldgcc  'set -g CC /usr/bin/gcc-4.0'
 alias tm      'tmux -u2'
 alias c       'clear'
 alias M       'mvim .'
+alias pman    'pretty_man'
+alias pj      'pretty_json'
+alias cj      'curl_json'
+alias dv      'dtach -A /tmp/dvtm-session.sock -r winch dvtm -m "^f"'
 
 # Environment variables ------------------------------------------------------
 set PATH "$HOME/.gem/ruby/1.8/bin:$PATH"
