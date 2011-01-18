@@ -113,6 +113,7 @@ noremap <leader>w <C-w>v<C-w>l
 set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
+nnoremap zO zCzO
 
 function! MyFoldText()
     let line = getline(v:foldstart)
