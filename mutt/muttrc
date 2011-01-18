@@ -84,36 +84,38 @@ source ~/.mutt/steve-stevelosh.com.muttrc                       # source gmail a
 source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
 
 # account specific sources
-folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
+folder-hook steve-stevelosh.com/*        source ~/.mutt/steve-stevelosh.com.muttrc
 folder-hook steve-dumbwaiterdesign.com/* source ~/.mutt/steve-dumbwaiterdesign.com.muttrc
 
 # these just give me headaches
-bind index,pager \#     noop
-bind index i            noop
+bind index,pager \# noop
+bind index i        noop
 
 # bindings
-bind index l            previous-entry
-bind index k            next-entry
-bind pager i            exit
-bind pager /            search
-bind pager l            previous-line
-bind pager k            next-line
-bind pager gg           top
-bind pager G            bottom
-bind index gg           first-entry
-bind index G            last-entry
-bind pager L            previous-undeleted
-bind pager K            next-undeleted
-bind index L            previous-unread
-bind index K            next-unread
-bind index,pager R      group-reply
+bind index \#       sync-mailbox
+bind index l        previous-entry
+bind index k        next-entry
+bind pager i        exit
+bind pager /        search
+bind pager l        previous-line
+bind pager k        next-line
+bind pager gg       top
+bind pager G        bottom
+bind index gg       first-entry
+bind index G        last-entry
+bind pager L        previous-undeleted
+bind pager K        next-undeleted
+bind index L        previous-unread
+bind index K        next-unread
+bind index,pager R  group-reply
 
 # macros
-macro index \Cr "<tag-prefix><clear-flag>N"                                 "mark tagged messages as read"
-macro index \CR "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-macro index B   "<limit>~b "                                                "search message bodies"
-macro index I   "<change-folder>!<enter>"                                   "go to Inbox"
-macro pager \Cu |urlview<enter>                                             "call urlview to extract URLs out of a message"
+macro index \Cr   "<tag-prefix><clear-flag>N"                                          "mark tagged messages as read"
+macro index \CR   "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"          "mark all messages as read"
+macro index B     "<limit>~b "                                                         "search message bodies"
+macro index I     "<change-folder>!<enter>"                                            "go to Inbox"
+macro pager \Cu   "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
+macro index,pager o     "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in vim"
 
 # mailbox
 macro index ( "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
