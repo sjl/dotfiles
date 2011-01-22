@@ -9,3 +9,4 @@ vim/sadness/sparkup = [git]git://github.com/sjl/sparkup.git
 vim/bundle/surround = [git]git://github.com/tpope/vim-surround.git
 vim/bundle/syntastic = [git]git://github.com/scrooloose/syntastic.git
 vim/bundle/vim-coffee-script = [git]git://github.com/kchmck/vim-coffee-script.git
+vim/bundle/vim-javascript = [git]git://github.com/pangloss/vim-javascript.git

@@ -8,4 +8,5 @@ c839b22aa01560d8f25c7cbec13f93cb8fdcd4c5 vim/bundle/gundo
 27710a2224d6dd0486d1c40d09ef18dd752e7d37 vim/bundle/surround
 4b690ba5e20fd603986df9563614909442b4086c vim/bundle/syntastic
 b9b4407a19acc4eb344cca0cc5beea75e9ff5491 vim/bundle/vim-coffee-script
+c2df2e430d7d5fe645aa40e36079ab51f082e06b vim/bundle/vim-javascript
 94293727a5d47cb3cca3a32069f86eb42cbc0bf6 vim/sadness/sparkup
