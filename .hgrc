@@ -40,6 +40,7 @@ cbsl = ssh://hg@codebasehq.com/stevelosh/
 stable = ssh://hg@bitbucket.org/stable/
 dwd = ssh://hg@bitbucket.org/dwaiter/
 nyh = ssh://sjl@gotham.nyhacker.org/
+dl = ssh://hg@hg.dwaiter.com:38038/
 
 [diff]
 git = True
