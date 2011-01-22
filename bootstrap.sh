@@ -50,7 +50,7 @@ ln -s "$HOME/lib/dotfiles/.zshrc" "$HOME/.zshrc"
 
 hg clone bb://sjl/hg-prompt/ "$HOME/lib/hg/hg-prompt"
 hg clone bb://sjl/hg-paste/ "$HOME/lib/hg/hg-paste"
-hg clone bb://sjl/hg-review/ "$HOME/lib/hg/hg-review"
+hg clone bb://sjl/hg-review/ "$HOME/src/hg/hg-review"
 hg clone bb://ccaughie/hgcollapse/ "$HOME/lib/hg/hgcollapse"
 hg clone bb://durin42/histedit/ "$HOME/lib/hg/histedit"
 hg clone bb://durin42/hg-git/ "$HOME/lib/hg/hg-git"

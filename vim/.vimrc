@@ -141,6 +141,8 @@ nnoremap K <nop>
 
 " Various filetype-specific stuff
 
+au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
+
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
