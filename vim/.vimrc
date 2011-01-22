@@ -31,6 +31,7 @@ set relativenumber
 set laststatus=2
 set undofile
 set undoreload=10000
+set cpoptions+=J
 
 " Status line
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
