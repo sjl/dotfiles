@@ -459,5 +459,3 @@ if has('gui_running')
 else
     set nocursorline
 endif
-
-au Filetype html,xml,xsl,htmldjango set nosi indentexpr= autoindent shiftwidth=4
