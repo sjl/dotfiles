@@ -28,9 +28,9 @@ setlocal indentexpr=GetDjangoIndent()
 setlocal indentkeys=o,O,*<Return>,{,},o,O,!^F,<>>
 
 " Only define the function once.
-"if exists("*GetDjangoIndent")
-    "finish
-"endif
+if exists("*GetDjangoIndent")
+    finish
+endif
 
 function! GetDjangoIndent(...)
     if a:0 && a:1 == '.'
