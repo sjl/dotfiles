@@ -25,3 +25,5 @@ else
 endif
 
 let b:current_syntax = "htmljinja"
+
+source $HOME/.vim/bundle/html5/syntax/html/html5.vim
