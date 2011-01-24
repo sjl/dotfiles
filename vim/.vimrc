@@ -78,7 +78,7 @@ colorscheme molokai
 
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json']
 
 " MOVEMENT ---------------------------------------
 
@@ -456,3 +456,5 @@ if has('gui_running')
 else
     set nocursorline
 endif
+
+au Filetype html,xml,xsl,htmldjango set nosi indentexpr= autoindent shiftwidth=4

@@ -9,8 +9,6 @@ function! InsertCloseTag()
 " by Smylers  http://www.stripey.com/vim/
 " 2000 May 3
 
-  if &filetype == 'html' || &filetype == 'htmldjango'
-  
     " list of tags which shouldn't be closed:
     let UnaryTags = ' Area Base Br DD DT HR Img Input Link Meta Param '
 
@@ -45,14 +43,5 @@ function! InsertCloseTag()
     " create the closing tag and insert it:
     let @z = '</' . Tag . '>'
     normal! `z"zp
-
-  else " filetype is not HTML
-    echohl ErrorMsg
-    echo 'The InsertCloseTag() function is only intended to be used in HTML ' .
-      \ 'files.'
-    sleep
-    echohl None
-  
-  endif " check on filetype
 
 endfunction " InsertCloseTag()
