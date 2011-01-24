@@ -28,9 +28,9 @@ setlocal indentexpr=GetDjangoIndent()
 setlocal indentkeys=o,O,*<Return>,{,},o,O,!^F,<>>
 
 " Only define the function once.
-if exists("*GetDjangoIndent")
-    finish
-endif
+"if exists("*GetDjangoIndent")
+    "finish
+"endif
 
 function! GetDjangoIndent(...)
     if a:0 && a:1 == '.'
@@ -45,24 +45,32 @@ function! GetDjangoIndent(...)
     exe "let ind = ".b:html_indentexpr
 
     let lnum = prevnonblank(v:lnum-1)
-    let prev_non_blank_line = getline(lnum)
-    let current_line = getline(v:lnum)
+    let pnb = getline(lnum)
+    let cur = getline(v:lnum)
 
-    let tagstart = '^\s*' . '{%\s*'
-    let tagend = '.*%}' . '\s*$'
+    let tagstart = '.*' . '{%\s*'
+    let tagend = '.*%}' . '.*'
 
     let blocktags = '\(block\|for\|if\|with\|autoescape\|comment\|filter\|spaceless\)'
     let midtags = '\(empty\|else\)'
 
-    if prev_non_blank_line =~# tagstart . blocktags . tagend
+    let pnb_blockstart = pnb =~# tagstart . blocktags . tagend
+    let pnb_blockend   = pnb =~# tagstart . 'end' . blocktags . tagend
+    let pnb_blockmid   = pnb =~# tagstart . midtags . tagend
+
+    let cur_blockstart = cur =~# tagstart . blocktags . tagend
+    let cur_blockend   = cur =~# tagstart . 'end' . blocktags . tagend
+    let cur_blockmid   = cur =~# tagstart . midtags . tagend
+
+    if pnb_blockstart && !pnb_blockend
         let ind = ind + &sw
-    elseif prev_non_blank_line =~# tagstart . midtags . tagend
+    elseif pnb_blockmid && !pnb_blockend
         let ind = ind + &sw
     endif
 
-    if current_line =~# tagstart . 'end' . blocktags . '.*$'
+    if cur_blockend && !cur_blockstart
         let ind = ind - &sw
-    elseif current_line =~# tagstart . midtags . tagend
+    elseif cur_blockmid
         let ind = ind - &sw
     endif
 
