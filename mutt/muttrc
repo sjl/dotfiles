@@ -6,7 +6,7 @@ set certificate_file    = ~/.mutt/certificates                  # where to store
 set mailcap_path        = ~/.mutt/mailcap                       # entrys for filetypes
 set signature           = ~/.mutt/sig                           # my signature file
 set tmpdir              = ~/.mutt/temp                          # where to keep temp files
-set editor              = "mvim -f +/^$ +:noh"                  # use vim and skip to first blank line
+set editor              = "vim +/^$ +:noh"                  # use vim and skip to first blank line
 set print_command       = /usr/bin/enscript                     # print with enscript
 
 # main options

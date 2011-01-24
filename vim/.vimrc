@@ -31,6 +31,7 @@ set relativenumber
 set laststatus=2
 set undofile
 set undoreload=10000
+set cpoptions+=J
 
 " Status line
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
@@ -141,6 +142,8 @@ noremap <F1> :set invfullscreen<CR>
 nnoremap K <nop>
 
 " Various filetype-specific stuff
+
+au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
