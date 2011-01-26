@@ -153,6 +153,8 @@ au BufNewFile,BufRead *.less setlocal filetype=less
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
 au BufNewFile,BufRead *.less setlocal foldmarker={,}
 au BufNewFile,BufRead *.less setlocal nocursorline
+au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
+au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 au BufNewFile,BufRead *.js setlocal foldmethod=marker
 au BufNewFile,BufRead *.js setlocal foldmarker={,}
@@ -160,12 +162,12 @@ au BufNewFile,BufRead *.js setlocal foldmarker={,}
 au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
 au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
 
-au BufNewFile,BufRead *.fish set filetype=fish
+au BufNewFile,BufRead *.fish setlocal filetype=fish
 
-au BufNewFile,BufRead *.m*down set filetype=markdown
-au BufNewFile,BufRead *.m*down nnoremap <localleader>1 yypVr=
-au BufNewFile,BufRead *.m*down nnoremap <localleader>2 yypVr-
-au BufNewFile,BufRead *.m*down nnoremap <localleader>3 I### <ESC>
+au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>1 yypVr=
+au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>2 yypVr-
+au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>3 I### <ESC>
 
 au BufNewFile,BufRead *.vim setlocal foldmethod=marker
 
@@ -179,9 +181,6 @@ au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 
 autocmd FileType clojure call TurnOnClojureFolding()
 
-" Sort CSS
-map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -192,27 +191,26 @@ map <leader>a :Ack
 nnoremap <silent> <leader>y :YRShow<cr>
 
 " Formatting, TextMate-style
-map <leader>q gqip
+nnoremap <leader>q gqip
 
-nmap <leader>m :make<cr>
+" Faster Make
+nnoremap <leader>m :make<cr>
 
 " Google's JSLint
 au BufNewFile,BufRead *.js set makeprg=gjslint\ %
 au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
 
-" TESTING GOAT APPROVES OF THESE LINES
-nmap <leader>fn :cn<cr>
-nmap <leader>fp :cp<cr>
-
 " Easier linewise reselection
-map <leader>v V`]
+nnoremap <leader>v V`]
 
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
-inoremap jj <ESC>
-inoremap kk <ESC>
+inoremap jk <ESC>
+inoremap kj <ESC>
+inoremap kl <ESC>
+inoremap lk <ESC>
 
 " TextMate-Style Autocomplete
 inoremap <ESC> <C-P>
