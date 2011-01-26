@@ -92,7 +92,7 @@ bind index,pager \# noop
 bind index i        noop
 
 # bindings
-bind index \#       sync-mailbox
+bind index <tab>    sync-mailbox
 bind index l        previous-entry
 bind index k        next-entry
 bind pager i        exit
@@ -118,8 +118,8 @@ macro pager \Cu   "|urlview<enter>"                                             
 macro index,pager o     "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in vim"
 
 # mailbox
-macro index ( "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
-macro index ) "<change-folder>+steve-dumbwaiterdesign.com/INBOX<enter>"   "go to dwaiter/INBOX"
+macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
+macro index \" "<change-folder>+steve-dumbwaiterdesign.com/INBOX<enter>"   "go to dwaiter/INBOX"
 
 # save a decoded copy in ~
 macro index P   "<pipe-message>cat > ~/Desktop/"    "save message as"
