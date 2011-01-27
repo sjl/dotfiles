@@ -171,6 +171,9 @@ au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>3 I### <ESC>
 
 au BufNewFile,BufRead *.vim setlocal foldmethod=marker
 
+au FileType python,man map <buffer> <localleader>d :call ShowPyDoc('<C-R><C-W>', 1)<CR>
+au FileType python,man map <buffer> <localleader>D :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+
 au BufNewFile,BufRead urls.py      setlocal nowrap
 au BufNewFile,BufRead settings.py  normal! zR
 au BufNewFile,BufRead dashboard.py normal! zR
