@@ -90,6 +90,7 @@ folder-hook steve-dumbwaiterdesign.com/* source ~/.mutt/steve-dumbwaiterdesign.c
 # these just give me headaches
 bind index,pager \# noop
 bind index i        noop
+bind index w        noop
 
 # bindings
 bind index <tab>    sync-mailbox

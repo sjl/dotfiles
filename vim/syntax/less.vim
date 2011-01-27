@@ -37,6 +37,11 @@ syn keyword cssTagName textarea tfoot th thead title tr tt ul u var
 syn match cssTagName "\<table\>"
 syn match cssTagName "\*"
 
+" HTML 5
+syn keyword cssTagName article aside header hgroup footer section nav figure
+syn keyword cssTagName figcaption mark summary command datalist details output
+syn keyword cssTagName progress meter time embed keygen wbr audio video canvas
+
 syn match cssTagName "@page\>" nextgroup=cssDefinition
 
 syn match cssSelectorOp "[+>.]"
