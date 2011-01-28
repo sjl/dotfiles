@@ -148,6 +148,9 @@ au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
+au BufNewFile,BufRead *.html imap <buffer> <d-e><cr> <d-e><s-cr>
+au BufNewFile,BufRead *.html imap <buffer> <d-e><space> <d-e>.<bs>
 
 au BufNewFile,BufRead *.less setlocal filetype=less
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
