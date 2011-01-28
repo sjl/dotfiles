@@ -5,6 +5,7 @@ c839b22aa01560d8f25c7cbec13f93cb8fdcd4c5 vim/bundle/gundo
 34e28b3f6f6d702ff2963b8196eccae9344ed4bc vim/bundle/markdown
 930be32a23e902ddc46135ddbb9e76b0fac0c14b vim/bundle/nerdcommenter
 7650cdc6621cd15b047dc04605b8b0bc0396564d vim/bundle/nerdtree
+62830e8990b21280a5cc244568065abb085fe395 vim/bundle/sparkup
 27710a2224d6dd0486d1c40d09ef18dd752e7d37 vim/bundle/surround
 60731769663ea23b4763f3f0034da445ebcd3ddd vim/bundle/syntastic
 b9b4407a19acc4eb344cca0cc5beea75e9ff5491 vim/bundle/vim-coffee-script
