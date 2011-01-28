@@ -155,6 +155,7 @@ au BufNewFile,BufRead *.less setlocal foldmarker={,}
 au BufNewFile,BufRead *.less setlocal nocursorline
 au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
 au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {<cr><space><space><space><space>.<cr><bs>}<esc>kA<bs>
 
 au BufNewFile,BufRead *.js setlocal foldmethod=marker
 au BufNewFile,BufRead *.js setlocal foldmarker={,}
