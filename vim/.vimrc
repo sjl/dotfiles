@@ -453,6 +453,7 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
+        map <leader>r ,w<Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
