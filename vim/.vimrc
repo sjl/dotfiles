@@ -175,6 +175,11 @@ autocmd Syntax cram setlocal foldlevel=1
 au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 au FileType clojure call TurnOnClojureFolding()
 " }}}
+" C {{{
+
+au BufNewFile,BufRead *.c setlocal foldmethod=syntax
+
+" }}}
 " HTML and HTMLDjango {{{
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
@@ -206,9 +211,9 @@ au BufNewFile,BufRead *.fish setlocal filetype=fish
 " }}}
 " Markdown {{{
 au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>1 yypVr=
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>2 yypVr-
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>3 I### <ESC>
+au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
+au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
+au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
 " }}}
 " Vim {{{
 au FileType vim setlocal foldmethod=marker
@@ -283,7 +288,7 @@ nnoremap _pd :set ft=python.django<CR>
 
 " NERD Tree {{{
 map <F2> :NERDTreeToggle<cr>
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json']
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
 " }}}
 " HTML5 {{{
 let g:event_handler_attributes_complete = 0
@@ -485,7 +490,7 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
-        map <leader>r ,w<Plug>PeepOpen
+        map <leader><leader> ,w<Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
