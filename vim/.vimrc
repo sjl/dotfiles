@@ -283,6 +283,9 @@ nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 
+" Toggle paste
+nnoremap <f8> :set paste!<cr>
+
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
@@ -333,16 +336,6 @@ function! SynStack() " {{{
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc " }}}
 nmap <C-S> :call SynStack()<CR>
-
-" }}}
-" Tags! ----------------------------------------------------------------------- {{{
-
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-let Tlist_WinWidth = 50
-let Tlist_Show_One_File = 1
-
-map <F4> :TlistToggle<cr>
-map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " }}}
 " Text objects ---------------------------------------------------------------- {{{
