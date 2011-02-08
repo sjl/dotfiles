@@ -29,13 +29,15 @@ set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set relativenumber
+set nonumber
+set norelativenumber
 set laststatus=2
 set undofile
 set undoreload=10000
 set cpoptions+=J
 set list
 set listchars=tab:▸\ ,eol:¬
+set lazyredraw
 
 " Save when losing focus
 au FocusLost * :wa
