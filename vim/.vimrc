@@ -299,6 +299,12 @@ nnoremap _pd :set ft=python.django<CR>
 " Toggle paste
 nnoremap <f8> :set paste!<cr>
 
+" I can't type
+cmap W w
+cmap Wa wa
+cmap WA wa
+cmap Wq wq
+
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
@@ -357,6 +363,8 @@ nmap <C-S> :call SynStack()<CR>
 
 onoremap id i[
 onoremap ad a[
+vnoremap id i[
+vnoremap ad a[
 
 " }}}
 " Next () {{{
