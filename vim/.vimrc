@@ -109,7 +109,9 @@ nnoremap N Nzz
 vnoremap < <gv
 vnoremap > >gv
 
-noremap L $
+nnoremap L $
+vnoremap L $
+onoremap L $
 
 " Directional Keys {{{
 
