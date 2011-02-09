@@ -32,6 +32,7 @@ set backspace=indent,eol,start
 set nonumber
 set norelativenumber
 set laststatus=2
+set history=1000
 set undofile
 set undoreload=10000
 set cpoptions+=J
@@ -101,6 +102,14 @@ vmap <tab> %
 
 nnoremap Y y$
 nnoremap D d$
+
+nnoremap n nzz
+nnoremap N Nzz
+
+vnoremap < <gv
+vnoremap > >gv
+
+noremap L $
 
 " Directional Keys {{{
 
