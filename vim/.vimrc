@@ -29,7 +29,8 @@ set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set relativenumber
+set nonumber
+set norelativenumber
 set laststatus=2
 set undofile
 set undoreload=10000
@@ -37,6 +38,7 @@ set cpoptions+=J
 set list
 set listchars=tab:▸\ ,eol:¬
 set shell=/bin/bash
+set lazyredraw
 
 " Save when losing focus
 au FocusLost * :wa
@@ -176,6 +178,11 @@ autocmd Syntax cram setlocal foldlevel=1
 au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 au FileType clojure call TurnOnClojureFolding()
 " }}}
+" C {{{
+
+au BufNewFile,BufRead *.c setlocal foldmethod=syntax
+
+" }}}
 " HTML and HTMLDjango {{{
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
@@ -207,9 +214,9 @@ au BufNewFile,BufRead *.fish setlocal filetype=fish
 " }}}
 " Markdown {{{
 au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>1 yypVr=
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>2 yypVr-
-au BufNewFile,BufRead *.m*down nnoremap <buffer> <localleader>3 I### <ESC>
+au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
+au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
+au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
 " }}}
 " Vim {{{
 au FileType vim setlocal foldmethod=marker
@@ -280,12 +287,15 @@ nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 
+" Toggle paste
+nnoremap <f8> :set paste!<cr>
+
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
 " NERD Tree {{{
 map <F2> :NERDTreeToggle<cr>
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json']
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
 " }}}
 " HTML5 {{{
 let g:event_handler_attributes_complete = 0
@@ -330,16 +340,6 @@ function! SynStack() " {{{
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc " }}}
 nmap <C-S> :call SynStack()<CR>
-
-" }}}
-" Tags! ----------------------------------------------------------------------- {{{
-
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-let Tlist_WinWidth = 50
-let Tlist_Show_One_File = 1
-
-map <F4> :TlistToggle<cr>
-map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " }}}
 " Text objects ---------------------------------------------------------------- {{{
@@ -487,7 +487,7 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
-        map <leader>r ,w<Plug>PeepOpen
+        map <leader><leader> ,w<Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
