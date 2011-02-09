@@ -2,6 +2,7 @@
 username = Steve Losh <steve@stevelosh.com>
 editor = vim
 
+
 [extensions]
 transplant = 
 graphlog =
