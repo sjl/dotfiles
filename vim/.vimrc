@@ -36,6 +36,7 @@ set undoreload=10000
 set cpoptions+=J
 set list
 set listchars=tab:▸\ ,eol:¬
+set shell=/bin/bash
 
 " Save when losing focus
 au FocusLost * :wa
@@ -215,6 +216,7 @@ au FileType vim setlocal foldmethod=marker
 " }}}
 " Django {{{
 au BufNewFile,BufRead urls.py      setlocal nowrap
+au BufNewFile,BufRead urls.py      normal! zR
 au BufNewFile,BufRead settings.py  normal! zR
 au BufNewFile,BufRead dashboard.py normal! zR
 " }}}
