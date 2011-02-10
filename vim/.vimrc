@@ -299,10 +299,12 @@ nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 cmap w!! w !sudo tee % >/dev/null
 
 " Easy filetype switching
-nnoremap _dt :set ft=htmldjango<CR>
+nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
+nnoremap _d  :set ft=diff<CR>
+nnoremap _a  :AnsiEsc<CR>
 
 " Toggle paste
 nnoremap <f8> :set paste!<cr>

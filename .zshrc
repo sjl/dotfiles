@@ -13,6 +13,8 @@ alias fab='fab -i ~/.ssh/stevelosh'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
 alias tm='tmux -u2'
 alias c='clear'
+alias v='vimpager'
+alias hv='vimpagerhl'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
@@ -26,6 +28,7 @@ export HISTCONTROL=erasedups
 export COMMAND_MODE=unix2003
 export RUBYOPT=rubygems
 export CLASSPATH="$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar"
+which vimpager >/dev/null 2>&1 && export PAGER=vimpager || export PAGER=less
 
 # Python variables -----------------------------------------------------------
 export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
