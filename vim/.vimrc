@@ -84,6 +84,11 @@ colorscheme molokai
 " }}}
 
 " }}}
+" Useful Abbreviations -------------------------------------------------------- {{{
+
+iabbrev lkdis ಠ_ಠ
+
+" }}}
 " Searching and Movement ------------------------------------------------------ {{{
 
 nnoremap / /\v
