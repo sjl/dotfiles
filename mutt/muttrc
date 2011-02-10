@@ -109,6 +109,7 @@ bind pager K        next-undeleted
 bind index L        previous-unread
 bind index K        next-unread
 bind index,pager R  group-reply
+bind index \Cp      recall-message
 
 # macros
 macro index \Cr   "<tag-prefix><clear-flag>N"                                          "mark tagged messages as read"
@@ -123,4 +124,4 @@ macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go t
 macro index \" "<change-folder>+steve-dumbwaiterdesign.com/INBOX<enter>"   "go to dwaiter/INBOX"
 
 # save a decoded copy in ~
-macro index P   "<pipe-message>cat > ~/Desktop/"    "save message as"
+macro index,pager P   "<pipe-message>cat > ~/Desktop/"    "save message as"
