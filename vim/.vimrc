@@ -32,6 +32,7 @@ set backspace=indent,eol,start
 set nonumber
 set norelativenumber
 set laststatus=2
+set history=1000
 set undofile
 set undoreload=10000
 set cpoptions+=J
@@ -62,6 +63,7 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
 " }}}
 " Backups {{{
 
+set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
@@ -102,6 +104,16 @@ vmap <tab> %
 
 nnoremap Y y$
 nnoremap D d$
+
+nnoremap n nzz
+nnoremap N Nzz
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap L $
+vnoremap L $
+onoremap L $
 
 " Directional Keys {{{
 
@@ -290,6 +302,12 @@ nnoremap _pd :set ft=python.django<CR>
 " Toggle paste
 nnoremap <f8> :set paste!<cr>
 
+" I can't type
+cmap W w
+cmap Wa wa
+cmap WA wa
+cmap Wq wq
+
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
@@ -348,6 +366,8 @@ nmap <C-S> :call SynStack()<CR>
 
 onoremap id i[
 onoremap ad a[
+vnoremap id i[
+vnoremap ad a[
 
 " }}}
 " Next () {{{
