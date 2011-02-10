@@ -1,7 +1,0 @@
-ansi=1
-wrap=60
-newline=1
-mentions=1
-urlopen=open %U
-hold=1
-autosplit=0
