@@ -447,6 +447,7 @@ inoremap <s-cr> <esc>A:<cr>
 
 nmap <silent> <f3> :ErrorsToggle<cr>
 command! ErrorsToggle call ErrorsToggle()
+
 function! ErrorsToggle() " {{{
   if exists("w:is_error_window")
     unlet w:is_error_window
@@ -460,8 +461,10 @@ endfunction " }}}
 
 " }}}
 " Open quoted ----------------------------------------------------------------- {{{
+
 nnoremap <silent> <c-o> :OpenQuoted<cr>
 command! OpenQuoted call OpenQuoted()
+
 function! OpenQuoted() " {{{
     let @r = ''
 
@@ -478,6 +481,7 @@ function! OpenQuoted() " {{{
 
     exe "silent !open ." . @r
 endfunction " }}}
+
 " }}}
 " MacVim ---------------------------------------------------------------------- {{{
 
