@@ -63,3 +63,13 @@ export PATH="/opt/subversion/bin:$PATH"
 
 # hgd
 alias h='~/src/hgd/hd'
+
+# What the hell did I do the other day?
+function whatthehelldididoon() {
+    for repo in `find . -name '.hg'`
+    do
+        echo $repo
+        h .. -R $repo/.. -d "$1" -u 'Steve Losh'
+    done
+}
+

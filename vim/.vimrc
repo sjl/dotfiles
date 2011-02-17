@@ -86,7 +86,7 @@ colorscheme molokai
 " }}}
 " Useful Abbreviations -------------------------------------------------------- {{{
 
-iabbrev lkdis ಠ_ಠ
+iabbrev ldis ಠ_ಠ
 
 " }}}
 " Searching and Movement ------------------------------------------------------ {{{
@@ -113,12 +113,14 @@ nnoremap D d$
 nnoremap n nzz
 nnoremap N Nzz
 
-vnoremap < <gv
-vnoremap > >gv
-
 nnoremap L $
 vnoremap L $
 onoremap L $
+
+nnoremap ˚ :lnext<cr>
+nnoremap ¬ :lprevious<cr>
+inoremap ˚ <esc>:lnext<cr>
+inoremap ¬ <esc>:lprevious<cr>
 
 " Directional Keys {{{
 
@@ -164,7 +166,7 @@ function! MyFoldText() " {{{
     let line = substitute(line, '\t', onetab, 'g')
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
@@ -209,11 +211,17 @@ au BufNewFile,BufRead *.html imap <buffer> <d-e><cr> <d-e><s-cr>
 au BufNewFile,BufRead *.html imap <buffer> <d-e><space> <d-e>.<bs>
 au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 " }}}
+" CSS {{{
+au BufNewFile,BufRead *.css setlocal foldmethod=marker
+au BufNewFile,BufRead *.css setlocal foldmarker={,}
+au BufNewFile,BufRead *.css nnoremap <buffer> cc ddko
+au BufNewFile,BufRead *.css nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
+" }}}
 " LessCSS {{{
 au BufNewFile,BufRead *.less setlocal filetype=less
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
 au BufNewFile,BufRead *.less setlocal foldmarker={,}
-au BufNewFile,BufRead *.less setlocal nocursorline
 au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
 au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
@@ -237,6 +245,11 @@ au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
 " }}}
 " Vim {{{
 au FileType vim setlocal foldmethod=marker
+" }}}
+" Python {{{
+au Filetype python noremap  <localleader>rr :RopeRename<CR>
+au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
+au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
 " }}}
 " Django {{{
 au BufNewFile,BufRead urls.py      setlocal nowrap
@@ -328,15 +341,12 @@ let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
 " }}}
-" Rope and Bike {{{
-let g:bike_exceptions=1
-source $HOME/.vim/sadness/sadness.vim
-
+" Rope {{{
 let ropevim_enable_shortcuts = 0
 let ropevim_guess_project = 1
-noremap <leader>rr :RopeRename<CR>
-vnoremap <leader>rm :RopeExtractMethod<CR>
-noremap <leader>roi :RopeOrganizeImports<CR>
+let ropevim_global_prefix = '<C-c>p'
+
+source $HOME/.vim/sadness/sadness.vim
 " }}}
 " Gundo {{{
 nnoremap <F5> :GundoToggle<CR>
@@ -449,56 +459,25 @@ function! ErrorsToggle() " {{{
 endfunction " }}}
 
 " }}}
-" Diff ------------------------------------------------------------------------ {{{
+" Open quoted ----------------------------------------------------------------- {{{
+nnoremap <silent> <c-o> :OpenQuoted<cr>
+command! OpenQuoted call OpenQuoted()
+function! OpenQuoted() " {{{
+    let @r = ''
 
-let g:HgDiffing = 0
+    exe 'normal! vi' . "'" . '"ry'
 
-function! s:HgDiffCurrentFile() " {{{
-    if g:HgDiffing == 1
-        if bufwinnr(bufnr('__HGDIFF__')) != -1
-            exe bufwinnr(bufnr('__HGDIFF__')) . "wincmd w"
-            bdelete
-        endif
-
-        diffoff!
-
-        let g:HgDiffing = 0
-
-        return
+    if len(@r) == 0
+        exe 'normal! i' . '"' . '"ry'
     endif
 
-    let fname = bufname('%')
-    let ftype = &ft
-    diffthis
+    if len(@r) == 0
+        exe 'normal! "ry'
+        let @r = ''
+    endif
 
-    vnew __HGDIFF__
-
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal noswapfile
-    setlocal nobuflisted
-    exec 'setlocal filetype='.ftype
-
-    setlocal modifiable
-
-    silent normal! ggdG
-    silent exec ':r!hg cat ' . fname
-    silent normal! ggdd
-
-    setlocal nomodifiable
-
-    diffthis
-
-    wincmd l
-
-    let g:HgDiffing = 1
-
-    return
+    exe "silent !open ." . @r
 endfunction " }}}
-
-command! HgDiffCurrent call s:HgDiffCurrentFile()
-nmap <leader>d :HgDiffCurrent<cr>
-
 " }}}
 " MacVim ---------------------------------------------------------------------- {{{
 
