@@ -503,6 +503,12 @@ if has('gui_running')
     let g:sparkupExecuteMapping = '<D-e>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    set fillchars=vert:┃
+
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor-blinkwait10-blinkon500-blinkoff300
 else
     set nocursorline
 endif
