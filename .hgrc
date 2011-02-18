@@ -1,6 +1,7 @@
 [ui]
 username = Steve Losh <steve@stevelosh.com>
 editor = vim
+commitsubrepos = False
 
 [extensions]
 transplant = 
