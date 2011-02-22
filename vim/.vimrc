@@ -485,6 +485,11 @@ function! OpenQuoted() " {{{
 endfunction " }}}
 
 " }}}
+" Ctags ----------------------------------------------------------------------- {{{
+
+map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
+
+" }}}
 " MacVim ---------------------------------------------------------------------- {{{
 
 if has('gui_running')
