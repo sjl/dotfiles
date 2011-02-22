@@ -121,6 +121,8 @@ nnoremap ˚ :lnext<cr>
 nnoremap ¬ :lprevious<cr>
 inoremap ˚ <esc>:lnext<cr>
 inoremap ¬ <esc>:lprevious<cr>
+nnoremap <m-Down> :cnext<cr>
+nnoremap <m-Up> :cprevious<cr>
 
 " Directional Keys {{{
 
