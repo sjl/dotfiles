@@ -508,7 +508,7 @@ if has('gui_running')
 
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor-blinkwait10-blinkon500-blinkoff300
+    set guicursor+=i-ci:ver20-iCursor
 else
     set nocursorline
 endif

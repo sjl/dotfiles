@@ -18,6 +18,7 @@ parentrevspec =
 schemes = 
 progress =
 fetch =
+hgsubversion = ~/lib/hg/hgsubversion/hgsubversion
 attic = ~/lib/hg/hgattic/attic.py
 paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
