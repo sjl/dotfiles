@@ -40,6 +40,7 @@ set list
 set listchars=tab:▸\ ,eol:¬
 set shell=/bin/bash
 set lazyredraw
+set wildignore+=*.pyc,.hg
 
 " Save when losing focus
 au FocusLost * :wa
@@ -292,12 +293,15 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 " Faster Esc
 inoremap jk <ESC>
 
-" TextMate-Style Autocomplete
-inoremap <ESC> <C-P>
-inoremap <S-ESC> <C-N>
-
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
+
+" Better Completion
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-p> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
@@ -365,6 +369,9 @@ let vimclojure#SplitPos = "right"
 " Syntastic {{{
 let g:syntastic_enable_signs=1
 let g:syntastic_disabled_filetypes = ['html', 'python']
+" }}}
+" Command-T {{{
+let g:CommandTMaxHeight = 20
 " }}}
 
 " }}}
