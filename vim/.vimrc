@@ -293,6 +293,9 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 " Faster Esc
 inoremap jk <ESC>
 
+" Easier buffer swapping
+nnoremap ` <C-^>
+
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
