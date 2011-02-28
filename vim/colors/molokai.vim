@@ -13,14 +13,14 @@ hi clear
 set background=dark
 let g:colors_name="molokai"
 
-hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
-hi Folded          guifg=#666666 guibg=#1B1D1E
+hi Normal          guifg=#F8F8F2 guibg=#1C1E1F
+hi Folded          guifg=#666666 guibg=#1C1E1F
 hi Comment         guifg=#5c7176
 hi CursorLine                    guibg=#232728
 hi CursorColumn                  guibg=#232728
 hi ColorColumn                   guibg=#232728
-hi LineNr          guifg=#AAAAAA guibg=#1B1D1E
-hi FoldColumn      guifg=#AAAAAA guibg=#1B1D1E
+hi LineNr          guifg=#AAAAAA guibg=#1C1E1F
+hi FoldColumn      guifg=#AAAAAA guibg=#1C1E1F
 
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#E6DB74
@@ -47,7 +47,7 @@ hi Float           guifg=#AE81FF
 hi Function        guifg=#A6E22E
 hi Identifier      guifg=#FD971F
 hi Ignore          guifg=#808080 guibg=bg
-hi IncSearch       guifg=#C4BE89 guibg=#000000
+hi IncSearch       guibg=#000000 guifg=#FF8D00
 
 hi Keyword         guifg=#F92672               gui=bold
 hi Label           guifg=#E6DB74               gui=none
@@ -60,16 +60,16 @@ hi MoreMsg         guifg=#E6DB74
 hi Operator        guifg=#F92672
 
 " complete menu
-hi Pmenu           guifg=#66D9EF guibg=#000000
-hi PmenuSel                      guibg=#808080
-hi PmenuSbar                     guibg=#080808
-hi PmenuThumb      guifg=#66D9EF
+hi Pmenu           guifg=#cccccc guibg=#232728
+hi PmenuSel        guifg=#000000 guibg=#AAF412
+hi PmenuSbar                     guibg=#131414
+hi PmenuThumb      guifg=#777777
 
 hi PreCondit       guifg=#A6E22E               gui=bold
 hi PreProc         guifg=#A6E22E
 hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
-hi Search          guifg=#FFFFFF guibg=#455354
+hi Search          guifg=#000000 guibg=#E4E500
 
 " marks column
 hi SignColumn      guifg=#A6E22E guibg=#151617
@@ -96,18 +96,18 @@ hi Typedef         guifg=#66D9EF
 hi Type            guifg=#66D9EF               gui=none
 hi Underlined      guifg=#808080               gui=underline
 
-hi VertSplit       guifg=#AAAAAA guibg=#151617 gui=none
+hi VertSplit       guifg=#AAAAAA guibg=bg gui=none
 hi VisualNOS                     guibg=#403D3D
 hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
 hi WildMenu        guifg=#66D9EF guibg=#000000
 
-hi MyTagListFileName guifg=#F92672 guibg=#1B1D1E gui=bold
+hi MyTagListFileName guifg=#F92672 guibg=#1C1E1F gui=bold
 
 
 " Invisible character colors
-highlight NonText    guifg=#444444 guibg=#1B1D1E
-highlight SpecialKey guifg=#444444 guibg=#1B1D1E
+highlight NonText    guifg=#444444 guibg=#1C1E1F
+highlight SpecialKey guifg=#444444 guibg=#1C1E1F
 
 "
 " Support for 256-color terminal
