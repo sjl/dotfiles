@@ -76,7 +76,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 " }}}
-" Color scheme (terminal) {{{
+" Color scheme {{{
 
 syntax on
 set background=dark
@@ -280,9 +280,6 @@ nnoremap <silent> <F6> :YRShow<cr>
 
 " Formatting, TextMate-style
 nnoremap <leader>q gqip
-
-" Faster Make
-nnoremap <leader>m :make<cr>
 
 " Easier linewise reselection
 nnoremap <leader>v V`]
@@ -521,7 +518,7 @@ if has('gui_running')
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
-    set fillchars=vert:┃
+    set fillchars=vert:│
 
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
