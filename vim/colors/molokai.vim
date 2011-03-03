@@ -13,14 +13,14 @@ hi clear
 set background=dark
 let g:colors_name="molokai"
 
-hi Normal          guifg=#F8F8F2 guibg=#1C1E1F
-hi Folded          guifg=#666666 guibg=#1C1E1F
+hi Normal          guifg=#F8F8F2 guibg=#1B1E1F
+hi Folded          guifg=#666666 guibg=bg
 hi Comment         guifg=#5c7176
 hi CursorLine                    guibg=#232728
 hi CursorColumn                  guibg=#232728
 hi ColorColumn                   guibg=#232728
-hi LineNr          guifg=#AAAAAA guibg=#1C1E1F
-hi FoldColumn      guifg=#AAAAAA guibg=#1C1E1F
+hi LineNr          guifg=#AAAAAA guibg=bg
+hi FoldColumn      guifg=#AAAAAA guibg=bg
 
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#E6DB74
@@ -102,12 +102,12 @@ hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
 hi WildMenu        guifg=#66D9EF guibg=#000000
 
-hi MyTagListFileName guifg=#F92672 guibg=#1C1E1F gui=bold
+hi MyTagListFileName guifg=#F92672 guibg=bg gui=bold
 
 
 " Invisible character colors
-highlight NonText    guifg=#444444 guibg=#1C1E1F
-highlight SpecialKey guifg=#444444 guibg=#1C1E1F
+highlight NonText    guifg=#444444 guibg=bg
+highlight SpecialKey guifg=#444444 guibg=bg
 
 "
 " Support for 256-color terminal
