@@ -109,8 +109,7 @@ set gdefault
 map <leader><space> :noh<cr>
 
 runtime macros/matchit.vim
-nmap <tab> %
-vmap <tab> %
+map <tab> %
 
 nnoremap Y y$
 nnoremap D d$
@@ -196,13 +195,17 @@ inoremap # X<BS>#
 " Various filetype-specific stuff --------------------------------------------- {{{
 
 " Cram {{{
+
 au BufNewFile,BufRead *.t set filetype=cram
 let cram_fold=1
 autocmd Syntax cram setlocal foldlevel=1
+
 " }}}
 " Clojure {{{
+
 au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 au FileType clojure call TurnOnClojureFolding()
+
 " }}}
 " C {{{
 
@@ -210,6 +213,7 @@ au BufNewFile,BufRead *.c setlocal foldmethod=syntax
 
 " }}}
 " HTML and HTMLDjango {{{
+
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
@@ -217,57 +221,78 @@ au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
 au BufNewFile,BufRead *.html imap <buffer> <d-e><cr> <d-e><s-cr>
 au BufNewFile,BufRead *.html imap <buffer> <d-e><space> <d-e>.<bs>
 au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
 " }}}
 " CSS {{{
+
 au BufNewFile,BufRead *.css setlocal foldmethod=marker
 au BufNewFile,BufRead *.css setlocal foldmarker={,}
 au BufNewFile,BufRead *.css nnoremap <buffer> cc ddko
-au BufNewFile,BufRead *.css nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 au BufNewFile,BufRead *.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
+
 " }}}
 " LessCSS {{{
+
 au BufNewFile,BufRead *.less setlocal filetype=less
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
 au BufNewFile,BufRead *.less setlocal foldmarker={,}
 au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
-au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
+
 " }}}
 " Javascript {{{
+
 au BufNewFile,BufRead *.js setlocal foldmethod=marker
 au BufNewFile,BufRead *.js setlocal foldmarker={,}
+
 " }}}
 " Confluence {{{
+
 au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
 au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
+
 " }}}
 " Fish {{{
+
 au BufNewFile,BufRead *.fish setlocal filetype=fish
+
 " }}}
 " Markdown {{{
+
 au BufNewFile,BufRead *.m*down setlocal filetype=markdown
 au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
 au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
 au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+
 " }}}
 " Vim {{{
+
 au FileType vim setlocal foldmethod=marker
+
 " }}}
 " Python {{{
+
 au Filetype python noremap  <localleader>rr :RopeRename<CR>
 au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
 au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+
 " }}}
 " Django {{{
+
 au BufNewFile,BufRead urls.py      setlocal nowrap
 au BufNewFile,BufRead urls.py      normal! zR
 au BufNewFile,BufRead settings.py  normal! zR
 au BufNewFile,BufRead dashboard.py normal! zR
+
 " }}}
 " Nginx {{{
+
 au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
 au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
 au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
+
 " }}}
 
 " }}}
