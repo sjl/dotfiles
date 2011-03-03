@@ -88,6 +88,10 @@ colorscheme molokai
 " Useful Abbreviations -------------------------------------------------------- {{{
 
 iabbrev ldis ಠ_ಠ
+iabbrev sl/ http://stevelosh.com/
+iabbrev bb/ http://bitbucket.org/
+iabbrev bbs/ http://bitbucket.org/sjl/
+iabbrev sl@ steve@stevelosh.com
 
 " }}}
 " Searching and Movement ------------------------------------------------------ {{{
@@ -290,8 +294,10 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 " Faster Esc
 inoremap jk <ESC>
 
-" Easier buffer swapping
-nnoremap ` <C-^>
+" Marks and Quotes
+noremap ' `
+noremap æ '
+noremap ` <C-^>
 
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
@@ -301,7 +307,6 @@ set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-p> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
@@ -452,11 +457,9 @@ inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
 
 " }}}
-" Error toggle ---------------------------------------------------------------- {{{
+" Error toggles --------------------------------------------------------------- {{{
 
-nmap <silent> <f3> :ErrorsToggle<cr>
 command! ErrorsToggle call ErrorsToggle()
-
 function! ErrorsToggle() " {{{
   if exists("w:is_error_window")
     unlet w:is_error_window
@@ -468,12 +471,27 @@ function! ErrorsToggle() " {{{
   endif
 endfunction " }}}
 
+command! -bang -nargs=? QFixToggle call QFixToggle(<bang>0)
+function! QFixToggle(forced) " {{{
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction " }}}
+
+nmap <silent> <f3> :ErrorsToggle<cr>
+nmap <silent> <f4> :QFixToggle<cr>
+
 " }}}
 " Open quoted ----------------------------------------------------------------- {{{
 
 nnoremap <silent> <c-o> :OpenQuoted<cr>
 command! OpenQuoted call OpenQuoted()
 
+" Open the file in the current (or next) set of quotes.
 function! OpenQuoted() " {{{
     let @r = ''
 
@@ -502,29 +520,32 @@ map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .ven
 if has('gui_running')
     set guifont=Menlo:h12
 
+    " Remove all the UI cruft
     set go-=T
     set go-=l
     set go-=L
     set go-=r
     set go-=R
 
+    " PeepOpen
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader>t <Plug>PeepOpen
         map <leader><leader> ,w<Plug>PeepOpen
     end
 
+    " Only map Sparkup to ⌘+e when running in MacVim.
     let g:sparkupExecuteMapping = '<D-e>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
+    " Use a line-drawing char for pretty vertical splits.
     set fillchars=vert:│
 
+    " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
-else
-    set nocursorline
 endif
 
 " }}}
