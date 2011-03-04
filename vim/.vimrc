@@ -41,6 +41,8 @@ set listchars=tab:▸\ ,eol:¬
 set shell=/bin/bash
 set lazyredraw
 set wildignore+=*.pyc,.hg
+set matchtime=3
+set showbreak=↪
 
 " Save when losing focus
 au FocusLost * :wa
@@ -555,8 +557,8 @@ if has('gui_running')
     " PeepOpen
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
-        map <leader>t <Plug>PeepOpen
-        map <leader><leader> ,w<Plug>PeepOpen
+        map <leader><leader> <Plug>PeepOpen
+        map <leader>t ,w<Plug>PeepOpen
     end
 
     " Only map Sparkup to ⌘+e when running in MacVim.
