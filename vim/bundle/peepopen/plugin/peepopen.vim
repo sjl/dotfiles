@@ -26,7 +26,7 @@ set cpo&vim
 
 function s:LaunchPeepOpenViaVim()
   let cwd = getcwd()
-  silent exe "!open -a PeepOpen " . shellescape(cwd)
+  silent exe "!open 'peepopen://" . shellescape(cwd) . "?editor=MacVim'"
 endfunction
 
 command! PeepOpen :call <SID>LaunchPeepOpenViaVim()
