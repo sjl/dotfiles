@@ -54,9 +54,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set wrap
-set textwidth=79
+set textwidth=85
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=+1
 
 " }}}
 " Status line {{{
@@ -369,41 +369,60 @@ cmap Wq wq
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
+" Python Formatting {{{
+
+let python_highlight_string_formatting = 1
+
+" }}}
 " NERD Tree {{{
+
 map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
+
 " }}}
 " HTML5 {{{
+
 let g:event_handler_attributes_complete = 0
 let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
+
 " }}}
 " Rope {{{
+
 let ropevim_enable_shortcuts = 0
 let ropevim_guess_project = 1
 let ropevim_global_prefix = '<C-c>p'
 
 source $HOME/.vim/sadness/sadness.vim
+
 " }}}
 " Gundo {{{
+
 nnoremap <F5> :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
+
 " }}}
 " VimClojure {{{
+
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
 let vimclojure#WantNailgun = 1
 let vimclojure#NailgunClient = $HOME . "/.vim/bundle/vimclojure/bin/ng"
 let vimclojure#SplitPos = "right"
+
 " }}}
 " Syntastic {{{
+
 let g:syntastic_enable_signs=1
 let g:syntastic_disabled_filetypes = ['html', 'python']
+
 " }}}
 " Command-T {{{
+
 let g:CommandTMaxHeight = 20
+
 " }}}
 
 " }}}
