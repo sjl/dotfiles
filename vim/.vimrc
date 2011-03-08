@@ -87,7 +87,7 @@ colorscheme molokai
 " }}}
 
 " }}}
-" Useful Abbreviations -------------------------------------------------------- {{{
+" Useful abbreviations -------------------------------------------------------- {{{
 
 iabbrev ldis ಠ_ಠ
 iabbrev sl/ http://stevelosh.com/
@@ -96,16 +96,19 @@ iabbrev bbs/ http://bitbucket.org/sjl/
 iabbrev sl@ steve@stevelosh.com
 
 " }}}
-" Searching and Movement ------------------------------------------------------ {{{
+" Searching and movement ------------------------------------------------------ {{{
 
+" Use sane regexes.
 nnoremap / /\v
 vnoremap / /\v
 
 set ignorecase
 set smartcase
+
 set incsearch
 set showmatch
 set hlsearch
+
 set gdefault
 
 map <leader><space> :noh<cr>
@@ -116,19 +119,31 @@ map <tab> %
 nnoremap Y y$
 nnoremap D d$
 
+" Keep search matches in the middle of the window.
+nnoremap * *zz
+nnoremap ? ?zz
 nnoremap n nzz
 nnoremap N Nzz
 
-nnoremap L $
-vnoremap L $
-onoremap L $
+" L is easier to type, and I never use the default behavior.
+noremap L $
 
+" Error navigation {{{
+"
+"             Location List     QuickFix Window
+"            (i.e. Syntastic)     (i.e. Ack)
+"            ----------------------------------
+" Next      |     M-k               M-Down     |
+" Previous  |     M-l                M-Up      |
+"            ----------------------------------
+"
 nnoremap ˚ :lnext<cr>
 nnoremap ¬ :lprevious<cr>
 inoremap ˚ <esc>:lnext<cr>
 inoremap ¬ <esc>:lprevious<cr>
 nnoremap <m-Down> :cnext<cr>
 nnoremap <m-Up> :cprevious<cr>
+" }}}
 
 " Directional Keys {{{
 
@@ -158,8 +173,13 @@ noremap <leader>w <C-w>v<C-w>l
 " Folding --------------------------------------------------------------------- {{{
 
 set foldlevelstart=0
+
+" Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
+
+" Make zO recursively open whatever top level fold we're in, no matter where the
+" cursor happens to be.
 nnoremap zO zCzO
 
 function! MyFoldText() " {{{
@@ -184,8 +204,8 @@ set foldtext=MyFoldText()
 
 " Fuck you, help key.
 set fuoptions=maxvert,maxhorz
-inoremap <F1> <ESC>:set invfullscreen<CR>a
 noremap <F1> :set invfullscreen<CR>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
 
 " Fuck you too, manual key.
 nnoremap K <nop>
@@ -199,19 +219,22 @@ inoremap # X<BS>#
 " Cram {{{
 
 au BufNewFile,BufRead *.t set filetype=cram
+
 let cram_fold=1
 autocmd Syntax cram setlocal foldlevel=1
 
 " }}}
 " Clojure {{{
 
-au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
 au FileType clojure call TurnOnClojureFolding()
+
+" Eval toplevel form, even when you're on the opening paren.
+au FileType clojure nmap <localleader>ee 0;\et
 
 " }}}
 " C {{{
 
-au BufNewFile,BufRead *.c setlocal foldmethod=syntax
+au FileType c setlocal foldmethod=syntax
 
 " }}}
 " HTML and HTMLDjango {{{
@@ -245,35 +268,61 @@ au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
 au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
 
 " }}}
-" CSS {{{
-
-au BufNewFile,BufRead *.css setlocal foldmethod=marker
-au BufNewFile,BufRead *.css setlocal foldmarker={,}
-au BufNewFile,BufRead *.css nnoremap <buffer> cc ddko
-au BufNewFile,BufRead *.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-au BufNewFile,BufRead *.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
-
-" }}}
-" LessCSS {{{
+" CSS and LessCSS {{{
 
 au BufNewFile,BufRead *.less setlocal filetype=less
+
+au BufNewFile,BufRead *.css  setlocal foldmethod=marker
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
+
+au BufNewFile,BufRead *.css  setlocal foldmarker={,}
 au BufNewFile,BufRead *.less setlocal foldmarker={,}
+
+" Use cc to change lines without borking the indentation.
+au BufNewFile,BufRead *.css  nnoremap <buffer> cc ddko
 au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
+
+" Use <leader>S to sort properties.  Turns this:
+"
+"     p {
+"         width: 200px;
+"         height: 100px;
+"         background: red;
+"
+"         ...
+"     }
+"
+" into this:
+
+"     p {
+"         background: red;
+"         height: 100px;
+"         width: 200px;
+"
+"         ...
+"     }
+"
+au BufNewFile,BufRead *.css  nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+" positioned inside of them AND the following code doesn't get unfolded.
+au BufNewFile,BufRead *.css  inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
 au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
 
 " }}}
 " Javascript {{{
 
-au BufNewFile,BufRead *.js setlocal foldmethod=marker
-au BufNewFile,BufRead *.js setlocal foldmarker={,}
+au FileType javascript setlocal foldmethod=marker
+au FileType javascript setlocal foldmarker={,}
 
 " }}}
 " Confluence {{{
 
 au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
-au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
+
+" Wiki pages should be soft-wrapped.
+au FileType confluencewiki setlocal wrap linebreak nolist
 
 " }}}
 " Fish {{{
@@ -284,6 +333,8 @@ au BufNewFile,BufRead *.fish setlocal filetype=fish
 " Markdown {{{
 
 au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+
+" Use <localleader>1/2/3 to add headings.
 au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
 au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
 au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
@@ -312,8 +363,8 @@ au BufNewFile,BufRead dashboard.py normal! zR
 " }}}
 " Nginx {{{
 
-au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
+au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
+au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
 au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 
 " }}}
@@ -352,9 +403,9 @@ nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Better Completion
 set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-p> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
+inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
@@ -388,7 +439,7 @@ cmap WA wa
 cmap Wq wq
 
 " }}}
-" Plugin Settings ------------------------------------------------------------- {{{
+" Plugin settings ------------------------------------------------------------- {{{
 
 " NERD Tree {{{
 
@@ -444,12 +495,16 @@ let g:CommandTMaxHeight = 20
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
 
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
 function! SynStack() " {{{
   if !exists("*synstack")
     return
   endif
+
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc " }}}
+
 nmap <C-S> :call SynStack()<CR>
 
 " }}}
@@ -574,7 +629,7 @@ endfunction " }}}
 " }}}
 " Ctags ----------------------------------------------------------------------- {{{
 
-map <leader>T :!/usr/local/bin/ctags --exclude='**/ckeditor' -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
+map <leader>T :!/usr/local/bin/ctags -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " }}}
 " MacVim ---------------------------------------------------------------------- {{{
