@@ -40,7 +40,7 @@ set list
 set listchars=tab:▸\ ,eol:¬
 set shell=/bin/bash
 set lazyredraw
-set wildignore+=*.pyc,.hg
+set wildignore+=*.pyc,.hg,.git
 set matchtime=3
 set showbreak=↪
 
@@ -218,11 +218,31 @@ au BufNewFile,BufRead *.c setlocal foldmethod=syntax
 
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
+
+" Use <localleader>f to fold the current tag.
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+
+" Use Shift-Return to turn this:
+"     <tag>|</tag>
+"
+" into this:
+"     <tag>
+"         |
+"     </tag>
 au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
-au BufNewFile,BufRead *.html imap <buffer> <d-e><cr> <d-e><s-cr>
-au BufNewFile,BufRead *.html imap <buffer> <d-e><space> <d-e>.<bs>
-au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
+" Sparkup mappings:
+"
+" <c-e><space> to expand sparkup normally:
+"     <p>|</p>
+"
+" <c-e><return> to force an expanded sparkup.
+"     <p>
+"         |
+"     </p>
+au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
+au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
 
 " }}}
 " CSS {{{
@@ -369,11 +389,6 @@ cmap Wq wq
 " }}}
 " Plugin Settings ------------------------------------------------------------- {{{
 
-" Python Formatting {{{
-
-let python_highlight_string_formatting = 1
-
-" }}}
 " NERD Tree {{{
 
 map <F2> :NERDTreeToggle<cr>
@@ -577,11 +592,11 @@ if has('gui_running')
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader><leader> <Plug>PeepOpen
-        map <leader>t ,w<Plug>PeepOpen
     end
 
     " Only map Sparkup to ⌘+e when running in MacVim.
-    let g:sparkupExecuteMapping = '<D-e>'
+    let g:sparkupExecuteMapping = '<c-e>'
+    let g:sparkupNextMapping = '<c-q>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
