@@ -292,6 +292,7 @@ au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
 " Vim {{{
 
 au FileType vim setlocal foldmethod=marker
+au FileType help setlocal textwidth=78
 
 " }}}
 " Python {{{
