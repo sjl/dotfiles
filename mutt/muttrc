@@ -110,6 +110,7 @@ bind index L        previous-unread
 bind index K        next-unread
 bind index,pager R  group-reply
 bind index \Cp      recall-message
+bind index <space>  collapse-thread
 
 # macros
 macro index \Cr   "<tag-prefix><clear-flag>N"                                          "mark tagged messages as read"
