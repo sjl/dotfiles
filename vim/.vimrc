@@ -491,6 +491,11 @@ let g:syntastic_disabled_filetypes = ['html', 'python']
 let g:CommandTMaxHeight = 20
 
 " }}}
+" LISP (built-in) {{{
+
+let g:lisp_rainbow = 1
+
+" }}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
