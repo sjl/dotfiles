@@ -40,6 +40,9 @@ set list
 set listchars=tab:▸\ ,eol:¬
 set shell=/bin/bash
 set lazyredraw
+set wildignore+=*.pyc,.hg,.git
+set matchtime=3
+set showbreak=↪
 
 " Save when losing focus
 au FocusLost * :wa
@@ -51,9 +54,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set wrap
-set textwidth=79
+set textwidth=85
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=+1
 
 " }}}
 " Status line {{{
@@ -75,7 +78,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 " }}}
-" Color scheme (terminal) {{{
+" Color scheme {{{
 
 syntax on
 set background=dark
@@ -84,43 +87,63 @@ colorscheme molokai
 " }}}
 
 " }}}
-" Useful Abbreviations -------------------------------------------------------- {{{
+" Useful abbreviations -------------------------------------------------------- {{{
 
 iabbrev ldis ಠ_ಠ
+iabbrev sl/ http://stevelosh.com/
+iabbrev bb/ http://bitbucket.org/
+iabbrev bbs/ http://bitbucket.org/sjl/
+iabbrev sl@ steve@stevelosh.com
 
 " }}}
-" Searching and Movement ------------------------------------------------------ {{{
+" Searching and movement ------------------------------------------------------ {{{
 
+" Use sane regexes.
 nnoremap / /\v
 vnoremap / /\v
 
 set ignorecase
 set smartcase
+
 set incsearch
 set showmatch
 set hlsearch
+
 set gdefault
 
 map <leader><space> :noh<cr>
 
 runtime macros/matchit.vim
-nmap <tab> %
-vmap <tab> %
+map <tab> %
 
 nnoremap Y y$
 nnoremap D d$
 
+" Keep search matches in the middle of the window.
+nnoremap * *zz
+nnoremap ? ?zz
 nnoremap n nzz
 nnoremap N Nzz
 
-nnoremap L $
-vnoremap L $
-onoremap L $
+" L is easier to type, and I never use the default behavior.
+noremap L $
 
+" Error navigation {{{
+"
+"             Location List     QuickFix Window
+"            (i.e. Syntastic)     (i.e. Ack)
+"            ----------------------------------
+" Next      |     M-k               M-Down     |
+" Previous  |     M-l                M-Up      |
+"            ----------------------------------
+"
 nnoremap ˚ :lnext<cr>
 nnoremap ¬ :lprevious<cr>
 inoremap ˚ <esc>:lnext<cr>
 inoremap ¬ <esc>:lprevious<cr>
+nnoremap <m-Down> :cnext<cr>
+nnoremap <m-Up> :cprevious<cr>
+" }}}
 
 " Directional Keys {{{
 
@@ -150,8 +173,13 @@ noremap <leader>w <C-w>v<C-w>l
 " Folding --------------------------------------------------------------------- {{{
 
 set foldlevelstart=0
+
+" Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
+
+" Make zO recursively open whatever top level fold we're in, no matter where the
+" cursor happens to be.
 nnoremap zO zCzO
 
 function! MyFoldText() " {{{
@@ -176,8 +204,8 @@ set foldtext=MyFoldText()
 
 " Fuck you, help key.
 set fuoptions=maxvert,maxhorz
-inoremap <F1> <ESC>:set invfullscreen<CR>a
 noremap <F1> :set invfullscreen<CR>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
 
 " Fuck you too, manual key.
 nnoremap K <nop>
@@ -189,78 +217,156 @@ inoremap # X<BS>#
 " Various filetype-specific stuff --------------------------------------------- {{{
 
 " Cram {{{
+
 au BufNewFile,BufRead *.t set filetype=cram
+
 let cram_fold=1
 autocmd Syntax cram setlocal foldlevel=1
+
 " }}}
 " Clojure {{{
-au BufNewFile,BufRead *.clj nmap <localleader>ee 0;\et
+
 au FileType clojure call TurnOnClojureFolding()
+
+" Eval toplevel form, even when you're on the opening paren.
+au FileType clojure nmap <localleader>ee 0;\et
+
 " }}}
 " C {{{
 
-au BufNewFile,BufRead *.c setlocal foldmethod=syntax
+au FileType c setlocal foldmethod=syntax
 
 " }}}
 " HTML and HTMLDjango {{{
+
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.html setlocal foldmethod=manual
+
+" Use <localleader>f to fold the current tag.
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+
+" Use Shift-Return to turn this:
+"     <tag>|</tag>
+"
+" into this:
+"     <tag>
+"         |
+"     </tag>
 au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
-au BufNewFile,BufRead *.html imap <buffer> <d-e><cr> <d-e><s-cr>
-au BufNewFile,BufRead *.html imap <buffer> <d-e><space> <d-e>.<bs>
-au BufNewFile,BufRead *.html nnoremap <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
+" Sparkup mappings:
+"
+" <c-e><space> to expand sparkup normally:
+"     <p>|</p>
+"
+" <c-e><return> to force an expanded sparkup.
+"     <p>
+"         |
+"     </p>
+au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
+au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
+
 " }}}
-" CSS {{{
-au BufNewFile,BufRead *.css setlocal foldmethod=marker
-au BufNewFile,BufRead *.css setlocal foldmarker={,}
-au BufNewFile,BufRead *.css nnoremap <buffer> cc ddko
-au BufNewFile,BufRead *.css nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-au BufNewFile,BufRead *.css inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
-" }}}
-" LessCSS {{{
+" CSS and LessCSS {{{
+
 au BufNewFile,BufRead *.less setlocal filetype=less
+
+au BufNewFile,BufRead *.css  setlocal foldmethod=marker
 au BufNewFile,BufRead *.less setlocal foldmethod=marker
+
+au BufNewFile,BufRead *.css  setlocal foldmarker={,}
 au BufNewFile,BufRead *.less setlocal foldmarker={,}
+
+" Use cc to change lines without borking the indentation.
+au BufNewFile,BufRead *.css  nnoremap <buffer> cc ddko
 au BufNewFile,BufRead *.less nnoremap <buffer> cc ddko
-au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Use <leader>S to sort properties.  Turns this:
+"
+"     p {
+"         width: 200px;
+"         height: 100px;
+"         background: red;
+"
+"         ...
+"     }
+"
+" into this:
+
+"     p {
+"         background: red;
+"         height: 100px;
+"         width: 200px;
+"
+"         ...
+"     }
+"
+au BufNewFile,BufRead *.css  nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+au BufNewFile,BufRead *.less nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+" positioned inside of them AND the following code doesn't get unfolded.
+au BufNewFile,BufRead *.css  inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
 au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
+
 " }}}
 " Javascript {{{
-au BufNewFile,BufRead *.js setlocal foldmethod=marker
-au BufNewFile,BufRead *.js setlocal foldmarker={,}
+
+au FileType javascript setlocal foldmethod=marker
+au FileType javascript setlocal foldmarker={,}
+
 " }}}
 " Confluence {{{
+
 au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
-au BufRead,BufNewFile *.confluencewiki setlocal wrap linebreak nolist
+
+" Wiki pages should be soft-wrapped.
+au FileType confluencewiki setlocal wrap linebreak nolist
+
 " }}}
 " Fish {{{
+
 au BufNewFile,BufRead *.fish setlocal filetype=fish
+
 " }}}
 " Markdown {{{
+
 au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+
+" Use <localleader>1/2/3 to add headings.
 au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
 au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
 au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+
 " }}}
 " Vim {{{
+
 au FileType vim setlocal foldmethod=marker
+au FileType help setlocal textwidth=78
+
 " }}}
 " Python {{{
+
 au Filetype python noremap  <localleader>rr :RopeRename<CR>
 au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
 au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+
 " }}}
 " Django {{{
+
 au BufNewFile,BufRead urls.py      setlocal nowrap
 au BufNewFile,BufRead urls.py      normal! zR
 au BufNewFile,BufRead settings.py  normal! zR
 au BufNewFile,BufRead dashboard.py normal! zR
+
 " }}}
 " Nginx {{{
-au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
+
+au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
+au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
 au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
+
 " }}}
 
 " }}}
@@ -278,9 +384,6 @@ nnoremap <silent> <F6> :YRShow<cr>
 " Formatting, TextMate-style
 nnoremap <leader>q gqip
 
-" Faster Make
-nnoremap <leader>m :make<cr>
-
 " Easier linewise reselection
 nnoremap <leader>v V`]
 
@@ -290,12 +393,19 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 " Faster Esc
 inoremap jk <ESC>
 
-" TextMate-Style Autocomplete
-inoremap <ESC> <C-P>
-inoremap <S-ESC> <C-N>
+" Marks and Quotes
+noremap ' `
+noremap æ '
+noremap ` <C-^>
 
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
+
+" Better Completion
+set completeopt=longest,menuone
+inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
+inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Make selecting inside an HTML tag less dumb
 nnoremap Vit vitVkoj
@@ -329,51 +439,77 @@ cmap WA wa
 cmap Wq wq
 
 " }}}
-" Plugin Settings ------------------------------------------------------------- {{{
+" Plugin settings ------------------------------------------------------------- {{{
 
 " NERD Tree {{{
+
 map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
+
 " }}}
 " HTML5 {{{
+
 let g:event_handler_attributes_complete = 0
 let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
+
 " }}}
 " Rope {{{
+
 let ropevim_enable_shortcuts = 0
 let ropevim_guess_project = 1
 let ropevim_global_prefix = '<C-c>p'
 
 source $HOME/.vim/sadness/sadness.vim
+
 " }}}
 " Gundo {{{
+
 nnoremap <F5> :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
+
 " }}}
 " VimClojure {{{
+
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
 let vimclojure#WantNailgun = 1
 let vimclojure#NailgunClient = $HOME . "/.vim/bundle/vimclojure/bin/ng"
 let vimclojure#SplitPos = "right"
+
 " }}}
 " Syntastic {{{
+
 let g:syntastic_enable_signs=1
 let g:syntastic_disabled_filetypes = ['html', 'python']
+
+" }}}
+" Command-T {{{
+
+let g:CommandTMaxHeight = 20
+
+" }}}
+" LISP (built-in) {{{
+
+let g:lisp_rainbow = 1
+
 " }}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
 
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
 function! SynStack() " {{{
   if !exists("*synstack")
     return
   endif
+
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc " }}}
+
 nmap <C-S> :call SynStack()<CR>
 
 " }}}
@@ -443,11 +579,9 @@ inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
 
 " }}}
-" Error toggle ---------------------------------------------------------------- {{{
+" Error toggles --------------------------------------------------------------- {{{
 
-nmap <silent> <f3> :ErrorsToggle<cr>
 command! ErrorsToggle call ErrorsToggle()
-
 function! ErrorsToggle() " {{{
   if exists("w:is_error_window")
     unlet w:is_error_window
@@ -459,12 +593,27 @@ function! ErrorsToggle() " {{{
   endif
 endfunction " }}}
 
+command! -bang -nargs=? QFixToggle call QFixToggle(<bang>0)
+function! QFixToggle(forced) " {{{
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction " }}}
+
+nmap <silent> <f3> :ErrorsToggle<cr>
+nmap <silent> <f4> :QFixToggle<cr>
+
 " }}}
 " Open quoted ----------------------------------------------------------------- {{{
 
 nnoremap <silent> <c-o> :OpenQuoted<cr>
 command! OpenQuoted call OpenQuoted()
 
+" Open the file in the current (or next) set of quotes.
 function! OpenQuoted() " {{{
     let @r = ''
 
@@ -483,28 +632,42 @@ function! OpenQuoted() " {{{
 endfunction " }}}
 
 " }}}
+" Ctags ----------------------------------------------------------------------- {{{
+
+map <leader>T :!/usr/local/bin/ctags -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
+
+" }}}
 " MacVim ---------------------------------------------------------------------- {{{
 
 if has('gui_running')
     set guifont=Menlo:h12
 
+    " Remove all the UI cruft
     set go-=T
     set go-=l
     set go-=L
     set go-=r
     set go-=R
 
+    " PeepOpen
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
-        map <leader>t <Plug>PeepOpen
-        map <leader><leader> ,w<Plug>PeepOpen
+        map <leader><leader> <Plug>PeepOpen
     end
 
-    let g:sparkupExecuteMapping = '<D-e>'
+    " Only map Sparkup to ⌘+e when running in MacVim.
+    let g:sparkupExecuteMapping = '<c-e>'
+    let g:sparkupNextMapping = '<c-q>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
-else
-    set nocursorline
+
+    " Use a line-drawing char for pretty vertical splits.
+    set fillchars=vert:│
+
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
 endif
 
 " }}}

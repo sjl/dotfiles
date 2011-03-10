@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Original source: http://forrst.com/posts/An_unball_script_for_vimball_plugins-CHM
 
 import os, sys
