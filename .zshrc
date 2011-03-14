@@ -1,7 +1,8 @@
 export ZSH="$HOME/lib/oh-my-zsh"
 export ZSH_THEME="prose"
 export DISABLE_AUTO_UPDATE="true"
-plugins=(command-coloring pip brew fabric)
+export OH_MY_ZSH_DEBUG="true"
+plugins=(command-coloring pip fabric)
 source $ZSH/oh-my-zsh.sh
 
 # Custom options -------------------------------------------------------------
@@ -39,6 +40,7 @@ export PATH="${PATH}:/usr/local/Cellar/python/2.7.1/bin"
 export PATH="${PATH}:/usr/local/Cellar/python/2.7/bin"
 export PATH="${PATH}:/usr/local/Cellar/python/2.6.5/bin"
 export PATH="${PATH}:/usr/local/Cellar/python/2.6.4/bin"
+export PATH="${PATH}:/usr/local/Cellar/ruby/1.9.2-p0/bin"
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7.1/site-packages"
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.6/site-packages"
