@@ -17,3 +17,5 @@ mutt/cache
 vim/spell
 fishd*
 fish_history
+bundle/vim-fugitive
+bundle/vermilion
