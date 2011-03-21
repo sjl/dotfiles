@@ -430,7 +430,7 @@ nnoremap _d  :set ft=diff<CR>
 nnoremap _a  :AnsiEsc<CR>
 
 " Toggle paste
-nnoremap <f8> :set paste!<cr>
+set pastetoggle=<F8>
 
 " I can't type
 cmap W w
@@ -610,7 +610,7 @@ nmap <silent> <f4> :QFixToggle<cr>
 " }}}
 " Open quoted ----------------------------------------------------------------- {{{
 
-nnoremap <silent> <c-o> :OpenQuoted<cr>
+nnoremap <silent> ø :OpenQuoted<cr>
 command! OpenQuoted call OpenQuoted()
 
 " Open the file in the current (or next) set of quotes.
