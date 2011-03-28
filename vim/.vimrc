@@ -368,6 +368,11 @@ au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
 au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 
 " }}}
+" Pentadactyl {{{
+
+au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+
+" }}}
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
