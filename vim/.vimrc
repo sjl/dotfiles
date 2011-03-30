@@ -165,7 +165,7 @@ noremap <C-j>  <C-w>h
 noremap <C-k>  <C-w>j
 noremap <C-l>  <C-w>k
 noremap <C-g>  <C-w>l
-noremap <leader>w <C-w>v<C-w>l
+noremap <leader>g <C-w>v<C-w>l
 
 " }}}
 
@@ -378,7 +378,7 @@ au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
 " Convenience mappings -------------------------------------------------------- {{{
 
 " Clean whitespace
-map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+map <leader>c :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Ack
 map <leader>a :Ack 
@@ -420,8 +420,8 @@ nnoremap Vat vatV
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Edit vim stuff
-nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
+nnoremap <leader>Ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
+nnoremap <leader>Es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -499,6 +499,32 @@ let g:CommandTMaxHeight = 20
 " LISP (built-in) {{{
 
 let g:lisp_rainbow = 1
+
+" }}}
+" Easymotion {{{
+
+let g:EasyMotion_do_mapping = 0
+
+nnoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
+vnoremap <silent> <Leader>f :<C-U>call EasyMotionF(1, 0)<CR>
+
+nnoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
+vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
+
+nnoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
+vnoremap <silent> <Leader>t :<C-U>call EasyMotionT(1, 0)<CR>
+
+nnoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
+vnoremap <silent> <Leader>T :<C-U>call EasyMotionT(1, 1)<CR>
+
+nnoremap <silent> <Leader>w      :call EasyMotionW(0)<CR>
+vnoremap <silent> <Leader>w :<C-U>call EasyMotionW(1)<CR>
+
+nnoremap <silent> <Leader>e      :call EasyMotionE(0)<CR>
+vnoremap <silent> <Leader>e :<C-U>call EasyMotionE(1)<CR>
+
+nnoremap <silent> <Leader>b      :call EasyMotionB(0)<CR>
+vnoremap <silent> <Leader>b :<C-U>call EasyMotionB(1)<CR>
 
 " }}}
 
@@ -635,11 +661,6 @@ function! OpenQuoted() " {{{
 
     exe "silent !open ." . @r
 endfunction " }}}
-
-" }}}
-" Ctags ----------------------------------------------------------------------- {{{
-
-map <leader>T :!/usr/local/bin/ctags -R . $(test -f .venv && echo ~/lib/virtualenvs/`cat .venv`)<CR>
 
 " }}}
 " MacVim ---------------------------------------------------------------------- {{{
