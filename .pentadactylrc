@@ -1,0 +1,19 @@
+"1.0b3 (created: 2010/11/06 12:31:35)
+
+highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Helvetica; line-height:1em;
+highlight HintActive background: rgba(145,197,43,0.8)    !important;
+highlight HintElem   background: rgba(255, 209, 20, 0.7) !important;
+highlight StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 16px/1 'Menlo' !important; padding: 3px 0px 3px 5px !important;
+highlight CmdLine    padding: 1px !important; font: normal 16px 'Menlo' !important;
+highlight CmdOutput  font: normal 14px 'Menlo' !important;
+highlight CompItem   font: normal 14px 'Menlo' !important;
+
+set runtimepath=/Users/sjl/.pentadactyl
+set editor='/usr/local/bin/mvim -f +<line> <file>'
+set followhints=1
+set showtabline=multitab
+
+nnoremap j 3j
+nnoremap k 3k
+
+" vim: set ft=pentadactyl:
