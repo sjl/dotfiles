@@ -52,6 +52,8 @@ hi iCursor         guifg=#000000 guibg=#FDFF00
 hi vCursor         guifg=#000000 guibg=#AAF412
 " }}}
 
+hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
+hi EasyMotionShade guifg=#444444 guibg=bg gui=bold
 hi Directory       guifg=#A6E22E               gui=bold
 hi Error           guifg=#960050 guibg=#1E0010
 hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
