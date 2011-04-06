@@ -111,6 +111,8 @@ set hlsearch
 
 set gdefault
 
+set virtualedit+=block
+
 map <leader><space> :noh<cr>
 
 runtime macros/matchit.vim
@@ -127,6 +129,9 @@ nnoremap N Nzz
 
 " L is easier to type, and I never use the default behavior.
 noremap L $
+
+" Open a Quickfix window for the last search
+nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Error navigation {{{
 "
