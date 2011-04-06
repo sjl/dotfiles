@@ -117,7 +117,7 @@ macro index \Cr   "<tag-prefix><clear-flag>N"                                   
 macro index \CR   "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"          "mark all messages as read"
 macro index B     "<limit>~b "                                                         "search message bodies"
 macro index I     "<change-folder>!<enter>"                                            "go to Inbox"
-macro pager \Cu   "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
+macro pager (     "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
 macro index,pager o     "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in vim"
 
 # mailbox
