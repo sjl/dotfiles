@@ -62,7 +62,7 @@ export PYTHONPATH="/opt/subversion/lib/svn-python:$PYTHONPATH"
 export PATH="/opt/subversion/bin:$PATH"
 
 # hgd
-alias h='~/src/hgd/hd'
+test -f "$HOME/src/hgd/hd" && alias h='~/src/hgd/hd' || alias h=hg
 
 # What the hell did I do the other day?
 function whatthehelldididoon() {
