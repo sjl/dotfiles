@@ -272,6 +272,9 @@ au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc
 au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
 au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
 
+" Django tags
+au Filetype html inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+
 " }}}
 " CSS and LessCSS {{{
 
