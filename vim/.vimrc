@@ -130,6 +130,10 @@ nnoremap N Nzz
 " L is easier to type, and I never use the default behavior.
 noremap L $
 
+" Heresy
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
 " Open a Quickfix window for the last search
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
@@ -269,8 +273,8 @@ au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc
 "     <p>
 "         |
 "     </p>
-au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
-au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
+au BufNewFile,BufRead *.html imap <buffer> <c-s><cr> <c-s><s-cr>
+au BufNewFile,BufRead *.html imap <buffer> <c-s><space> <c-s>.<bs>
 
 " Django tags
 au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
@@ -523,6 +527,13 @@ nnoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
 vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
 
 " }}}
+" Sparkup {{{
+
+let g:sparkupExecuteMapping = '<c-s>'
+let g:sparkupNextMapping = '<c-q>'
+
+"}}}
+
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
@@ -537,7 +548,7 @@ function! SynStack() " {{{
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc " }}}
 
-nmap <C-S> :call SynStack()<CR>
+nmap <M-S> :call SynStack()<CR>
 
 " }}}
 " Text objects ---------------------------------------------------------------- {{{
@@ -676,10 +687,6 @@ if has('gui_running')
         macmenu &File.New\ Tab key=<nop>
         map <leader><leader> <Plug>PeepOpen
     end
-
-    " Only map Sparkup to ⌘+e when running in MacVim.
-    let g:sparkupExecuteMapping = '<c-e>'
-    let g:sparkupNextMapping = '<c-q>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
