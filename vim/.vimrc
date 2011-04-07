@@ -122,8 +122,8 @@ nnoremap Y y$
 nnoremap D d$
 
 " Keep search matches in the middle of the window.
-nnoremap * *zz
-nnoremap ? ?zz
+nnoremap * *zzzv
+nnoremap ? ?zzzv
 nnoremap n nzz
 nnoremap N Nzz
 
@@ -136,18 +136,18 @@ nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Error navigation {{{
 "
 "             Location List     QuickFix Window
-"            (i.e. Syntastic)     (i.e. Ack)
+"            (e.g. Syntastic)     (e.g. Ack)
 "            ----------------------------------
 " Next      |     M-k               M-Down     |
 " Previous  |     M-l                M-Up      |
 "            ----------------------------------
 "
-nnoremap ˚ :lnext<cr>
-nnoremap ¬ :lprevious<cr>
-inoremap ˚ <esc>:lnext<cr>
-inoremap ¬ <esc>:lprevious<cr>
-nnoremap <m-Down> :cnext<cr>
-nnoremap <m-Up> :cprevious<cr>
+nnoremap ˚ :lnext<cr>zvzz
+nnoremap ¬ :lprevious<cr>zvzz
+inoremap ˚ <esc>:lnext<cr>zvzz
+inoremap ¬ <esc>:lprevious<cr>zvzz
+nnoremap <m-Down> :cnext<cr>zvzz
+nnoremap <m-Up> :cprevious<cr>zvzz
 " }}}
 
 " Directional Keys {{{
@@ -276,9 +276,7 @@ au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
 au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
 " Django variables
-au FileType jinja,htmldjango inoremap <buffer> <c-r> {{<space><space>}}<left><left><left>
-iunmap <c-r><tab>
-
+au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
 
 " }}}
 " CSS and LessCSS {{{
@@ -692,6 +690,29 @@ if has('gui_running')
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
+
+    " Use the normal HIG movements, except for M-Up/Down
+    let macvim_skip_cmd_opt_movement = 1
+    no   <D-Left>       <Home>
+    no!  <D-Left>       <Home>
+    no   <M-Left>       <C-Left>
+    no!  <M-Left>       <C-Left>
+
+    no   <D-Right>      <End>
+    no!  <D-Right>      <End>
+    no   <M-Right>      <C-Right>
+    no!  <M-Right>      <C-Right>
+
+    no   <D-Up>         <C-Home>
+    ino  <D-Up>         <C-Home>
+    imap <M-Up>         <C-o>{
+
+    no   <D-Down>       <C-End>
+    ino  <D-Down>       <C-End>
+    imap <M-Down>       <C-o>}
+
+    imap <M-BS>         <C-w>
+    imap <D-BS>         <C-u>
 endif
 
 " }}}
