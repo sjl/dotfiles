@@ -273,7 +273,10 @@ au BufNewFile,BufRead *.html imap <buffer> <c-e><cr> <c-e><s-cr>
 au BufNewFile,BufRead *.html imap <buffer> <c-e><space> <c-e>.<bs>
 
 " Django tags
-au Filetype html inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+au Filetype htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+
+" Django variables
+au Filetype htmldjango inoremap <buffer> <c-v> {{<space><space>}}<left><left><left>
 
 " }}}
 " CSS and LessCSS {{{
