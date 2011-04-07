@@ -3,7 +3,11 @@ export ZSH_THEME="prose"
 export DISABLE_AUTO_UPDATE="true"
 export OH_MY_ZSH_DEBUG="true"
 plugins=(command-coloring pip fabric)
+
+#test -f "$HOME/src/hgd/hd" && export OH_MY_ZSH_HG="$HOME/src/hgd/hd" || export OH_MY_ZSH_HG='hg'
+
 source $ZSH/oh-my-zsh.sh
+
 
 # Custom options -------------------------------------------------------------
 unsetopt promptcr
@@ -29,7 +33,6 @@ export HISTCONTROL=erasedups
 export COMMAND_MODE=unix2003
 export RUBYOPT=rubygems
 export CLASSPATH="$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar"
-which vimpager >/dev/null 2>&1 && export PAGER=vimpager || export PAGER=less
 
 # Python variables -----------------------------------------------------------
 export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
