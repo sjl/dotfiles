@@ -123,9 +123,9 @@ nnoremap D d$
 
 " Keep search matches in the middle of the window.
 nnoremap * *zzzv
-nnoremap ? ?zzzv
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap # #zzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " L is easier to type, and I never use the default behavior.
 noremap L $
