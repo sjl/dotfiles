@@ -253,6 +253,7 @@ au BufNewFile,BufRead *.html setlocal foldmethod=manual
 
 " Use <localleader>f to fold the current tag.
 au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>
@@ -386,6 +387,11 @@ au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 " Pentadactyl {{{
 
 au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+
+" }}}
+" Vagrant {{{
+
+au BufRead,BufNewFile Vagrantfile set ft=ruby
 
 " }}}
 

@@ -73,3 +73,5 @@ function whatthehelldididoon() {
     done
 }
 
+alias dvt='dvtm -m "^f"'
+alias dv='dtach -A /tmp/dvtm-session.sock -r winch dvtm -m "^f"'
