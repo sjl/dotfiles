@@ -394,6 +394,12 @@ au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
 au BufRead,BufNewFile Vagrantfile set ft=ruby
 
 " }}}
+" Puppet {{{
+
+au Filetype puppet set foldmethod=marker
+au Filetype puppet set foldmarker={,}
+
+" }}}
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
@@ -403,6 +409,9 @@ map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Ack
 map <leader>a :Ack 
+
+" Upcase
+nnoremap <leader>U gUiw
 
 " Yankring
 nnoremap <silent> <F6> :YRShow<cr>
