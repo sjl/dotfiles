@@ -410,8 +410,9 @@ map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " Ack
 map <leader>a :Ack 
 
-" Upcase
-nnoremap <leader>U gUiw
+" Change case
+nnoremap <C-u> gUiw
+inoremap <C-u> <esc>gUiwea
 
 " Yankring
 nnoremap <silent> <F6> :YRShow<cr>
