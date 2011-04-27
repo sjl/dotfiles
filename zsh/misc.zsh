@@ -7,6 +7,9 @@ alias v='vagrant'
 alias f='fab'
 alias fd='fab dev'
 
+alias spotlight-off='sudo mdutil -a -i off && sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ && killall SystemUIServer'
+alias spotlight-on='sudo mdutil -a -i on && sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ && killall SystemUIServer'
+
 function mdown () {
     (echo '
         <head>
