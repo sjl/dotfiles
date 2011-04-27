@@ -137,6 +137,12 @@ inoremap <c-e> <esc>A
 " Open a Quickfix window for the last search
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
+" Fix linewise visual selection of various text objects
+nnoremap Vit vitVkoj
+nnoremap Vat vatV
+nnoremap Vab vabV
+nnoremap VaB vaBV
+
 " Error navigation {{{
 "
 "             Location List     QuickFix Window
@@ -443,10 +449,6 @@ inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Make selecting inside an HTML tag less dumb
-nnoremap Vit vitVkoj
-nnoremap Vat vatV
-
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
 
@@ -467,12 +469,6 @@ nnoremap _a  :AnsiEsc<CR>
 
 " Toggle paste
 set pastetoggle=<F8>
-
-" I can't type
-cmap W w
-cmap Wa wa
-cmap WA wa
-cmap Wq wq
 
 " }}}
 " Plugin settings ------------------------------------------------------------- {{{
@@ -549,7 +545,11 @@ let g:sparkupExecuteMapping = '<c-s>'
 let g:sparkupNextMapping = '<c-q>'
 
 "}}}
+" Autoclose {{{
 
+nmap <Leader>x <Plug>ToggleAutoCloseMappings
+
+" }}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
@@ -735,7 +735,7 @@ if has('gui_running')
     imap <M-Down>       <C-o>}
 
     imap <M-BS>         <C-w>
-    imap <D-BS>         <C-u>
+    inoremap <D-BS>     <esc>my0c`y
 endif
 
 " }}}
