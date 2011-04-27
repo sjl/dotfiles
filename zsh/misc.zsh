@@ -5,6 +5,7 @@ alias m='mvim .'
 
 alias v='vagrant'
 alias f='fab'
+alias fd='fab dev'
 
 function mdown () {
     (echo '

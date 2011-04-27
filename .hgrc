@@ -33,6 +33,8 @@ delay = 1.0
 [schemes]
 webf = ssh://sjl@sjl.webfactional.com/repos/
 bbs = ssh://hg@bitbucket.org/
+bbss = ssh://hg@bitbucket.org/sjl/
+bbsd = ssh://hg@bitbucket.org/dwaiter/
 gh = git://github.com/
 ghs = git+ssh://git@github.com/
 cb = ssh://hg@codebasehq.com/
