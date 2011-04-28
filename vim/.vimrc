@@ -406,6 +406,11 @@ au Filetype puppet set foldmethod=marker
 au Filetype puppet set foldmarker={,}
 
 " }}}
+" Firefox {{{
+
+au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
+
+" }}}
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
