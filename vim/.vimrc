@@ -402,8 +402,8 @@ au BufRead,BufNewFile Vagrantfile set ft=ruby
 " }}}
 " Puppet {{{
 
-au Filetype puppet set foldmethod=marker
-au Filetype puppet set foldmarker={,}
+au Filetype puppet setlocal foldmethod=marker
+au Filetype puppet setlocal foldmarker={,}
 
 " }}}
 " Firefox {{{
@@ -480,7 +480,8 @@ set pastetoggle=<F8>
 
 " NERD Tree {{{
 
-map <F2> :NERDTreeToggle<cr>
+noremap <F2> :NERDTreeToggle<cr>
+inoremap <F2> <esc>:NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
 
 " }}}
