@@ -12,3 +12,4 @@ vim/bundle/vim-coffee-script = [git]git://github.com/kchmck/vim-coffee-script.gi
 vim/bundle/vim-javascript = [git]git://github.com/pangloss/vim-javascript.git
 vim/bundle/strftimedammit = [hg]http://bitbucket.org/sjl/strftimedammit.vim/
 vim/bundle/easymotion = [git]git://github.com/Lokaltog/vim-easymotion.git
+vim/bundle/pydoc = [git]git://github.com/fs111/pydoc.vim.git

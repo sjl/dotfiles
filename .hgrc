@@ -30,6 +30,9 @@ review = ~/src/hg-review/review
 [progress]
 delay = 1.0
 
+[web]
+cacerts = /etc/hg-dummy-cert.pem
+
 [schemes]
 webf = ssh://sjl@sjl.webfactional.com/repos/
 bbs = ssh://hg@bitbucket.org/
