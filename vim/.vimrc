@@ -373,6 +373,7 @@ au FileType help setlocal textwidth=78
 au Filetype python noremap  <localleader>rr :RopeRename<CR>
 au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
 au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+au FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " }}}
 " Django {{{
@@ -418,9 +419,6 @@ au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
 " Clean whitespace
 map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Ack
-map <leader>a :Ack 
-
 " Change case
 nnoremap <C-u> gUiw
 inoremap <C-u> <esc>gUiwea
@@ -452,7 +450,7 @@ inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
 " Better Completion
-set completeopt=longest,menuone
+set completeopt=longest,menuone,preview
 inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -481,6 +479,11 @@ set pastetoggle=<F8>
 " }}}
 " Plugin settings ------------------------------------------------------------- {{{
 
+" Ack {{{
+
+map <leader>a :Ack! 
+
+" }}}
 " NERD Tree {{{
 
 noremap <F2> :NERDTreeToggle<cr>
@@ -558,6 +561,18 @@ let g:sparkupNextMapping = '<c-q>'
 " Autoclose {{{
 
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
+
+" }}}
+" Tasklist {{{
+
+let g:tlRememberPosition = 1
+map <leader>td <Plug>TaskList
+
+" }}}
+" Pydoc {{{
+
+au FileType python noremap <buffer> <localleader>lw :call ShowPyDoc('<C-R><C-W>', 1)<CR>
+au FileType python noremap <buffer> <localleader>lW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 
 " }}}
 
