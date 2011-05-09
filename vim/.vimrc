@@ -445,6 +445,9 @@ noremap ' `
 noremap æ '
 noremap ` <C-^>
 
+" Calculator
+inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+
 " Scratch
 nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
 
@@ -483,6 +486,7 @@ set pastetoggle=<F8>
 noremap <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o']
+au Filetype nerdtree setlocal nolist
 
 " }}}
 " HTML5 {{{
