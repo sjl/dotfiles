@@ -446,9 +446,6 @@ noremap ` <C-^>
 " Calculator
 inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
-" Scratch
-nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
-
 " Better Completion
 set completeopt=longest,menuone,preview
 inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -514,6 +511,8 @@ source $HOME/.vim/sadness/sadness.vim
 nnoremap <F5> :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
+let g:gundo_map_move_older = "k"
+let g:gundo_map_move_newer = "l"
 
 " }}}
 " VimClojure {{{
@@ -575,6 +574,21 @@ au FileType python noremap <buffer> <localleader>lw :call ShowPyDoc('<C-R><C-W>'
 au FileType python noremap <buffer> <localleader>lW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 
 " }}}
+" Scratch {{{
+
+command! ScratchToggle call ScratchToggle()
+function! ScratchToggle() " {{{
+  if exists("w:is_scratch_window")
+    unlet w:is_scratch_window
+    exec "q"
+  else
+    exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
+    let w:is_scratch_window = 1
+  endif
+endfunction " }}}
+nnoremap <silent> <leader><tab> :ScratchToggle<cr>
+
+" }}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
@@ -602,7 +616,7 @@ vnoremap id i[
 vnoremap ad a[
 
 " }}}
-" Next () {{{
+" Next/Last () {{{
 vnoremap <silent> inb :<C-U>normal! f(vib<cr>
 onoremap <silent> inb :<C-U>normal! f(vib<cr>
 vnoremap <silent> anb :<C-U>normal! f(vab<cr>
@@ -611,8 +625,17 @@ vnoremap <silent> in( :<C-U>normal! f(vi(<cr>
 onoremap <silent> in( :<C-U>normal! f(vi(<cr>
 vnoremap <silent> an( :<C-U>normal! f(va(<cr>
 onoremap <silent> an( :<C-U>normal! f(va(<cr>
+
+vnoremap <silent> ilb :<C-U>normal! F)vib<cr>
+onoremap <silent> ilb :<C-U>normal! F)vib<cr>
+vnoremap <silent> alb :<C-U>normal! F)vab<cr>
+onoremap <silent> alb :<C-U>normal! F)vab<cr>
+vnoremap <silent> il( :<C-U>normal! F)vi(<cr>
+onoremap <silent> il( :<C-U>normal! F)vi(<cr>
+vnoremap <silent> al( :<C-U>normal! F)va(<cr>
+onoremap <silent> al( :<C-U>normal! F)va(<cr>
 " }}}
-" Next {} {{{
+" Next/Last {} {{{
 vnoremap <silent> inB :<C-U>normal! f{viB<cr>
 onoremap <silent> inB :<C-U>normal! f{viB<cr>
 vnoremap <silent> anB :<C-U>normal! f{vaB<cr>
@@ -621,8 +644,17 @@ vnoremap <silent> in{ :<C-U>normal! f{vi{<cr>
 onoremap <silent> in{ :<C-U>normal! f{vi{<cr>
 vnoremap <silent> an{ :<C-U>normal! f{va{<cr>
 onoremap <silent> an{ :<C-U>normal! f{va{<cr>
+
+vnoremap <silent> ilB :<C-U>normal! F}viB<cr>
+onoremap <silent> ilB :<C-U>normal! F}viB<cr>
+vnoremap <silent> alB :<C-U>normal! F}vaB<cr>
+onoremap <silent> alB :<C-U>normal! F}vaB<cr>
+vnoremap <silent> il{ :<C-U>normal! F}vi{<cr>
+onoremap <silent> il{ :<C-U>normal! F}vi{<cr>
+vnoremap <silent> al{ :<C-U>normal! F}va{<cr>
+onoremap <silent> al{ :<C-U>normal! F}va{<cr>
 " }}}
-" Next [] {{{
+" Next/Last [] {{{
 vnoremap <silent> ind :<C-U>normal! f[vi[<cr>
 onoremap <silent> ind :<C-U>normal! f[vi[<cr>
 vnoremap <silent> and :<C-U>normal! f[va[<cr>
@@ -631,24 +663,48 @@ vnoremap <silent> in[ :<C-U>normal! f[vi[<cr>
 onoremap <silent> in[ :<C-U>normal! f[vi[<cr>
 vnoremap <silent> an[ :<C-U>normal! f[va[<cr>
 onoremap <silent> an[ :<C-U>normal! f[va[<cr>
+
+vnoremap <silent> ild :<C-U>normal! F]vi[<cr>
+onoremap <silent> ild :<C-U>normal! F]vi[<cr>
+vnoremap <silent> ald :<C-U>normal! F]va[<cr>
+onoremap <silent> ald :<C-U>normal! F]va[<cr>
+vnoremap <silent> il[ :<C-U>normal! F]vi[<cr>
+onoremap <silent> il[ :<C-U>normal! F]vi[<cr>
+vnoremap <silent> al[ :<C-U>normal! F]va[<cr>
+onoremap <silent> al[ :<C-U>normal! F]va[<cr>
 " }}}
-" Next <> {{{
+" Next/Last <> {{{
 vnoremap <silent> in< :<C-U>normal! f<vi<<cr>
 onoremap <silent> in< :<C-U>normal! f<vi<<cr>
 vnoremap <silent> an< :<C-U>normal! f<va<<cr>
 onoremap <silent> an< :<C-U>normal! f<va<<cr>
+
+vnoremap <silent> il< :<C-U>normal! f>vi<<cr>
+onoremap <silent> il< :<C-U>normal! f>vi<<cr>
+vnoremap <silent> al< :<C-U>normal! f>va<<cr>
+onoremap <silent> al< :<C-U>normal! f>va<<cr>
 " }}}
 " Next '' {{{
 vnoremap <silent> in' :<C-U>normal! f'vi'<cr>
 onoremap <silent> in' :<C-U>normal! f'vi'<cr>
 vnoremap <silent> an' :<C-U>normal! f'va'<cr>
 onoremap <silent> an' :<C-U>normal! f'va'<cr>
+
+vnoremap <silent> il' :<C-U>normal! F'vi'<cr>
+onoremap <silent> il' :<C-U>normal! F'vi'<cr>
+vnoremap <silent> al' :<C-U>normal! F'va'<cr>
+onoremap <silent> al' :<C-U>normal! F'va'<cr>
 " }}}
 " Next "" {{{
 vnoremap <silent> in" :<C-U>normal! f"vi"<cr>
 onoremap <silent> in" :<C-U>normal! f"vi"<cr>
 vnoremap <silent> an" :<C-U>normal! f"va"<cr>
 onoremap <silent> an" :<C-U>normal! f"va"<cr>
+
+vnoremap <silent> il" :<C-U>normal! F"vi"<cr>
+onoremap <silent> il" :<C-U>normal! F"vi"<cr>
+vnoremap <silent> al" :<C-U>normal! F"va"<cr>
+onoremap <silent> al" :<C-U>normal! F"va"<cr>
 " }}}
 
 " }}}
