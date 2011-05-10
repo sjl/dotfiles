@@ -750,6 +750,27 @@ nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
 
 " }}}
+" Persistent echo ------------------------------------------------------------- {{{
+
+" http://vim.wikia.com/wiki/Make_echo_seen_when_it_would_otherwise_disappear_and_go_unseen
+"
+" further improvement in restoration of the &updatetime. To make this
+" usable in the plugins, we want it to be safe for the case when
+" two plugins use same this same technique. Two independent
+" restorations of &ut can run in unpredictable sequence. In order to
+" make it safe, we add additional check in &ut restoration.
+let s:Pecho=''
+fu! s:Pecho(msg)
+  let s:hold_ut=&ut | if &ut>1|let &ut=1|en
+  let s:Pecho=a:msg
+  aug Pecho
+    au CursorHold * if s:Pecho!=''|echo s:Pecho
+          \|let s:Pecho=''|if s:hold_ut > &ut |let &ut=s:hold_ut|en|en
+          \|aug Pecho|exe 'au!'|aug END|aug! Pecho
+  aug END
+endf
+
+" }}}
 " Open quoted ----------------------------------------------------------------- {{{
 
 nnoremap <silent> ø :OpenQuoted<cr>
