@@ -31,6 +31,8 @@ snippet filepath
 snippet float
 	${1:FIELDNAME} = models.FloatField()
 snippet image
+	${1:FIELDNAME} = FileBrowseField(format='Image', max_length=200)
+snippet djangoimage
 	${1:FIELDNAME} = models.ImageField(upload_to=${2:path/for/upload}${3:, height_field=height, width_field=width}${4:, max_length=100})
 snippet int
 	${1:FIELDNAME} = models.IntegerField()
@@ -56,7 +58,7 @@ snippet xml
 	${1:FIELDNAME} = models.XMLField(schema_path=${2:None}${3:, blank=True})
 # Relational Fields
 snippet fk
-	${1:FIELDNAME} = models.ForeignKey(${2:OtherModel}${3:, related_name=''}${4:, limit_choices_to=}${5:, to_field=''})
+	${1:FIELDNAME} = models.ForeignKey(${2:OtherModel})
 snippet m2m
 	${1:FIELDNAME} = models.ManyToManyField(${2:OtherModel}${3:, related_name=''}${4:, limit_choices_to=}${5:, symmetrical=False}${6:, through=''}${7:, db_table=''})
 snippet o2o
