@@ -17,9 +17,9 @@ snippet char
 snippet comma
 	${1:FIELDNAME} = models.CommaSeparatedIntegerField(max_length=${2}${3:, blank=True})
 snippet date
-	${1:FIELDNAME} = models.DateField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
+	${1:FIELDNAME} = models.DateField()
 snippet datetime
-	${1:FIELDNAME} = models.DateTimeField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
+	${1:FIELDNAME} = models.DateTimeField()
 snippet decimal
 	${1:FIELDNAME} = models.DecimalField(max_digits=${2}, decimal_places=${3})
 snippet email
@@ -51,7 +51,7 @@ snippet smallint
 snippet text
 	${1:FIELDNAME} = models.TextField(${2:blank=True})
 snippet time
-	${1:FIELDNAME} = models.TimeField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
+	${1:FIELDNAME} = models.TimeField()
 snippet url
 	${1:FIELDNAME} = models.URLField(${2:verify_exists=False}${3:, max_length=200}${4:, blank=True})
 snippet xml
@@ -60,7 +60,9 @@ snippet xml
 snippet fk
 	${1:FIELDNAME} = models.ForeignKey(${2:OtherModel})
 snippet m2m
-	${1:FIELDNAME} = models.ManyToManyField(${2:OtherModel}${3:, related_name=''}${4:, limit_choices_to=}${5:, symmetrical=False}${6:, through=''}${7:, db_table=''})
+	${1:FIELDNAME} = models.ManyToManyField(${2:OtherModel})
+snippet bl
+	blank=True
 snippet o2o
 	${1:FIELDNAME} = models.OneToOneField(${2:OtherModel}${3:, parent_link=True}${4:, related_name=''}${5:, limit_choices_to=}${6:, to_field=''})
 
@@ -78,24 +80,21 @@ snippet manager
 		${3}
 
 snippet model
-	class ${1:ModelName}(models.Model):
-		${2}
+	class ${1:ModelName}(${2:models.Model}):
+		${4}
 
-		created = models.DateTimeField(auto_now_add=True, editable=False)
-		modified = models.DateTimeField(auto_now=True, editable=False)
-	
 		class Meta:
-			ordering = ['-created']
-		
+			ordering = ('${3:-created}',)
+
 		def __unicode__(self):
-			return u'%s' % self.${3}
+			return u'%s' % ''
 
 snippet modeladmin
 	class ${1:ModelName}Admin(admin.ModelAdmin):
 		${2}
 	
 	admin.site.register($1, $1Admin)
-	
+
 snippet r2r
 	return render_to_response('${1:template.html}', {
 			${2}
