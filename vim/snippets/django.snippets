@@ -63,6 +63,10 @@ snippet m2m
 	${1:FIELDNAME} = models.ManyToManyField(${2:OtherModel})
 snippet bl
 	blank=True
+snippet dc
+	db_column='${1:colname}'
+snippet dt
+	db_table='${1:tablename}'
 snippet o2o
 	${1:FIELDNAME} = models.OneToOneField(${2:OtherModel}${3:, parent_link=True}${4:, related_name=''}${5:, limit_choices_to=}${6:, to_field=''})
 
