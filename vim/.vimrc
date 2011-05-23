@@ -480,6 +480,9 @@ nnoremap _a  :AnsiEsc<CR>
 " Toggle paste
 set pastetoggle=<F8>
 
+" Replaste
+nnoremap <D-p> "_ddP
+
 " }}}
 " Plugin settings ------------------------------------------------------------- {{{
 
