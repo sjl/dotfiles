@@ -421,6 +421,14 @@ au Filetype puppet setlocal foldmarker={,}
 au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
 
 " }}}
+" ReStructuredText {{{
+
+au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
+au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
+au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
+au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+
+" }}}
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
