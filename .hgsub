@@ -15,3 +15,4 @@ vim/bundle/easymotion = [git]git://github.com/Lokaltog/vim-easymotion.git
 vim/bundle/pydoc = [git]git://github.com/fs111/pydoc.vim.git
 vim/bundle/tasklist = [git]git://github.com/vim-scripts/TaskList.vim.git
 vim/bundle/command-t = [git]git://github.com/vim-scripts/Command-T.git
+vim/bundle/vim-orgmode = [git]git://github.com/jceb/vim-orgmode.git
