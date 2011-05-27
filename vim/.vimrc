@@ -43,6 +43,8 @@ set lazyredraw
 set wildignore+=*.pyc,.hg,.git
 set matchtime=3
 set showbreak=↪
+set splitbelow
+set splitright
 
 " Save when losing focus
 au FocusLost * :wa
@@ -180,7 +182,7 @@ noremap <C-j>  <C-w>h
 noremap <C-k>  <C-w>j
 noremap <C-l>  <C-w>k
 noremap <C-g>  <C-w>l
-noremap <leader>g <C-w>v<C-w>l
+noremap <leader>g <C-w>v
 
 " }}}
 
