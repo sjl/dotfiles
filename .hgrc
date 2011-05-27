@@ -202,4 +202,5 @@ killd = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut 
 vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
 # Update subrepos
-subup = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg pull --update --cwd "`$HG root`/SUB"
+subpull = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg pull --cwd "`$HG root`/SUB"
+subup = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg update --cwd "`$HG root`/SUB"
