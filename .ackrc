@@ -6,4 +6,6 @@ django=.py,.html
 --type-set
 less=.less
 --type-set
+vim=.vim
+--type-set
 front=.html,.js,.less,.css

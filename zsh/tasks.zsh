@@ -1,11 +1,8 @@
 #!/usr/bin/env zsh
 
 alias t='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt'
-alias s='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=music.txt'
-alias g='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=groceries.txt'
-alias k='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=books.txt'
+alias w='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=work.txt'
 alias p='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=pack.txt'
-alias d='~/lib/t/t.py --task-dir="~/Desktop" --list=todo.txt --delete-if-empty'
 alias b='~/lib/t/t.py --list=bugs'
 
 alias pa='~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=pack-archive'

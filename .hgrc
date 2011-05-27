@@ -97,7 +97,7 @@ addremove = --similarity 100
 
 [alias]
 nudge = push --branch .
-st = status -C
+st = status -SC
 ? = summary
 
 cm = commit -m
