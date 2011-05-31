@@ -13,6 +13,7 @@ c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 27710a2224d6dd0486d1c40d09ef18dd752e7d37 vim/bundle/surround
 60731769663ea23b4763f3f0034da445ebcd3ddd vim/bundle/syntastic
 8e2dfdcc6e13d8afab5b3f620ee06ebb29b786f9 vim/bundle/tasklist
+67a6506a7a8a3847d00d3af3e2ed9707460d5ce5 vim/bundle/utl
 b9b4407a19acc4eb344cca0cc5beea75e9ff5491 vim/bundle/vim-coffee-script
 c2df2e430d7d5fe645aa40e36079ab51f082e06b vim/bundle/vim-javascript
 3d1692f635579e718b85dd8f24ac7fbd52a444f6 vim/bundle/vim-orgmode
