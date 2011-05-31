@@ -609,6 +609,18 @@ endfunction " }}}
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
+" OrgMode {{{
+let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Misc']
+
+let g:org_todo_keywords = ['TODO', 'HOLD', '|', 'DONE']
+let g:org_debug = 1
+" }}}
+" DirDiff {{{
+map <unique> <Leader>Dg <Plug>DirDiffGet
+map <unique> <Leader>Dp <Plug>DirDiffPut
+map <unique> <Leader>Dj <Plug>DirDiffNext
+map <unique> <Leader>Dk <Plug>DirDiffPrev
+" }}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
