@@ -3,7 +3,6 @@ alias pbp='pbpaste'
 
 alias m='mvim .'
 
-alias v='vagrant'
 alias f='fab'
 alias fd='fab dev'
 
