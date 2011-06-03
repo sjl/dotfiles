@@ -46,6 +46,7 @@ cbsl = ssh://hg@codebasehq.com/stevelosh/
 dwd = ssh://hg@bitbucket.org/dwaiter/
 nyh = ssh://sjl@gotham.nyhacker.org/
 dl = ssh://hg@hg.dwaiter.com:38038/
+mirr = ssh://hg@dwaiter.com:38038/mirror/
 
 [diff]
 git = True
@@ -60,6 +61,10 @@ cmd.dd = diffuse
 opts.dd = 
 
 [merge-tools]
+vimmerge.executable = mvim
+vimmerge.args = -f $output -c 'Conflict2Diff'
+vimmerge.premerge = keep
+vimmerge.priority = 1
 
 [email]
 method = smtp
