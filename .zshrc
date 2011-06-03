@@ -2,7 +2,7 @@ export ZSH="$HOME/lib/oh-my-zsh"
 export ZSH_THEME="prose"
 export DISABLE_AUTO_UPDATE="true"
 export OH_MY_ZSH_DEBUG="true"
-plugins=(command-coloring pip fabric)
+plugins=(command-coloring pip fabric lein redis-cli vagrant)
 
 #test -f "$HOME/src/hgd/hd" && export OH_MY_ZSH_HG="$HOME/src/hgd/hd" || export OH_MY_ZSH_HG='hg'
 
