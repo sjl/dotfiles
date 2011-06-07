@@ -208,9 +208,9 @@ killd = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut 
 # Show in MacVim
 vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
-# Update subrepos
-subpull = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg pull --cwd "`$HG root`/SUB"
-subup = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg update --cwd "`$HG root`/SUB"
+# Run commands on all subrepos at once.
+subs  = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
+psubs = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | parallel -j10 -I SUB $HG -R "`$HG root`/SUB" $@
 
 # Run a command on a subrepo:
 #
