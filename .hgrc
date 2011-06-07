@@ -209,8 +209,8 @@ killd = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut 
 vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
 # Run commands on all subrepos at once.
-subs  = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
-psubs = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | parallel -j10 -I SUB $HG -R "`$HG root`/SUB" $@
+subs  = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
+psubs = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB $HG -R "`$HG root`/SUB" $@
 
 # Run a command on a subrepo:
 #
