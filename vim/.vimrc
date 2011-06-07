@@ -433,6 +433,13 @@ au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
 " }}}
 
 " }}}
+" Quick editing --------------------------------------------------------------- {{{
+
+nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
+nnoremap <leader>eo <C-w>s<C-w>j<C-w>L:e ~/Dropbox/Org<cr>4j
+
+" }}}
 " Convenience mappings -------------------------------------------------------- {{{
 
 " Clean whitespace
@@ -473,10 +480,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt
 
 " Rainbows!
 nmap <leader>R :RainbowParenthesesToggle<CR>
-
-" Edit vim stuff
-nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -612,7 +615,7 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
 " OrgMode {{{
-let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Misc']
+let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', 'HOLD', '|', 'DONE']
 let g:org_debug = 1
