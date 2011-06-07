@@ -211,4 +211,20 @@ vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 # Update subrepos
 subpull = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg pull --cwd "`$HG root`/SUB"
 subup = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | xargs -n 1 -I SUB hg update --cwd "`$HG root`/SUB"
+
+# Run a command on a subrepo:
+#
+#     hg sub SUBREPO_REGEX ...command and arguments...
+#
+# The SUBREPO_REGEX should be a regex that will let grep match one and only one of
+# the subrepos in .hgsub.  For example:
+#
+#     $ cat .hgsub
+#     bundled/foo = ...
+#     bundled/bar = ...
+#
+#     $ hg sub fo root
+#     .../bundled/foo
+#     $ hg sub ar status -m
+#     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 $16 $17 $18 $19 $20
