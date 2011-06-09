@@ -629,6 +629,26 @@ map <unique> <Leader>Dp <Plug>DirDiffPut
 map <unique> <Leader>Dj <Plug>DirDiffNext
 map <unique> <Leader>Dk <Plug>DirDiffPrev
 " }}}
+" SLIMV {{{
+
+" First check if SWANK is bundled with Slimv
+let swanks = split( globpath( &runtimepath, 'slime/start-swank.lisp'), '\n' )
+
+if len( swanks ) == 0
+    " Try to find SWANK in the standard SLIME installation locations
+    if g:slimv_windows || g:slimv_cygwin
+        let swanks = split( globpath( 'c:/slime/,c:/*lisp*/slime/,c:/*lisp*/site/lisp/slime/,c:/Program Files/*lisp*/site/lisp/slime/', 'start-swank.lisp' ), '\n' )
+    else
+        let swanks = split( globpath( '/usr/share/common-lisp/source/slime/', 'start-swank.lisp' ), '\n' )
+    endif
+endif
+
+if len( swanks ) != 0
+    let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket sbcl --load "' . swanks[0] . '"'
+endif
+
+
+" }}}}
 
 " }}}
 " Synstack -------------------------------------------------------------------- {{{
