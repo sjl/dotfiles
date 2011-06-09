@@ -49,6 +49,9 @@ set splitright
 " Save when losing focus
 au FocusLost * :wa
 
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
 " Tabs, spaces, wrapping {{{
 
 set tabstop=4
@@ -617,7 +620,7 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 " OrgMode {{{
 let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
-let g:org_todo_keywords = ['TODO', 'HOLD', '|', 'DONE']
+let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
 " }}}
 " DirDiff {{{
