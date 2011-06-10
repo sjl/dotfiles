@@ -236,12 +236,9 @@ inoremap # X<BS>#
 " }}}
 " Various filetype-specific stuff --------------------------------------------- {{{
 
-" Cram {{{
+" C {{{
 
-au BufNewFile,BufRead *.t set filetype=cram
-
-let cram_fold=1
-autocmd Syntax cram setlocal foldlevel=1
+au FileType c setlocal foldmethod=syntax
 
 " }}}
 " Clojure {{{
@@ -252,47 +249,20 @@ au FileType clojure call TurnOnClojureFolding()
 au FileType clojure nmap <localleader>ee 0;\et
 
 " }}}
-" C {{{
+" Confluence {{{
 
-au FileType c setlocal foldmethod=syntax
+au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
+
+" Wiki pages should be soft-wrapped.
+au FileType confluencewiki setlocal wrap linebreak nolist
 
 " }}}
-" HTML and HTMLDjango {{{
+" Cram {{{
 
-au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-au BufNewFile,BufRead *.html setlocal foldmethod=manual
+au BufNewFile,BufRead *.t set filetype=cram
 
-" Use <localleader>f to fold the current tag.
-au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
-au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
-
-" Use Shift-Return to turn this:
-"     <tag>|</tag>
-"
-" into this:
-"     <tag>
-"         |
-"     </tag>
-au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
-au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
-" Sparkup mappings:
-"
-" <c-e><space> to expand sparkup normally:
-"     <p>|</p>
-"
-" <c-e><return> to force an expanded sparkup.
-"     <p>
-"         |
-"     </p>
-au BufNewFile,BufRead *.html imap <buffer> <c-s><cr> <c-s><s-cr>
-au BufNewFile,BufRead *.html imap <buffer> <c-s><space> <c-s>.<bs>
-
-" Django tags
-au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
-
-" Django variables
-au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+let cram_fold=1
+autocmd Syntax cram setlocal foldlevel=1
 
 " }}}
 " CSS and LessCSS {{{
@@ -338,49 +308,6 @@ au BufNewFile,BufRead *.css  inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs
 au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs><space><space><space><space>
 
 " }}}
-" Javascript {{{
-
-au FileType javascript setlocal foldmethod=marker
-au FileType javascript setlocal foldmarker={,}
-
-" }}}
-" Confluence {{{
-
-au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
-
-" Wiki pages should be soft-wrapped.
-au FileType confluencewiki setlocal wrap linebreak nolist
-
-" }}}
-" Fish {{{
-
-au BufNewFile,BufRead *.fish setlocal filetype=fish
-
-" }}}
-" Markdown {{{
-
-au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-
-" Use <localleader>1/2/3 to add headings.
-au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
-
-" }}}
-" Vim {{{
-
-au FileType vim setlocal foldmethod=marker
-au FileType help setlocal textwidth=78
-
-" }}}
-" Python {{{
-
-au Filetype python noremap  <localleader>rr :RopeRename<CR>
-au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
-au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-
-" }}}
 " Django {{{
 
 au BufNewFile,BufRead urls.py      setlocal nowrap
@@ -398,6 +325,75 @@ au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
 au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
 
 " }}}
+" Firefox {{{
+
+au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
+
+" }}}
+" Fish {{{
+
+au BufNewFile,BufRead *.fish setlocal filetype=fish
+
+" }}}
+" HTML and HTMLDjango {{{
+
+au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+au BufNewFile,BufRead *.html setlocal foldmethod=manual
+
+" Use <localleader>f to fold the current tag.
+au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
+au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
+
+" Use Shift-Return to turn this:
+"     <tag>|</tag>
+"
+" into this:
+"     <tag>
+"         |
+"     </tag>
+au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
+au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
+" Sparkup mappings:
+"
+" <c-e><space> to expand sparkup normally:
+"     <p>|</p>
+"
+" <c-e><return> to force an expanded sparkup.
+"     <p>
+"         |
+"     </p>
+au BufNewFile,BufRead *.html imap <buffer> <c-s><cr> <c-s><s-cr>
+au BufNewFile,BufRead *.html imap <buffer> <c-s><space> <c-s>.<bs>
+
+" Django tags
+au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+
+" Django variables
+au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+
+" }}}
+" Javascript {{{
+
+au FileType javascript setlocal foldmethod=marker
+au FileType javascript setlocal foldmarker={,}
+
+" }}}
+" Lisp {{{
+
+au FileType lisp call TurnOnLispFolding()
+
+" }}}
+" Markdown {{{
+
+au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+
+" Use <localleader>1/2/3 to add headings.
+au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
+au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
+au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+
+" }}}
 " Nginx {{{
 
 au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
@@ -410,20 +406,18 @@ au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
 au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
 
 " }}}
-" Vagrant {{{
-
-au BufRead,BufNewFile Vagrantfile set ft=ruby
-
-" }}}
 " Puppet {{{
 
 au Filetype puppet setlocal foldmethod=marker
 au Filetype puppet setlocal foldmarker={,}
 
 " }}}
-" Firefox {{{
+" Python {{{
 
-au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
+au Filetype python noremap  <localleader>rr :RopeRename<CR>
+au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
+au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+au FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " }}}
 " ReStructuredText {{{
@@ -432,6 +426,17 @@ au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
 au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
 au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
 au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+
+" }}}
+" Vagrant {{{
+
+au BufRead,BufNewFile Vagrantfile set ft=ruby
+
+" }}}
+" Vim {{{
+
+au FileType vim setlocal foldmethod=marker
+au FileType help setlocal textwidth=78
 
 " }}}
 
@@ -645,6 +650,7 @@ endif
 
 if len( swanks ) != 0
     let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket sbcl --load "' . swanks[0] . '"'
+    let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
 endif
 
 

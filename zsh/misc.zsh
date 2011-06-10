@@ -10,6 +10,9 @@ alias spotlight-off='sudo mdutil -a -i off && sudo mv /System/Library/CoreServic
 alias spotlight-on='sudo mdutil -a -i on && sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ && killall SystemUIServer'
 
 alias mutt='cd ~/Desktop; mutt'
+alias hi='pygmentize'
+
+function gimmeurjson() { curl "$*" | python -mjson.tool | pygmentize -l javascript; }
 
 function mdown () {
     (echo '
