@@ -61,10 +61,10 @@ cmd.dd = diffuse
 opts.dd = 
 
 [merge-tools]
-vimmerge.executable = mvim
-vimmerge.args = -f $output -c 'Conflict2Diff'
-vimmerge.premerge = keep
-vimmerge.priority = 1
+threesome.executable = mvim
+threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
+threesome.premerge = keep
+threesome.priority = 1
 
 [email]
 method = smtp

@@ -17,3 +17,4 @@ vim/bundle/tasklist = [git]git://github.com/vim-scripts/TaskList.vim.git
 vim/bundle/command-t = [git]git://github.com/vim-scripts/Command-T.git
 vim/bundle/vim-orgmode = [git]git://github.com/sjl/vim-orgmode.git
 vim/bundle/slimv = [hg]http://bitbucket.org/kovisoft/slimv
+vim/bundle/threesome = [hg]http://bitbucket.org/sjl/threesome.vim
