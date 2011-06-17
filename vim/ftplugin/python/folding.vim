@@ -47,6 +47,8 @@ endif
 setlocal foldmethod=expr
 setlocal foldexpr=GetPythonFold(v:lnum)
 setlocal foldtext=PythonFoldText()
+nnoremap <buffer> <localleader>D :setlocal foldtext=PythonFoldTextDocstrings()<cr>
+nnoremap <buffer> <localleader>d :setlocal foldtext=PythonFoldText()<cr>
 
 function! PythonFoldText()
     " ignore decorators
@@ -54,6 +56,33 @@ function! PythonFoldText()
     while getline(fs) =~ '^\s*@' | let fs = nextnonblank(fs + 1)
     endwhile
     let line = getline(fs)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+
+function! PythonFoldTextDocstrings()
+    " ignore decorators
+    let fs = v:foldstart
+    while getline(fs) =~ '^\s*@' | let fs = nextnonblank(fs + 1)
+    endwhile
+
+    " add docstrings
+    let line = getline(fs)
+    if getline(fs + 1) =~ '^\s*"""'
+        let line = line . "  (" . getline(fs + 1) . ")"
+        let line = substitute(line, '\s*"""', '', 'g')
+        let line = substitute(line, '"""', '', 'g')
+    endif
 
     let nucolwidth = &fdc + &number * &numberwidth
     let windowwidth = winwidth(0) - nucolwidth - 3
