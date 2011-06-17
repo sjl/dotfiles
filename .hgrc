@@ -2,6 +2,7 @@
 username = Steve Losh <steve@stevelosh.com>
 editor = vim
 commitsubrepos = False
+ignore = ~/.hgignore
 
 [extensions]
 transplant = 
