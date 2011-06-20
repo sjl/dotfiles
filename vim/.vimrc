@@ -244,6 +244,7 @@ au FileType c setlocal foldmethod=syntax
 " Clojure {{{
 
 au FileType clojure call TurnOnClojureFolding()
+au FileType clojure compiler clojure
 
 " Eval toplevel form, even when you're on the opening paren.
 au FileType clojure nmap <localleader>ee 0;\et
@@ -472,6 +473,10 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 " Faster Esc
 inoremap jk <ESC>
 
+" Cmdheight switching
+nnoremap <leader>1 :set cmdheight=1<cr>
+nnoremap <leader>2 :set cmdheight=2<cr>
+
 " Marks and Quotes
 noremap ' `
 noremap æ '
@@ -599,6 +604,11 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 let g:tlRememberPosition = 1
 map <leader>td <Plug>TaskList
+
+" }}}
+" Makegreen {{{
+
+nnoremap <localleader><localleader> :call MakeGreen('')<cr>
 
 " }}}
 " Pydoc {{{
