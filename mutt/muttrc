@@ -1,12 +1,12 @@
 # directories and commands
 set alias_file          = ~/.mutt/alias                         # alias file
-set header_cache        = ~/.mutt/cache/headers                 # where to store headers        
+set header_cache        = ~/.mutt/cache/headers                 # where to store headers
 set message_cachedir    = ~/.mutt/cache/bodies                  # where to store bodies
 set certificate_file    = ~/.mutt/certificates                  # where to store certs
 set mailcap_path        = ~/.mutt/mailcap                       # entrys for filetypes
 set signature           = ~/.mutt/sig                           # my signature file
 set tmpdir              = ~/.mutt/temp                          # where to keep temp files
-set editor              = "vim +/^$ +:noh"                  # use vim and skip to first blank line
+set editor              = "vim +/^$ +:noh"                      # use vim and skip to first blank line
 set print_command       = /usr/bin/enscript                     # print with enscript
 
 # main options
@@ -27,17 +27,17 @@ set pipe_decode                                                 # strip headers 
 set thorough_search                                             # strip headers and eval mimes before searching
 
 # index options
-set sort                = threads                               # like gmail 
+set sort                = threads                               # like gmail
 set sort_aux            = reverse-last-date-received            # like gmail
-set uncollapse_jump                                             # don't collapse on an unread message 
+set uncollapse_jump                                             # don't collapse on an unread message
 set sort_re                                                     # thread based on regex
 set reply_regexp        = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # pager options
-set pager_index_lines   = 10                                    # number of index lines to show 
+set pager_index_lines   = 10                                    # number of index lines to show
 set pager_context       = 5                                     # number of context lines to show
 set pager_stop                                                  # don't go to next message automatically
-set menu_scroll                                                 # scroll in menus 
+set menu_scroll                                                 # scroll in menus
 set smart_wrap                                                  # don't split words
 set tilde                                                       # show tildes like in vim
 unset markers                                                   # no ugly plus signs
@@ -46,7 +46,7 @@ alternative_order text/plain text/enriched text/html            # save html for 
 set quote_regexp        = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
 # formats
-set date_format         = "%m/%d/%y at %I:%M%P"
+set date_format         = "%m/%d"
 set index_format        = "[%Z]  %D  %-20.20F  %s"
 set status_format       = "-%r- %v ---[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
 set alias_format        = "%4n %t %-20a  %r"
@@ -57,7 +57,7 @@ set envelope_from                                               # which from?
 set sig_dashes                                                  # dashes before my sig... sweet
 set edit_headers                                                # show headers when composing
 set fast_reply                                                  # skip to compose when replying
-set sendmail_wait       = -1                                    # don't wait for sending... to complete
+set sendmail_wait       = 0                                     # wait for sending, because Frontier is a steaming pile of fail
 set askcc                                                       # ask for CC:
 set fcc_attach                                                  # save attachments with the body
 unset mime_forward                                              # forward attachments as part of body
@@ -119,6 +119,9 @@ macro index B     "<limit>~b "                                                  
 macro index I     "<change-folder>!<enter>"                                            "go to Inbox"
 macro pager \Cu   "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
 macro index,pager o     "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in vim"
+
+macro index <esc>f     ":set date_format = \"%m/%d\"<enter>"                           "short date format"
+macro index <esc>F     ":set date_format = \"%m/%d at %I:%M %P\"<enter>"               "long date format"
 
 # mailbox
 macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
