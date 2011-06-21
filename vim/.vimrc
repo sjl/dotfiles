@@ -247,7 +247,8 @@ au FileType clojure call TurnOnClojureFolding()
 au FileType clojure compiler clojure
 
 " Eval toplevel form, even when you're on the opening paren.
-au FileType clojure nmap <localleader>ee 0;\et
+let g:slimv_leader = '\'
+let g:slimv_keybindings = 2
 
 " }}}
 " Confluence {{{
@@ -608,7 +609,7 @@ map <leader>td <Plug>TaskList
 " }}}
 " Makegreen {{{
 
-nnoremap <localleader><localleader> :call MakeGreen('')<cr>
+nnoremap \| :call MakeGreen('')<cr>
 
 " }}}
 " Pydoc {{{
@@ -647,24 +648,27 @@ map <unique> <Leader>Dk <Plug>DirDiffPrev
 " SLIMV {{{
 
 " First check if SWANK is bundled with Slimv
-let swanks = split( globpath( &runtimepath, 'slime/start-swank.lisp'), '\n' )
+"let swanks = split( globpath( &runtimepath, 'slime/start-swank.lisp'), '\n' )
 
-if len( swanks ) == 0
-    " Try to find SWANK in the standard SLIME installation locations
-    if exists('g:slimv_windows')
-        if g:slimv_windows || g:slimv_cygwin
-            let swanks = split( globpath( 'c:/slime/,c:/*lisp*/slime/,c:/*lisp*/site/lisp/slime/,c:/Program Files/*lisp*/site/lisp/slime/', 'start-swank.lisp' ), '\n' )
-        else
-            let swanks = split( globpath( '/usr/share/common-lisp/source/slime/', 'start-swank.lisp' ), '\n' )
-        endif
-    endif
-endif
+"if len( swanks ) == 0
+    "" Try to find SWANK in the standard SLIME installation locations
+    "if exists('g:slimv_windows')
+        "if g:slimv_windows || g:slimv_cygwin
+            "let swanks = split( globpath( 'c:/slime/,c:/*lisp*/slime/,c:/*lisp*/site/lisp/slime/,c:/Program Files/*lisp*/site/lisp/slime/', 'start-swank.lisp' ), '\n' )
+        "else
+            "let swanks = split( globpath( '/usr/share/common-lisp/source/slime/', 'start-swank.lisp' ), '\n' )
+        "endif
+    "endif
+"endif
 
-if len( swanks ) != 0
-    let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket sbcl --load "' . swanks[0] . '"'
-    let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
-endif
+"if len( swanks ) != 0
+    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket sbcl --load "' . swanks[0] . '"'
+    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
+    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
+"endif
 
+let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
+let g:slimv_repl_split = 4
 
 " }}}}
 " Threesome {{{
