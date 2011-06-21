@@ -1,3 +1,5 @@
+alias h=hg
+
 alias pbc='pbcopy'
 alias pbp='pbpaste'
 
@@ -56,23 +58,11 @@ function mdown () {
     '; markdown $@) | bcat
 }
 
-function pull_everything() {
-    for repo in $( ls -1 ); do
-        if [[ -d $repo && -d $repo/.hg ]]; then
-            echo "Pulling" $repo
-            hg -R $repo pull -u
-            echo
-        fi
-    done
-}
-
 # Updated verison of SVN.
 export DYLD_LIBRARY_PATH="/opt/subversion/lib:$DYLD_LIBRARY_PATH"
 export PYTHONPATH="/opt/subversion/lib/svn-python:$PYTHONPATH"
 export PATH="/opt/subversion/bin:$PATH"
 
-# hgd
-test -f "$HOME/src/hgd/hd" && alias h='~/src/hgd/hd' || alias h=hg
 
 # What the hell did I do the other day?
 function whatthehelldididoon() {
