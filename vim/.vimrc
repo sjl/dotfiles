@@ -453,7 +453,10 @@ nnoremap <leader>eo <C-w>s<C-w>j<C-w>L:e ~/Dropbox/Org<cr>4j
 " Convenience mappings -------------------------------------------------------- {{{
 
 " Clean whitespace
-map <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Dammit, Slimv
+map <leader>WW :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Change case
 nnoremap <C-u> gUiw
