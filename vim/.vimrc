@@ -246,9 +246,14 @@ au FileType c setlocal foldmethod=syntax
 au FileType clojure call TurnOnClojureFolding()
 au FileType clojure compiler clojure
 
-" Eval toplevel form, even when you're on the opening paren.
 let g:slimv_leader = '\'
 let g:slimv_keybindings = 2
+
+" Fix the eval mapping.
+au FileType clojure nmap <buffer> \ee \ed
+
+" Indent top-level form.
+au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
 
 " }}}
 " Confluence {{{
