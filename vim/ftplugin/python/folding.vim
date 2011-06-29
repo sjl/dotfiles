@@ -47,8 +47,8 @@ endif
 setlocal foldmethod=expr
 setlocal foldexpr=GetPythonFold(v:lnum)
 setlocal foldtext=PythonFoldText()
-nnoremap <buffer> <localleader>D :setlocal foldtext=PythonFoldTextDocstrings()<cr>
-nnoremap <buffer> <localleader>d :setlocal foldtext=PythonFoldText()<cr>
+"nnoremap <buffer> <localleader>D :setlocal foldtext=PythonFoldTextDocstrings()<cr>
+"nnoremap <buffer> <localleader>d :setlocal foldtext=PythonFoldText()<cr>
 
 function! PythonFoldText()
     " ignore decorators

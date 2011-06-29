@@ -45,6 +45,7 @@ set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
+set fillchars=diff:\ 
 
 " Save when losing focus
 au FocusLost * :wa
@@ -361,18 +362,6 @@ au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
 au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
 au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
-" Sparkup mappings:
-"
-" <c-e><space> to expand sparkup normally:
-"     <p>|</p>
-"
-" <c-e><return> to force an expanded sparkup.
-"     <p>
-"         |
-"     </p>
-au BufNewFile,BufRead *.html imap <buffer> <c-s><cr> <c-s><s-cr>
-au BufNewFile,BufRead *.html imap <buffer> <c-s><space> <c-s>.<bs>
-
 " Django tags
 au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
@@ -421,9 +410,9 @@ au Filetype puppet setlocal foldmarker={,}
 " }}}
 " Python {{{
 
-au Filetype python noremap  <localleader>rr :RopeRename<CR>
-au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
-au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+au Filetype python noremap  <localleader>Rr :RopeRename<CR>
+au Filetype python vnoremap <localleader>Rm :RopeExtractMethod<CR>
+au Filetype python noremap  <localleader>Ri :RopeOrganizeImports<CR>
 au FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " }}}
@@ -466,6 +455,9 @@ map <leader>WW :%s/\s\+$//<cr>:let @/=''<CR>
 " Change case
 nnoremap <C-u> gUiw
 inoremap <C-u> <esc>gUiwea
+
+" Diffoff
+nnoremap <leader>D :diffoff!<cr>
 
 " Yankring
 nnoremap <silent> <F6> :YRShow<cr>
@@ -600,8 +592,7 @@ vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
 " }}}
 " Sparkup {{{
 
-let g:sparkupExecuteMapping = '<c-s>'
-let g:sparkupNextMapping = '<c-q>'
+let g:sparkupNextMapping = '<c-s>'
 
 "}}}
 " Autoclose {{{
@@ -622,8 +613,8 @@ nnoremap \| :call MakeGreen('')<cr>
 " }}}
 " Pydoc {{{
 
-au FileType python noremap <buffer> <localleader>lw :call ShowPyDoc('<C-R><C-W>', 1)<CR>
-au FileType python noremap <buffer> <localleader>lW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+au FileType python noremap <buffer> <localleader>Lw :call ShowPyDoc('<C-R><C-W>', 1)<CR>
+au FileType python noremap <buffer> <localleader>LW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 
 " }}}
 " Scratch {{{
@@ -646,12 +637,6 @@ let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo',
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
-" }}}
-" DirDiff {{{
-map <unique> <Leader>Dg <Plug>DirDiffGet
-map <unique> <Leader>Dp <Plug>DirDiffPut
-map <unique> <Leader>Dj <Plug>DirDiffNext
-map <unique> <Leader>Dk <Plug>DirDiffPrev
 " }}}
 " SLIMV {{{
 
@@ -876,6 +861,26 @@ fu! s:Pecho(msg)
 endf
 
 " }}}
+" Hg Diff --------------------------------------------------------------------- {{{
+
+function! s:HgDiff()
+    diffthis
+    let fn = expand('%:p')
+    let ft = &ft
+    wincmd v
+    edit __hgdiff_orig__
+    setlocal buftype=nofile
+    normal ggdG
+    execute "silent r!hg cat --rev . " . fn
+    normal ggdd
+    execute "setlocal ft=" . ft
+    diffthis
+    diffupdate
+endf
+command! -nargs=0 HgDiff call s:HgDiff()
+nnoremap <leader>hd :HgDiff<cr>
+
+" }}}
 " Open quoted ----------------------------------------------------------------- {{{
 
 nnoremap <silent> ø :OpenQuoted<cr>
@@ -921,7 +926,7 @@ if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
     " Use a line-drawing char for pretty vertical splits.
-    set fillchars=vert:│
+    set fillchars+=vert:│
 
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
