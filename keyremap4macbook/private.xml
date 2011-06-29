@@ -9,6 +9,13 @@
   </list>
   <list>
     <item>
+      <name>Help to Capslock</name>
+      <identifier>private.help_to_capslock</identifier>
+      <autogen>--KeyToKey-- KeyCode::HELP, KeyCode::CAPSLOCK</autogen>
+    </item>
+  </list>
+  <list>
+    <item>
       <name>Option+CR to something that actually works</name>
       <identifier>private.alt_cr</identifier>
       <autogen>--KeyToKey-- KeyCode::RETURN, VK_OPTION, KeyCode::DOT, ModifierFlag::OPTION_L</autogen>
