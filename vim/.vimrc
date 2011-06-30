@@ -566,7 +566,7 @@ let vimclojure#SplitPos = "right"
 " Syntastic {{{
 
 let g:syntastic_enable_signs=1
-let g:syntastic_disabled_filetypes = ['html', 'python']
+let g:syntastic_disabled_filetypes = ['html']
 
 " }}}
 " Command-T {{{
