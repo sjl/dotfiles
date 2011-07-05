@@ -498,6 +498,9 @@ nmap <leader>R :RainbowParenthesesToggle<CR>
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
 
+" Tags
+nnoremap <leader>T :!ctags -R -f ./tags .<cr>
+
 " Easy filetype switching
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
