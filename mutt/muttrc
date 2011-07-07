@@ -114,7 +114,7 @@ bind index <space>  collapse-thread
 
 # macros
 macro index \Cr   "<tag-prefix><clear-flag>N"                                          "mark tagged messages as read"
-macro index \CR   "T.<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"          "mark all messages as read"
+macro index \CR   "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"          "mark all messages as read"
 macro index B     "<limit>~b "                                                         "search message bodies"
 macro index I     "<change-folder>!<enter>"                                            "go to Inbox"
 macro pager \Cu   "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
