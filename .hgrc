@@ -110,9 +110,9 @@ cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 cmm = commit -m 'Merge.'
 
-mergelocal = $HG --config ui.merge=internal:local merge $@
-mergeother = $HG --config ui.merge=internal:other merge $@
-mergefail = $HG --config ui.merge=internal:fail merge $@
+mergelocal = !$HG --config ui.merge=internal:local merge $@
+mergeother = !$HG --config ui.merge=internal:other merge $@
+mergefail = !$HG --config ui.merge=internal:fail merge $@
 
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000

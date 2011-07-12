@@ -12,6 +12,7 @@ set runtimepath=/Users/sjl/.pentadactyl
 set editor='/usr/local/bin/mvim -f +<line> <file>'
 set followhints=1
 set showtabline=multitab
+set showstatuslinks=command
 
 nnoremap j 3j
 nnoremap k 3k
