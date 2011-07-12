@@ -113,6 +113,9 @@ cmm = commit -m 'Merge.'
 mergelocal = !$HG --config ui.merge=internal:local merge $@
 mergeother = !$HG --config ui.merge=internal:other merge $@
 mergefail = !$HG --config ui.merge=internal:fail merge $@
+takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
+takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
+
 
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
