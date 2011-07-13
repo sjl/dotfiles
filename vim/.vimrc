@@ -99,6 +99,8 @@ iabbrev ldis ಠ_ಠ
 iabbrev sl/ http://stevelosh.com/
 iabbrev bb/ http://bitbucket.org/
 iabbrev bbs/ http://bitbucket.org/sjl/
+iabbrev gh/ http://github.com/
+iabbrev ghs/ http://github.com/sjl/
 iabbrev sl@ steve@stevelosh.com
 
 " }}}
