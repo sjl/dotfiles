@@ -589,10 +589,15 @@ let g:lisp_rainbow = 1
 let g:EasyMotion_do_mapping = 0
 
 nnoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
+onoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
 vnoremap <silent> <Leader>f :<C-U>call EasyMotionF(1, 0)<CR>
 
 nnoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
+onoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
 vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
+
+onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
+onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
 
 " }}}
 " Sparkup {{{
