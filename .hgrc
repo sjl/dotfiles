@@ -66,6 +66,14 @@ threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
 threesome.premerge = keep
 threesome.priority = 1
 
+keepthat.executable = sh
+keepthat.args = -c 'cp $local $output.original && cp $other $output'
+keepthat.premerge = True
+
+keepthis.executable = sh
+keepthis.args = -c 'cp $other $output.incoming && cp $local $output'
+keepthis.premerge = True
+
 [email]
 method = smtp
 from = Steve Losh <steve@stevelosh.com>
