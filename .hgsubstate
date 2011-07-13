@@ -1,7 +1,7 @@
 b9bd86b9f476afd164237dce029a46d2607bd931 mercurial/templates
 b6be751b4b4391e7e25ba51e36300a8e04820846 vim/bundle/ack
 bfdf714f8ea10a6bcba7a1375a5700b11077dcd9 vim/bundle/command-t
-24c9f6c5974d1838a2e1db8c58bf4160298433a2 vim/bundle/easymotion
+cdecdc56f938840cad250aecd58c1901f04c4d1b vim/bundle/easymotion
 62a07cb58cffdd669ea2ca5885be33e76bb694e7 vim/bundle/gundo
 1535425d6987812aa87e2123d0e509b847b893d5 vim/bundle/html5
 34e28b3f6f6d702ff2963b8196eccae9344ed4bc vim/bundle/markdown
