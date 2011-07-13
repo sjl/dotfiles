@@ -67,7 +67,12 @@ set colorcolumn=+1
 " }}}
 " Status line {{{
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
+set statusline=%F%m%r%h%w
+set statusline+=\ %#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%=(%{&ff}/%Y)
+set statusline+=\ (line\ %l\/%L,\ col\ %c)
 
 " }}}
 " Backups {{{
@@ -458,6 +463,9 @@ map <leader>WW :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <C-u> gUiw
 inoremap <C-u> <esc>gUiwea
 
+" Substitute
+nnoremap <leader>s :%s//<left>
+
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
@@ -509,7 +517,6 @@ nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
-nnoremap _a  :AnsiEsc<CR>
 
 " Toggle paste
 set pastetoggle=<F8>
@@ -572,6 +579,7 @@ let vimclojure#SplitPos = "right"
 
 let g:syntastic_enable_signs=1
 let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 
 " }}}
 " Command-T {{{
