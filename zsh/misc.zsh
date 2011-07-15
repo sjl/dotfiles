@@ -77,3 +77,7 @@ alias dv='dvtm -m "^f"'
 alias dvt='dtach -A /tmp/dvtm-session.sock -r winch dvtm -m "^f"'
 
 alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
+
+function fack () {
+    find . $@ | grep -v '/\.hg\|/\.git'
+}

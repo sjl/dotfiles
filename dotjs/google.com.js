@@ -1,5 +1,5 @@
 $(function() {
-    var css = ".vspib, .vspi {display: none;} #vspb {display: none;}";
+    var css = ".vspib, .vspb, .vspi {display: none;} #vspb {display: none;}";
     if (typeof GM_addStyle != "undefined") {
         GM_addStyle(css);
     } else if (typeof PRO_addStyle != "undefined") {
