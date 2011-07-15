@@ -117,6 +117,7 @@ cm = commit -m
 cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 cmm = commit -m 'Merge.'
+cws = commit -m 'Whitespace.'
 
 mergelocal = !$HG --config ui.merge=internal:local merge $@
 mergeother = !$HG --config ui.merge=internal:other merge $@

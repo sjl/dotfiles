@@ -449,6 +449,9 @@ au FileType help setlocal textwidth=78
 nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
 nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
 nnoremap <leader>eo <C-w>s<C-w>j<C-w>L:e ~/Dropbox/Org<cr>4j
+nnoremap <leader>eh <C-w>s<C-w>j<C-w>L:e ~/.hgrc<cr>
+nnoremap <leader>em <C-w>s<C-w>j<C-w>L:e ~/.mutt/muttrc<cr>
+nnoremap <leader>ez <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/zsh<cr>4j
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
@@ -512,6 +515,7 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap <leader>T :!ctags -R -f ./tags .<cr>
 
 " Easy filetype switching
+nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
