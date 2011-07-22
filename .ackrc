@@ -8,4 +8,8 @@ less=.less
 --type-set
 vim=.vim
 --type-set
-front=.html,.js,.less,.css
+fe=.html,.js,.less
+--type-set
+fea=.html,.js,.less,.css
+--ignore-dir=public/media/cache
+--ignore-dir=public/static/cache
