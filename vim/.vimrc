@@ -690,12 +690,12 @@ let g:slimv_repl_split = 4
 
 let g:threesome_initial_mode = "grid"
 
-let g:threesome_initial_layout_grid = 0
+let g:threesome_initial_layout_grid = 1
 let g:threesome_initial_layout_loupe = 0
 let g:threesome_initial_layout_compare = 0
 let g:threesome_initial_layout_path = 0
 
-let g:threesome_initial_diff_grid = 0
+let g:threesome_initial_diff_grid = 1
 let g:threesome_initial_diff_loupe = 0
 let g:threesome_initial_diff_compare = 0
 let g:threesome_initial_diff_path = 0
