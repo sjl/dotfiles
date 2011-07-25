@@ -14,6 +14,7 @@ c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 d9e6bfdd902fc661c8fd58ede248ccfc3b3039d7 vim/bundle/surround
 08e61a8c940356219b3a5c3f349af30fa6f78f8c vim/bundle/syntastic
 17831680bc891c82b98f16718ff3a59cdadfa358 vim/bundle/threesome
+c0a4929c940e4fb32f8aaa70440da113c7064467 vim/bundle/vim-arpeggio
 6362ba99c825afc046818807267d5c1143b5c887 vim/bundle/vim-javascript
 f21fbd8759d7fa6c3cb1bbb9fe05eae90422f01a vim/bundle/vim-makegreen
 0b2c734fa46450d704827578ec65aeb3e50e9b4d vim/bundle/vim-orgmode

@@ -17,3 +17,4 @@ vim/bundle/vim-orgmode = [git]git://github.com/sjl/vim-orgmode.git
 vim/bundle/slimv = [hg]http://bitbucket.org/sjl/slimv
 vim/bundle/threesome = [hg]http://bitbucket.org/sjl/threesome.vim
 vim/bundle/vim-makegreen = [git]git://github.com/sjl/vim-makegreen.git
+vim/bundle/vim-arpeggio = [git]git://github.com/kana/vim-arpeggio.git
