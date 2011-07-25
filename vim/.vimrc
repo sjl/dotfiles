@@ -584,6 +584,7 @@ let vimclojure#SplitPos = "right"
 let g:syntastic_enable_signs=1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
 " Command-T {{{
@@ -620,12 +621,6 @@ let g:sparkupNextMapping = '<c-s>'
 " Autoclose {{{
 
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
-
-" }}}
-" Tasklist {{{
-
-let g:tlRememberPosition = 1
-map <leader>td <Plug>TaskList
 
 " }}}
 " Makegreen {{{

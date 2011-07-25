@@ -64,3 +64,6 @@ function precmd () {
 
 # Local Settings -------------------------------------------------------------
 if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
+
+# Emacs... -------------------------------------------------------------------
+alias e='emacsclient -nc .'
