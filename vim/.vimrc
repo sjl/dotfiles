@@ -175,24 +175,11 @@ nnoremap <m-Up> :cprevious<cr>zvzz
 
 " Directional Keys {{{
 
-" Why stretch?
-noremap h ;
-noremap j h
-noremap k gj
-noremap l gk
-noremap ; l
-
 " Easy buffer navigation
-" Note: For this section to make any sense you need to remap Ctrl-; to Ctrl-g at
-"       the KEYBOARD level.  The reason is that for some reason the OS X doesn't
-"       recognize the Ctrl+; combination as something special, so it just passes it
-"       to Vim as a semicolon.
-"
-"       Yeah, it's dumb.
-noremap <C-j>  <C-w>h
-noremap <C-k>  <C-w>j
-noremap <C-l>  <C-w>k
-noremap <C-g>  <C-w>l
+noremap <C-h>  <C-w>h
+noremap <C-j>  <C-w>j
+noremap <C-k>  <C-w>k
+noremap <C-l>  <C-w>l
 noremap <leader>g <C-w>v
 
 " }}}
@@ -485,7 +472,7 @@ nnoremap <leader>v V`]
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
-inoremap jk <ESC>
+inoremap <c-t> <ESC>
 
 " Cmdheight switching
 nnoremap <leader>1 :set cmdheight=1<cr>
