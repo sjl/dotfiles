@@ -46,6 +46,7 @@ set showbreak=↪
 set splitbelow
 set splitright
 set fillchars=diff:\ 
+set ttimeout
 
 " Save when losing focus
 au FocusLost * :wa
@@ -473,6 +474,7 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
 inoremap <c-t> <ESC>
+call arpeggio#map('i', '', 0, 'ne', '<Esc>')
 
 " Cmdheight switching
 nnoremap <leader>1 :set cmdheight=1<cr>
