@@ -47,6 +47,7 @@ dwd = ssh://hg@bitbucket.org/dwaiter/
 nyh = ssh://sjl@gotham.nyhacker.org/
 dl = ssh://hg@hg.dwaiter.com:38038/
 mirr = ssh://hg@dwaiter.com:38038/mirror/
+gc = https://code.google.com/p/
 
 [diff]
 git = True

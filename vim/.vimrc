@@ -473,8 +473,7 @@ nnoremap <leader>v V`]
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Faster Esc
-inoremap <c-t> <ESC>
-call arpeggio#map('i', '', 0, 'ne', '<Esc>')
+inoremap jk <esc>
 
 " Cmdheight switching
 nnoremap <leader>1 :set cmdheight=1<cr>
@@ -529,7 +528,7 @@ map <leader>a :Ack!
 
 noremap <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$']
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
 au Filetype nerdtree setlocal nolist
 
 " }}}
