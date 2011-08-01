@@ -176,6 +176,10 @@ nnoremap <m-Up> :cprevious<cr>zvzz
 
 " Directional Keys {{{
 
+" It's 2011.
+noremap j gj
+noremap k gk
+
 " Easy buffer navigation
 noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
