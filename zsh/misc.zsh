@@ -75,6 +75,7 @@ function whatthehelldididoon() {
 
 alias dv='dvtm -m "^f"'
 alias dvt='dtach -A /tmp/dvtm-session.sock -r winch dvtm -m "^f"'
+alias swank='dtach -A /tmp/dvtm-swank.sock -r winch lein swank'
 
 alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
 
