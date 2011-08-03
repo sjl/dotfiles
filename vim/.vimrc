@@ -141,6 +141,10 @@ nnoremap # #zzzv
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+
 " L is easier to type, and I never use the default behavior.
 noremap L $
 
@@ -423,6 +427,11 @@ au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
 au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
 
 " }}}
+" Ruby {{{
+
+au Filetype ruby setlocal foldmethod=syntax
+
+" }}}
 " Vagrant {{{
 
 au BufRead,BufNewFile Vagrantfile set ft=ruby
@@ -444,6 +453,7 @@ nnoremap <leader>eo <C-w>s<C-w>j<C-w>L:e ~/Dropbox/Org<cr>4j
 nnoremap <leader>eh <C-w>s<C-w>j<C-w>L:e ~/.hgrc<cr>
 nnoremap <leader>em <C-w>s<C-w>j<C-w>L:e ~/.mutt/muttrc<cr>
 nnoremap <leader>ez <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ek <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " }}}
 " Convenience mappings -------------------------------------------------------- {{{
