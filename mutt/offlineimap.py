@@ -1,12 +1,16 @@
 #!/usr/bin/python
-import re, commands
+import re, subprocess
 def get_keychain_pass(account=None, server=None):
     params = {
         'security': '/usr/bin/security',
         'command': 'find-internet-password',
         'account': account,
-        'server': server
+        'server': server,
+        'keychain': '/Users/sjl/Library/Keychains/login.keychain',
     }
-    command = "%(security)s %(command)s -g -a %(account)s -s %(server)s" % params
-    outtext = commands.getoutput(command)
+    command = "sudo -u sjl %(security)s -v %(command)s -g -a %(account)s -s %(server)s %(keychain)s" % params
+    output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+    outtext = [l for l in output.splitlines()
+               if l.startswith('password: ')][0]
+
     return re.match(r'password: "(.*)"', outtext).group(1)

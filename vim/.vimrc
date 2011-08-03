@@ -48,6 +48,9 @@ set splitright
 set fillchars=diff:\ 
 set ttimeout
 
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*" 
+
 " Save when losing focus
 au FocusLost * :wa
 
