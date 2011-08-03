@@ -47,6 +47,8 @@ set splitbelow
 set splitright
 set fillchars=diff:\ 
 set ttimeout
+set notimeout
+set nottimeout
 
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*" 
@@ -261,6 +263,9 @@ au FileType clojure nmap <buffer> \ee \ed
 
 " Indent top-level form.
 au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+
+" Use a swank command that works, and doesn't require new app windows.
+au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
 
 " }}}
 " Confluence {{{
