@@ -13,13 +13,13 @@ map "<Ctrl-Shift-K>", lambda { activate('MacVim') }
 map "<Ctrl-Shift-M>" do
     activate('iTerm')
     sleep(1)
-    send('<Ctrl-F>')
+    send('<Ctrl-f>')
     send('3')
 end
 map "<Ctrl-Shift-G>" do
     activate('iTerm')
     sleep(1)
-    send('<Ctrl-F>')
+    send('<Ctrl-f>')
     send('1')
 end
 
