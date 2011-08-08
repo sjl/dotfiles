@@ -73,7 +73,7 @@ class Vim < Plugin
   end
 
   def after
-      except /iTerm/, /MacVim/, /Firefox/, /PeepOpen/, /Quicksilver/ do
+      except /iTerm/, /MacVim/, /Firefox/, /PeepOpen/, /Quicksilver/, /1Password/ do
           Vim.maps['disabled'] = {}
           Vim.maps['n'] = {
               'h' => lambda { send("<Left>") },
