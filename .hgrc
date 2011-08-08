@@ -127,6 +127,8 @@ takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
 takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
 
+diffl = !"$HG" diff --color=always | less -R
+
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
 
