@@ -103,6 +103,7 @@ class Vim < Plugin
               '<Ctrl-R>' => lambda { send("<Shift-Cmd-z>") },
 
               'x' => lambda { send("<Shift-Right><Cmd-x>") },
+              's' => lambda { send("<Shift-Right><Cmd-x>"); Vim.mode = 'i' },
 
               '<Escape>' => lambda { send("<Escape>") },
           }
