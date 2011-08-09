@@ -421,9 +421,9 @@ au Filetype puppet setlocal foldmarker={,}
 " }}}
 " Python {{{
 
-au Filetype python noremap  <localleader>Rr :RopeRename<CR>
-au Filetype python vnoremap <localleader>Rm :RopeExtractMethod<CR>
-au Filetype python noremap  <localleader>Ri :RopeOrganizeImports<CR>
+au Filetype python noremap  <localleader>rr :RopeRename<CR>
+au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
+au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
 au FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " }}}
@@ -576,8 +576,6 @@ source $HOME/.vim/sadness/sadness.vim
 nnoremap <F5> :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
-let g:gundo_map_move_older = "k"
-let g:gundo_map_move_newer = "l"
 
 " }}}
 " VimClojure {{{
@@ -666,26 +664,6 @@ let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
 " }}}
 " SLIMV {{{
-
-" First check if SWANK is bundled with Slimv
-"let swanks = split( globpath( &runtimepath, 'slime/start-swank.lisp'), '\n' )
-
-"if len( swanks ) == 0
-    "" Try to find SWANK in the standard SLIME installation locations
-    "if exists('g:slimv_windows')
-        "if g:slimv_windows || g:slimv_cygwin
-            "let swanks = split( globpath( 'c:/slime/,c:/*lisp*/slime/,c:/*lisp*/site/lisp/slime/,c:/Program Files/*lisp*/site/lisp/slime/', 'start-swank.lisp' ), '\n' )
-        "else
-            "let swanks = split( globpath( '/usr/share/common-lisp/source/slime/', 'start-swank.lisp' ), '\n' )
-        "endif
-    "endif
-"endif
-
-"if len( swanks ) != 0
-    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket sbcl --load "' . swanks[0] . '"'
-    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
-    "let g:slimv_swank_cmd = '! dtach -n /tmp/swank.socket clisp -i "' . swanks[0] . '"'
-"endif
 
 let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
 let g:slimv_repl_split = 4

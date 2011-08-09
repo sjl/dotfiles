@@ -1,9 +1,9 @@
-8e6b39b7e8898b50574f39883607ab1e147db6c2 keymando/Plugins/vim
+2cd555e0b202a78f6e984b37653b080caada8ad5 keymando/Plugins/vim
 b9bd86b9f476afd164237dce029a46d2607bd931 mercurial/templates
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
 bfdf714f8ea10a6bcba7a1375a5700b11077dcd9 vim/bundle/command-t
 cdecdc56f938840cad250aecd58c1901f04c4d1b vim/bundle/easymotion
-62a07cb58cffdd669ea2ca5885be33e76bb694e7 vim/bundle/gundo
+9524242bda64063b3bf24c89bb89a27726da882f vim/bundle/gundo
 4ef2d418f48d30fed2f7ce00f598d6871a0010fe vim/bundle/html5
 34e28b3f6f6d702ff2963b8196eccae9344ed4bc vim/bundle/markdown
 b28e7be63235982501ab7dd30c03ea7feef7b095 vim/bundle/nerdcommenter
@@ -16,6 +16,7 @@ d9e6bfdd902fc661c8fd58ede248ccfc3b3039d7 vim/bundle/surround
 08e61a8c940356219b3a5c3f349af30fa6f78f8c vim/bundle/syntastic
 17831680bc891c82b98f16718ff3a59cdadfa358 vim/bundle/threesome
 c0a4929c940e4fb32f8aaa70440da113c7064467 vim/bundle/vim-arpeggio
+b944e534bd6bbfc4fd56d4ee1a8aa831188387b0 vim/bundle/vim-coffee-script
 6362ba99c825afc046818807267d5c1143b5c887 vim/bundle/vim-javascript
 f21fbd8759d7fa6c3cb1bbb9fe05eae90422f01a vim/bundle/vim-makegreen
 0b2c734fa46450d704827578ec65aeb3e50e9b4d vim/bundle/vim-orgmode
