@@ -254,6 +254,7 @@ au FileType c setlocal foldmethod=syntax
 
 au FileType clojure call TurnOnClojureFolding()
 au FileType clojure compiler clojure
+au FileType clojure setlocal report=100000
 
 let g:slimv_leader = '\'
 let g:slimv_keybindings = 2
@@ -582,9 +583,7 @@ let g:gundo_preview_bottom = 1
 
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME . "/.vim/bundle/vimclojure/bin/ng"
-let vimclojure#SplitPos = "right"
+let vimclojure#WantNailgun = 0
 
 " }}}
 " Syntastic {{{
@@ -667,6 +666,7 @@ let g:org_debug = 1
 
 let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
 let g:slimv_repl_split = 4
+let g:slimv_repl_syntax = 1
 
 " }}}}
 " Threesome {{{
