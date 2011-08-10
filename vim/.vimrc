@@ -268,6 +268,9 @@ au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
 " Use a swank command that works, and doesn't require new app windows.
 au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
 
+au BufNewFile,BufRead Slimv.REPL.clj setlocal winfixwidth
+au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
+
 " }}}
 " Confluence {{{
 
