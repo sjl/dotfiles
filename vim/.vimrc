@@ -161,6 +161,7 @@ inoremap <c-e> <esc>A
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Fix linewise visual selection of various text objects
+nnoremap VV V
 nnoremap Vit vitVkoj
 nnoremap Vat vatV
 nnoremap Vab vabV
@@ -233,7 +234,7 @@ set foldtext=MyFoldText()
 
 " Fuck you, help key.
 set fuoptions=maxvert,maxhorz
-noremap <F1> :set invfullscreen<CR>
+noremap  <F1> :set invfullscreen<CR>
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 
 " Fuck you too, manual key.
@@ -887,10 +888,12 @@ if has('gui_running')
     set go-=r
     set go-=R
 
-    " PeepOpen
+    " PeepOpen on OS X, Command-T elsewhere.
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
         map <leader><leader> <Plug>PeepOpen
+    else
+        map <leader><leader> :CommandT<cr>
     end
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
@@ -925,6 +928,9 @@ if has('gui_running')
 
     imap <M-BS>         <C-w>
     inoremap <D-BS>     <esc>my0c`y
+else
+    " Command-T if we don't have a GUI.
+    map <leader><leader> :CommandT<cr>
 endif
 
 " }}}
