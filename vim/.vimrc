@@ -552,10 +552,12 @@ map <leader>a :Ack!
 " }}}
 " NERD Tree {{{
 
-noremap <F2> :NERDTreeToggle<cr>
+noremap  <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
+
 au Filetype nerdtree setlocal nolist
+
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
 
 " }}}
 " HTML5 {{{
@@ -591,7 +593,7 @@ let vimclojure#WantNailgun = 0
 " }}}
 " Syntastic {{{
 
-let g:syntastic_enable_signs=1
+let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
@@ -640,13 +642,14 @@ nnoremap \| :call MakeGreen('')<cr>
 " }}}
 " Pydoc {{{
 
-au FileType python noremap <buffer> <localleader>Lw :call ShowPyDoc('<C-R><C-W>', 1)<CR>
-au FileType python noremap <buffer> <localleader>LW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+au FileType python noremap <buffer> <localleader>ds :call ShowPyDoc('<C-R><C-W>', 1)<CR>
+au FileType python noremap <buffer> <localleader>dS :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 
 " }}}
 " Scratch {{{
 
 command! ScratchToggle call ScratchToggle()
+
 function! ScratchToggle() " {{{
   if exists("w:is_scratch_window")
     unlet w:is_scratch_window
@@ -656,18 +659,22 @@ function! ScratchToggle() " {{{
     let w:is_scratch_window = 1
   endif
 endfunction " }}}
+
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
 " OrgMode {{{
+
 let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
+
 let g:org_debug = 1
+
 " }}}
 " SLIMV {{{
 
-let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
+"let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
 let g:slimv_repl_split = 4
 let g:slimv_repl_syntax = 1
 
