@@ -550,63 +550,14 @@ nnoremap <D-p> "_ddPV`]
 map <leader>a :Ack! 
 
 " }}}
-" NERD Tree {{{
+" Autoclose {{{
 
-noremap  <F2> :NERDTreeToggle<cr>
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-
-au Filetype nerdtree setlocal nolist
-
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
-
-" }}}
-" HTML5 {{{
-
-let g:event_handler_attributes_complete = 0
-let g:rdfa_attributes_complete = 0
-let g:microdata_attributes_complete = 0
-let g:atia_attributes_complete = 0
-
-" }}}
-" Rope {{{
-
-let ropevim_enable_shortcuts = 0
-let ropevim_guess_project = 1
-let ropevim_global_prefix = '<C-c>p'
-
-source $HOME/.vim/sadness/sadness.vim
-
-" }}}
-" Gundo {{{
-
-nnoremap <F5> :GundoToggle<CR>
-let g:gundo_debug = 1
-let g:gundo_preview_bottom = 1
-
-" }}}
-" VimClojure {{{
-
-let vimclojure#HighlightBuiltins = 1
-let vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 0
-
-" }}}
-" Syntastic {{{
-
-let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
-let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
-let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 " }}}
 " Command-T {{{
 
 let g:CommandTMaxHeight = 20
-
-" }}}
-" LISP (built-in) {{{
-
-let g:lisp_rainbow = 1
 
 " }}}
 " Easymotion {{{
@@ -625,14 +576,24 @@ onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
 onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
 
 " }}}
-" Sparkup {{{
+" Gundo {{{
 
-let g:sparkupNextMapping = '<c-s>'
+nnoremap <F5> :GundoToggle<CR>
+let g:gundo_debug = 1
+let g:gundo_preview_bottom = 1
 
-"}}}
-" Autoclose {{{
+" }}}
+" HTML5 {{{
 
-nmap <Leader>x <Plug>ToggleAutoCloseMappings
+let g:event_handler_attributes_complete = 0
+let g:rdfa_attributes_complete = 0
+let g:microdata_attributes_complete = 0
+let g:atia_attributes_complete = 0
+
+" }}}
+" Lisp (built-in) {{{
+
+let g:lisp_rainbow = 1
 
 " }}}
 " Makegreen {{{
@@ -640,10 +601,38 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 nnoremap \| :call MakeGreen('')<cr>
 
 " }}}
+" NERD Tree {{{
+
+noremap  <F2> :NERDTreeToggle<cr>
+inoremap <F2> <esc>:NERDTreeToggle<cr>
+
+au Filetype nerdtree setlocal nolist
+
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
+
+" }}}
+" OrgMode {{{
+
+let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+
+let g:org_todo_keywords = ['TODO', '|', 'DONE']
+
+let g:org_debug = 1
+
+" }}}
 " Pydoc {{{
 
 au FileType python noremap <buffer> <localleader>ds :call ShowPyDoc('<C-R><C-W>', 1)<CR>
 au FileType python noremap <buffer> <localleader>dS :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+
+" }}}
+" Rope {{{
+
+let ropevim_enable_shortcuts = 0
+let ropevim_guess_project = 1
+let ropevim_global_prefix = '<C-c>p'
+
+source $HOME/.vim/sadness/sadness.vim
 
 " }}}
 " Scratch {{{
@@ -663,15 +652,6 @@ endfunction " }}}
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
-" OrgMode {{{
-
-let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-
-let g:org_todo_keywords = ['TODO', '|', 'DONE']
-
-let g:org_debug = 1
-
-" }}}
 " SLIMV {{{
 
 "let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
@@ -679,6 +659,19 @@ let g:slimv_repl_split = 4
 let g:slimv_repl_syntax = 1
 
 " }}}}
+" Sparkup {{{
+
+let g:sparkupNextMapping = '<c-s>'
+
+"}}}
+" Syntastic {{{
+
+let g:syntastic_enable_signs = 1
+let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+" }}}
 " Threesome {{{
 
 let g:threesome_initial_mode = "grid"
@@ -699,6 +692,13 @@ let g:threesome_initial_scrollbind_compare = 0
 let g:threesome_initial_scrollbind_path = 0
 
 let g:threesome_wrap = "nowrap"
+
+" }}}
+" VimClojure {{{
+
+let vimclojure#HighlightBuiltins = 1
+let vimclojure#ParenRainbow = 1
+let vimclojure#WantNailgun = 0
 
 " }}}
 
