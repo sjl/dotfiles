@@ -101,6 +101,9 @@ syntax on
 set background=dark
 colorscheme molokai
 
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
 " }}}
 
 " }}}
@@ -492,7 +495,7 @@ nnoremap <leader>D :diffoff!<cr>
 nnoremap <silent> <F6> :YRShow<cr>
 
 " Formatting, TextMate-style
-nnoremap <leader>q gqip
+nnoremap Q gqip
 
 " Easier linewise reselection
 nnoremap <leader>v V`]
@@ -615,6 +618,7 @@ inoremap <F2> <esc>:NERDTreeToggle<cr>
 
 au Filetype nerdtree setlocal nolist
 
+let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
 
 " }}}
