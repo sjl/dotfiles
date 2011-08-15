@@ -271,6 +271,7 @@ au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r win
 
 au BufNewFile,BufRead Slimv.REPL.clj setlocal winfixwidth
 au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
+au BufNewFile,BufRead Slimv.REPL.clj normal! zR
 
 " }}}
 " Confluence {{{
@@ -575,6 +576,11 @@ vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
 
 onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
 onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
+
+" }}}
+" Golden Ratio {{{
+
+nnoremap <leader>G <Plug>(golden_ratio_resize)
 
 " }}}
 " Gundo {{{

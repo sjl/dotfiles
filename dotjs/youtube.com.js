@@ -1,2 +1,2 @@
-$('#comments-view').remove();
+//$('#comments-view').remove();
 $('#ticker').remove();
