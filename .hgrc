@@ -110,56 +110,78 @@ rebase = --keepbranches
 addremove = --similarity 100
 
 [alias]
+# Nudge: just push the current branch.
 nudge = push --branch .
+
+# Some useful little aliases.
 st = status -SC
 ? = summary
+fdiff = diff -U 10000000000000
+qfdiff = qdiff -U 10000000000000
 
+# Push the qparent revision (mnemonic: q push parent).
+qpp = push -r qparent
+
+# Merge with default.
+md = merge default
+
+# Commit message shortcuts.
 cm = commit -m
 cus = commit -m 'Update subrepository state.'
 cuf = commit -m 'Update fixtures.' -I '**fixtures**.json'
 cmm = commit -m 'Merge.'
 cws = commit -m 'Whitespace.'
 
+# Merge shortcuts.
 mergelocal = !$HG --config ui.merge=internal:local merge $@
 mergeother = !$HG --config ui.merge=internal:other merge $@
 mergefail = !$HG --config ui.merge=internal:fail merge $@
+
+# Shortcuts to resolve merge conflicts by taking one side or the other.
 takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
 takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
-
+# Run a colored diff and pipe it to less.
 diffl = !"$HG" diff --color=always | less -R
 
-fdiff = diff -U 10000000000000
-qfdiff = qdiff -U 10000000000000
-
+# Kaleidoscope
+# Mnemonics: "kaleidoscope diff" and "kaleidoscope show"
 kd = !/opt/local/bin/hg ksdiff $@
 ks = !/opt/local/bin/hg ksdiff -c $@
 
+# Log shortcuts --------------------------------------------------------------------
+#
+# Each of these can be used with -v to add a bit more info.
+
+# Datelog: short, pretty hg log with dates.
 dlog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 _ = dlog -l15
 __ = _ -l100000000
 o_ = outgoing -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 i_ = incoming -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.dlog
 
+# Shortlog: short, pretty hg log.
 slog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
 . = slog -l15
 .. = . -l100000000
 o. = outgoing -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
 i. = incoming -n --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.slog
 
+# Short graphlog: short, pretty hg log with a graph.
 sglog = glog --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 , = sglog -l7
 ,, = , -l100000000
 o, = outgoing --graph --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 i, = incoming --graph --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.sglog
 
+
+# hg n .     -- show a summary of rev . without diff.
+# hg show .  -- show a summary of rev . with diff.
 nlog = log --style=$HOME/lib/dotfiles/mercurial/templates/map-cmdline.nlog
 n = nlog -vr
 show = nlog --color=always -vpr
 
-fet = fetch --message 'Automated merge.'
-qpp = push -r qparent
-
+# Simple glog command that doesn't look bad and doesn't require my CLI templates.
 gl = glog -l10 --template='\033[0;33m{rev}\033[0m {desc|firstline|strip} \033[0;35m{branches}\033[0m \033[0;33m{tags}\033[0m\n\033[1;30m({date|age} by {author|person})\033[0m\n\n'
 
 # Make a new repo with some sensible defaults.
@@ -196,11 +218,6 @@ cmunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
            $HG qfinish temp-for-under && \
            $HG qpush $HG_CUR_PATCH
 
-pushunder = !HG_CUR_PATCH=`$HG qtop --color=never` && \
-             $HG qpop -a && \
-             $HG push $@ && \
-             $HG qpush $HG_CUR_PATCH
-
 # Edit the current repo's hgrc file.
 erc = !$EDITOR `$HG root`/.hg/hgrc
 
@@ -210,23 +227,18 @@ erc = !$EDITOR `$HG root`/.hg/hgrc
 bug = !~/lib/t/t.py --task-dir="`$HG root`" --list=BUGS $@
 todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
 
-# Easily add ignore patterns.
+# Easily add ignore patterns to .hgignore and commit.
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
-
-# hgd management commands
-rund = !dtach -n /tmp/hgd.sock ~/lib/virtualenvs/hgd/bin/python ~/src/hgd/hgd.py
-statd = !ps auxww | grep -v grep | grep hgd.py >/dev/null && echo 'running' || echo "not running"
-killt = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut -d" " -f2 | cat
-killd = !ps auxww | grep "hgd/hgd.py" | grep -v grep | sed -e 's/  */ /g' | cut -d" " -f2 | xargs kill
 
 # Show in MacVim
 vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
-# Run commands on all subrepos at once.
+# Run hg commands on all subrepos at once.
 subs  = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
 psubs = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB $HG -R "`$HG root`/SUB" $@
 
+# Run shell commands on all subrepos at once.
 subscmd  = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | xargs    -n1  -I SUB sh -c "cd `$HG root`/SUB && $@"
 psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB sh -c "cd `$HG root`/SUB && $@"
 
@@ -246,5 +258,3 @@ psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB
 #     $ hg sub ar status -m
 #     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 $16 $17 $18 $19 $20
-
-md = merge default
