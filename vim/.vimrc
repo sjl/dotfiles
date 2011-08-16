@@ -363,6 +363,11 @@ au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
 au BufNewFile,BufRead *.fish setlocal filetype=fish
 
 " }}}
+" Help {{{
+
+au FileType help wincmd L
+
+" }}}
 " HTML and HTMLDjango {{{
 
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
