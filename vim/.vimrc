@@ -556,6 +556,9 @@ set pastetoggle=<F8>
 " Replaste
 nnoremap <D-p> "_ddPV`]
 
+" Splitjoin
+nnoremap K h/[^ ]<cr>"zd$jyyP^v$h"zpJk:s/\v +$//<cr>:noh<cr>j^
+
 " }}}
 " Plugin settings ------------------------------------------------------------- {{{
 
