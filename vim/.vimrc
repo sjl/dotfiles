@@ -37,7 +37,7 @@ set undofile
 set undoreload=10000
 set cpoptions+=J
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set shell=/bin/bash
 set lazyredraw
 set wildignore+=*.pyc,.hg,.git
@@ -142,6 +142,10 @@ map <tab> %
 
 nnoremap Y y$
 nnoremap D d$
+
+" Make horizontal scrolling less horrible.
+set sidescroll=1
+set sidescrolloff=10
 
 " Keep search matches in the middle of the window.
 nnoremap * *zzzv
@@ -355,7 +359,7 @@ au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
 " }}}
 " Firefox {{{
 
-au BufRead,BufNewFile ~/Library/Caches/* setlocal buftype=nofile
+au BufRead,BufNewFile ~/Library/Caches/*.html setlocal buftype=nofile
 
 " }}}
 " Fish {{{
