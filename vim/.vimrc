@@ -642,6 +642,8 @@ let g:org_debug = 1
 " }}}
 " Pydoc {{{
 
+let g:pydoc_perform_mappings = 0
+
 au FileType python noremap <buffer> <localleader>ds :call ShowPyDoc('<C-R><C-W>', 1)<CR>
 au FileType python noremap <buffer> <localleader>dS :call ShowPyDoc('<C-R><C-A>', 1)<CR>
 
