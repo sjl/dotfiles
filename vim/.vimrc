@@ -375,11 +375,10 @@ au FileType help wincmd L
 " HTML and HTMLDjango {{{
 
 au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-au BufNewFile,BufRead *.html setlocal foldmethod=manual
+au FileType html,jinja,htmldjango setlocal foldmethod=manual
 
 " Use <localleader>f to fold the current tag.
-au BufNewFile,BufRead *.html nnoremap <buffer> <localleader>f Vatzf
-au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
+au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
 
 " Use Shift-Return to turn this:
 "     <tag>|</tag>
@@ -388,8 +387,7 @@ au BufNewFile,BufRead *.html nnoremap <buffer> VV vatV
 "     <tag>
 "         |
 "     </tag>
-au BufNewFile,BufRead *.html inoremap <buffer> <s-cr> <cr><esc>kA<cr>
-au BufNewFile,BufRead *.html nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
 " Django tags
 au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
@@ -424,6 +422,7 @@ au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
 au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
 au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
 au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
+au BufRead,BufNewFile vhost.nginx                            set ft=nginx
 
 " }}}
 " Pentadactyl {{{
