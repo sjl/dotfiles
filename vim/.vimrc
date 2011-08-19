@@ -140,7 +140,6 @@ map <leader><space> :noh<cr>
 runtime macros/matchit.vim
 map <tab> %
 
-nnoremap Y y$
 nnoremap D d$
 
 " Make horizontal scrolling less horrible.
@@ -276,9 +275,9 @@ au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
 " Use a swank command that works, and doesn't require new app windows.
 au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
 
-au BufNewFile,BufRead Slimv.REPL.clj setlocal winfixwidth
+au BufWinEnter Slimv.REPL.clj setlocal winfixwidth
 au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
-au BufNewFile,BufRead Slimv.REPL.clj normal! zR
+au BufWinEnter Slimv.REPL.clj normal! zR
 
 " }}}
 " Confluence {{{
@@ -518,6 +517,18 @@ inoremap jk <esc>
 nnoremap <leader>1 :set cmdheight=1<cr>
 nnoremap <leader>2 :set cmdheight=2<cr>
 
+" Paste intelligently by default, use option+p to paste raw.
+function! YRRunAfterMaps()
+    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+    nnoremap p :<C-U>YRPaste 'p'<CR>v`]=`]
+    nnoremap P :<C-U>YRPaste 'P'<CR>v`]=`]
+    nnoremap π :<C-U>YRPaste 'p'<CR>
+    nnoremap ∏ :<C-U>YRPaste 'P'<CR>
+endfunction
+
+" Replaste
+nnoremap <D-p> "_ddPV`]=
+
 " Marks and Quotes
 noremap ' `
 noremap æ '
@@ -551,9 +562,6 @@ nnoremap _d  :set ft=diff<CR>
 
 " Toggle paste
 set pastetoggle=<F8>
-
-" Replaste
-nnoremap <D-p> "_ddPV`]
 
 " Split/Join
 " ----------
