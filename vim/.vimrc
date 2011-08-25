@@ -218,6 +218,9 @@ vnoremap <Space> za
 " cursor happens to be.
 nnoremap zO zCzO
 
+" Use ,z to "focus" the current fold.
+nnoremap <leader>z zMzv
+
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
 
@@ -341,9 +344,10 @@ au BufNewFile,BufRead *.less inoremap <buffer> {<cr> {}<left><cr>.<cr><esc>kA<bs
 " }}}
 " Django {{{
 
-au BufNewFile,BufRead urls.py      setlocal nowrap
-au BufNewFile,BufRead urls.py      normal! zR
-au BufNewFile,BufRead dashboard.py normal! zR
+au BufNewFile,BufRead urls.py           setlocal nowrap
+au BufNewFile,BufRead urls.py           normal! zR
+au BufNewFile,BufRead dashboard.py      normal! zR
+au BufNewFile,BufRead local_settings.py normal! zR
 
 au BufNewFile,BufRead admin.py     setlocal filetype=python.django
 au BufNewFile,BufRead urls.py      setlocal filetype=python.django
@@ -368,7 +372,7 @@ au BufNewFile,BufRead *.fish setlocal filetype=fish
 " }}}
 " Help {{{
 
-au FileType help wincmd L
+au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
 " }}}
 " HTML and HTMLDjango {{{
@@ -387,6 +391,13 @@ au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
 "         |
 "     </tag>
 au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+
+" Smarter pasting
+au FileType html,jinja,htmldjango nnoremap <buffer> Y :<C-U>YRYankCount 'y$'<CR>
+au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
+au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
+au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
+au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
 " Django tags
 au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
@@ -517,15 +528,6 @@ inoremap jk <esc>
 nnoremap <leader>1 :set cmdheight=1<cr>
 nnoremap <leader>2 :set cmdheight=2<cr>
 
-" Paste intelligently by default, use option+p to paste raw.
-function! YRRunAfterMaps()
-    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-    nnoremap p :<C-U>YRPaste 'p'<CR>v`]=`]
-    nnoremap P :<C-U>YRPaste 'P'<CR>v`]=`]
-    nnoremap π :<C-U>YRPaste 'p'<CR>
-    nnoremap ∏ :<C-U>YRPaste 'P'<CR>
-endfunction
-
 " Replaste
 nnoremap <D-p> "_ddPV`]=
 
@@ -551,6 +553,9 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Tags
 nnoremap <leader>T :!ctags -R -f ./tags .<cr>
+
+" I suck at typing.
+nnoremap <localleader>= ==
 
 " Easy filetype switching
 nnoremap _md :set ft=markdown<CR>
@@ -778,95 +783,35 @@ vnoremap id i[
 vnoremap ad a[
 
 " }}}
-" Next/Last () {{{
-vnoremap <silent> inb :<C-U>normal! f(vib<cr>
-onoremap <silent> inb :<C-U>normal! f(vib<cr>
-vnoremap <silent> anb :<C-U>normal! f(vab<cr>
-onoremap <silent> anb :<C-U>normal! f(vab<cr>
-vnoremap <silent> in( :<C-U>normal! f(vi(<cr>
-onoremap <silent> in( :<C-U>normal! f(vi(<cr>
-vnoremap <silent> an( :<C-U>normal! f(va(<cr>
-onoremap <silent> an( :<C-U>normal! f(va(<cr>
+" Next and Last {{{
 
-vnoremap <silent> ilb :<C-U>normal! F)vib<cr>
-onoremap <silent> ilb :<C-U>normal! F)vib<cr>
-vnoremap <silent> alb :<C-U>normal! F)vab<cr>
-onoremap <silent> alb :<C-U>normal! F)vab<cr>
-vnoremap <silent> il( :<C-U>normal! F)vi(<cr>
-onoremap <silent> il( :<C-U>normal! F)vi(<cr>
-vnoremap <silent> al( :<C-U>normal! F)va(<cr>
-onoremap <silent> al( :<C-U>normal! F)va(<cr>
-" }}}
-" Next/Last {} {{{
-vnoremap <silent> inB :<C-U>normal! f{viB<cr>
-onoremap <silent> inB :<C-U>normal! f{viB<cr>
-vnoremap <silent> anB :<C-U>normal! f{vaB<cr>
-onoremap <silent> anB :<C-U>normal! f{vaB<cr>
-vnoremap <silent> in{ :<C-U>normal! f{vi{<cr>
-onoremap <silent> in{ :<C-U>normal! f{vi{<cr>
-vnoremap <silent> an{ :<C-U>normal! f{va{<cr>
-onoremap <silent> an{ :<C-U>normal! f{va{<cr>
+" Motion for "next/last object". For example, "din(" would go to the next "()" pair
+" and delete its contents.
 
-vnoremap <silent> ilB :<C-U>normal! F}viB<cr>
-onoremap <silent> ilB :<C-U>normal! F}viB<cr>
-vnoremap <silent> alB :<C-U>normal! F}vaB<cr>
-onoremap <silent> alB :<C-U>normal! F}vaB<cr>
-vnoremap <silent> il{ :<C-U>normal! F}vi{<cr>
-onoremap <silent> il{ :<C-U>normal! F}vi{<cr>
-vnoremap <silent> al{ :<C-U>normal! F}va{<cr>
-onoremap <silent> al{ :<C-U>normal! F}va{<cr>
-" }}}
-" Next/Last [] {{{
-vnoremap <silent> ind :<C-U>normal! f[vi[<cr>
-onoremap <silent> ind :<C-U>normal! f[vi[<cr>
-vnoremap <silent> and :<C-U>normal! f[va[<cr>
-onoremap <silent> and :<C-U>normal! f[va[<cr>
-vnoremap <silent> in[ :<C-U>normal! f[vi[<cr>
-onoremap <silent> in[ :<C-U>normal! f[vi[<cr>
-vnoremap <silent> an[ :<C-U>normal! f[va[<cr>
-onoremap <silent> an[ :<C-U>normal! f[va[<cr>
+onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
 
-vnoremap <silent> ild :<C-U>normal! F]vi[<cr>
-onoremap <silent> ild :<C-U>normal! F]vi[<cr>
-vnoremap <silent> ald :<C-U>normal! F]va[<cr>
-onoremap <silent> ald :<C-U>normal! F]va[<cr>
-vnoremap <silent> il[ :<C-U>normal! F]vi[<cr>
-onoremap <silent> il[ :<C-U>normal! F]vi[<cr>
-vnoremap <silent> al[ :<C-U>normal! F]va[<cr>
-onoremap <silent> al[ :<C-U>normal! F]va[<cr>
-" }}}
-" Next/Last <> {{{
-vnoremap <silent> in< :<C-U>normal! f<vi<<cr>
-onoremap <silent> in< :<C-U>normal! f<vi<<cr>
-vnoremap <silent> an< :<C-U>normal! f<va<<cr>
-onoremap <silent> an< :<C-U>normal! f<va<<cr>
+onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
 
-vnoremap <silent> il< :<C-U>normal! f>vi<<cr>
-onoremap <silent> il< :<C-U>normal! f>vi<<cr>
-vnoremap <silent> al< :<C-U>normal! f>va<<cr>
-onoremap <silent> al< :<C-U>normal! f>va<<cr>
-" }}}
-" Next '' {{{
-vnoremap <silent> in' :<C-U>normal! f'vi'<cr>
-onoremap <silent> in' :<C-U>normal! f'vi'<cr>
-vnoremap <silent> an' :<C-U>normal! f'va'<cr>
-onoremap <silent> an' :<C-U>normal! f'va'<cr>
+function! s:NextTextObject(motion, dir)
+  let c = nr2char(getchar())
 
-vnoremap <silent> il' :<C-U>normal! F'vi'<cr>
-onoremap <silent> il' :<C-U>normal! F'vi'<cr>
-vnoremap <silent> al' :<C-U>normal! F'va'<cr>
-onoremap <silent> al' :<C-U>normal! F'va'<cr>
-" }}}
-" Next "" {{{
-vnoremap <silent> in" :<C-U>normal! f"vi"<cr>
-onoremap <silent> in" :<C-U>normal! f"vi"<cr>
-vnoremap <silent> an" :<C-U>normal! f"va"<cr>
-onoremap <silent> an" :<C-U>normal! f"va"<cr>
+  if c ==# "b"
+      let c = "("
+  elseif c ==# "B"
+      let c = "{"
+  elseif c ==# "d"
+      let c = "["
+  endif
 
-vnoremap <silent> il" :<C-U>normal! F"vi"<cr>
-onoremap <silent> il" :<C-U>normal! F"vi"<cr>
-vnoremap <silent> al" :<C-U>normal! F"va"<cr>
-onoremap <silent> al" :<C-U>normal! F"va"<cr>
+  exe "normal! ".a:dir.c."v".a:motion.c
+endfunction
+
 " }}}
 
 " }}}
