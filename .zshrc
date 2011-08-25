@@ -18,6 +18,7 @@ alias fab='fab -i ~/.ssh/stevelosh'
 alias oldgcc='export CC=/usr/bin/gcc-4.0'
 alias tm='tmux -u2'
 alias c='clear'
+alias bp='bpython'
 
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
