@@ -22,3 +22,4 @@ vim/bundle/vim-arpeggio = [git]git://github.com/kana/vim-arpeggio.git
 vim/bundle/vim-coffee-script = [git]https://github.com/kchmck/vim-coffee-script.git
 
 keymando/Plugins/vim = [hg]http://bitbucket.org/sjl/keymando-vim/
+keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
