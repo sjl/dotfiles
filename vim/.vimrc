@@ -14,10 +14,8 @@ set nocompatible
 
 " }}}
 " Basic options --------------------------------------------------------------- {{{
-
 set encoding=utf-8
 set modelines=0
-set scrolloff=3
 set autoindent
 set showmode
 set showcmd
@@ -142,7 +140,8 @@ map <tab> %
 
 nnoremap D d$
 
-" Make horizontal scrolling less horrible.
+" Scrolling
+set scrolloff=3
 set sidescroll=1
 set sidescrolloff=10
 
