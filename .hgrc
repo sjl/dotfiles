@@ -141,8 +141,11 @@ mergefail = !$HG --config ui.merge=internal:fail merge $@
 takelocal = !"$HG" revert --rev 'p1()' $@ && "$HG" resolve -m $@
 takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 
+# Diff.
+d = diff -p --color=auto
+
 # Run a colored diff and pipe it to less.
-diffl = !"$HG" diff --color=always | less -R
+dl = !"$HG" diff -p --color=always | less -R
 
 # Kaleidoscope
 # Mnemonics: "kaleidoscope diff" and "kaleidoscope show"
