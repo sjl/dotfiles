@@ -392,7 +392,6 @@ au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
 au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
 " Smarter pasting
-au FileType html,jinja,htmldjango nnoremap <buffer> Y :<C-U>YRYankCount 'y$'<CR>
 au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
 au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
 au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
@@ -606,6 +605,12 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 let g:CommandTMaxHeight = 20
 
 " }}}
+" Commentary {{{
+
+nmap <leader>c <Plug>CommentaryLine
+xmap <leader>c <Plug>Commentary
+
+" }}}
 " Easymotion {{{
 
 let g:EasyMotion_do_mapping = 0
@@ -753,6 +758,17 @@ let g:threesome_wrap = "nowrap"
 let vimclojure#HighlightBuiltins = 1
 let vimclojure#ParenRainbow = 1
 let vimclojure#WantNailgun = 0
+
+" }}}
+" YankRing {{{
+
+let g:yankring_min_element_length = 2
+
+function! YRRunAfterMaps()
+    nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+    omap <expr> L YRMapsExpression("", "$")
+endfunction
+
 
 " }}}
 
