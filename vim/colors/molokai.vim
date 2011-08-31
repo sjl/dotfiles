@@ -56,7 +56,7 @@ hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=#FFFFFF guibg=#604A8C
 hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=#FFFFFF guibg=#C50048
 
 hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
-hi EasyMotionShade guifg=#444444 guibg=bg gui=bold
+hi EasyMotionShade  guifg=#444444 guibg=bg gui=bold
 hi Directory       guifg=#A6E22E               gui=bold
 hi Error           guifg=#960050 guibg=#1E0010
 hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
@@ -138,6 +138,9 @@ if &t_Co > 255
    hi Debug           ctermfg=225               cterm=bold
    hi Define          ctermfg=81
    hi Delimiter       ctermfg=241
+
+   hi EasyMotionTarget ctermfg=11
+   hi EasyMotionShade  ctermfg=8
 
    hi DiffAdd                     ctermbg=24
    hi DiffChange      ctermfg=181 ctermbg=239
