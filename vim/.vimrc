@@ -155,7 +155,8 @@ nnoremap N Nzzzv
 nnoremap g; g;zz
 nnoremap g, g,zz
 
-" L is easier to type, and I never use the default behavior.
+" Easier to type, and I never use the default behavior.
+noremap H ^
 noremap L $
 
 " Heresy
@@ -609,6 +610,7 @@ let g:CommandTMaxHeight = 20
 
 nmap <leader>c <Plug>CommentaryLine
 xmap <leader>c <Plug>Commentary
+au FileType htmldjango setlocal commentstring={#\ %s\ #}
 
 " }}}
 " Easymotion {{{
@@ -767,6 +769,7 @@ let g:yankring_min_element_length = 2
 function! YRRunAfterMaps()
     nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
     omap <expr> L YRMapsExpression("", "$")
+    omap <expr> H YRMapsExpression("", "^")
 endfunction
 
 
@@ -863,6 +866,13 @@ endfunction " }}}
 
 nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
+
+" }}}
+" Utils ----------------------------------------------------------------------- {{{
+
+function! g:echodammit(msg)
+    exec 'echom "----------> ' . a:msg . '"'
+endfunction
 
 " }}}
 " Hg Diff --------------------------------------------------------------------- {{{
