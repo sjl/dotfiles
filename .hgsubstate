@@ -1,5 +1,5 @@
 c711681883f3419b85494e3b285b988e8e2dcbca keymando/Plugins/abbrev
-741e74cca9a73043316207a8330adadc75f8d990 keymando/Plugins/vim
+d6fa160506c3d4f723d1cdb879c57231ce2ab5aa keymando/Plugins/vim
 b9bd86b9f476afd164237dce029a46d2607bd931 mercurial/templates
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
 bfdf714f8ea10a6bcba7a1375a5700b11077dcd9 vim/bundle/command-t
@@ -14,7 +14,7 @@ c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 6eec2c131213850ed65fd6da494dfd1a0d620a4e vim/bundle/strftimedammit
 d9e6bfdd902fc661c8fd58ede248ccfc3b3039d7 vim/bundle/surround
 50e99cc2c108e1248c6f12b3b660b4abd1ad3869 vim/bundle/syntastic
-17831680bc891c82b98f16718ff3a59cdadfa358 vim/bundle/threesome
+52ce70ec32d17bcc23ed7852f94594f50bbac87f vim/bundle/threesome
 c0a4929c940e4fb32f8aaa70440da113c7064467 vim/bundle/vim-arpeggio
 b944e534bd6bbfc4fd56d4ee1a8aa831188387b0 vim/bundle/vim-coffee-script
 8d06adbd56a761684701d1c60990b72c845be3d5 vim/bundle/vim-commentary
