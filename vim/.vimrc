@@ -164,7 +164,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Don't move on *
-nnoremap * mq*`q
+nnoremap * *<c-o>
 
 " Same when jumping around
 nnoremap g; g;zz
@@ -798,6 +798,8 @@ let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
 " Threesome {{{
+
+let g:threesome_leader = "-"
 
 let g:threesome_initial_mode = "grid"
 
