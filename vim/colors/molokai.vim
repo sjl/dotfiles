@@ -68,7 +68,11 @@ hi Label           guifg=#E6DB74               gui=none
 hi Macro           guifg=#C4BE89               gui=italic
 hi SpecialKey      guifg=#66D9EF               gui=italic
 
-hi MatchParen      guifg=#E4E400 guibg=#232728 gui=bold
+hi InterestingWord1 guifg=#000000 guibg=#FFA700
+hi InterestingWord2 guifg=#000000 guibg=#53FF00
+hi InterestingWord3 guifg=#000000 guibg=#FF74F8
+
+hi MatchParen      guifg=#E4E400 guibg=#434748 gui=bold
 hi ModeMsg         guifg=#E6DB74
 hi MoreMsg         guifg=#E6DB74
 hi Operator        guifg=#F92672
@@ -86,6 +90,7 @@ hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
 
 " marks column
+hi IndentGuides                  guibg=#373737
 hi SignColumn      guifg=#A6E22E guibg=#151617
 hi SpecialChar     guifg=#F92672               gui=bold
 hi SpecialComment  guifg=#465457               gui=bold

@@ -20,8 +20,6 @@ set autoindent
 set showmode
 set showcmd
 set hidden
-set wildmenu
-set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
@@ -38,7 +36,6 @@ set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set shell=/bin/bash
 set lazyredraw
-set wildignore+=*.pyc,.hg,.git
 set matchtime=3
 set showbreak=↪
 set splitbelow
@@ -47,6 +44,23 @@ set fillchars=diff:\
 set ttimeout
 set notimeout
 set nottimeout
+set autowrite
+set shiftround
+
+" Wildmenu completion {{{
+set wildmenu
+set wildmode=list:longest
+
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store?                      " OSX bullshit
+" }}}
 
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*" 
@@ -133,7 +147,7 @@ set gdefault
 
 set virtualedit+=block
 
-map <leader><space> :noh<cr>
+noremap <leader><space> :noh<cr>:match none<cr>:2match none<cr>:3match none<cr>
 
 runtime macros/matchit.vim
 map <tab> %
@@ -146,10 +160,11 @@ set sidescroll=1
 set sidescrolloff=10
 
 " Keep search matches in the middle of the window.
-nnoremap * *zzzv
-nnoremap # #zzzv
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Don't move on *
+nnoremap * mq*`q
 
 " Same when jumping around
 nnoremap g; g;zz
@@ -163,8 +178,11 @@ noremap L $
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
 
-" Open a Quickfix window for the last search
+" Open a Quickfix window for the last search.
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Ack for the last search.
+nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
 " Fix linewise visual selection of various text objects
 nnoremap VV V
@@ -205,6 +223,13 @@ noremap <leader>g <C-w>v
 
 " }}}
 
+" Highlight word {{{
+nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+" }}}
+
 " }}}
 " Folding --------------------------------------------------------------------- {{{
 
@@ -219,7 +244,7 @@ vnoremap <Space> za
 nnoremap zO zCzO
 
 " Use ,z to "focus" the current fold.
-nnoremap <leader>z zMzv
+nnoremap <leader>z zMzvzz
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -447,9 +472,9 @@ au Filetype puppet setlocal foldmarker={,}
 " }}}
 " Python {{{
 
-au Filetype python noremap  <localleader>rr :RopeRename<CR>
-au Filetype python vnoremap <localleader>rm :RopeExtractMethod<CR>
-au Filetype python noremap  <localleader>ri :RopeOrganizeImports<CR>
+au Filetype python noremap  <buffer> <localleader>rr :RopeRename<CR>
+au Filetype python vnoremap <buffer> <localleader>rm :RopeExtractMethod<CR>
+au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
 au FileType python setlocal omnifunc=pythoncomplete#Complete
 
 " }}}
@@ -520,6 +545,14 @@ nnoremap <leader>v V`]
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
+" Align text
+nnoremap <leader>Al :left<cr>
+nnoremap <leader>Ac :center<cr>
+nnoremap <leader>Ar :right<cr>
+vnoremap <leader>Al :left<cr>
+vnoremap <leader>Ac :center<cr>
+vnoremap <leader>Ar :right<cr>
+
 " Faster Esc
 inoremap jk <esc>
 
@@ -550,25 +583,22 @@ nmap <leader>R :RainbowParenthesesToggle<CR>
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
 
-" Tags
-nnoremap <leader>T :!ctags -R -f ./tags .<cr>
-
 " I suck at typing.
 nnoremap <localleader>= ==
 
-" Easy filetype switching
+" Easy filetype switching {{{
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
+" }}}
 
 " Toggle paste
 set pastetoggle=<F8>
 
-" Split/Join
-" ----------
+" Split/Join {{{
 "
 " Basically this splits the current line into two new ones at the cursor position,
 " then joins the second one with whatever comes next.
@@ -587,6 +617,40 @@ set pastetoggle=<F8>
 " Especially useful for adding items in the middle of long lists/tuples in Python
 " while maintaining a sane text width.
 nnoremap K h/[^ ]<cr>"zd$jyyP^v$h"zpJk:s/\v +$//<cr>:noh<cr>j^
+" }}}
+
+" Handle URL {{{
+" Stolen from https://github.com/askedrelic/homedir/blob/master/.vimrc
+" OSX only: Open a web-browser with the URL in the current line
+function! HandleURI()
+    let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+    echo s:uri
+    if s:uri != ""
+        exec "!open \"" . s:uri . "\""
+    else
+        echo "No URI found in line."
+    endif
+endfunction
+map <leader>u :call HandleURI()<CR>
+" }}}
+
+" Quickreturn
+inoremap <c-cr> <esc>A<cr>
+inoremap <s-cr> <esc>A:<cr>
+
+" Indent Guides {{{
+let g:indentguides_state = 0
+function! IndentGuides() " {{{
+    if g:indentguides_state
+        let g:indentguides_state = 0
+        2match None
+    else
+        let g:indentguides_state = 1
+        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+    endif
+endfunction " }}}
+nnoremap <leader>i :call IndentGuides()<cr>
+" }}}
 
 " }}}
 " Plugin settings ------------------------------------------------------------- {{{
@@ -767,28 +831,13 @@ let vimclojure#WantNailgun = 0
 let g:yankring_min_element_length = 2
 
 function! YRRunAfterMaps()
-    nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
     omap <expr> L YRMapsExpression("", "$")
     omap <expr> H YRMapsExpression("", "^")
 endfunction
 
 
 " }}}
-
-" }}}
-" Synstack -------------------------------------------------------------------- {{{
-
-" Show the stack of syntax hilighting classes affecting whatever is under the
-" cursor.
-function! SynStack() " {{{
-  if !exists("*synstack")
-    return
-  endif
-
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc " }}}
-
-nmap <M-S> :call SynStack()<CR>
 
 " }}}
 " Text objects ---------------------------------------------------------------- {{{
@@ -833,12 +882,6 @@ endfunction
 " }}}
 
 " }}}
-" Quickreturn ----------------------------------------------------------------- {{{
-
-inoremap <c-cr> <esc>A<cr>
-inoremap <s-cr> <esc>A:<cr>
-
-" }}}
 " Error toggles --------------------------------------------------------------- {{{
 
 command! ErrorsToggle call ErrorsToggle()
@@ -873,6 +916,22 @@ nmap <silent> <f4> :QFixToggle<cr>
 function! g:echodammit(msg)
     exec 'echom "----------> ' . a:msg . '"'
 endfunction
+
+" Synstack {{{
+
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
+function! SynStack() " {{{
+  if !exists("*synstack")
+    return
+  endif
+
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc " }}}
+
+nmap <M-S> :call SynStack()<CR>
+
+" }}}
 
 " }}}
 " Hg Diff --------------------------------------------------------------------- {{{
