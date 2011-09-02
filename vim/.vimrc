@@ -147,7 +147,7 @@ set gdefault
 
 set virtualedit+=block
 
-noremap <leader><space> :noh<cr>:match none<cr>:2match none<cr>:3match none<cr>
+noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
 runtime macros/matchit.vim
 map <tab> %
