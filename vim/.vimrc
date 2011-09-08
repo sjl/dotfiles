@@ -85,12 +85,30 @@ set colorcolumn=+1
 " }}}
 " Status line {{{
 
-set statusline=%F%m%r%h%w
-set statusline+=\ %#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%=(%{&ff}/%Y)
-set statusline+=\ (line\ %l\/%L,\ col\ %c)
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%#warningmsg#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
 " Backups {{{
@@ -138,12 +156,14 @@ vnoremap / /\v
 
 set ignorecase
 set smartcase
-
 set incsearch
 set showmatch
 set hlsearch
-
 set gdefault
+
+set scrolloff=3
+set sidescroll=1
+set sidescrolloff=10
 
 set virtualedit+=block
 
@@ -152,12 +172,8 @@ noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 runtime macros/matchit.vim
 map <tab> %
 
+" Made D behave
 nnoremap D d$
-
-" Scrolling
-set scrolloff=3
-set sidescroll=1
-set sidescrolloff=10
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -230,6 +246,18 @@ nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'
 nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
 " }}}
 
+" Visual Mode */# from Scrooloose {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+" }}}
+
 " }}}
 " Folding --------------------------------------------------------------------- {{{
 
@@ -290,6 +318,8 @@ au FileType c setlocal foldmethod=syntax
 au FileType clojure call TurnOnClojureFolding()
 au FileType clojure compiler clojure
 au FileType clojure setlocal report=100000
+au FileType clojure nnoremap <buffer> o A<cr>
+au FileType clojure nnoremap <buffer> O kA<cr>
 
 let g:slimv_leader = '\'
 let g:slimv_keybindings = 2
@@ -303,9 +333,9 @@ au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
 " Use a swank command that works, and doesn't require new app windows.
 au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
 
-au BufWinEnter Slimv.REPL.clj setlocal winfixwidth
+au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
 au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
-au BufWinEnter Slimv.REPL.clj normal! zR
+au BufWinEnter        Slimv.REPL.clj normal! zR
 
 " }}}
 " Confluence {{{
@@ -383,11 +413,6 @@ au BufRead,BufNewFile ~/Library/Caches/*.html setlocal buftype=nofile
 " Fish {{{
 
 au BufNewFile,BufRead *.fish setlocal filetype=fish
-
-" }}}
-" Help {{{
-
-au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
 " }}}
 " HTML and HTMLDjango {{{
@@ -490,6 +515,7 @@ au BufRead,BufNewFile Vagrantfile set ft=ruby
 
 au FileType vim setlocal foldmethod=marker
 au FileType help setlocal textwidth=78
+au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
 " }}}
 
@@ -640,6 +666,7 @@ function! IndentGuides() " {{{
     endif
 endfunction " }}}
 nnoremap <leader>i :call IndentGuides()<cr>
+
 " }}}
 
 " }}}
@@ -913,20 +940,16 @@ endfunction
 
 " Show the stack of syntax hilighting classes affecting whatever is under the
 " cursor.
-function! SynStack() " {{{
-  if !exists("*synstack")
-    return
-  endif
+function! SynStack() "{{{
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc "}}}
 
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc " }}}
-
-nmap <M-S> :call SynStack()<CR>
+nnoremap ß :call SynStack()<CR>
 
 " }}}
 
 " }}}
-" Hg Diff --------------------------------------------------------------------- {{{
+" Hg  ------------------------------------------------------------------------- {{{
 
 function! s:HgDiff()
     diffthis
@@ -944,6 +967,34 @@ function! s:HgDiff()
 endf
 command! -nargs=0 HgDiff call s:HgDiff()
 nnoremap <leader>hd :HgDiff<cr>
+
+function! s:HgBlame()
+    let fn = expand('%:p')
+
+    wincmd v
+    wincmd h
+    edit __hgblame__
+    vertical resize 28
+
+    setlocal scrollbind
+    setlocal winfixwidth
+    setlocal nolist
+    setlocal nowrap
+    setlocal nonumber
+    setlocal buftype=nofile
+    setlocal ft=none
+
+    normal ggdG
+    execute "silent r!hg blame -undq " . fn
+    normal ggdd
+    execute ':%s/\v:.*$//'
+
+    wincmd l
+    setlocal scrollbind
+    syncbind
+endf
+command! -nargs=0 HgBlame call s:HgBlame()
+nnoremap <leader>hb :HgBlame<cr>
 
 " }}}
 " MacVim ---------------------------------------------------------------------- {{{
