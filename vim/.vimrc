@@ -83,34 +83,6 @@ set formatoptions=qrn1
 set colorcolumn=+1
 
 " }}}
-" Status line {{{
-
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-
-set statusline+=\    " Space.
-
-set statusline+=%#warningmsg#                " Highlight the following as a warning.
-set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
-
-set statusline+=%=   " Right align.
-
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=)
-
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-
-" }}}
 " Backups {{{
 
 set undodir=~/.vim/tmp/undo//     " undo files
@@ -137,14 +109,52 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " }}}
-" Useful abbreviations -------------------------------------------------------- {{{
+" Status line ----------------------------------------------------------------- {{{
+
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%#redbar#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
+
+" }}}
+" Abbreviations --------------------------------------------------------------- {{{
+
+function! EatChar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunction
+
+function! MakeSpacelessIabbrev(from, to)
+    execute "iabbrev <silent> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+endfunction
+
+call MakeSpacelessIabbrev('sl/',  'http://stevelosh.com/')
+call MakeSpacelessIabbrev('bb/',  'http://bitbucket.org/')
+call MakeSpacelessIabbrev('bbs/', 'http://bitbucket.org/sjl/')
+call MakeSpacelessIabbrev('gh/',  'http://github.com/')
+call MakeSpacelessIabbrev('ghs/', 'http://github.com/sjl/')
 
 iabbrev ldis ಠ_ಠ
-iabbrev sl/ http://stevelosh.com/
-iabbrev bb/ http://bitbucket.org/
-iabbrev bbs/ http://bitbucket.org/sjl/
-iabbrev gh/ http://github.com/
-iabbrev ghs/ http://github.com/sjl/
 iabbrev sl@ steve@stevelosh.com
 
 " }}}
