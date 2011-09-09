@@ -320,212 +320,297 @@ inoremap # X<BS>#
 
 " C {{{
 
-au FileType c setlocal foldmethod=syntax
+augroup ft_c
+    au!
+    au FileType c setlocal foldmethod=syntax
+augroup END
 
 " }}}
 " Clojure {{{
 
-au FileType clojure call TurnOnClojureFolding()
-au FileType clojure compiler clojure
-au FileType clojure setlocal report=100000
-au FileType clojure nnoremap <buffer> o A<cr>
-au FileType clojure nnoremap <buffer> O kA<cr>
-
 let g:slimv_leader = '\'
 let g:slimv_keybindings = 2
 
-" Fix the eval mapping.
-au FileType clojure nmap <buffer> \ee \ed
+augroup ft_clojure
+    au!
 
-" Indent top-level form.
-au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+    au FileType clojure call TurnOnClojureFolding()
+    au FileType clojure compiler clojure
+    au FileType clojure setlocal report=100000
+    au FileType clojure nnoremap <buffer> o A<cr>
+    au FileType clojure nnoremap <buffer> O kA<cr>
 
-" Use a swank command that works, and doesn't require new app windows.
-au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
+    au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
+    au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
+    au BufWinEnter        Slimv.REPL.clj normal! zR
+    au BufNewFile,BufRead Slimv.REPL.clj nnoremap A GA
 
-au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
-au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
-au BufWinEnter        Slimv.REPL.clj normal! zR
+    " Fix the eval mapping.
+    au FileType clojure nmap <buffer> \ee \ed
+
+    " Indent top-level form.
+    au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+
+    " Use a swank command that works, and doesn't require new app windows.
+    au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
+augroup END
 
 " }}}
 " Confluence {{{
 
-au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
+augroup ft_c
+    au!
 
-" Wiki pages should be soft-wrapped.
-au FileType confluencewiki setlocal wrap linebreak nolist
+    au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
+
+    " Wiki pages should be soft-wrapped.
+    au FileType confluencewiki setlocal wrap linebreak nolist
+augroup END
 
 " }}}
 " Cram {{{
 
-au BufNewFile,BufRead *.t set filetype=cram
-
 let cram_fold=1
-autocmd Syntax cram setlocal foldlevel=1
+
+augroup ft_cram
+    au!
+
+    au BufNewFile,BufRead *.t set filetype=cram
+    au Syntax cram setlocal foldlevel=1
+augroup END
+
 
 " }}}
 " CSS and LessCSS {{{
 
-au BufNewFile,BufRead *.less setlocal filetype=less
+augroup ft_css
+    au!
 
-au BufNewFile,BufRead *.less,*.css setlocal foldmethod=marker
-au BufNewFile,BufRead *.less,*.css setlocal foldmarker={,}
+    au BufNewFile,BufRead *.less setlocal filetype=less
 
-" Use <leader>S to sort properties.  Turns this:
-"
-"     p {
-"         width: 200px;
-"         height: 100px;
-"         background: red;
-"
-"         ...
-"     }
-"
-" into this:
+    au BufNewFile,BufRead *.less,*.css setlocal foldmethod=marker
+    au BufNewFile,BufRead *.less,*.css setlocal foldmarker={,}
 
-"     p {
-"         background: red;
-"         height: 100px;
-"         width: 200px;
-"
-"         ...
-"     }
-au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+    " Use <leader>S to sort properties.  Turns this:
+    "
+    "     p {
+    "         width: 200px;
+    "         height: 100px;
+    "         background: red;
+    "
+    "         ...
+    "     }
+    "
+    " into this:
 
-" Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-" positioned inside of them AND the following code doesn't get unfolded.
-au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+    "     p {
+    "         background: red;
+    "         height: 100px;
+    "         width: 200px;
+    "
+    "         ...
+    "     }
+    au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+    " positioned inside of them AND the following code doesn't get unfolded.
+    au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+augroup END
 
 " }}}
 " Django {{{
 
-au BufNewFile,BufRead urls.py           setlocal nowrap
-au BufNewFile,BufRead urls.py           normal! zR
-au BufNewFile,BufRead dashboard.py      normal! zR
-au BufNewFile,BufRead local_settings.py normal! zR
+augroup ft_django
+    au!
 
-au BufNewFile,BufRead admin.py     setlocal filetype=python.django
-au BufNewFile,BufRead urls.py      setlocal filetype=python.django
-au BufNewFile,BufRead models.py    setlocal filetype=python.django
-au BufNewFile,BufRead views.py     setlocal filetype=python.django
-au BufNewFile,BufRead settings.py  setlocal filetype=python.django
-au BufNewFile,BufRead settings.py  setlocal foldmethod=marker
-au BufNewFile,BufRead forms.py     setlocal filetype=python.django
-au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
-au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
+    au BufNewFile,BufRead urls.py           setlocal nowrap
+    au BufNewFile,BufRead urls.py           normal! zR
+    au BufNewFile,BufRead dashboard.py      normal! zR
+    au BufNewFile,BufRead local_settings.py normal! zR
+
+    au BufNewFile,BufRead admin.py     setlocal filetype=python.django
+    au BufNewFile,BufRead urls.py      setlocal filetype=python.django
+    au BufNewFile,BufRead models.py    setlocal filetype=python.django
+    au BufNewFile,BufRead views.py     setlocal filetype=python.django
+    au BufNewFile,BufRead settings.py  setlocal filetype=python.django
+    au BufNewFile,BufRead settings.py  setlocal foldmethod=marker
+    au BufNewFile,BufRead forms.py     setlocal filetype=python.django
+    au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
+    au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
+augroup END
 
 " }}}
 " Firefox {{{
 
-au BufRead,BufNewFile ~/Library/Caches/*.html setlocal buftype=nofile
+augroup ft_firefox
+    au!
+    au BufRead,BufNewFile ~/Library/Caches/*.html setlocal buftype=nofile
+augroup END
 
 " }}}
 " Fish {{{
 
-au BufNewFile,BufRead *.fish setlocal filetype=fish
+augroup ft_fish
+    au!
+
+    au BufNewFile,BufRead *.fish setlocal filetype=fish
+augroup END
 
 " }}}
 " HTML and HTMLDjango {{{
 
-au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-au FileType html,jinja,htmldjango setlocal foldmethod=manual
+augroup ft_html
+    au!
 
-" Use <localleader>f to fold the current tag.
-au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+    au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+    au FileType html,jinja,htmldjango setlocal foldmethod=manual
 
-" Use Shift-Return to turn this:
-"     <tag>|</tag>
-"
-" into this:
-"     <tag>
-"         |
-"     </tag>
-au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+    " Use <localleader>f to fold the current tag.
+    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
 
-" Smarter pasting
-au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
-au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
+    " Use Shift-Return to turn this:
+    "     <tag>|</tag>
+    "
+    " into this:
+    "     <tag>
+    "         |
+    "     </tag>
+    au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
-" Django tags
-au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+    " Smarter pasting
+    au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
+    au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
+    au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
+    au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
-" Django variables
-au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+    " Django tags
+    au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+
+    " Django variables
+    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+augroup END
 
 " }}}
 " Javascript {{{
 
-au FileType javascript setlocal foldmethod=marker
-au FileType javascript setlocal foldmarker={,}
+augroup ft_javascript
+    au!
+
+    au FileType javascript setlocal foldmethod=marker
+    au FileType javascript setlocal foldmarker={,}
+augroup END
 
 " }}}
 " Lisp {{{
 
-au FileType lisp call TurnOnLispFolding()
+augroup ft_lisp
+    au!
+    au FileType lisp call TurnOnLispFolding()
+augroup END
 
 " }}}
 " Markdown {{{
 
-au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+augroup ft_markdown
+    au!
 
-" Use <localleader>1/2/3 to add headings.
-au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+
+    " Use <localleader>1/2/3 to add headings.
+    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
+    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
+    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+augroup END
 
 " }}}
 " Nginx {{{
 
-au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
-au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
-au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
-au BufRead,BufNewFile vhost.nginx                            set ft=nginx
+augroup ft_nginx
+    au!
+
+    au BufRead,BufNewFile /etc/nginx/conf/*                      set ft=nginx
+    au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
+    au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
+    au BufRead,BufNewFile vhost.nginx                            set ft=nginx
+augroup END
 
 " }}}
 " Pentadactyl {{{
 
-au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+augroup ft_pentadactyl
+    au!
+    au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+augroup END
 
 " }}}
 " Puppet {{{
 
-au Filetype puppet setlocal foldmethod=marker
-au Filetype puppet setlocal foldmarker={,}
+augroup ft_puppet
+    au!
+
+    au Filetype puppet setlocal foldmethod=marker
+    au Filetype puppet setlocal foldmarker={,}
+augroup END
 
 " }}}
 " Python {{{
 
-au Filetype python noremap  <buffer> <localleader>rr :RopeRename<CR>
-au Filetype python vnoremap <buffer> <localleader>rm :RopeExtractMethod<CR>
-au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
-au FileType python setlocal omnifunc=pythoncomplete#Complete
+augroup ft_python
+    au!
+
+    au Filetype python noremap  <buffer> <localleader>rr :RopeRename<CR>
+    au Filetype python vnoremap <buffer> <localleader>rm :RopeExtractMethod<CR>
+    au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
+
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+augroup END
+
+" }}}
+" QuickFix {{{
+
+augroup ft_quickfix
+    au!
+    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap
+augroup END
 
 " }}}
 " ReStructuredText {{{
 
-au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
-au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
-au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
-au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+augroup ft_rest
+    au!
+
+    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
+    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
+    au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
+    au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+augroup END
 
 " }}}
 " Ruby {{{
 
-au Filetype ruby setlocal foldmethod=syntax
+augroup ft_ruby
+    au!
+    au Filetype ruby setlocal foldmethod=syntax
+augroup END
 
 " }}}
 " Vagrant {{{
 
-au BufRead,BufNewFile Vagrantfile set ft=ruby
+augroup ft_vagrant
+    au!
+    au BufRead,BufNewFile Vagrantfile set ft=ruby
+augroup END
 
 " }}}
 " Vim {{{
 
-au FileType vim setlocal foldmethod=marker
-au FileType help setlocal textwidth=78
-au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup ft_vim
+    au!
+
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
 
 " }}}
 
@@ -1019,10 +1104,33 @@ if has('gui_running')
     set go-=r
     set go-=R
 
-    " PeepOpen on OS X, Command-T elsewhere.
     if has("gui_macvim")
+        " PeepOpen on OS X, Command-T elsewhere.
         macmenu &File.New\ Tab key=<nop>
         map <leader><leader> <Plug>PeepOpen
+
+        " Use the normal HIG movements, except for M-Up/Down
+        let macvim_skip_cmd_opt_movement = 1
+        no   <D-Left>       <Home>
+        no!  <D-Left>       <Home>
+        no   <M-Left>       <C-Left>
+        no!  <M-Left>       <C-Left>
+
+        no   <D-Right>      <End>
+        no!  <D-Right>      <End>
+        no   <M-Right>      <C-Right>
+        no!  <M-Right>      <C-Right>
+
+        no   <D-Up>         <C-Home>
+        ino  <D-Up>         <C-Home>
+        imap <M-Up>         <C-o>{
+
+        no   <D-Down>       <C-End>
+        ino  <D-Down>       <C-End>
+        imap <M-Down>       <C-o>}
+
+        imap <M-BS>         <C-w>
+        inoremap <D-BS>     <esc>my0c`y
     else
         map <leader><leader> :CommandT<cr>
     end
@@ -1036,29 +1144,6 @@ if has('gui_running')
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
-
-    " Use the normal HIG movements, except for M-Up/Down
-    let macvim_skip_cmd_opt_movement = 1
-    no   <D-Left>       <Home>
-    no!  <D-Left>       <Home>
-    no   <M-Left>       <C-Left>
-    no!  <M-Left>       <C-Left>
-
-    no   <D-Right>      <End>
-    no!  <D-Right>      <End>
-    no   <M-Right>      <C-Right>
-    no!  <M-Right>      <C-Right>
-
-    no   <D-Up>         <C-Home>
-    ino  <D-Up>         <C-Home>
-    imap <M-Up>         <C-o>{
-
-    no   <D-Down>       <C-End>
-    ino  <D-Down>       <C-End>
-    imap <M-Down>       <C-o>}
-
-    imap <M-BS>         <C-w>
-    inoremap <D-BS>     <esc>my0c`y
 else
     " Command-T if we don't have a GUI.
     map <leader><leader> :CommandT<cr>

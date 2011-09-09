@@ -123,3 +123,6 @@ snippet view
 	@render_to('${1}')
 	def ${2:view_name}(request${3:, ...}):${4}
 		return {}
+snippet defu
+	def __unicode__(self):
+		return u'${1}' % (${2})
