@@ -688,9 +688,6 @@ inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
 inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" Rainbows!
-nmap <leader>R :RainbowParenthesesToggle<CR>
-
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
 
@@ -1044,19 +1041,25 @@ nnoremap ß :call SynStack()<CR>
 " }}}
 
 " }}}
-" Hg  ------------------------------------------------------------------------- {{{
+" Hg -------------------------------------------------------------------------- {{{
 
 function! s:HgDiff()
     diffthis
+
     let fn = expand('%:p')
     let ft = &ft
+
     wincmd v
     edit __hgdiff_orig__
+
     setlocal buftype=nofile
+
     normal ggdG
     execute "silent r!hg cat --rev . " . fn
     normal ggdd
+
     execute "setlocal ft=" . ft
+
     diffthis
     diffupdate
 endf
@@ -1071,13 +1074,7 @@ function! s:HgBlame()
     edit __hgblame__
     vertical resize 28
 
-    setlocal scrollbind
-    setlocal winfixwidth
-    setlocal nolist
-    setlocal nowrap
-    setlocal nonumber
-    setlocal buftype=nofile
-    setlocal ft=none
+    setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
 
     normal ggdG
     execute "silent r!hg blame -undq " . fn
