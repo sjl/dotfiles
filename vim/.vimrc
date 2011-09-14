@@ -390,6 +390,7 @@ augroup ft_css
 
     au BufNewFile,BufRead *.less,*.css setlocal foldmethod=marker
     au BufNewFile,BufRead *.less,*.css setlocal foldmarker={,}
+    au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
 
     " Use <leader>S to sort properties.  Turns this:
     "
@@ -684,9 +685,9 @@ inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " Better Completion
 set completeopt=longest,menuone,preview
-inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
-inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -822,6 +823,12 @@ let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
 
 " }}}
+" Linediff {{{
+
+vnoremap <leader>l :Linediff<cr>
+nnoremap <leader>L :LinediffReset<cr>
+
+" }}}
 " Lisp (built-in) {{{
 
 let g:lisp_rainbow = 1
@@ -898,6 +905,12 @@ let g:slimv_repl_syntax = 1
 let g:sparkupNextMapping = '<c-s>'
 
 "}}}
+" Supertab {{{
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestHighlight = 1
+
+"}}}
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
@@ -938,8 +951,6 @@ let vimclojure#WantNailgun = 0
 
 " }}}
 " YankRing {{{
-
-let g:yankring_min_element_length = 2
 
 function! YRRunAfterMaps()
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
