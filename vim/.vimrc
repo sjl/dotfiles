@@ -111,6 +111,13 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " Status line ----------------------------------------------------------------- {{{
 
+augroup ft_statuslinecolor
+    au!
+
+    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
+    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
+augroup END
+
 set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
 set statusline+=%r   " Readonly flag.
