@@ -75,7 +75,7 @@ unignore from: to: cc: date: subject:                           # show only thes
 hdr_order from: to: cc: date: subject:                          # and in this order
 
 # boxes
-mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/django +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts +steve-dumbwaiterdesign.com/INBOX +steve-dumbwaiterdesign.com/archive +steve-dumbwaiterdesign.com/sent +steve-dumbwaiterdesign.com/drafts
+mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/django +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts
 
 # always sourced
 #source $alias_file                                             # required for functionality
@@ -85,7 +85,6 @@ source ~/.mutt/sidebar.muttrc                                   # any muttng opt
 
 # account specific sources
 folder-hook steve-stevelosh.com/*        source ~/.mutt/steve-stevelosh.com.muttrc
-folder-hook steve-dumbwaiterdesign.com/* source ~/.mutt/steve-dumbwaiterdesign.com.muttrc
 
 # these just give me headaches
 bind index,pager \# noop
@@ -121,7 +120,6 @@ macro index <esc>F     ":set date_format = \"%m/%d at %I:%M %P\"<enter>"        
 
 # mailbox
 macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
-macro index \" "<change-folder>+steve-dumbwaiterdesign.com/INBOX<enter>"   "go to dwaiter/INBOX"
 
 # save a decoded copy in ~
 macro index,pager P   "<pipe-message>cat > ~/Desktop/"    "save message as"
