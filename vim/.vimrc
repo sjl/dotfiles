@@ -46,6 +46,7 @@ set notimeout
 set nottimeout
 set autowrite
 set shiftround
+set dictionary=/usr/share/dict/words
 
 " Wildmenu completion {{{
 set wildmenu
@@ -395,9 +396,10 @@ augroup ft_css
 
     au BufNewFile,BufRead *.less setlocal filetype=less
 
-    au BufNewFile,BufRead *.less,*.css setlocal foldmethod=marker
-    au BufNewFile,BufRead *.less,*.css setlocal foldmarker={,}
+    au Filetype less,css setlocal foldmethod=marker
+    au Filetype less,css setlocal foldmarker={,}
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
+    au Filetype less,css setlocal iskeyword+=-
 
     " Use <leader>S to sort properties.  Turns this:
     "
@@ -766,6 +768,12 @@ function! IndentGuides() " {{{
     endif
 endfunction " }}}
 nnoremap <leader>i :call IndentGuides()<cr>
+
+" }}}
+" Insert Mode Completion {{{
+
+inoremap <c-l> <c-x><c-l>
+inoremap <c-f> <c-x><c-f>
 
 " }}}
 
@@ -1163,5 +1171,123 @@ else
     " Command-T if we don't have a GUI.
     map <leader><leader> :CommandT<cr>
 endif
+
+" }}}
+" Nyan! ----------------------------------------------------------------------- {{{
+
+function! NyanMe() " {{{
+    hi NyanFur             guifg=#BBBBBB
+    hi NyanPoptartEdge     guifg=#ffd0ac
+    hi NyanPoptartFrosting guifg=#fd3699 guibg=#fe98ff
+    hi NyanRainbow1        guifg=#6831f8
+    hi NyanRainbow2        guifg=#0099fc
+    hi NyanRainbow3        guifg=#3cfa04
+    hi NyanRainbow4        guifg=#fdfe00
+    hi NyanRainbow5        guifg=#fc9d00
+    hi NyanRainbow6        guifg=#fe0000
+
+
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl None
+    echo ""
+
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl NyanFur
+    echon "╰"
+    echohl NyanPoptartEdge
+    echon "⟨"
+    echohl NyanPoptartFrosting
+    echon "⣮⣯⡿"
+    echohl NyanPoptartEdge
+    echon "⟩"
+    echohl NyanFur
+    echon "⩾^ω^⩽"
+    echohl None
+    echo ""
+
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl NyanRainbow1
+    echon "≈"
+    echohl NyanRainbow2
+    echon "≋"
+    echohl NyanRainbow3
+    echon "≈"
+    echohl NyanRainbow4
+    echon "≋"
+    echohl NyanRainbow5
+    echon "≈"
+    echohl NyanRainbow6
+    echon "≋"
+    echohl None
+    echon " "
+    echohl NyanFur
+    echon "”   ‟"
+    echohl None
+
+    sleep 1
+    redraw
+    echo " "
+    echo " "
+    echo "Noms?"
+    redraw
+endfunction " }}}
+command! NyanMe call NyanMe()
 
 " }}}

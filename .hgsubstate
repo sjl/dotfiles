@@ -6,6 +6,7 @@ bfdf714f8ea10a6bcba7a1375a5700b11077dcd9 vim/bundle/command-t
 cdecdc56f938840cad250aecd58c1901f04c4d1b vim/bundle/easymotion
 9524242bda64063b3bf24c89bb89a27726da882f vim/bundle/gundo
 4ef2d418f48d30fed2f7ce00f598d6871a0010fe vim/bundle/html5
+78fffa609b3e6b84ef01ee4c9aba6d7435d7b18e vim/bundle/indent-object
 75ab8c11b56aae8e35f211d96fb008efb1ab946a vim/bundle/linediff
 34e28b3f6f6d702ff2963b8196eccae9344ed4bc vim/bundle/markdown
 2dd198c6c412b4ddd361b43586b01981e8383239 vim/bundle/nerdtree
