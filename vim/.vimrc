@@ -253,7 +253,7 @@ noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
-noremap <leader>g <C-w>v
+noremap <leader>v <C-w>v
 
 " }}}
 
@@ -661,7 +661,10 @@ nnoremap <silent> <F6> :YRShow<cr>
 nnoremap Q gqip
 
 " Easier linewise reselection
-nnoremap <leader>v V`]
+nnoremap <leader>V V`]
+
+" Preview Files
+nnoremap <leader>p :w<cr>:Hammer<cr>
 
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
@@ -818,9 +821,23 @@ onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
 onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
 
 " }}}
-" Golden Ratio {{{
+" Fugitive {{{
 
-nnoremap <leader>G <Plug>(golden_ratio_resize)
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>ga :Gadd<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gco :Gcheckout<cr>
+nnoremap <leader>gci :Gcommit<cr>
+nnoremap <leader>gm :Gmove<cr>
+nnoremap <leader>gr :Gremove<cr>
+
+augroup ft_fugitive
+    au!
+
+    au BufNewFile,BufRead .git/index setlocal nolist
+augroup END
 
 " }}}
 " Gundo {{{
@@ -1065,6 +1082,24 @@ endfunc "}}}
 nnoremap ß :call SynStack()<CR>
 
 " }}}
+" Toggle whitespace in diffs {{{
+
+set diffopt-=iwhite
+let g:diffwhitespaceon = 1
+function! ToggleDiffWhitespace() "{{{
+    if g:diffwhitespaceon
+        set diffopt-=iwhite
+        let g:diffwhitespaceon = 0
+    else
+        set diffopt+=iwhite
+        let g:diffwhitespaceon = 1
+    endif
+    diffupdate
+endfunc "}}}
+
+nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
+
+" }}}
 
 " }}}
 " Hg -------------------------------------------------------------------------- {{{
@@ -1156,6 +1191,9 @@ if has('gui_running')
         inoremap <D-BS>     <esc>my0c`y
     else
         map <leader><leader> :CommandT<cr>
+
+        " Dammit, PeepOpen
+        map gxxxxx <Plug>PeepOpen
     end
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
@@ -1170,6 +1208,9 @@ if has('gui_running')
 else
     " Command-T if we don't have a GUI.
     map <leader><leader> :CommandT<cr>
+
+    " Dammit, PeepOpen
+    map gxxxxx <Plug>PeepOpen
 endif
 
 " }}}
