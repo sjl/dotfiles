@@ -24,6 +24,8 @@ vim/bundle/vim-coffee-script = [git]https://github.com/kchmck/vim-coffee-script.
 vim/bundle/supertab = [git]git://github.com/ervandew/supertab.git
 vim/bundle/linediff = [git]git://github.com/AndrewRadev/linediff.vim.git
 vim/bundle/indent-object = [git]git://github.com/michaeljsmith/vim-indent-object.git
+vim/bundle/hammer = [git]git://github.com/robgleeson/hammer.vim.git
+vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 
 keymando/Plugins/vim = [hg]http://bitbucket.org/sjl/keymando-vim/
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
