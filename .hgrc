@@ -20,12 +20,10 @@ schemes =
 progress =
 fetch =
 hgsubversion = ~/lib/hg/hgsubversion/hgsubversion
-paste = ~/lib/hg/hg-paste/paste.py
 prompt = ~/lib/hg/hg-prompt/prompt.py
 histedit = ~/lib/hg/histedit/hg_histedit.py
 hggit = ~/lib/hg/hg-git/hggit
 collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
-review = ~/src/hg-review/review
 
 [progress]
 delay = 1.0
