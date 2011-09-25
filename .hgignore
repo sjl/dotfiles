@@ -20,3 +20,4 @@ fish_history
 bundle/vim-fugitive
 bundle/vermilion
 weechat/logs
+weechat/weechat.log
