@@ -22,3 +22,4 @@ bundle/vermilion
 weechat/logs
 weechat/weechat.log
 weechat/python/autoload/servers.py
+weechat/urls.log
