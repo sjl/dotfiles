@@ -52,8 +52,8 @@ hi iCursor         guifg=#000000 guibg=#FDFF00
 hi vCursor         guifg=#000000 guibg=#AAF412
 " }}}
 
-hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=#FFFFFF guibg=#604A8C
-hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=#FFFFFF guibg=#C50048
+hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=black guibg=#9edf1c
+hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=#C50048
 
 hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
 hi EasyMotionShade  guifg=#444444 guibg=bg gui=bold
