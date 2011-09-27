@@ -79,7 +79,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set wrap
-set textwidth=85
+set textwidth=80
 set formatoptions=qrn1
 set colorcolumn=+1
 
@@ -573,6 +573,7 @@ augroup ft_python
     au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
 
     au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType python compiler nose
 augroup END
 
 " }}}
