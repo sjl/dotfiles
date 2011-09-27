@@ -12,6 +12,7 @@ ffc45dd5a59b7b62edb02641c69a163f19fd02c0 vim/bundle/hammer
 75ab8c11b56aae8e35f211d96fb008efb1ab946a vim/bundle/linediff
 34e28b3f6f6d702ff2963b8196eccae9344ed4bc vim/bundle/markdown
 2dd198c6c412b4ddd361b43586b01981e8383239 vim/bundle/nerdtree
+b7889db57c90824ff5092da4fdde9e05689f24fa vim/bundle/nosecompiler
 a0831b09f2026c3a3d52e253ffd139fe20a9360a vim/bundle/pydoc
 60008ab2e25b15148e45b9e9baa349c4b2a1b6c1 vim/bundle/slimv
 c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
