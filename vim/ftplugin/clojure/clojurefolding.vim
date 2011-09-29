@@ -11,7 +11,13 @@ function GetClojureFold()
             return ">1"
       elseif getline(v:lnum) =~ '^\s*(defmacro.*\s'
             return ">1"
+      elseif getline(v:lnum) =~ '^\s*(ns.*\s'
+            return ">1"
       elseif getline(v:lnum) =~ '^\s*(defmethod.*\s'
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*(defpage.*\s'
+            return ">1"
+      elseif getline(v:lnum) =~ '^\s*(defpartial.*\s'
             return ">1"
       elseif getline(v:lnum) =~ '^\s*$'
             let my_cljnum = v:lnum
