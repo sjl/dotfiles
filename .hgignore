@@ -23,3 +23,4 @@ weechat/logs
 weechat/weechat.log
 weechat/python/autoload/servers.py
 weechat/urls.log
+weechat/irc.conf
