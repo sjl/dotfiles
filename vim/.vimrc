@@ -345,8 +345,8 @@ augroup ft_clojure
     au FileType clojure call TurnOnClojureFolding()
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
-    au FileType clojure nnoremap <buffer> o A<cr>
-    au FileType clojure nnoremap <buffer> O kA<cr>
+    " au FileType clojure nnoremap <buffer> o A<cr>
+    au FileType clojure nnoremap <buffer> O I<cr><esc>kA
 
     au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
     au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
@@ -550,6 +550,7 @@ augroup END
 augroup ft_pentadactyl
     au!
     au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+    au BufNewFile,BufRead ~/Library/Caches/TemporaryItems/pentadactyl-*.tmp set nolist wrap linebreak columns=100 colorcolumn=0
 augroup END
 
 " }}}
