@@ -1,0 +1,1563 @@
+#!/usr/bin/perl
+##############################################################################
+#
+# Script:   bcvi
+#
+# The 'Back-Channel vim' tool works with SSH to allow commands which are run
+# on an SSH server to invoke processes back on the originating SSH client
+# machine.
+#
+# Use 'bcvi --help' for the documentation
+#
+# Copyright (c) 2007-2010 Grant McLean <grantm@cpan.org>
+#
+
+use strict;
+use warnings;
+
+require 5.008;
+
+##############################################################################
+# This package implements some common functionality required by both the
+# client and the server.
+#
+# It also serves as the entry-point for the command-line script.
+##############################################################################
+
+package App::BCVI;
+BEGIN {
+  $App::BCVI::VERSION = '3.05';
+}
+
+use File::Spec;
+use File::Path;
+use Getopt::Long qw();
+use Encode       qw(encode decode);
+use IO::Socket::INET;
+
+my %class_map = (
+    base   => 'App::BCVI',
+    client => 'App::BCVI::Client',
+    server => 'App::BCVI::Server',
+    pod    => 'App::BCVI::POD',
+);
+
+my %response_message = (
+    100 => "Ready ($App::BCVI::VERSION)",
+    200 => "Success",
+    300 => "Response follows",
+    900 => "Permission denied",
+    910 => "Unrecognised command",
+);
+
+my $LF = "\x0A";
+
+my(
+    %options, %option_name, %commands, @aliases, @installables,
+    %plugin_loaded, @plugins,
+);
+
+run(@ARGV) unless caller();       # Don't run anything if loaded via 'require'
+
+sub run {
+    App::BCVI->base_init();
+
+    App::BCVI->load_plugins();
+
+    App::BCVI->base_class()->process_command_line(@_);
+
+    exit;
+}
+
+sub version      { return $App::BCVI::VERSION; }
+sub base_class   { return $class_map{base};    }
+sub client_class { return $class_map{client};  }
+sub server_class { return $class_map{server};  }
+sub pod_class    { return $class_map{pod};     }
+sub map_class    { $class_map{$_[1]} = $_[2];  }
+sub sock         { shift->{sock};              }
+
+sub installable_files { return @installables;     }
+sub message_from_code { $response_message{$_[1]}; }
+
+sub base_init {
+    my($class) = @_;
+
+    $class->register_option(
+        name        => 'help',
+        alias       => '?',
+        dispatch_to => 'show_help',
+        summary     => 'detailed help message',
+        description => <<'END_POD'
+Display this documentation.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'add-aliases',
+        dispatch_to => 'add_aliases',
+        summary     => 'install bcvi into shell startup files',
+        description => <<'END_POD'
+Edit the bash startup script to add (or update) the required command aliases
+for bcvi.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'listener',
+        alias       => 'l',
+        dispatch_to => 'start_listener',
+        summary     => 'start in listener mode',
+        description => <<'END_POD'
+Start a background listener process.  Also generates a new authentication key.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'install',
+        arg_name    => '<hosts>',
+        dispatch_to => 'install_to_hosts',
+        summary     => 'copy bcvi to named hosts and install aliases',
+        description => <<'END_POD'
+Copy the C<bcvi> script to the C<$HOME/bin> directory on the specified host
+and then remotely invoke it with the C<--add-aliases> option.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'unpack-term',
+        dispatch_to => 'unpack_term',
+        summary     => 'unpack the overloaded TERM variable',
+        description => <<'END_POD'
+This option is intended for use from a F<.profile> script.  It outputs a
+snippet of shell script to be passed to C<eval> in the calling shell.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'wrap-ssh',
+        alias       => 's',
+        dispatch_to => 'wrap_ssh',
+        summary     => 'pass all args after -- to ssh',
+        description => <<'END_POD'
+A wrapper around invoking ssh to connect to a specified host.  Ensures the
+environment is set up to pass the authentication key and other data to the
+C<bcvi> client on the remote server.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'version',
+        alias       => 'v',
+        dispatch_to => 'show_versions',
+        summary     => 'display bcvi version number',
+        description => <<'END_POD'
+When invoking a command use this option to indicate that the arguments are not
+filenames and the translation of relative pathnames to absolute should be
+skipped.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'no-path-xlate',
+        alias       => 'n',
+        summary     => 'skip translation of args from relative to absolute',
+        description => <<'END_POD'
+Displays the version number of the bcvi client and if applicable, of the
+listener process.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'port',
+        alias       => 'p',
+        arg_spec    => '=i',
+        arg_name    => '<port>',
+        summary     => 'port number for listener/port-forward',
+        description => <<'END_POD'
+When used with C<--listener>, this is the port the server process will listen
+on.  When used with C<--wrap-ssh> this is the port number on the remote machine
+that will be forwarded back to the listener process.  The default in both cases
+is calculated using the user's numeric UID multiplied by 10 and added to 9.
+The intent is to reduce the chance of collisions with other bcvi users.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'command',
+        alias       => 'c',
+        arg_spec    => '=s',
+        arg_name    => '<cmnd>',
+        summary     => 'command to send over back-channel',
+        description => <<'END_POD'
+Use C<cmnd> as the command to send over the back-channel (default: vi).
+Recognised commands are described in L<COMMANDS> below.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'reuse-auth',
+        summary     => "don't generate a new auth key on listener startup",
+        description => <<'END_POD'
+A new (random) authorisation key is generated when the listener process is
+started - this will invalidate the keys in use by existing SSH sessions.
+This option is for use when it is necessary to restart the listener process
+without invalidating client keys.
+END_POD
+    );
+
+    $class->register_option(
+        name        => 'plugin-help',
+        arg_spec    => '=s',
+        arg_name    => '<plugin>',
+        dispatch_to => 'plugin_help',
+        summary     => "display documentation for <plugin>",
+        description => <<'END_POD'
+The --help output includes a list of installed plugins.  Use this option to
+read the documentation for a named plugin.
+END_POD
+    );
+
+
+    $class->register_command(
+        name        => 'vi',
+        description => <<'END_POD'
+Invokes C<gvim> on the remote file - after translating the host+path to
+an scp URI.  This is the default command if no C<--command> option is
+specified.  If multiple filenames are supplied, the first will be opened
+in gvim and you should use C<:n> to load the 'next' file.
+END_POD
+    );
+
+    $class->register_command(
+        name        => 'viwait',
+        description => <<'END_POD'
+This command works exactly the same as C<vi> above, except it waits for the
+editor process to exit before bcvi exits on the remote machine.  This is
+primarily for use with C<sudoedit>.  Note: when used with C<sudoedit>, the file
+will not be updated on the remote machine until you exit the editor on your
+workstation.
+END_POD
+    );
+
+    $class->register_command(
+        name        => 'scpd',
+        description => <<'END_POD'
+Uses C<scp> to copy the specified files or directories to the calling user's
+F<~/Desktop>.`
+END_POD
+    );
+
+
+    $class->add_home_bin();
+    $class->register_aliases(
+        'test -n "$(which bcvi)" && eval "$(bcvi --unpack-term)"',
+        'test -n "${BCVI_CONF}"  && alias vi="bcvi"',
+        'test -n "${BCVI_CONF}"  && alias suvi="EDITOR=\'bcvi -c viwait\' sudoedit"',
+        'test -n "${BCVI_CONF}"  && alias bcp="bcvi -c scpd"',
+    );
+
+    $class->pod_class->init();
+
+}
+
+
+sub register_option {
+    my $class = shift;
+    my $opt   = { @_ };
+    my $key   = $opt->{name};
+
+    if(!defined $key or !length $key) {
+        die "Can't register option without 'name'";
+    }
+
+    my($package, $filename, $line) = caller();
+    $opt->{provider} = "$package at $filename line $line";
+    my $taken = $options{$key};
+    if($taken && !$opt->{force_override}) {
+        warn "option '--$key' already registered by $taken->{provider}\n";
+    }
+    if($opt->{alias}) {
+        foreach my $a (map { s/^-+//; $_ } split /\|/, $opt->{alias}) {
+            if($option_name{$a} && !$opt->{force_override}) {
+                if($taken = $options{$option_name{$a}}) {
+                    warn "alias '$a' already registered for option "
+                       . "'--$taken->{name}' by $taken->{provider}\n";
+                }
+            }
+            $option_name{$a} = $key;
+        }
+    }
+    $options{$key} = $opt;
+}
+
+
+sub register_command {
+    my $class = shift;
+    my $cmd   = { @_ };
+    my $key   = $cmd->{name};
+
+    if(!defined $key or !length $key) {
+        die "Can't register command without 'name'";
+    }
+
+    $cmd->{dispatch_to} ||= "execute_$key";
+
+    my($package, $filename, $line) = caller();
+    $cmd->{provider} = "$package at $filename line $line";
+    warn "option '$key' already registered by $commands{$key}->{provider}\n"
+        if $commands{$key} && !$cmd->{force_override};
+    $commands{$key} = $cmd;
+}
+
+
+sub each_option {
+    my($class, $sub) = @_;
+
+    $sub->($options{$_}) foreach sort keys %options;
+}
+
+
+sub each_command {
+    my($class, $sub) = @_;
+
+    $sub->($commands{$_}) foreach sort keys %commands;
+}
+
+
+sub command_handler {
+    my($class, $name) = @_;
+
+    return unless defined $name;
+    return "execute_commands_pod" if $name eq 'commands_pod';
+    my $spec = $commands{$name} or return;
+    return $spec->{dispatch_to};
+}
+
+
+sub add_home_bin {
+    my $class = shift;
+    my $home_bin = $class->home_directory . '/bin';
+    $class->register_aliases(
+        qq{echo \$PATH | grep -q $home_bin || PATH="$home_bin/\$PATH"},
+    );
+}
+
+
+sub register_aliases {
+    my $class = shift;
+    push @aliases, @_;
+}
+
+
+sub register_installable {
+    my $class = shift;
+    my($package, $filename, $line) = caller();
+    push @installables, $filename;
+}
+
+
+sub shell_aliases {
+    my($self) = @_;
+
+    return
+        "## START-BCVI\n"
+        . join("\n", map { "  $_" } @aliases)
+        . "\n## END-BCVI\n";
+}
+
+
+sub load_plugins {
+    my($class) = @_;
+
+    my $dir = $class->conf_directory();
+    foreach my $file (sort glob("$dir/*.pm")) {
+        $class->load_plugin_file($file);
+    }
+}
+
+
+sub load_plugin_file {
+    my($class, $file) = @_;
+
+    my @parts = File::Spec->splitdir($file);
+    my $key = pop @parts;
+    return if $plugin_loaded{$key};
+
+    eval { require $file; };
+    if($@) {
+        die qq{Error loading plugin "$file"\n$@\n}
+    }
+
+    $plugin_loaded{$key} = $file;
+}
+
+
+sub hook_client_class {
+    my($class) = @_;
+
+    my($calling_class, $calling_file) = caller();
+    my $client_class = $class->client_class();
+    $class->map_class(client => $calling_class);
+
+    no strict 'refs';
+    unshift @{"${calling_class}::ISA"}, $client_class;
+    push @plugins, { class => $calling_class, file => $calling_file };
+    return 1;
+}
+
+
+sub hook_server_class {
+    my($class) = @_;
+
+    my($calling_class, $calling_file) = caller();
+    my $server_class = $class->server_class();
+    $class->map_class(server => $calling_class);
+
+    no strict 'refs';
+    unshift @{"${calling_class}::ISA"}, $server_class;
+    push @plugins, { class => $calling_class, file => $calling_file };
+    return 1;
+}
+
+
+sub process_command_line {
+    my($class, @args) = @_;
+
+    my $opt = $class->option_defaults();
+    my @cfg = $class->getopt_config();
+
+    local(@ARGV) = @args;
+    Getopt::Long::GetOptions($opt, @cfg) or $class->die_synopsis();
+
+    my $handler = $opt->{listener}
+                ? $class->server_class
+                : $class->client_class;
+
+    $handler->new(_options => $opt)->dispatch(@ARGV);
+}
+
+
+sub option_defaults {
+    return { };
+}
+
+
+sub getopt_config {
+    my($class) = @_;
+
+    my @spec;
+    $class->each_option(sub {
+        my($o) = @_;
+        my $def = $o->{name};
+        $def .= "|$o->{alias}" if defined $o->{alias};
+        $def .= $o->{arg_spec} if defined $o->{arg_spec};
+        push @spec, $def;
+    });
+    return @spec
+}
+
+
+sub die_synopsis {
+    my($class, $message) = @_;
+
+    warn "$message\n" if $message;
+    $class->pod_class->synopsis();
+    exit(1);
+}
+
+
+sub new {
+    my $class = shift;
+
+    return bless { @_ }, $class;
+}
+
+
+sub dispatch {
+    my($self, @args) = @_;
+
+    if(my $method = $self->dispatch_option) {
+        $self->$method(@args);
+        exit;
+    }
+    elsif(!$self->opt('command') and !@args) {
+        $self->die_synopsis();
+    }
+
+    $self->send_command(@args);
+}
+
+
+sub opt {
+    my($self, $key) = @_;
+
+    return $self->{_options}->{$key};
+}
+
+
+sub set_opt {
+    my($self, $key, $value) = @_;
+
+    return $self->{_options}->{$key} = $value;
+}
+
+
+sub dispatch_option {
+    my($self) = @_;
+
+    my @set;
+    $self->each_option(sub {
+        my($o) = @_;
+        push @set, $o if $o->{dispatch_to} && defined $self->opt($o->{name});
+    });
+    return unless @set;
+    if(@set > 1) {
+        @set = map { "--$_->{name}" } @set;
+        my $last = pop @set;
+        $self->die_synopsis(
+            "Which did you want: " . join(', ', @set) . " or $last?"
+        );
+    }
+    return $set[0]->{dispatch_to};
+}
+
+
+sub default_port {
+    return( ($< * 10 + 9) % 65536 );
+}
+
+
+sub listen_address {
+    return 'localhost';
+};
+
+
+sub default_command {
+    return 'vi';
+}
+
+
+sub read_file {
+    my($self, $path) = @_;
+
+    return unless -e $path;
+    return if -d $path;
+    my $data = do {
+        open my $fh, '<', $path or die "open($path): $!\n";
+        local($/) = undef;
+        <$fh>;
+    };
+    return $data;
+}
+
+
+sub home_directory {
+    return (getpwuid($>))[7];
+}
+
+
+sub conf_directory {
+    my($self) = @_;
+
+    my $conf_dir = File::Spec->catdir($self->home_directory(), '.config', 'bcvi');
+    File::Path::mkpath($conf_dir) unless -d $conf_dir;
+    return $conf_dir;
+}
+
+
+sub auth_key_filename {
+    return File::Spec->catfile(shift->conf_directory(), 'listener_key');
+}
+
+
+sub listener_port_filename {
+    return File::Spec->catfile(shift->conf_directory(), 'listener_port');
+}
+
+
+sub get_listener_auth_key {
+    my($self) = @_;
+
+    my $auth_file = $self->auth_key_filename();
+    my $auth_key = $self->read_file($auth_file)
+        or die "Auth key file does not exist: $auth_file";
+    chomp($auth_key);
+    return $auth_key;
+}
+
+
+sub list_plugins {
+    my($self) = @_;
+
+    my @plugins;
+    foreach my $name (sort keys %plugin_loaded) {
+        my $path = $plugin_loaded{$name};
+        $name =~ s{[.]pm$}{};
+        if(my $title = $self->pod_class->extract_title($path)) {
+            push @plugins, "$name - $title";
+        }
+        else {
+            push @plugins, "$name - no documentation";
+        }
+    }
+    return @plugins;
+}
+
+
+sub plugin_help {
+    my($self) = @_;
+
+    my $plugin = $self->opt('plugin-help');
+    if(my $path = $plugin_loaded{"${plugin}.pm"}) {
+        $self->pod_class->show_plugin_help($path);
+    }
+    else {
+        die "Can't find plugin: '$plugin'\n";
+    }
+}
+
+
+##############################################################################
+# The App::BCVI::Client class implements the command-line UI and the client
+# side of the BCVI protocol.  You can use inheritance to customise the
+# behaviour of this class.
+##############################################################################
+
+package App::BCVI::Client;
+BEGIN {
+  $App::BCVI::Client::VERSION = '3.05';
+}
+
+BEGIN { @App::BCVI::Client::ISA = qw( App::BCVI ); }
+
+
+sub get_connection_details {
+    my($self) = @_;
+
+    if(not $ENV{BCVI_CONF}) {
+        die "The \$BCVI_CONF environment variable has not been set\n";
+    }
+    my($alias, $gateway, $port, $auth_key) = split(/:/, $ENV{BCVI_CONF});
+    $self->{host_alias}      = $alias;
+    $self->{gateway_address} = $gateway;
+    $self->{port}            = $port;
+    $self->{auth_key}        = $auth_key;
+}
+
+
+sub host_alias       { return shift->{host_alias};       }
+sub gateway_address  { return shift->{gateway_address};  }
+sub port             { return shift->{port};             }
+sub auth_key         { return shift->{auth_key};         }
+sub server_version   { return shift->{server_version};   }
+sub response_code    { return shift->{response_code};    }
+sub response_message { return shift->{response_message}; }
+sub response         { return shift->{response};         }
+
+
+sub send_command {
+    my($self, @files) = @_;
+
+    my $command = $self->opt('command') || $self->default_command();
+
+    my $sock = $self->connect_to_listener();
+
+    $sock->write(
+        "Auth-Key: "   . $self->auth_key   . $LF .
+        "Host-Alias: " . $self->host_alias . $LF .
+        "Command: "    . $command          . $LF
+    ) or die "Error sending command through backchannel: $!";
+
+    $self->send_body(\@files);
+    return if $self->check_response() =~ /^(?:200|300)$/;
+    die $self->response_message . "\n";
+}
+
+
+sub send_body {
+    my($self, $files) = @_;
+
+    my $translate_paths = ! $self->opt('no-path-xlate');
+
+    my $body = join '', map {
+        $_ = File::Spec->rel2abs($_) if $translate_paths;
+        "$_$LF";
+    } @$files;
+
+    $self->sock->write(
+        'Content-Length: ' . length($body) . $LF .
+        $LF .
+        $body
+    ) or die "Error sending command through backchannel: $!";
+}
+
+
+sub check_response {
+    my($self) = @_;
+
+    my $response = $self->sock->getline() or die "Server hung up\n";
+    if(my($code, $message) = $response =~ m{^(\d\d\d) (.*)$}) {
+        ($self->{response_code}, $self->{response_message}) = ($code, $message);
+        $self->read_response() if $code eq '300';
+        return $code;
+    }
+    die "Unexpected response: '$response'\n";
+}
+
+
+sub read_response {
+    my($self) = @_;
+
+    my $sock = $self->sock();
+    my $resp = {};
+    while(my($line) = $sock->getline() || '') {
+        chomp($line);
+        last if $line eq '';
+        $line = Encode::decode('utf8', $line);
+        if(my($name, $value) = $line =~ m{^(\S+)\s*:\s*(.*)$}) {
+            $name =~ s/-/_/;
+            $resp->{lc($name)} = $value;
+        }
+    }
+    $self->{response} = $resp;
+
+    my $bytes = $resp->{content_length} || return;;
+
+    my $buf = '';
+    while(my $count = $sock->read($buf, $bytes, length($buf))) {
+        $bytes -= $count;
+        last if $bytes < 1;
+    }
+    $resp->{body} = $buf;
+}
+
+
+sub connect_to_listener {
+    my($self) = @_;
+
+    $self->get_connection_details();
+
+    my $peer = $self->gateway_address . ':' . $self->port;
+    my $sock = IO::Socket::INET->new(
+        PeerAddr => $peer,
+    ) or die "Can't connect to '$peer': $!\n";
+
+    binmode($sock);
+    my $welcome = $sock->getline() or die "No listener?\n";
+    if($welcome =~ /^100 Ready \(([^)]+)\)/) {
+        $self->{server_version} = $1;
+    }
+    $self->{sock} = $sock;
+}
+
+
+sub show_versions {
+    my($self) = @_;
+
+    print "bcvi client: $App::BCVI::VERSION\n";
+
+    if($ENV{BCVI_CONF}) {
+        $self->connect_to_listener();
+        print "bcvi server: $App::BCVI::VERSION\n";
+    }
+}
+
+
+sub show_help {
+    my($self) = @_;
+
+    $self->pod_class->full_pod($self);
+}
+
+
+sub commands_pod {
+    my($self) = @_;
+
+    eval {
+        $self->set_opt(command => 'commands_pod');
+        $self->send_command();
+    };
+    if($@) {
+        $@ = '';
+        return;
+    }
+    return $self->response->{body};
+}
+
+
+sub wrap_ssh {
+    my($self, @args_in) = @_;
+
+    if(my($target, @args_out) = $self->parse_ssh_args(@args_in)) {
+        $self->execute_wrapped_ssh($target, @args_out);
+    }
+    else {
+        warn "bcvi: unable to extract hostname from ssh command line\n";
+        $self->execute_ssh(@args_in);
+    }
+}
+
+
+sub parse_ssh_args {
+    my($self, @args_in) = @_;
+
+    my %need_arg = map { $_ => 1} split //, 'bcDeFiLlmOopRS';
+
+    my(@args_out, @hosts, $user);
+    while(@args_in) {
+        $_ = shift @args_in;
+        if(/^-l(.*)$/) {             # extract username if specified with -l
+            $user = $1 ? $1 : $args_in[0];
+        }
+        if(/^-(.)(.*)$/) {
+            push @args_out, $_;
+            push @args_out, shift @args_in
+                if $need_arg{$1} && !length($2) && @args_in;
+        }
+        else {
+            push @args_out, $_;
+            push @hosts,    $_;
+        }
+    }
+    return unless @hosts == 1;
+    my($target) = @hosts;
+    if($user and $target !~ /@/) {
+        $target = $user . '@' . $target;
+    }
+    return($target, @args_out);
+}
+
+
+sub execute_wrapped_ssh {
+    my($self, $target, @args) = @_;
+
+    my $remote_port = $self->opt('port') || $self->default_port();
+    my $local_port  = $self->listener_port();
+    $ENV{TERM} = "$ENV{TERM}\n"
+                 . "BCVI_CONF=${target}:localhost:$remote_port:"
+                 . $self->get_listener_auth_key();
+    unshift @args, "-R $remote_port:localhost:$local_port";
+    $self->execute_ssh(@args);
+}
+
+
+sub execute_ssh {
+    my($self, @args) = @_;
+
+    system 'ssh', @args;
+}
+
+
+sub listener_port {
+    my($self) = @_;
+
+    my $port = $self->read_file($self->listener_port_filename())
+        or return $self->default_port();
+    chomp($port);
+    return $port;
+}
+
+
+sub unpack_term {
+    my($self) = @_;
+
+    my @parts = split /\x0D?\x0A/, $ENV{TERM} || '';
+    return unless @parts > 1;
+    print "TERM=$parts[0]\n";
+    shift @parts;
+    foreach (@parts) {
+        print if s{^(\w+)=(.*)$}{export $1="$2"\n};
+    }
+}
+
+
+sub install_to_hosts {
+    my($self, @args) = @_;
+
+    die "You must list one or more target hostnames\n" unless @args;
+
+    $self->install_to_host($_) foreach @args;
+}
+
+
+sub install_to_host {
+    my($self, $host) = @_;
+
+    $self->install_bin_directory($host);
+    $self->install_bcvi_script($host);
+    $self->install_plugins($host);
+    $self->install_remote_aliases($host);
+}
+
+
+sub install_bin_directory {
+    my($self, $host) = @_;
+
+    if(system("ssh $host test -d ./bin") != 0) {
+        print "Creating ~/bin directory on $host\n";
+        system("ssh $host mkdir ./bin") == 0
+            or die "** mkdir failed on $host";
+    }
+}
+
+
+sub install_bcvi_script {
+    my($self, $host) = @_;
+
+    print "Copying bcvi to remote bin directory on $host\n";
+    my $output = `scp $0 $host:bin/bcvi 2>&1`;
+    if($? != 0) {
+        die "** failed to copy bcvi to remote bin directory on $host\n"
+            . $output;
+    }
+}
+
+
+sub install_plugins {
+    my($self, $host) = @_;
+
+    return unless @installables;
+    if(system("ssh $host test -d ./.config/bcvi") != 0) {
+        print "Creating plugins directory on $host\n";
+        system("ssh $host mkdir -p ./.config/bcvi") == 0
+            or die "** mkdir failed on $host";
+    }
+    print "Copying plugin files to $host\n";
+    my $output = `scp @installables $host:.config/bcvi 2>&1`;
+    if($? != 0) {
+        die "** failed to copy bcvi to remote plugins directory on $host\n"
+            . $output;
+    }
+}
+
+
+sub install_remote_aliases {
+    my($self, $host) = @_;
+
+    system("ssh $host bin/bcvi --add-aliases") == 0
+        or die "** failed to install aliases on $host";
+}
+
+
+sub add_aliases {
+    my($self) = @_;
+
+    my $bcvi_commands = $self->shell_aliases();
+
+    $self->update_existing_aliases($bcvi_commands)
+    or $self->aliases_initial_install($bcvi_commands);
+}
+
+
+sub update_existing_aliases {
+    my($self, $bcvi_commands) = @_;
+
+    foreach my $file ( $self->candidate_rc_files() ) {
+        my($script) = $self->read_file($file) or next;
+        if(index($script, $bcvi_commands) > -1) {
+            print "Found bcvi commands in $file\n";
+            return 1;
+        }
+        if($script =~ s{^## START-BCVI.*^## END-BCVI\r?\n}{$bcvi_commands}sm) {
+            open my $fh, '>', $file or die "open($file): $!";
+            print $fh $script;
+            close($fh);
+            print "Updated bcvi commands in $file\n";
+            return 1;
+        }
+        if($script =~ m{^[^#]*\bbcvi\b}m) {
+            print "Adhoc bcvi commands found in $file\n"
+                  . "*** Manual update may be required.            ***\n"
+                  . "*** Consider deleting commands and re-adding. ***\n";
+            return 1;
+        }
+    }
+    return;   # No existing aliases found
+}
+
+
+sub aliases_initial_install {
+    my($self, $bcvi_commands) = @_;
+
+    my $target = $self->preferred_rc_file();
+
+    open my $fh, '>>', $target or die "open(>>$target): $!";
+    print $fh "\n$bcvi_commands\n";
+    close($fh);
+    print "Added bcvi commands to $target\n";
+}
+
+
+sub candidate_rc_files {
+    my($self) = @_;
+    my $home = $self->home_directory();
+    return(
+        "$home/.bashrc_local",
+        "$home/.bashrc",
+        "$home/.bash_profile_local",
+        "$home/.bash_profile",
+        "$home/.profile",
+        "$home/.common-configs/bashrc",
+    );
+}
+
+
+sub preferred_rc_file {
+    my($self) = @_;
+
+    # Add to .bashrc_local if it is referenced from .bashrc
+
+    my $home = $self->home_directory();
+    my $bashrc       = "$home/.bashrc";
+    my $bashrc_local = "$home/.bashrc_local";
+
+    my $script = $self->read_file($bashrc) || '';
+
+    return $script =~ m{/[.]bashrc_local\b}
+           ? $bashrc_local
+           : $bashrc;
+}
+
+
+##############################################################################
+# The App::BCVI::Server class implements the server ('listener') side of the
+# BCVI protocol.  You can use inheritance to customise the behaviour of this
+# class.
+##############################################################################
+
+package App::BCVI::Server;
+BEGIN {
+  $App::BCVI::Server::VERSION = '3.05';
+}
+
+BEGIN { @App::BCVI::Server::ISA = qw( App::BCVI ); }
+
+use Digest::MD5  qw(md5_hex);
+use Errno        qw();
+
+
+sub start_listener {
+    my($self) = @_;
+
+    $self->kill_current_listener();
+    $self->save_pid();
+    $self->generate_auth_key();
+    $self->create_listener_socket();
+    $self->accept_loop();
+    die "bcvi listener accept loop terminated unexpectedly\n";
+}
+
+
+sub auth_key     { shift->{auth_key}; }
+sub client_sock  { shift->{client};   }
+sub request      { shift->{request};  }
+sub calling_host { shift->{request}->{host_alias};  }
+
+
+sub kill_current_listener {
+    my($self) = @_;
+
+    my($pid) = $self->read_file($self->pid_file) or return;
+    foreach my $i (1..5) {
+        if(kill 0, $pid) {
+            kill($i > 2 ? 9 : 1, $pid);
+        }
+        elsif($!{ESRCH}) {   # no such process
+            return;
+        }
+        elsif($!{EPERM}) {   # pid file was probably stale
+            return;
+        }
+        sleep 1;
+    }
+}
+
+
+sub save_pid {
+    my($self) = @_;
+
+    my $pid_file = $self->pid_file;
+    open my $fh, '>', $pid_file or die "open(>$pid_file): $!";
+    print $fh "$$\n";
+}
+
+
+sub save_port {
+    my($self, $port) = @_;
+
+    my $port_file = $self->listener_port_filename;
+    open my $fh, '>', $port_file or die "open(>$port_file): $!";
+    print $fh "$port\n";
+}
+
+
+sub pid_file {
+    return File::Spec->catfile(shift->conf_directory(), 'listener_pid');
+}
+
+
+sub generate_auth_key {
+    my($self) = @_;
+
+    if($self->opt('reuse-auth')) {
+        $self->{auth_key} = $self->get_listener_auth_key();
+        return;
+    }
+
+    my $data = "$self" . $$ . time() . rand();
+    $self->{auth_key} = md5_hex($data);
+
+    my $auth_file = $self->auth_key_filename();
+    open my $fh, '>', $auth_file or die "open(>$auth_file): $!";
+    print $fh $self->{auth_key}, "\n";
+}
+
+
+sub create_listener_socket {
+    my($self) = @_;
+
+    my $port = $self->opt('port') || $self->default_port();
+    $self->save_port($port);
+    my $local_addr = $self->listen_address . ':' .  $port;
+    $self->{sock} = IO::Socket::INET->new(
+        LocalAddr => $local_addr,
+        ReuseAddr => 1,
+        Proto     => 'tcp',
+        Listen    => 5,
+        Blocking  => 1,
+    ) or die "Error creating listener for port '$local_addr': $!";
+}
+
+
+sub accept_loop {
+    my($self) = @_;
+
+    $SIG{CHLD} = 'IGNORE';  # let Perl reap the zombies
+
+    my $sock = $self->sock();
+    while(1) {
+        my $new = $sock->accept();
+        next if $!{EINTR};
+        if(fork()) {  # In parent
+            close $new;
+        }
+        else {        # In child
+            close $sock;
+            $self->{sock} = $new;
+            $self->dispatch_request();
+            exit(0);
+        }
+    }
+}
+
+
+sub dispatch_request {
+    my($self) = @_;
+
+    $self->send_response(100);
+    my $req = $self->collect_headers();
+    $self->validate_auth_key($req->{auth_key})
+        or $self->exit_response(900);
+    my $method = $self->command_handler($req->{command})
+        or $self->exit_response(910);
+    $self->$method();
+    $self->send_response(200);
+}
+
+
+sub validate_auth_key {
+    my($self, $key) = @_;
+
+    return 1 if $key && $key eq $self->auth_key;
+    my $alias = $self->calling_host();
+    warn "Invalid Auth-Key in request from $alias\n" if -t 2;
+    return;
+}
+
+
+sub send_response {
+    my($self, $code) = @_;
+
+    my $message = $self->message_from_code($code) || 'Invalid response code';
+    $message = Encode::encode('utf8', $message);
+    $self->sock->write(qq{$code $message\x0A});
+}
+
+
+sub exit_response {
+    my($self, $code) = @_;
+
+    $self->send_response($code);
+    exit(0);
+}
+
+
+sub collect_headers {
+    my($self) = @_;
+
+    my $sock = $self->sock();
+    my $req  = {};
+    while(my($line) = $sock->getline() || '') {
+        chomp($line);
+        last if $line eq '';
+        $line = Encode::decode('utf8', $line);
+        if(my($name, $value) = $line =~ m{^(\S+)\s*:\s*(.*)$}) {
+            $name =~ s/-/_/;
+            $req->{lc($name)} = $value;
+        }
+    }
+    $self->{request} = $req;
+}
+
+
+sub read_request_body {
+    my($self) = @_;
+
+    my $bytes = $self->request->{content_length};
+    my $sock  = $self->sock();
+    my $buf   = '';
+    while(my $count = $sock->read($buf, $bytes, length($buf))) {
+        $bytes -= $count;
+        last if $bytes < 1;
+    }
+    return $buf;
+}
+
+
+sub get_filenames {
+    my($self) = @_;
+
+    return split /\x0a/, Encode::decode('utf8', $self->read_request_body());
+}
+
+
+sub execute_commands_pod {
+    my($self) = @_;
+
+    $self->send_response(300);
+    my $pod = $self->pod_class->command_detail();
+    $pod = Encode::encode('utf8', $pod);
+    $self->sock->write(
+        'Content-Type: text/pod'          . $LF .
+        'Content-Length: ' . length($pod) . $LF .
+        $LF .
+        $pod
+    ) or die "Error sending response body: $!";
+}
+
+
+sub execute_vi {
+    my($self) = @_;
+
+    my $alias = $self->calling_host();
+    my @files = map { "scp://$alias/$_" } $self->get_filenames();
+    system('mvim', '--', @files);
+}
+
+
+sub execute_viwait {
+    my($self) = @_;
+
+    my $alias = $self->calling_host();
+    my @files = map { "scp://$alias/$_" } $self->get_filenames();
+    system('mvim', '-f', '--', @files);
+}
+
+
+sub execute_scpd {
+    my($self) = @_;
+
+    my $dest = File::Spec->catdir($self->home_directory(), 'Desktop');
+
+    my $alias = $self->calling_host();
+    my @files = map { "$alias:$_" } $self->get_filenames();
+
+    system('scp', '-q', '-r', '--', @files, $dest);
+}
+
+
+##############################################################################
+# The App::BCVI::POD class implements POD extraction and formatting on
+# platforms where POD::Text is available.
+##############################################################################
+
+package App::BCVI::POD;
+BEGIN {
+  $App::BCVI::POD::VERSION = '3.05';
+}
+
+use Pod::Text;
+
+my $pod_skeleton;
+
+
+sub init {
+    my($class) = @_;
+
+    $pod_skeleton = do {
+        local($/) = undef;
+        <DATA>;
+    };
+    close(DATA);
+}
+
+
+sub full_pod {
+    my($class, $app) = @_;
+
+    my $commands_pod;
+    if($app && $app->can('commands_pod')) {
+        $commands_pod = $app->commands_pod();
+    }
+    $commands_pod ||= $class->command_detail();
+    my $plugins_pod = $class->plugins_pod($app);
+
+    my $pager = $class->pager();
+    my $pod   = $pod_skeleton;
+    $pod =~ s{^=for BCVI_OPTIONS_SUMMARY\s*\n}{ $class->option_summary()}me;
+    $pod =~ s{^=for BCVI_OPTIONS\s*\n}{ $class->option_detail() }me;
+    $pod =~ s{^=for BCVI_COMMANDS\s*\n}{ $commands_pod }me;
+    $pod =~ s{^=for BCVI_PLUGINS\s*\n}{ $plugins_pod }me;
+    if(Pod::Text->isa('Pod::Simple')) {
+        my $parser = Pod::Text->new (sentence => 1, width => 78);
+        $parser->output_fh($pager);
+        $parser->parse_string_document($pod);
+    }
+    else {
+        open my $pod_fh, '<', \$pod or die "open(\$pod): $!";
+        my $parser = Pod::Text->new (sentence => 1, width => 78);
+        $parser->parse_from_filehandle($pod_fh, $pager);
+    }
+}
+
+
+sub synopsis {
+    my($class) = @_;
+
+    my $pod = $pod_skeleton;
+    $pod =~ s{\A.*?^=head1 SYNOPSIS\s*?\n}{Usage:}ms;
+    $pod =~ s{^=.*\z}{}ms;
+    $pod .= $class->option_summary();
+
+    print $pod;
+}
+
+
+sub option_summary {
+    my($class) = @_;
+
+    my $w = 12;
+    my @lines;
+    App::BCVI->base_class->each_option(sub {
+        my($o)    = @_;
+        my $short = "--$o->{name}";
+        $short    .= "|-$o->{alias}"   if $o->{alias};
+        $short    .= " $o->{arg_name}" if $o->{arg_name};
+        push @lines, [ $short, $o->{summary} ];
+        $w = length($short) if length($short) > $w;
+    });
+
+    return join('', map { sprintf("  %-*s  %s\n", $w, @$_) } @lines) . "\n";
+}
+
+
+sub option_detail {
+    my($class) = @_;
+
+    my @lines = "=over 4\n";
+    App::BCVI->base_class->each_option(sub {
+        my($o)  = @_;
+        my $pod = "\n=item B<--$o->{name}>";
+        $pod .= " (alias: -$o->{alias})" if $o->{alias};
+        $pod .= " $o->{arg_name}"        if $o->{arg_name};
+        $pod .= "\n\n$o->{description}\n";
+        push @lines, $pod;
+    });
+    push @lines, "\n=back\n\n";
+
+    return join '', @lines;
+}
+
+
+sub command_detail {
+    my($class) = @_;
+
+    my @lines = "=over 4\n";
+    App::BCVI->base_class->each_command(sub {
+        my($c)  = @_;
+        my $pod = "\n=item B<$c->{name}>";
+        $pod .= "\n\n$c->{description}\n";
+        push @lines, $pod;
+    });
+    push @lines, "\n=back\n\n";
+
+    return join '', @lines;
+}
+
+
+sub plugins_pod {
+    my($class, $app) = @_;
+
+    if(my @plugin_list = $app->list_plugins()) {
+        my $s = @plugin_list == 1 ? '' : 's';
+        return join("\n\n",
+            "You have the following plugin$s installed:",
+            @plugin_list,
+            "Use C<< bcvi --plugin-help plugin-name >> for detailed info.",
+        ) . "\n\n";
+    }
+
+    return "You have no plugins installed.\n\n";
+}
+
+
+sub extract_title {
+    my($class, $path) = @_;
+
+    open my $fh, '<', $path or return;
+    my $name_section = 0;
+    while(<$fh>) {
+        chomp;
+        if(/^=head1\s+NAME$/) {
+            $name_section++;
+        }
+        elsif($name_section  and  /\S/) {
+            s{^.+?\s-\s}{};
+            return $_;
+        }
+    }
+    return;
+}
+
+
+sub show_plugin_help {
+    my($class, $path) = @_;
+
+    my $pager = $class->pager();
+    if(Pod::Text->isa('Pod::Simple')) {
+        my $parser = Pod::Text->new (sentence => 1, width => 78);
+        $parser->output_fh($pager);
+        $parser->parse_file($path);
+    }
+    else {
+        open my $pod_fh, '<', $path or die "open($path): $!";
+        my $parser = Pod::Text->new (sentence => 1, width => 78);
+        $parser->parse_from_filehandle($pod_fh, $pager);
+    }
+}
+
+
+sub pager {
+    my @commands = $ENV{PAGER} ? ( $ENV{PAGER} ) : qw(pager less more);
+    foreach my $file (@commands) {
+        foreach my $dir ( File::Spec->path() ) {
+            my $exe_path = File::Spec->catfile($dir, $file);
+            if(-x $exe_path) {
+                open my $fh, '|-', $exe_path or next;
+                return $fh;
+            }
+        }
+    }
+    return \*STDOUT;
+}
+
+
+1;
+
+__DATA__
+
+=head1 NAME
+
+bcvi - Back-channel vi, a shell utility to proxy commands back over ssh
+
+=head1 SYNOPSIS
+
+  bcvi [options] [<files>]
+
+  Options:
+
+=for BCVI_OPTIONS_SUMMARY
+
+=head1 DESCRIPTION
+
+This utility works with SSH to allow commands issued on the SSH server host to
+be 'proxied' back to the SSH client host.  For example:
+
+=over 4
+
+=item *
+
+user F<sally> establishes an SSH connection from her workstation to a server
+named F<pluto> and runs the command C<bcvi .bashrc>
+
+=item *
+
+bcvi tunnels the details back to sally's workstation which then invokes the
+command C<gvim scp://pluto//home/sally/.bashrc>
+
+=item *
+
+the result is that sally gets a responsive GUI editor running on her local
+machine, but editing a file on the remote machine
+
+=back
+
+See C<< perldoc App::BCVI >> for more examples and background information.
+
+=head1 OPTIONS
+
+=for BCVI_OPTIONS
+
+=head1 COMMANDS
+
+The following commands can be passed back to the listener process.
+
+=for BCVI_COMMANDS
+
+=head1 USING BCVI
+
+You'll need to start a listener process on your workstation (perhaps from
+your window manager session startup).
+
+  bcvi -l &
+
+To install the bcvi client to a remote machine:
+
+  bcvi --install <hostname>
+
+To ssh to a server with tunnelling enabled:
+
+  bcvi --wrap-ssh -- hostname
+
+To enable bcvi on all ssh connections:
+
+  alias ssh="bcvi --wrap-ssh --"
+
+On a target server, you'll need to unpack the overloaded TERM variable:
+
+  test -n "$(which bcvi)" && eval "$(bcvi --unpack-term)"
+
+To use vi over the back-channel:
+
+  bcvi filename
+
+The installation to a remote server should set up aliases, e.g.:
+
+  test -n "${BCVI_CONF}"  && alias vi="bcvi"
+  test -n "${BCVI_CONF}"  && alias bcp="bcvi -c scpd"
+
+=head1 PLUGINS
+
+=for BCVI_PLUGINS
+
+=head1 COPYRIGHT
+
+Copyright 2007-2010 Grant McLean E<lt>grantm@cpan.orgE<gt>
+
+This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+
