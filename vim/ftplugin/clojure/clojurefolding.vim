@@ -19,6 +19,8 @@ function GetClojureFold()
             return ">1"
       elseif getline(v:lnum) =~ '^\s*(defpartial.*\s'
             return ">1"
+      elseif getline(v:lnum) =~ '^\s*(deftest.*\s'
+            return ">1"
       elseif getline(v:lnum) =~ '^\s*$'
             let my_cljnum = v:lnum
             let my_cljmax = line("$")

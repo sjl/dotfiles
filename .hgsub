@@ -28,5 +28,4 @@ vim/bundle/hammer = [git]git://github.com/robgleeson/hammer.vim.git
 vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
 
-keymando/Plugins/vim = [hg]http://bitbucket.org/sjl/keymando-vim/
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git

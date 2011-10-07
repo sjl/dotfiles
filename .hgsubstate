@@ -1,5 +1,4 @@
 c711681883f3419b85494e3b285b988e8e2dcbca keymando/Plugins/abbrev
-9d387f6dc90a8e8b1e7085d48ddbe0f8f82a348f keymando/Plugins/vim
 c060c94622e92e091b2c67499fdda16d91b68c01 mercurial/templates
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
 bfdf714f8ea10a6bcba7a1375a5700b11077dcd9 vim/bundle/command-t
@@ -14,7 +13,7 @@ ffc45dd5a59b7b62edb02641c69a163f19fd02c0 vim/bundle/hammer
 2dd198c6c412b4ddd361b43586b01981e8383239 vim/bundle/nerdtree
 b7889db57c90824ff5092da4fdde9e05689f24fa vim/bundle/nosecompiler
 a0831b09f2026c3a3d52e253ffd139fe20a9360a vim/bundle/pydoc
-60008ab2e25b15148e45b9e9baa349c4b2a1b6c1 vim/bundle/slimv
+25de1e1969b6b5c92fec67adbd98da65533b545c vim/bundle/slimv
 c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 6eec2c131213850ed65fd6da494dfd1a0d620a4e vim/bundle/strftimedammit
 80ec6539e4139a2e0281a0f1e36d5038d55ad980 vim/bundle/supertab
