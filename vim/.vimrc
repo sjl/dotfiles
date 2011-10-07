@@ -46,6 +46,7 @@ set notimeout
 set nottimeout
 set autowrite
 set shiftround
+set autoread
 set dictionary=/usr/share/dict/words
 
 " Wildmenu completion {{{
@@ -345,13 +346,14 @@ augroup ft_clojure
     au FileType clojure call TurnOnClojureFolding()
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
-    " au FileType clojure nnoremap <buffer> o A<cr>
+    au FileType clojure nnoremap <buffer> o jI<cr><esc>kA
     au FileType clojure nnoremap <buffer> O I<cr><esc>kA
 
     au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
     au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
-    au BufWinEnter        Slimv.REPL.clj normal! zR
-    au BufNewFile,BufRead Slimv.REPL.clj nnoremap A GA
+    au BufNewFile,BufRead Slimv.REPL.clj setlocal foldlevel=99
+    au BufNewFile,BufRead Slimv.REPL.clj nnoremap <buffer> A GA
+    au BufNewFile,BufRead Slimv.REPL.clj unmap <buffer> \\\
 
     " Fix the eval mapping.
     au FileType clojure nmap <buffer> \ee \ed
@@ -574,7 +576,9 @@ augroup ft_python
     au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
 
     au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
+    au FileType man nnoremap <buffer> <cr> :q<cr>
 augroup END
 
 " }}}
@@ -941,7 +945,7 @@ let g:sparkupNextMapping = '<c-s>'
 "}}}
 " Supertab {{{
 
-let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabLongestHighlight = 1
 
 "}}}

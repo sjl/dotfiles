@@ -30,9 +30,9 @@ end
 
 # Abbreviations --------------------------------------------------------------------
 
-abbrev 'ldis' do
-  pasteBoard = NSPasteboard.generalPasteboard
-  pasteBoard.declareTypes([NSStringPboardType], owner: nil)
-  pasteBoard.setString('ಠ_ಠ', forType: NSStringPboardType)
-  send('<Cmd-v>')
-end
+# abbrev 'ldis' do
+#   pasteBoard = NSPasteboard.generalPasteboard
+#   pasteBoard.declareTypes([NSStringPboardType], owner: nil)
+#   pasteBoard.setString('ಠ_ಠ', forType: NSStringPboardType)
+#   send('<Cmd-v>')
+# end
