@@ -165,6 +165,7 @@ call MakeSpacelessIabbrev('ghs/', 'http://github.com/sjl/')
 
 iabbrev ldis ಠ_ಠ
 iabbrev sl@ steve@stevelosh.com
+iabbrev vrcf `~/.vimrc` file
 
 " }}}
 " Searching and movement ------------------------------------------------------ {{{
@@ -362,7 +363,7 @@ augroup ft_clojure
     au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
 
     " Use a swank command that works, and doesn't require new app windows.
-    au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dvtm-swank.sock -r winch lein swank'
+    au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
 augroup END
 
 " }}}
@@ -544,6 +545,15 @@ augroup ft_nginx
     au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
     au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
     au BufRead,BufNewFile vhost.nginx                            set ft=nginx
+augroup END
+
+" }}}
+" OrgMode {{{
+
+augroup ft_org
+    au!
+
+    au Filetype org nmap <buffer> Q vahjgq
 augroup END
 
 " }}}
