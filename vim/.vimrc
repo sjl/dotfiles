@@ -47,6 +47,7 @@ set nottimeout
 set autowrite
 set shiftround
 set autoread
+set title
 set dictionary=/usr/share/dict/words
 
 " Wildmenu completion {{{
@@ -354,7 +355,7 @@ augroup ft_clojure
     au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
     au BufNewFile,BufRead Slimv.REPL.clj setlocal foldlevel=99
     au BufNewFile,BufRead Slimv.REPL.clj nnoremap <buffer> A GA
-    au BufNewFile,BufRead Slimv.REPL.clj unmap <buffer> \\\
+    au BufNewFile,BufRead Slimv.REPL.clj nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
     " Fix the eval mapping.
     au FileType clojure nmap <buffer> \ee \ed
@@ -545,6 +546,8 @@ augroup ft_nginx
     au BufRead,BufNewFile /etc/nginx/sites-available/*           set ft=nginx
     au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
     au BufRead,BufNewFile vhost.nginx                            set ft=nginx
+
+    au FileType nginx setlocal foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
@@ -652,6 +655,26 @@ nnoremap <leader>ez <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " }}}
+" Shell ----------------------------------------------------------------------- {{{
+
+function! s:ExecuteInShell(command) " {{{
+    let command = join(map(split(a:command), 'expand(v:val)'))
+    let winnr = bufwinnr('^' . command . '$')
+    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
+    echo 'Execute ' . command . '...'
+    silent! execute 'silent %!'. command
+    silent! redraw
+    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+    silent! execute 'AnsiEsc'
+    echo 'Shell command ' . command . ' executed.'
+endfunction " }}}
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+nnoremap <leader>! :Shell 
+
+" }}}
 " Convenience mappings -------------------------------------------------------- {{{
 
 " Clean whitespace
@@ -693,6 +716,9 @@ vnoremap <leader>Al :left<cr>
 vnoremap <leader>Ac :center<cr>
 vnoremap <leader>Ar :right<cr>
 
+" Less chording
+nnoremap ; :
+
 " Faster Esc
 inoremap jk <esc>
 
@@ -722,6 +748,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " I suck at typing.
 nnoremap <localleader>= ==
+vnoremap - =
 
 " Easy filetype switching {{{
 nnoremap _md :set ft=markdown<CR>
@@ -776,6 +803,7 @@ inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
 
 " Indent Guides {{{
+
 let g:indentguides_state = 0
 function! IndentGuides() " {{{
     if g:indentguides_state
@@ -787,6 +815,27 @@ function! IndentGuides() " {{{
     endif
 endfunction " }}}
 nnoremap <leader>i :call IndentGuides()<cr>
+
+" }}}
+" Block Colors {{{
+
+let g:blockcolor_state = 0
+function! BlockColor() " {{{
+    if g:blockcolor_state
+        let g:blockcolor_state = 0
+        call matchdelete(77880)
+        call matchdelete(77881)
+        call matchdelete(77882)
+        call matchdelete(77883)
+    else
+        let g:blockcolor_state = 1
+        call matchadd("BlockColor1", '^ \{4}.*', 1, 77880)
+        call matchadd("BlockColor2", '^ \{8}.*', 2, 77881)
+        call matchadd("BlockColor3", '^ \{12}.*', 3, 77882)
+        call matchadd("BlockColor4", '^ \{16}.*', 4, 77883)
+    endif
+endfunction " }}}
+nnoremap <leader>B :call BlockColor()<cr>
 
 " }}}
 " Insert Mode Completion {{{
@@ -848,6 +897,7 @@ nnoremap <leader>gco :Gcheckout<cr>
 nnoremap <leader>gci :Gcommit<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
+nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
 
 augroup ft_fugitive
     au!

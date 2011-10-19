@@ -13,7 +13,7 @@
 
     pull = pull --ff-only
     merge = merge --no-ff
-    upbranch = merge --ff-only
+    up = merge --ff-only
 
     ci = commit
     cm = commit -m
@@ -27,12 +27,13 @@
     uns = reset HEAD
 
     fo = fetch origin
+    fu = fetch upstream
     po = push origin
     lo = pull origin
     moo = merge origin/ongoing
 
 [push]
-    default = current
+	default = current
 
 [color]
     branch = auto

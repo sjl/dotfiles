@@ -51,6 +51,12 @@ hi Cursor          guifg=#000000 guibg=#F35FBC
 hi iCursor         guifg=#000000 guibg=#FDFF00
 hi vCursor         guifg=#000000 guibg=#AAF412
 " }}}
+" Block Colors {{{
+hi BlockColor1 guibg=#2a2a2a
+hi BlockColor2 guibg=#333333
+hi BlockColor3 guibg=#3b3b3b
+hi BlockColor4 guibg=#424242
+" }}}
 
 hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=black guibg=#9edf1c
 hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=#C50048

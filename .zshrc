@@ -25,6 +25,7 @@ export EDITOR='vim'
 export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
 export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:/opt/local/bin:$PATH"
 export PATH="/opt/subversion/bin:${PATH}"
+export PATH="/usr/local/Cellar/ruby/1.9.2-p290/bin:${PATH}"
 export GREP_OPTIONS='--color=auto'
 export HISTSIZE=1000
 export HISTFILESIZE=1000

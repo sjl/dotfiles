@@ -27,5 +27,6 @@ vim/bundle/indent-object = [git]git://github.com/michaeljsmith/vim-indent-object
 vim/bundle/hammer = [git]git://github.com/robgleeson/hammer.vim.git
 vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
+vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
 
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
