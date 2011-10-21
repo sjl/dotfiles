@@ -5,7 +5,7 @@
 " This file changes a lot.  I'll try to document pieces of it whenever I have
 " a few minutes to kill.
 
-" Preamble -------------------------------------------------------------------- {{{
+" Preamble ---------------------------------------------------------------- {{{
 
 filetype off
 call pathogen#runtime_append_all_bundles()
@@ -13,7 +13,7 @@ filetype plugin indent on
 set nocompatible
 
 " }}}
-" Basic options --------------------------------------------------------------- {{{
+" Basic options ----------------------------------------------------------- {{{
 set encoding=utf-8
 set modelines=0
 set autoindent
@@ -113,7 +113,7 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " }}}
-" Status line ----------------------------------------------------------------- {{{
+" Status line ------------------------------------------------------------- {{{
 
 augroup ft_statuslinecolor
     au!
@@ -148,7 +148,7 @@ set statusline+=)
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
-" Abbreviations --------------------------------------------------------------- {{{
+" Abbreviations ----------------------------------------------------------- {{{
 
 function! EatChar(pat)
     let c = nr2char(getchar(0))
@@ -170,7 +170,7 @@ iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
 
 " }}}
-" Searching and movement ------------------------------------------------------ {{{
+" Searching and movement -------------------------------------------------- {{{
 
 " Use sane regexes.
 nnoremap / /\v
@@ -281,7 +281,7 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " }}}
 
 " }}}
-" Folding --------------------------------------------------------------------- {{{
+" Folding ----------------------------------------------------------------- {{{
 
 set foldlevelstart=0
 
@@ -314,10 +314,9 @@ endfunction " }}}
 set foldtext=MyFoldText()
 
 " }}}
-" Destroy infuriating keys ---------------------------------------------------- {{{
+" Destroy infuriating keys ------------------------------------------------ {{{
 
 " Fuck you, help key.
-set fuoptions=maxvert,maxhorz
 noremap  <F1> :set invfullscreen<CR>
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 
@@ -328,7 +327,7 @@ nnoremap K <nop>
 inoremap # X<BS>#
 
 " }}}
-" Various filetype-specific stuff --------------------------------------------- {{{
+" Various filetype-specific stuff ----------------------------------------- {{{
 
 " C {{{
 
@@ -645,7 +644,7 @@ augroup END
 " }}}
 
 " }}}
-" Quick editing --------------------------------------------------------------- {{{
+" Quick editing ----------------------------------------------------------- {{{
 
 nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
 nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
@@ -656,7 +655,7 @@ nnoremap <leader>ez <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " }}}
-" Shell ----------------------------------------------------------------------- {{{
+" Shell ------------------------------------------------------------------- {{{
 
 function! s:ExecuteInShell(command) " {{{
     let command = join(map(split(a:command), 'expand(v:val)'))
@@ -676,7 +675,7 @@ command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 nnoremap <leader>! :Shell 
 
 " }}}
-" Convenience mappings -------------------------------------------------------- {{{
+" Convenience mappings ---------------------------------------------------- {{{
 
 " Clean whitespace
 map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
@@ -847,7 +846,7 @@ inoremap <c-f> <c-x><c-f>
 " }}}
 
 " }}}
-" Plugin settings ------------------------------------------------------------- {{{
+" Plugin settings --------------------------------------------------------- {{{
 
 " Ack {{{
 
@@ -857,11 +856,6 @@ map <leader>a :Ack!
 " Autoclose {{{
 
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
-
-" }}}
-" Command-T {{{
-
-let g:CommandTMaxHeight = 20
 
 " }}}
 " Commentary {{{
@@ -1072,7 +1066,7 @@ endfunction
 " }}}
 
 " }}}
-" Text objects ---------------------------------------------------------------- {{{
+" Text objects ------------------------------------------------------------ {{{
 
 " Shortcut for [] {{{
 
@@ -1114,7 +1108,7 @@ endfunction
 " }}}
 
 " }}}
-" Error toggles --------------------------------------------------------------- {{{
+" Error toggles ----------------------------------------------------------- {{{
 
 command! ErrorsToggle call ErrorsToggle()
 function! ErrorsToggle() " {{{
@@ -1143,7 +1137,7 @@ nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
 
 " }}}
-" Utils ----------------------------------------------------------------------- {{{
+" Utils ------------------------------------------------------------------- {{{
 
 function! g:echodammit(msg)
     exec 'echom "----------> ' . a:msg . '"'
@@ -1180,7 +1174,7 @@ nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
 " }}}
 
 " }}}
-" Hg -------------------------------------------------------------------------- {{{
+" Hg ---------------------------------------------------------------------- {{{
 
 function! s:HgDiff()
     diffthis
@@ -1228,7 +1222,7 @@ command! -nargs=0 HgBlame call s:HgBlame()
 nnoremap <leader>hb :HgBlame<cr>
 
 " }}}
-" MacVim ---------------------------------------------------------------------- {{{
+" Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
     set guifont=Menlo:h12
@@ -1240,10 +1234,19 @@ if has('gui_running')
     set go-=r
     set go-=R
 
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    " Use a line-drawing char for pretty vertical splits.
+    set fillchars+=vert:│
+
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
+
     if has("gui_macvim")
-        " " PeepOpen on OS X, Command-T elsewhere.
-        " macmenu &File.New\ Tab key=<nop>
-        " map <leader><leader> <Plug>PeepOpen
+        " Full screen means FULL screen
+        set fuoptions=maxvert,maxhorz
 
         " Use the normal HIG movements, except for M-Up/Down
         let macvim_skip_cmd_opt_movement = 1
@@ -1268,31 +1271,14 @@ if has('gui_running')
         imap <M-BS>         <C-w>
         inoremap <D-BS>     <esc>my0c`y
     else
-        " map <leader><leader> :CommandT<cr>
-
-        " Dammit, PeepOpen
-        " map gxxxxx <Plug>PeepOpen
+        " Non-MacVim GUI, like Gvim
     end
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Use a line-drawing char for pretty vertical splits.
-    set fillchars+=vert:│
-
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
 else
-    " Command-T if we don't have a GUI.
-    " map <leader><leader> :CommandT<cr>
-
-    " Dammit, PeepOpen
-    " map gxxxxx <Plug>PeepOpen
+    " Console Vim
 endif
 
 " }}}
-" Nyan! ----------------------------------------------------------------------- {{{
+" Nyan! ------------------------------------------------------------------- {{{
 
 function! NyanMe() " {{{
     hi NyanFur             guifg=#BBBBBB
