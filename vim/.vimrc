@@ -62,7 +62,8 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store?                      " OSX bullshit
+set wildignore+=*.DS_Store                       " OSX bullshit
+set wildignore+=migrations                       " Django migrations
 " }}}
 
 " Make Vim able to edit crontab files again.
@@ -870,6 +871,12 @@ xmap <leader>c <Plug>Commentary
 au FileType htmldjango setlocal commentstring={#\ %s\ #}
 
 " }}}
+" Ctrl-P {{{
+
+let g:ctrlp_map = '<leader>,'
+let g:ctrlp_working_path_mode = 0
+
+" }}}
 " Easymotion {{{
 
 let g:EasyMotion_do_mapping = 0
@@ -963,6 +970,11 @@ let g:pydoc_perform_mappings = 0
 
 au FileType python noremap <buffer> <localleader>ds :call ShowPyDoc('<C-R><C-W>', 1)<CR>
 au FileType python noremap <buffer> <localleader>dS :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+
+" }}}
+" Rainbox Parentheses {{{
+
+nnoremap <leader>R :RainbowParenthesesToggle<cr>
 
 " }}}
 " Rope {{{
@@ -1229,9 +1241,9 @@ if has('gui_running')
     set go-=R
 
     if has("gui_macvim")
-        " PeepOpen on OS X, Command-T elsewhere.
-        macmenu &File.New\ Tab key=<nop>
-        map <leader><leader> <Plug>PeepOpen
+        " " PeepOpen on OS X, Command-T elsewhere.
+        " macmenu &File.New\ Tab key=<nop>
+        " map <leader><leader> <Plug>PeepOpen
 
         " Use the normal HIG movements, except for M-Up/Down
         let macvim_skip_cmd_opt_movement = 1
@@ -1256,10 +1268,10 @@ if has('gui_running')
         imap <M-BS>         <C-w>
         inoremap <D-BS>     <esc>my0c`y
     else
-        map <leader><leader> :CommandT<cr>
+        " map <leader><leader> :CommandT<cr>
 
         " Dammit, PeepOpen
-        map gxxxxx <Plug>PeepOpen
+        " map gxxxxx <Plug>PeepOpen
     end
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
@@ -1273,10 +1285,10 @@ if has('gui_running')
     set guicursor+=i-ci:ver20-iCursor
 else
     " Command-T if we don't have a GUI.
-    map <leader><leader> :CommandT<cr>
+    " map <leader><leader> :CommandT<cr>
 
     " Dammit, PeepOpen
-    map gxxxxx <Plug>PeepOpen
+    " map gxxxxx <Plug>PeepOpen
 endif
 
 " }}}

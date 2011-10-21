@@ -14,7 +14,7 @@ vim/bundle/vim-javascript = [git]git://github.com/pangloss/vim-javascript.git
 vim/bundle/strftimedammit = [hg]http://bitbucket.org/sjl/strftimedammit.vim/
 vim/bundle/easymotion = [git]git://github.com/Lokaltog/vim-easymotion.git
 vim/bundle/pydoc = [git]git://github.com/sjl/pydoc.vim.git
-vim/bundle/command-t = [git]git://github.com/vim-scripts/Command-T.git
+vim/bundle/ctrlp = [git]git://github.com/kien/ctrlp.vim.git
 vim/bundle/vim-orgmode = [git]git://github.com/jceb/vim-orgmode.git
 vim/bundle/slimv = [hg]http://bitbucket.org/sjl/slimv
 vim/bundle/threesome = [hg]http://bitbucket.org/sjl/threesome.vim
@@ -27,6 +27,7 @@ vim/bundle/indent-object = [git]git://github.com/michaeljsmith/vim-indent-object
 vim/bundle/hammer = [git]git://github.com/robgleeson/hammer.vim.git
 vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
+vim/bundle/rainbow-parentheses = [git]git://github.com/kien/rainbow_parentheses.vim.git
 vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
 
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
