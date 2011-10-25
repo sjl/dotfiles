@@ -51,19 +51,27 @@ set title
 set dictionary=/usr/share/dict/words
 
 " Wildmenu completion {{{
+
 set wildmenu
 set wildmode=list:longest
 
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store                       " OSX bullshit
+
+set wildignore+=*.luac                           " Lua byte code
+
 set wildignore+=migrations                       " Django migrations
+set wildignore+=*.pyc                            " Python byte code
+
+" Clojure/Leiningen
+set wildignore+=classes
+set wildignore+=lib
+
 " }}}
 
 " Make Vim able to edit crontab files again.
@@ -869,6 +877,8 @@ au FileType htmldjango setlocal commentstring={#\ %s\ #}
 
 let g:ctrlp_map = '<leader>,'
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_split_window = 0
 
 " }}}
 " Easymotion {{{
@@ -1106,6 +1116,45 @@ function! s:NextTextObject(motion, dir)
 endfunction
 
 " }}}
+
+" }}}
+" Ack motions ------------------------------------------------------------- {{{
+
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> \a :<C-U>set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        " From visual mode
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'line'
+        " Linewise motion
+        silent execute "normal! '[V']y"
+    else
+        " Charwise motion
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    let pattern = escape(@@, "'")
+    execute "normal! :Ack! --literal '" . pattern . "'\<cr>"
+
+    let @@ = reg_save
+endfunction
 
 " }}}
 " Error toggles ----------------------------------------------------------- {{{
