@@ -734,6 +734,10 @@ inoremap jk <esc>
 nnoremap <leader>1 :set cmdheight=1<cr>
 nnoremap <leader>2 :set cmdheight=2<cr>
 
+" Source
+vnoremap <leader>S y:execute @@<cr>
+nnoremap <leader>S ^vg_y:execute @@<cr>
+
 " Replaste
 nnoremap <D-p> "_ddPV`]=
 
