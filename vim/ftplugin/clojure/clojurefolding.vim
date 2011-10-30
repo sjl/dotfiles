@@ -9,6 +9,8 @@ let loaded_clojurefolding=1
 function GetClojureFold()
       if getline(v:lnum) =~ '^\s*(defn.*\s'
             return ">1"
+      elseif getline(v:lnum) =~ '^\s*(def .*\s'
+            return ">1"
       elseif getline(v:lnum) =~ '^\s*(defmacro.*\s'
             return ">1"
       elseif getline(v:lnum) =~ '^\s*(ns.*\s'

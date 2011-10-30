@@ -1,6 +1,6 @@
 [user]
-    name = Steve Losh
-    email = steve@stevelosh.com
+	name = Steve Losh
+	email = steve@stevelosh.com
 
 [core]
     pager = cat
