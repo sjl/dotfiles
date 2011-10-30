@@ -698,6 +698,10 @@ inoremap <C-u> <esc>gUiwea
 " Substitute
 nnoremap <leader>s :%s//<left>
 
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
@@ -883,6 +887,13 @@ let g:ctrlp_map = '<leader>,'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
+let g:ctrlp_prompt_mappings = {
+\ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
+\ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
+\ 'PrtHistory(-1)':       ['<c-n>'],
+\ 'PrtHistory(1)':        ['<c-p>'],
+\ 'ToggleFocus()':        ['<c-tab>'],
+\ }
 
 " }}}
 " Easymotion {{{
@@ -1133,18 +1144,13 @@ endfunction
 " Note: If the text covered by a motion contains a newline it won't work.  Ack
 " searches line-by-line.
 
-nnoremap <silent> \a :<C-U>set opfunc=<SID>AckMotion<CR>g@
+nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
 xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
 
 function! s:CopyMotionForType(type)
     if a:type ==# 'v'
-        " From visual mode
         silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'line'
-        " Linewise motion
-        silent execute "normal! '[V']y"
-    else
-        " Charwise motion
+    elseif a:type ==# 'char'
         silent execute "normal! `[v`]y"
     endif
 endfunction
@@ -1154,8 +1160,7 @@ function! s:AckMotion(type) abort
 
     call s:CopyMotionForType(a:type)
 
-    let pattern = escape(@@, "'")
-    execute "normal! :Ack! --literal '" . pattern . "'\<cr>"
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
 
     let @@ = reg_save
 endfunction
