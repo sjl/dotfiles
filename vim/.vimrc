@@ -1473,39 +1473,39 @@ function! PulseCursorLine()
 
     hi CursorLine guibg=#2a2a2a
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#333333
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#3a3a3a
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#444444
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#4a4a4a
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#444444
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#3a3a3a
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#333333
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#2a2a2a
     redraw
-    sleep 5m
+    sleep 20m
 
     execute 'hi ' . old_hi
 
