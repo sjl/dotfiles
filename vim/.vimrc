@@ -205,9 +205,10 @@ map <tab> %
 " Made D behave
 nnoremap D d$
 
-" Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" Keep search matches in the middle of the window and pulse the line when moving
+" to them.
+nnoremap n nzzzv:call PulseCursorLine()<cr>
+nnoremap N Nzzzv:call PulseCursorLine()<cr>
 
 " Don't move on *
 nnoremap * *<c-o>
@@ -1452,5 +1453,52 @@ function! NyanMe() " {{{
     redraw
 endfunction " }}}
 command! NyanMe call NyanMe()
+
+" }}}
+" Pulse ------------------------------------------------------------------- {{{
+
+function! PulseCursorLine()
+    let current_window = winnr()
+
+    windo set nocursorline
+    execute current_window . 'wincmd w'
+
+    setlocal cursorline
+
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    hi CursorLine guibg=#2a2a2a
+    redraw
+    sleep 30m
+
+    hi CursorLine guibg=#333333
+    redraw
+    sleep 30m
+
+    hi CursorLine guibg=#3a3a3a
+    redraw
+    sleep 30m
+
+    hi CursorLine guibg=#444444
+    redraw
+    sleep 30m
+
+    hi CursorLine guibg=#4a4a4a
+    redraw
+    sleep 30m
+
+    hi CursorLine guibg=#555555
+    redraw
+    sleep 30m
+
+    execute 'hi ' . old_hi
+
+    windo set cursorline
+    execute current_window . 'wincmd w'
+endfunction
 
 " }}}
