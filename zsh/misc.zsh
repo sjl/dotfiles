@@ -85,3 +85,6 @@ alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
 function fack () {
     find . $@ | grep -v '/\.hg\|/\.git'
 }
+
+alias collapse="sed -e 's/  */ /g'"
+alias cuts="cut -d' '"
