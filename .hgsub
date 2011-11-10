@@ -30,4 +30,8 @@ vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
 vim/bundle/rainbow-parentheses = [git]git://github.com/kien/rainbow_parentheses.vim.git
 vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
 
+vim/sadness/ropevim/src/rope = [hg]https://bitbucket.org/agr/rope/
+vim/sadness/ropevim/src/ropemode = [hg]https://bitbucket.org/agr/ropemode/
+vim/sadness/ropevim/src/ropevim = [hg]https://bitbucket.org/agr/ropevim/
+
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git

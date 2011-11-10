@@ -29,3 +29,6 @@ b944e534bd6bbfc4fd56d4ee1a8aa831188387b0 vim/bundle/vim-coffee-script
 f21fbd8759d7fa6c3cb1bbb9fe05eae90422f01a vim/bundle/vim-makegreen
 54b7bfc8170f3fa1519e5559c37a4f3e31c032c9 vim/bundle/vim-orgmode
 b0ee6ec2153c5f30827d67db1668f37a975a1005 vim/bundle/vim-speeddating
+bd22278f36bbda016951784cd99657f4a3d7cc81 vim/sadness/ropevim/src/rope
+584d3eba7ca67942588848a0911145778075cf1f vim/sadness/ropevim/src/ropemode
+6d27262305a8c0ba6834ba9563f75d2f8ebb9a3a vim/sadness/ropevim/src/ropevim
