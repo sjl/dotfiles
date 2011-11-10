@@ -235,6 +235,10 @@ ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
 # Show in MacVim
 vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
+# Ack for non-ignored files
+ack = !$HG locate "set:not ignored()" | xargs ack $@
+grep-wdir = !$HG locate "set:not ignored()" | xargs grep $@
+
 # Run hg commands on all subrepos at once.
 subs  = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | xargs    -n1  -I SUB $HG -R "`$HG root`/SUB" $@
 psubs = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB $HG -R "`$HG root`/SUB" $@
