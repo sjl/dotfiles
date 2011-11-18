@@ -174,6 +174,9 @@ call MakeSpacelessIabbrev('gh/',  'http://github.com/')
 call MakeSpacelessIabbrev('ghs/', 'http://github.com/sjl/')
 
 iabbrev ldis ಠ_ಠ
+iabbrev lsad ಥ_ಥ
+iabbrev lhap ಥ‿ಥ
+
 iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
 
@@ -603,14 +606,14 @@ augroup END
 augroup ft_python
     au!
 
-    au Filetype python noremap  <buffer> <localleader>rr :RopeRename<CR>
-    au Filetype python vnoremap <buffer> <localleader>rm :RopeExtractMethod<CR>
-    au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
-
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
+    
+    " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
+    " override this in a normal way, could you?
+    au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 augroup END
 
 " }}}
@@ -997,12 +1000,38 @@ let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
 
 " }}}
-" Pydoc {{{
+" Python-Mode {{{
 
-let g:pydoc_perform_mappings = 0
+let g:pymode_doc = 1
+let g:pymode_doc_key = '<localleader>ds'
+let g:pydoc = 'pydoc'
+let g:pymode_syntax = 0
+let g:pymode_run = 0
+let g:pymode_lint = 0
+let g:pymode_breakpoint = 0
+let g:pymode_utils_whitespaces = 0
+let g:pymode_virtualenv = 1
 
-au FileType python noremap <buffer> <localleader>ds :call ShowPyDoc('<C-R><C-W>', 1)<CR>
-au FileType python noremap <buffer> <localleader>dS :call ShowPyDoc('<C-R><C-A>', 1)<CR>
+let g:pymode_options_indent = 0
+let g:pymode_options_fold = 0
+let g:pymode_options_other = 0
+
+let g:pymode_rope = 1
+let g:pymode_rope_global_prefix = "<localleader>R"
+let g:pymode_rope_local_prefix = "<localleader>r"
+let g:pymode_rope_auto_project = 1
+let g:pymode_rope_enable_autoimport = 0
+let g:pymode_rope_autoimport_generate = 1
+let g:pymode_rope_autoimport_underlineds = 0
+let g:pymode_rope_codeassist_maxfixes = 10
+let g:pymode_rope_sorted_completions = 1
+let g:pymode_rope_extended_complete = 1
+let g:pymode_rope_autoimport_modules = ["os", "shutil", "datetime"]
+let g:pymode_rope_confirm_saving = 1
+let g:pymode_rope_vim_completion = 1
+let g:pymode_rope_guess_project = 1
+let g:pymode_rope_goto_def_newwin = 0
+let g:pymode_rope_always_show_complete_menu = 0
 
 " }}}
 " Rainbox Parentheses {{{
@@ -1028,15 +1057,6 @@ let g:rbpt_colorpairs = [
     \ ]
 let g:rbpt_max = 16
 
-
-" }}}
-" Rope {{{
-
-let ropevim_enable_shortcuts = 0
-let ropevim_guess_project = 1
-let ropevim_global_prefix = '<C-c>p'
-
-source $HOME/.vim/sadness/sadness.vim
 
 " }}}
 " Scratch {{{
