@@ -13,9 +13,9 @@ vim/bundle/syntastic = [git]git://github.com/scrooloose/syntastic.git
 vim/bundle/vim-javascript = [git]git://github.com/pangloss/vim-javascript.git
 vim/bundle/strftimedammit = [hg]http://bitbucket.org/sjl/strftimedammit.vim/
 vim/bundle/easymotion = [git]git://github.com/Lokaltog/vim-easymotion.git
-vim/bundle/pydoc = [git]git://github.com/sjl/pydoc.vim.git
 vim/bundle/ctrlp = [git]git://github.com/kien/ctrlp.vim.git
 vim/bundle/vim-orgmode = [git]git://github.com/jceb/vim-orgmode.git
+vim/bundle/python-mode = [git]git://github.com/sjl/python-mode.git
 vim/bundle/slimv = [hg]http://bitbucket.org/sjl/slimv
 vim/bundle/threesome = [hg]http://bitbucket.org/sjl/threesome.vim
 vim/bundle/vim-makegreen = [git]git://github.com/sjl/vim-makegreen.git
@@ -29,9 +29,5 @@ vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
 vim/bundle/rainbow-parentheses = [git]git://github.com/kien/rainbow_parentheses.vim.git
 vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
-
-vim/sadness/ropevim/src/rope = [hg]https://bitbucket.org/agr/rope/
-vim/sadness/ropevim/src/ropemode = [hg]https://bitbucket.org/agr/ropemode/
-vim/sadness/ropevim/src/ropevim = [hg]https://bitbucket.org/agr/ropevim/
 
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
