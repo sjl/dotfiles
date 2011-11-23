@@ -246,14 +246,14 @@ nnoremap VaB vaBV
 "             Location List     QuickFix Window
 "            (e.g. Syntastic)     (e.g. Ack)
 "            ----------------------------------
-" Next      |     M-k               M-Down     |
-" Previous  |     M-l                M-Up      |
+" Next      |     M-j               M-Down     |
+" Previous  |     M-k                M-Up      |
 "            ----------------------------------
 "
-nnoremap ˚ :lnext<cr>zvzz
-nnoremap ¬ :lprevious<cr>zvzz
-inoremap ˚ <esc>:lnext<cr>zvzz
-inoremap ¬ <esc>:lprevious<cr>zvzz
+nnoremap ∆ :lnext<cr>zvzz
+nnoremap ˚ :lprevious<cr>zvzz
+inoremap ∆ <esc>:lnext<cr>zvzz
+inoremap ˚ <esc>:lprevious<cr>zvzz
 nnoremap <m-Down> :cnext<cr>zvzz
 nnoremap <m-Up> :cprevious<cr>zvzz
 " }}}
@@ -874,6 +874,13 @@ inoremap <c-l> <c-x><c-l>
 inoremap <c-f> <c-x><c-f>
 
 " }}}
+
+" }}}
+" Training mappings ------------------------------------------------------- {{{
+
+" Use L, dammit.
+nnoremap Ajk <nop>
+nnoremap A<esc> <nop>
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
