@@ -13,3 +13,4 @@ fe=.html,.js,.less
 fea=.html,.js,.less,.css
 --ignore-dir=public/media/cache
 --ignore-dir=public/static/cache
+--ignore-dir=migrations

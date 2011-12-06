@@ -1,3 +1,21 @@
 #switcher {
     display: none !important;
 }
+.meta a {
+    color: #666 !important;
+}
+.meta {
+    display: none !important;
+}
+ul.people {
+    margin-top: 13px !important;
+}
+ul.people li:nth-child(2) {
+    display: none;
+}
+.new-priority {
+    padding-left: 6px !important;
+}
+.issue h2 {
+    margin-top: 2px;
+}

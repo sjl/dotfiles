@@ -1,5 +1,6 @@
 alias h=hg
 
+alias ghcm='ghc --make -optl"-Wl,-read_only_relocs,suppress"'
 alias pbc='pbcopy'
 alias pbp='pbpaste'
 
