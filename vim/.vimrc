@@ -483,6 +483,14 @@ augroup ft_fish
 augroup END
 
 " }}}
+" Haskell {{{
+
+augroup ft_haskell
+    au!
+    au BufEnter *.hs compiler ghc
+augroup END
+
+" }}}
 " HTML and HTMLDjango {{{
 
 augroup ft_html
@@ -960,6 +968,13 @@ let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
 
 " }}}
+" Haskellmode {{{
+
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+let g:ghc = "/usr/local/bin/ghc"
+
+" }}}
 " HTML5 {{{
 
 let g:event_handler_attributes_complete = 0
@@ -1105,7 +1120,7 @@ let g:SuperTabLongestHighlight = 1
 
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
-let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}

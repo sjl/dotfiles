@@ -16,5 +16,7 @@ set showstatuslinks=command
 
 nnoremap j 3j
 nnoremap k 3k
+inoremap jk <esc>
 
-" vim: set ft=pentadactyl:
+nnoremap J :tn<CR>
+nnoremap K :tp<CR>
