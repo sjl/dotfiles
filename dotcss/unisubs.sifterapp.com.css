@@ -1,19 +1,19 @@
 #switcher {
     display: none !important;
 }
-.meta a {
+.issue .meta a {
     color: #666 !important;
 }
-.meta {
+.issue .meta {
     display: none !important;
 }
-ul.people {
+.issue ul.people {
     margin-top: 13px !important;
 }
-ul.people li:nth-child(2) {
+.issue ul.people li:nth-child(2) {
     display: none;
 }
-.new-priority {
+.issue .new-priority {
     padding-left: 6px !important;
 }
 .issue h2 {

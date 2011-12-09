@@ -43,6 +43,13 @@ def completer(data, buffer, command):
                     weechat.command(buffer, "/input delete_previous_char")
                 weechat.command(buffer, "/input insert " + nicks[-1] + ":\\x20")
             elif len(nicks) > 1:
+                l = min(len(nick) for nick in nicks)
+                for i in range(len(prefix), l):
+                    if len(set(nick[i] for nick in nicks)) > 1:
+                        break
+                    else:
+                        weechat.command(buffer, "/input insert " + nicks[0][i])
+
                 for nick in nicks:
                     weechat.prnt(cb, "==> " + nick)
                 return weechat.WEECHAT_RC_OK_EAT

@@ -200,6 +200,7 @@ my $nick_color = weechat::info_get('irc_nick_color', $nick);					# get nick-colo
 	      }
       }
 	# buffer_autoset is off.
+    # TODO: Fix "all:" and "all," highlighting
 	if (lc($string) =~ m/(\w.*$my_nick.*)/){						# my name called in string (case insensitiv)?
 	    my $color_highlight = weechat::config_color(weechat::config_get("weechat.color.chat_highlight"));
 	    my $color_highlight_bg = weechat::config_color(weechat::config_get("weechat.color.chat_highlight_bg"));
