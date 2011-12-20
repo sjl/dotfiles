@@ -101,6 +101,7 @@ set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
+set noswapfile                    " It's 2011, Vim.
 
 " }}}
 " Leader {{{
@@ -517,6 +518,9 @@ augroup ft_html
     au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
     au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
+    " Indent tag
+    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+
     " Django tags
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
@@ -752,9 +756,6 @@ vnoremap <leader>Ar :right<cr>
 
 " Less chording
 nnoremap ; :
-
-" Faster Esc
-inoremap jk <esc>
 
 " Cmdheight switching
 nnoremap <leader>1 :set cmdheight=1<cr>

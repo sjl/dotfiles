@@ -89,3 +89,4 @@ function fack () {
 
 alias collapse="sed -e 's/  */ /g'"
 alias cuts="cut -d' '"
+alias clc="./get-last-commit-url.py | pbc"

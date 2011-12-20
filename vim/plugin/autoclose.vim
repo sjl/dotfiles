@@ -75,7 +75,6 @@ fun <SID>ToggleAutoCloseMappings() " --- {{{2
         iunmap }
         iunmap <BS>
         iunmap <C-h>
-        iunmap <Esc>
         let g:autoclose_on = 0
         echo "AutoClose Off"
     else
@@ -90,8 +89,6 @@ fun <SID>ToggleAutoCloseMappings() " --- {{{2
         inoremap <silent> } <C-R>=<SID>CloseStackPop('}')<CR>
         inoremap <silent> <BS> <C-R>=<SID>OpenCloseBackspace()<CR>
         inoremap <silent> <C-h> <C-R>=<SID>OpenCloseBackspace()<CR>
-        inoremap <silent> <Esc> <C-R>=<SID>CloseStackPop('')<CR><Esc>
-        inoremap <silent> <C-[> <C-R>=<SID>CloseStackPop('')<CR><C-[>
         "the following simply creates an ambiguous mapping so vim fully
         "processes the escape sequence for terminal keys, see 'ttimeout' for a
         "rough explanation, this just forces it to work
