@@ -4,9 +4,8 @@ d2bb7878622e4c16203acf1c92a0f4bc7ac58003 vim/bundle/AnsiEsc.vim
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
 bf03741650aae253b9fbfdb5526d6a7b818a060d vim/bundle/ctrlp
 cdecdc56f938840cad250aecd58c1901f04c4d1b vim/bundle/easymotion
-1b7e4070f5f7b7522422f5b00a75b323cc314daf vim/bundle/fugitive
+b4b75ef682da3e946c648d3634ade39d0af49aba vim/bundle/fugitive
 91190e67720f852c17602504d5225d4e675b6499 vim/bundle/gundo
-ffc45dd5a59b7b62edb02641c69a163f19fd02c0 vim/bundle/hammer
 4ef2d418f48d30fed2f7ce00f598d6871a0010fe vim/bundle/html5
 78fffa609b3e6b84ef01ee4c9aba6d7435d7b18e vim/bundle/indent-object
 75ab8c11b56aae8e35f211d96fb008efb1ab946a vim/bundle/linediff
@@ -22,7 +21,6 @@ c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 d9e6bfdd902fc661c8fd58ede248ccfc3b3039d7 vim/bundle/surround
 e220e1d8e6582b67618ac0d07b32c02e5f78210f vim/bundle/syntastic
 bbc5193de145ba5334cf02693d959f475a3e850b vim/bundle/threesome
-c0a4929c940e4fb32f8aaa70440da113c7064467 vim/bundle/vim-arpeggio
 b944e534bd6bbfc4fd56d4ee1a8aa831188387b0 vim/bundle/vim-coffee-script
 8d06adbd56a761684701d1c60990b72c845be3d5 vim/bundle/vim-commentary
 6362ba99c825afc046818807267d5c1143b5c887 vim/bundle/vim-javascript
