@@ -13,10 +13,28 @@ set editor='/usr/local/bin/mvim -f +<line> <file>'
 set followhints=1
 set showtabline=multitab
 set showstatuslinks=command
+set mapleader=','
 
+" FASTER PLEASE
 nnoremap j 3j
 nnoremap k 3k
-inoremap jk <esc>
 
+" Switch tabs with J and K
 nnoremap J :tn<CR>
 nnoremap K :tp<CR>
+
+" Finally I can overwrite the stupid fucking Firebug toggling correctly.
+nnoremap <c-f> <f12>
+nnoremap <c-g> <s-f12>
+
+" Shift is hard.
+nnoremap ; :
+
+" Highlight all search matches, not just the first.
+set hlfind
+
+" Clear search highlighting and normal highlighting.
+nnoremap <Leader><space> <esc>:noh<CR>
+
+" Shut up.
+javascript dactyl.beep = function() { return false; }

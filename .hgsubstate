@@ -2,7 +2,7 @@ c711681883f3419b85494e3b285b988e8e2dcbca keymando/Plugins/abbrev
 c060c94622e92e091b2c67499fdda16d91b68c01 mercurial/templates
 d2bb7878622e4c16203acf1c92a0f4bc7ac58003 vim/bundle/AnsiEsc.vim
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
-8d99466502b40d7a5270abe6d763cf59383f4683 vim/bundle/ctrlp
+bf03741650aae253b9fbfdb5526d6a7b818a060d vim/bundle/ctrlp
 cdecdc56f938840cad250aecd58c1901f04c4d1b vim/bundle/easymotion
 1b7e4070f5f7b7522422f5b00a75b323cc314daf vim/bundle/fugitive
 91190e67720f852c17602504d5225d4e675b6499 vim/bundle/gundo
@@ -27,5 +27,5 @@ b944e534bd6bbfc4fd56d4ee1a8aa831188387b0 vim/bundle/vim-coffee-script
 8d06adbd56a761684701d1c60990b72c845be3d5 vim/bundle/vim-commentary
 6362ba99c825afc046818807267d5c1143b5c887 vim/bundle/vim-javascript
 f21fbd8759d7fa6c3cb1bbb9fe05eae90422f01a vim/bundle/vim-makegreen
-54b7bfc8170f3fa1519e5559c37a4f3e31c032c9 vim/bundle/vim-orgmode
+aa53673d435020ed209b9df030df29070bda81f4 vim/bundle/vim-orgmode
 b0ee6ec2153c5f30827d67db1668f37a975a1005 vim/bundle/vim-speeddating
