@@ -68,6 +68,8 @@ set wildignore+=*.luac                           " Lua byte code
 set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc                            " Python byte code
 
+set wildignore+=*.orig                           " Merge resolution files
+
 " Clojure/Leiningen
 set wildignore+=classes
 set wildignore+=lib
@@ -220,6 +222,10 @@ nnoremap * *<c-o>
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
+
+" Window resizing
+nnoremap <c-left> 5<c-w>>
+nnoremap <c-right> 5<c-w><
 
 " Easier to type, and I never use the default behavior.
 noremap H ^
@@ -739,6 +745,9 @@ nnoremap Q gqip
 
 " Easier linewise reselection
 nnoremap <leader>V V`]
+
+" Jesus, Python.
+inoremap <d-'> _(u'')<left><left>
 
 " Preview Files
 nnoremap <leader>p :w<cr>:Hammer<cr>
