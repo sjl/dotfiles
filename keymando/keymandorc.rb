@@ -10,23 +10,33 @@ map "<Ctrl-Shift-R>", lambda { reload() }
 # Application Switching ------------------------------------------------------------
 map "<Ctrl-Shift-J>", lambda { activate('Firefox') }
 map "<Ctrl-Shift-K>", lambda { activate('MacVim') }
+map "<Ctrl-Shift-H>", lambda { activate('iTerm') }
+map "<Ctrl-Shift-O>", lambda { activate('Rdio') }
+map "<Ctrl-Shift-Y>", lambda { activate('Twitter') }
+
 map "<Ctrl-Shift-M>" do
-    activate('iTerm')
+    activate('iDvtm')
     sleep(1)
     send('<Ctrl-f>')
     send('3')
 end
-map "<Ctrl-Shift-G>" do
-    activate('iTerm')
+map "<Ctrl-Shift-I>" do
+    activate('iDvtm')
+    sleep(1)
+    send('<Ctrl-f>')
+    send('2')
+end
+map "<Ctrl-Shift-N>" do
+    activate('iDvtm')
     sleep(1)
     send('<Ctrl-f>')
     send('1')
 end
 
 # Leader ---------------------------------------------------------------------------
-map "<Ctrl-,>" do
-    input()
-end
+# map "<Ctrl-,>" do
+#     input()
+# end
 
 # Abbreviations --------------------------------------------------------------------
 

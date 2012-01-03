@@ -48,6 +48,7 @@ set autowrite
 set shiftround
 set autoread
 set title
+set linebreak
 set dictionary=/usr/share/dict/words
 
 " Wildmenu completion {{{
@@ -632,6 +633,9 @@ augroup ft_python
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
+
+    " Jesus, Python.  Five characters of punctuation for a damn string?
+    au FileType python inoremap <buffer> <d-'> _(u'')<left><left>
 augroup END
 
 " }}}
@@ -717,11 +721,12 @@ nnoremap <leader>! :Shell
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
 
-" Clean whitespace
-map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
+" Clean trailing whitespace
+nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
 
-" Dammit, Slimv
-map <leader>WW :%s/\s\+$//<cr>:let @/=''<CR>
+" Send visual selection to gist.github.com as a private, filetyped Gist
+" Requires the gist command line too (brew install gist)
+vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
 
 " Change case
 nnoremap <C-u> gUiw
@@ -746,8 +751,9 @@ nnoremap Q gqip
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
-" Jesus, Python.
-inoremap <d-'> _(u'')<left><left>
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc><right>
 
 " Preview Files
 nnoremap <leader>p :w<cr>:Hammer<cr>
@@ -1042,7 +1048,7 @@ let g:pymode_run = 0
 let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
 let g:pymode_utils_whitespaces = 0
-let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 0
 
 let g:pymode_options_indent = 0
 let g:pymode_options_fold = 0
