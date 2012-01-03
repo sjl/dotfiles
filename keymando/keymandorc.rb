@@ -16,19 +16,16 @@ map "<Ctrl-Shift-Y>", lambda { activate('Twitter') }
 
 map "<Ctrl-Shift-M>" do
     activate('iDvtm')
-    sleep(1)
     send('<Ctrl-f>')
     send('3')
 end
 map "<Ctrl-Shift-I>" do
     activate('iDvtm')
-    sleep(1)
     send('<Ctrl-f>')
     send('2')
 end
 map "<Ctrl-Shift-N>" do
     activate('iDvtm')
-    sleep(1)
     send('<Ctrl-f>')
     send('1')
 end
