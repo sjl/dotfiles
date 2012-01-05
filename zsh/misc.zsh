@@ -90,3 +90,7 @@ function fack () {
 alias collapse="sed -e 's/  */ /g'"
 alias cuts="cut -d' '"
 alias clc="./get-last-commit-url.py | pbc"
+
+function psg() {
+    ps auxww | grep --color=always $* | grep -v grep | collapse | cuts -f 2,11-
+}
