@@ -103,8 +103,8 @@ hi SpecialComment  guifg=#465457               gui=bold
 hi Special         guifg=#66D9EF guibg=bg      gui=italic
 hi SpecialKey      guifg=#888A85               gui=italic
 hi Statement       guifg=#F92672               gui=bold
-hi StatusLine      guifg=#CD5907 guibg=fg
-hi StatusLineNC    guifg=#808080 guibg=#080808
+hi StatusLine      guifg=#262626 guibg=fg
+hi StatusLineNC    guifg=#262626 guibg=#080808
 hi StorageClass    guifg=#FD971F               gui=italic
 hi Structure       guifg=#66D9EF
 hi Tag             guifg=#F92672               gui=italic
