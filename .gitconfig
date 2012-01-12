@@ -30,8 +30,7 @@
     fu = fetch upstream
     po = push origin
     lo = pull origin
-    moo = merge origin/ongoing
-    mont = merge origin/new-teams
+    mo = !git merge origin/`git branch --contains HEAD | tr -s ' ' | cut -d ' ' -f2`
 
 [push]
 	default = current
@@ -57,3 +56,5 @@
 [mergetool "threesome"]
     cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
+[web]
+	browser = open

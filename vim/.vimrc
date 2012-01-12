@@ -138,41 +138,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " }}}
-" Status line ------------------------------------------------------------- {{{
-
-augroup ft_statuslinecolor
-    au!
-
-    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-augroup END
-
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-
-set statusline+=\    " Space.
-
-set statusline+=%#redbar#                " Highlight the following as a warning.
-set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
-
-set statusline+=%=   " Right align.
-
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=)
-
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-
-" }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
 function! EatChar(pat)
@@ -277,8 +242,8 @@ inoremap ∆ <esc>:lnext<cr>zvzz
 inoremap ˚ <esc>:lprevious<cr>zvzz
 nnoremap <m-Down> :cnext<cr>zvzz
 nnoremap <m-Up> :cprevious<cr>zvzz
-" }}}
 
+" }}}
 " Directional Keys {{{
 
 " It's 2011.
@@ -293,15 +258,16 @@ noremap <C-l>  <C-w>l
 noremap <leader>v <C-w>v
 
 " }}}
-
 " Highlight word {{{
+
 nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
-" }}}
 
+" }}}
 " Visual Mode */# from Scrooloose {{{
+
 function! s:VSetSearch()
   let temp = @@
   norm! gvy
@@ -311,6 +277,7 @@ endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+
 " }}}
 
 " }}}
@@ -566,6 +533,10 @@ augroup ft_javascript
 
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
+
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+    " positioned inside of them AND the following code doesn't get unfolded.
+    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 augroup END
 
 " }}}
@@ -801,14 +772,15 @@ noremap ' `
 noremap æ '
 noremap ` <C-^>
 
+" Select (charwise) the contents of the current line, excluding indentation.
+" Great for pasting Python lines into REPLs.
+nnoremap vv ^vg_
+
 " Calculator
 inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " Better Completion
 set completeopt=longest,menuone,preview
-" inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" inoremap <expr> <C-p> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>up>" : ""<CR>'
-" inoremap <expr> <C-n> pumvisible() ? '<C-n>'  : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " Sudo to write
 cmap w!! w !sudo tee % >/dev/null
@@ -920,6 +892,15 @@ nnoremap Ajk <nop>
 nnoremap A<esc> <nop>
 
 " }}}
+" CTags  ------------------------------------------------------------------ {{{
+
+" For some reason ctags refuses to ignore Python variables, so I'll just hack
+" the tags file with sed and strip them out myself.
+"
+" Sigh.
+nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>
+
+" }}}
 " Plugin settings --------------------------------------------------------- {{{
 
 " Ack {{{
@@ -945,6 +926,7 @@ let g:ctrlp_map = '<leader>,'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
+let g:ctrlp_max_height = 20
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
 \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
@@ -952,6 +934,9 @@ let g:ctrlp_prompt_mappings = {
 \ 'PrtHistory(1)':        ['<c-p>'],
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
+let g:ctrlp_extensions = ['tag']
+
+nnoremap <leader>. :CtrlPTag<cr>
 
 " }}}
 " Easymotion {{{
@@ -988,6 +973,10 @@ augroup ft_fugitive
 
     au BufNewFile,BufRead .git/index setlocal nolist
 augroup END
+
+" "Hub"
+nnoremap <leader>H :Gbrowse<cr>
+vnoremap <leader>H :Gbrowse<cr>
 
 " }}}
 " Gundo {{{
@@ -1049,6 +1038,11 @@ let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo',
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
 
 let g:org_debug = 1
+
+" }}}
+" Powerline {{{
+
+let g:Powerline_symbols = 'fancy'
 
 " }}}
 " Python-Mode {{{
@@ -1208,8 +1202,8 @@ vnoremap ad a[
 " }}}
 " Next and Last {{{
 
-" Motion for "next/last object". For example, "din(" would go to the next "()" pair
-" and delete its contents.
+" Motion for "next/last object". For example, "din(" would go to the next "()"
+" pair and delete its contents.
 
 onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
@@ -1234,6 +1228,14 @@ function! s:NextTextObject(motion, dir)
 
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
+
+" }}}
+" CamelCase {{{
+
+" onoremap c :<c-u>call search('[A-Z]')<cr>
+" xnoremap c :<c-u>call search('[A-Z]')<cr>
+" onoremap C :<c-u>call search('[A-Z]', 'b')<cr>
+" xnoremap C :<c-u>call search('[A-Z]', 'b')<cr>
 
 " }}}
 
@@ -1388,7 +1390,7 @@ nnoremap <leader>hb :HgBlame<cr>
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
-    set guifont=Menlo:h12
+    set guifont=Menlo\ Regular\ for\ Powerline:h12
 
     " Remove all the UI cruft
     set go-=T
