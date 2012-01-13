@@ -117,7 +117,7 @@ set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
-set noswapfile                    " It's 2011, Vim.
+set noswapfile                    " It's 2012, Vim.
 
 " }}}
 " Leader {{{
@@ -739,9 +739,6 @@ nnoremap <leader>V V`]
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc><right>
 
-" Preview Files
-nnoremap <leader>p :w<cr>:Hammer<cr>
-
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
@@ -801,42 +798,6 @@ nnoremap _d  :set ft=diff<CR>
 " Toggle paste
 set pastetoggle=<F8>
 
-" Split/Join {{{
-"
-" Basically this splits the current line into two new ones at the cursor position,
-" then joins the second one with whatever comes next.
-"
-" Example:                      Cursor Here
-"                                    |
-"                                    V
-" foo = ('hello', 'world', 'a', 'b', 'c',
-"        'd', 'e')
-"
-"            becomes
-"
-" foo = ('hello', 'world', 'a', 'b',
-"        'c', 'd', 'e')
-"
-" Especially useful for adding items in the middle of long lists/tuples in Python
-" while maintaining a sane text width.
-nnoremap K h/[^ ]<cr>"zd$jyyP^v$h"zpJk:s/\v +$//<cr>:noh<cr>j^
-" }}}
-
-" Handle URL {{{
-" Stolen from https://github.com/askedrelic/homedir/blob/master/.vimrc
-" OSX only: Open a web-browser with the URL in the current line
-function! HandleURI()
-    let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-    echo s:uri
-    if s:uri != ""
-        exec "!open \"" . s:uri . "\""
-    else
-        echo "No URI found in line."
-    endif
-endfunction
-map <leader>u :call HandleURI()<CR>
-" }}}
-
 " Quickreturn
 inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
@@ -892,7 +853,7 @@ nnoremap Ajk <nop>
 nnoremap A<esc> <nop>
 
 " }}}
-" CTags  ------------------------------------------------------------------ {{{
+" CTags ------------------------------------------------------------------- {{{
 
 " For some reason ctags refuses to ignore Python variables, so I'll just hack
 " the tags file with sed and strip them out myself.
@@ -1228,14 +1189,6 @@ function! s:NextTextObject(motion, dir)
 
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
-
-" }}}
-" CamelCase {{{
-
-" onoremap c :<c-u>call search('[A-Z]')<cr>
-" xnoremap c :<c-u>call search('[A-Z]')<cr>
-" onoremap C :<c-u>call search('[A-Z]', 'b')<cr>
-" xnoremap C :<c-u>call search('[A-Z]', 'b')<cr>
 
 " }}}
 
