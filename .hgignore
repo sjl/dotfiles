@@ -24,3 +24,4 @@ weechat/weechat.log
 weechat/python/autoload/servers.py
 weechat/urls.log
 weechat/irc.conf
+vim/bundle/potion
