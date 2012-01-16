@@ -1,4 +1,5 @@
 alias h=hg
+alias g=git
 
 alias ghcm='ghc --make -optl"-Wl,-read_only_relocs,suppress"'
 alias pbc='pbcopy'
