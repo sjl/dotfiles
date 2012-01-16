@@ -51,6 +51,15 @@ set title
 set linebreak
 set dictionary=/usr/share/dict/words
 
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*" 
+
+" Save when losing focus
+au FocusLost * :wa
+
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
 " Wildmenu completion {{{
 
 set wildmenu
@@ -76,16 +85,6 @@ set wildignore+=classes
 set wildignore+=lib
 
 " }}}
-
-" Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*" 
-
-" Save when losing focus
-au FocusLost * :wa
-
-" Resize splits when the window is resized
-au VimResized * exe "normal! \<c-w>="
-
 " Line Return {{{
 
 " Make sure Vim returns to the same line when you reopen a file.
@@ -711,6 +710,7 @@ nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
 " Send visual selection to gist.github.com as a private, filetyped Gist
 " Requires the gist command line too (brew install gist)
 vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 
 " Change case
 nnoremap <C-u> gUiw
@@ -883,11 +883,15 @@ au FileType htmldjango setlocal commentstring={#\ %s\ #}
 " }}}
 " Ctrl-P {{{
 
+let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_map = '<leader>,'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
+let g:ctrlp_extensions = ['tag']
+
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
 \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
@@ -895,7 +899,16 @@ let g:ctrlp_prompt_mappings = {
 \ 'PrtHistory(1)':        ['<c-p>'],
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
-let g:ctrlp_extensions = ['tag']
+
+let my_ctrlp_user_command = "" . 
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ "egrep -iv '\\.(" .
+    \ "swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^\\./(" .
+    \ "libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
+    \ ")'"
+let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files', my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
 
@@ -986,7 +999,7 @@ inoremap <F2> <esc>:NERDTreeToggle<cr>
 au Filetype nerdtree setlocal nolist
 
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
+let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db', 'tags.bak']
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
