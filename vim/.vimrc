@@ -581,6 +581,7 @@ augroup ft_org
     au!
 
     au Filetype org nmap <buffer> Q vahjgq
+    au Filetype org setlocal nolist
 augroup END
 
 " }}}
