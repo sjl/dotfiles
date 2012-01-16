@@ -90,7 +90,23 @@ function fack () {
 alias collapse="sed -e 's/  */ /g'"
 alias cuts="cut -d' '"
 alias clc="./get-last-commit-url.py | pbc"
+alias count="sort | uniq -c | sort -n"
 
 function psg() {
     ps auxww | grep --color=always $* | grep -v grep | collapse | cuts -f 2,11-
+}
+
+# sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
+function gn() {
+    MINS=$1; shift
+
+    if [[ "x$MINS" == "x1" ]]; then
+        echo "one"
+        UNITS="minute"
+    else
+        echo "two"
+        UNITS="minutes"
+    fi
+
+    echo growlnotify -sm "'$*'" | at now + $MINS $UNITS
 }
