@@ -79,7 +79,9 @@ function! PythonFoldTextDocstrings()
     " add docstrings
     let line = getline(fs)
     if getline(fs + 1) =~ '^\s*"""'
-        let line = line . "  (" . getline(fs + 1) . ")"
+        " Not sure which wrapping symbols I like yet.
+        " «»≺≻⸮⸫
+        let line = line . "  «" . getline(fs + 1) . "»"
         let line = substitute(line, '\s*"""', '', 'g')
         let line = substitute(line, '"""', '', 'g')
     endif
