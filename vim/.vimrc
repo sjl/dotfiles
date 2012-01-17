@@ -918,16 +918,16 @@ nnoremap <leader>. :CtrlPTag<cr>
 
 let g:EasyMotion_do_mapping = 0
 
-nnoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
-onoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
-vnoremap <silent> <Leader>f :<C-U>call EasyMotionF(1, 0)<CR>
+nnoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
+onoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
+vnoremap <silent> <Leader>f :<C-U>call EasyMotion#F(1, 0)<CR>
 
-nnoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
-onoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
-vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
+nnoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
+onoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
+vnoremap <silent> <Leader>F :<C-U>call EasyMotion#F(1, 1)<CR>
 
-onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
-onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
+onoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
+onoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
 
 " }}}
 " Fugitive {{{
@@ -1018,6 +1018,7 @@ let g:org_debug = 1
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme = 'sjl'
 
 " }}}
 " Python-Mode {{{
@@ -1526,5 +1527,11 @@ function! NyanMe() " {{{
     redraw
 endfunction " }}}
 command! NyanMe call NyanMe()
+
+" }}}
+" Dtach ------------------------------------------------------------------- {{{
+
+vnoremap <localleader>e :<c-u>silent '<,'>w !dtach -s /tmp/target<cr>:silent !echo \| dtach -s /tmp/target<cr>
+nnoremap <localleader>e ^vg_:<c-u>silent '<,'>w !dtach -s /tmp/target<cr>
 
 " }}}
