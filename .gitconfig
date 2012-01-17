@@ -19,6 +19,7 @@
     cm = commit -m
 
     co = checkout
+    id = rev-parse
 
     stat = status
     st = status
