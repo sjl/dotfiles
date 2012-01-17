@@ -14,6 +14,7 @@ set background=dark
 let g:colors_name="molokai"
 
 " Basic Layout {{{
+
 hi Normal          guifg=#F8F8F2 guibg=#1B1E1F
 hi Folded          guifg=#666666 guibg=bg
 hi CursorLine                    guibg=#232728
@@ -24,8 +25,12 @@ hi FoldColumn      guifg=#AAAAAA guibg=bg
 hi VertSplit       guifg=#AAAAAA guibg=bg gui=none
 hi Search          guifg=#000000 guibg=#E4E500
 hi IncSearch       guibg=#000000 guifg=#FF8D00
+hi Operator        guifg=#F92672
+hi MatchParen      guifg=#F35FBC guibg=#232728 gui=bold
+
 " }}}
 " Syntax {{{
+
 hi Boolean         guifg=#AE81FF
 hi Comment         guifg=#5c7176
 hi Character       guifg=#E6DB74
@@ -39,49 +44,62 @@ hi Delimiter       guifg=#8F8F8F
 hi Float           guifg=#AE81FF
 hi Function        guifg=#A6E22E
 hi Identifier      guifg=#FD971F
-" }}}
-" Diffs {{{
-hi DiffAdd                       guibg=#1e4313
-hi DiffChange      guifg=#89807D guibg=#322F2D
-hi DiffDelete      guifg=#ff0088 guibg=#1B1E1F
-hi DiffText                      guibg=#4A4340 gui=italic,bold
-" }}}
-" Cursor {{{
-hi Cursor          guifg=#000000 guibg=#F35FBC
-hi iCursor         guifg=#000000 guibg=#FDFF00
-hi vCursor         guifg=#000000 guibg=#AAF412
-" }}}
-" Block Colors {{{
-hi BlockColor1 guibg=#2a2a2a
-hi BlockColor2 guibg=#333333
-hi BlockColor3 guibg=#3b3b3b
-hi BlockColor4 guibg=#424242
-" }}}
-
-hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=black guibg=#9edf1c
-hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=#C50048
-
-hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
-hi EasyMotionShade  guifg=#444444 guibg=bg gui=bold
-hi Directory       guifg=#A6E22E               gui=bold
 hi Error           guifg=#960050 guibg=#1E0010
-hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
-hi Exception       guifg=#A6E22E               gui=bold
-hi Ignore          guifg=#808080 guibg=bg
-
 hi Keyword         guifg=#F92672               gui=bold
 hi Label           guifg=#E6DB74               gui=none
 hi Macro           guifg=#C4BE89               gui=italic
 hi SpecialKey      guifg=#66D9EF               gui=italic
 
+" }}}
+" Diffs {{{
+
+hi DiffAdd                       guibg=#1e4313
+hi DiffChange      guifg=#89807D guibg=#322F2D
+hi DiffDelete      guifg=#ff0088 guibg=#1B1E1F
+hi DiffText                      guibg=#4A4340 gui=italic,bold
+
+" }}}
+" Cursor {{{
+
+hi Cursor          guifg=#000000 guibg=#F35FBC
+hi iCursor         guifg=#000000 guibg=#FDFF00
+hi vCursor         guifg=#000000 guibg=#AAF412
+
+" }}}
+" Block Colors {{{
+
+hi BlockColor1 guibg=#2a2a2a
+hi BlockColor2 guibg=#333333
+hi BlockColor3 guibg=#3b3b3b
+hi BlockColor4 guibg=#424242
+
+" }}}
+" Makegreen {{{
+
+hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=black guibg=#9edf1c
+hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=#C50048
+
+" }}}
+" EasyMotion {{{
+
+hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
+hi EasyMotionShade  guifg=#444444 guibg=bg gui=bold
+
+" }}}
+
+hi Directory       guifg=#A6E22E               gui=bold
+hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold
+hi Exception       guifg=#A6E22E               gui=bold
+hi Ignore          guifg=#808080 guibg=bg
+
+
 hi InterestingWord1 guifg=#000000 guibg=#FFA700
 hi InterestingWord2 guifg=#000000 guibg=#53FF00
 hi InterestingWord3 guifg=#000000 guibg=#FF74F8
 
-hi MatchParen      guifg=#E4E400 guibg=#434748 gui=bold
+
 hi ModeMsg         guifg=#E6DB74
 hi MoreMsg         guifg=#E6DB74
-hi Operator        guifg=#F92672
 
 " Completion Menu {{{
 hi Pmenu           guifg=#cccccc guibg=#232728
