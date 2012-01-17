@@ -30,6 +30,9 @@ nnoremap <c-g> <s-f12>
 " Shift is hard.
 nnoremap ; :
 
+" YES YES YES REMOVE THE IDIOCY
+nnoremap <bs> <nop>
+
 " Highlight all search matches, not just the first.
 set hlfind
 
