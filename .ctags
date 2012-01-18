@@ -1,14 +1,14 @@
 --python-kinds=cfm
+--javascript-kinds=cm
 --fields=-s
 
---languages=-javascript
 --languages=-html
 
 --exclude=flowplayer
 --exclude=*.min.js
---exclude=migrations
+--exclude=jquery.*.js
+--exclude=jquery-*.js
 --exclude=.hg
---exclude=*demo*
 --exclude=.ropeproject
 --exclude=libs
 --exclude=build

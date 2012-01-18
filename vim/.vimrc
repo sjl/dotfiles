@@ -284,6 +284,9 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 
 set foldlevelstart=0
 
+" Make the current location sane.
+nnoremap <c-cr> zvzz
+
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
@@ -674,13 +677,13 @@ augroup END
 " }}}
 " Quick editing ----------------------------------------------------------- {{{
 
-nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>s<C-w>j<C-w>L:e ~/.vim/snippets/<cr>
-nnoremap <leader>eo <C-w>s<C-w>j<C-w>L:e ~/Dropbox/Org<cr>4j
-nnoremap <leader>eh <C-w>s<C-w>j<C-w>L:e ~/.hgrc<cr>
-nnoremap <leader>em <C-w>s<C-w>j<C-w>L:e ~/.mutt/muttrc<cr>
-nnoremap <leader>ez <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/zsh<cr>4j
-nnoremap <leader>ek <C-w>s<C-w>j<C-w>L:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
+nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
+nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
+nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
+nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " }}}
 " Shell ------------------------------------------------------------------- {{{
@@ -901,15 +904,23 @@ let g:ctrlp_prompt_mappings = {
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
 
-let my_ctrlp_user_command = "" . 
-    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+let ctrlp_filter_greps = "".
     \ "egrep -iv '\\.(" .
     \ "swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
-    \ "egrep -v '^\\./(" .
+    \ "egrep -v '^(\\./)?(" .
     \ "libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
     \ ")'"
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files', my_ctrlp_user_command]
+
+let my_ctrlp_user_command = "" . 
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ ctrlp_filter_greps
+
+let my_ctrlp_git_command = "" . 
+    \ "cd %s && git ls-files | " .
+    \ ctrlp_filter_greps
+
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
 
