@@ -26,7 +26,7 @@ hi VertSplit       guifg=#AAAAAA guibg=bg gui=none
 hi Search          guifg=#000000 guibg=#E4E500
 hi IncSearch       guibg=#000000 guifg=#FF8D00
 hi Operator        guifg=#F92672
-hi MatchParen      guifg=#F35FBC guibg=#232728 gui=bold
+hi MatchParen      guifg=#ffec00 guibg=#232728 gui=bold
 
 " }}}
 " Syntax {{{
@@ -83,7 +83,7 @@ hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=#C50048
 " EasyMotion {{{
 
 hi EasyMotionTarget guifg=#E4E500 guibg=bg gui=bold
-hi EasyMotionShade  guifg=#444444 guibg=bg gui=bold
+hi EasyMotionShade  guifg=#444444 guibg=bg
 
 " }}}
 
