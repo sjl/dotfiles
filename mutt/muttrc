@@ -9,6 +9,11 @@ set tmpdir              = ~/.mutt/temp                          # where to keep 
 set editor              = "vim +/^$ +:s/^$/\\\\r\\\\r/ +:noh -c 'normal! k' -c 'set nolist' -c 'redraw'" # use vim
 set print_command       = /usr/bin/enscript                     # print with enscript
 
+# address book
+set query_command       = "lbdbq '%s' | sed -e 's/(null)//g'"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
 # main options
 set mbox_type           = Maildir                               # mailbox type
 set folder              = ~/.mail                               # mailbox location

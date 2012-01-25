@@ -4,7 +4,7 @@ start_at_login
 disable "Remote Desktop Connection"
 disable /VirtualBox/
 
-map "<Ctrl-m>", "<Ctrl-F2>"
+map "<Ctrl-m>", "<Cmd-Shift-/>"
 map "<Ctrl-Shift-R>", lambda { reload() }
 
 # Application Switching ------------------------------------------------------------

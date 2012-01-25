@@ -1,34 +1,13 @@
 <?xml version="1.0"?>
 <root>
   <list>
-    <item>
-      <name>Shift_R to Backspace</name>
-      <identifier>private.shift_r_to_backspace</identifier>
-      <autogen>--KeyToKey-- KeyCode::SHIFT_R, KeyCode::DELETE</autogen>
-    </item>
+      <item>
+          <name>Tab to Option_R</name>
+          <appendix>(+ When you type Tab only, send Tab)</appendix>
+          <identifier>private.tab_to_option</identifier>
+          <autogen>--KeyOverlaidModifier-- KeyCode::TAB, KeyCode::OPTION_R, KeyCode::TAB</autogen>
+      </item>
   </list>
-  <list>
-    <item>
-      <name>Help to Capslock</name>
-      <identifier>private.help_to_capslock</identifier>
-      <autogen>--KeyToKey-- KeyCode::HELP, KeyCode::CAPSLOCK</autogen>
-    </item>
-  </list>
-  <list>
-    <item>
-      <name>Option+CR to something that actually works</name>
-      <identifier>private.alt_cr</identifier>
-      <autogen>--KeyToKey-- KeyCode::RETURN, VK_OPTION, KeyCode::DOT, ModifierFlag::OPTION_L</autogen>
-    </item>
-  </list>
-  <list>
-    <item>
-      <name>Ctrl+; to something that actually works (Ctrl+G)</name>
-      <identifier>private.ctrl_semicolon_to_ctrl_g</identifier>
-      <autogen>--KeyToKey-- KeyCode::SEMICOLON, VK_CONTROL, KeyCode::G, ModifierFlag::CONTROL_L</autogen>
-    </item>
-  </list>
-
   <list>
     <item>
       <name>Swap parens and brackets</name>
@@ -40,6 +19,13 @@
     </item>
   </list>
 
+  <list>
+      <item>
+          <name>Command_R to Option+Backspace</name>
+          <identifier>private.cmd_r_kill_word</identifier>
+          <autogen>--KeyToKey-- KeyCode::COMMAND_R, KeyCode::DELETE, ModifierFlag::OPTION_L</autogen>
+      </item>
+  </list>
   <list>
     <item>
       <name>Use the correct goddamed shift keys.</name>
