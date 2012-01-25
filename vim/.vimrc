@@ -285,7 +285,7 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 set foldlevelstart=0
 
 " Make the current location sane.
-nnoremap <c-cr> zvzz
+nnoremap <c-cr> zvzt
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -708,6 +708,11 @@ nnoremap <leader>! :Shell
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
 
+" Highlight Group
+nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Clean trailing whitespace
 nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
 
@@ -735,6 +740,7 @@ nnoremap <silent> <F6> :YRShow<cr>
 
 " Formatting, TextMate-style
 nnoremap Q gqip
+vnoremap Q gq
 
 " Easier linewise reselection
 nnoremap <leader>V V`]
@@ -784,7 +790,18 @@ inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 set completeopt=longest,menuone,preview
 
 " Sudo to write
-cmap w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Typos
+command! -bang E e<bang>
+command! -bang Q q<bang>
+command! -bang W w<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
 
 " I suck at typing.
 nnoremap <localleader>= ==
@@ -906,10 +923,10 @@ let g:ctrlp_prompt_mappings = {
 
 let ctrlp_filter_greps = "".
     \ "egrep -iv '\\.(" .
-    \ "swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
-    \ "libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
+    \ "lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
     \ ")'"
 
 let my_ctrlp_user_command = "" . 
@@ -1038,6 +1055,7 @@ let g:pymode_doc = 1
 let g:pymode_doc_key = '<localleader>ds'
 let g:pydoc = 'pydoc'
 let g:pymode_syntax = 0
+let g:pymode_syntax_all = 0
 let g:pymode_run = 0
 let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
@@ -1283,10 +1301,6 @@ nmap <silent> <f4> :QFixToggle<cr>
 " }}}
 " Utils ------------------------------------------------------------------- {{{
 
-function! g:echodammit(msg)
-    exec 'echom "----------> ' . a:msg . '"'
-endfunction
-
 " Synstack {{{
 
 " Show the stack of syntax hilighting classes affecting whatever is under the
@@ -1295,7 +1309,7 @@ function! SynStack() "{{{
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc "}}}
 
-nnoremap ß :call SynStack()<CR>
+nnoremap <F7> :call SynStack()<CR>
 
 " }}}
 " Toggle whitespace in diffs {{{

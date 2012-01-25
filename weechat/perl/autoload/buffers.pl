@@ -19,6 +19,16 @@
 # Display sidebar with list of buffers.
 #
 # History:
+#
+# 2012-01-04, SÃ©bastien Helleu <flashcode@flashtux.org>:
+#     2.7: fix regex lookup in whitelist buffers list
+# 2011-12-04, Nils G <weechatter@arcor.de>:
+#     2.6: add own config file (buffers.conf)
+#          add new behavior for indenting (under_name)
+#          add new option to set different color for server buffers and buffers with free content
+# 2011-10-30, Nils G <weechatter@arcor.de>:
+#     2.5: add new options "show_number_char" and "color_number_char",
+#          add help-description for options
 # 2011-08-24, SÃ©bastien Helleu <flashcode@flashtux.org>:
 #     v2.4: add mouse support
 # 2011-06-06, Nils G <weechatter@arcor.de>:
@@ -71,57 +81,20 @@
 #     v0.1: script creation
 #
 # Help about settings:
-#   display short names (remove text before first "." in buffer name):
-#      /set plugins.var.perl.buffers.short_names on
-#   use indenting for some buffers like IRC channels:
-#      /set plugins.var.perl.buffers.indenting on
-#   use indenting for numbers:
-#      /set plugins.var.perl.buffers.indenting_number on
-#   hide merged buffers:
-#      /set plugins.var.perl.buffers.hide_merged_buffers on
-#   show prefix:
-#      /set plugins.var.perl.buffers.show_prefix on
-#      /set plugins.var.perl.buffers.show_prefix_empty on
-#   change colors:
-#      /set plugins.var.perl.buffers.color_number color
-#      /set plugins.var.perl.buffers.color_default color
-#      /set plugins.var.perl.buffers.color_hotlist_low color
-#      /set plugins.var.perl.buffers.color_hotlist_message color
-#      /set plugins.var.perl.buffers.color_hotlist_private color
-#      /set plugins.var.perl.buffers.color_hotlist_highlight color
-#      /set plugins.var.perl.buffers.color_current color
-#   (replace "color" by your color, which may be "fg" or "fg,bg")
+#   display all settings for script (or use iset.pl script to change settings):
+#      /set buffers*
+#   show help text for option buffers.look.whitelist_buffers:
+#      /help buffers.look.whitelist_buffers
 #
 
 use strict;
 
-my $version = "2.4";
+# -------------------------------[ internal ]-------------------------------------
+my $version = "2.7";
 
-# -------------------------------[ config ]-------------------------------------
+my $BUFFERS_CONFIG_FILE_NAME = "buffers";
+my $buffers_config_file;
 
-my %default_options = ("short_names"               => "on",
-                       "indenting"                 => "on",
-                       "indenting_number"          => "on",
-                       "hide_merged_buffers"       => "off",
-                       "show_number"               => "on",
-                       "show_prefix"               => "off",
-                       "show_prefix_empty"         => "on",
-                       "sort"                      => "number",  # "number" or "name"
-                       "color_hotlist_low"         => "white",
-                       "color_hotlist_message"     => "yellow",
-                       "color_hotlist_private"     => "lightgreen",
-                       "color_hotlist_highlight"   => "magenta",
-                       "color_current"             => "lightcyan,red",
-                       "color_default"             => "default",
-                       "color_number"              => "lightgreen",
-                       "color_whitelist_buffers"   => "",
-                       "color_whitelist_default"   => "",
-                       "color_whitelist_low"       => "",
-                       "color_whitelist_message"   => "",
-                       "color_whitelist_private"   => "",
-                       "color_whitelist_highlight" => "",
-
-    );
 my %mouse_keys = ("\@item(buffers):button1*" => "hsignal:buffers_mouse");
 my %options;
 my %hotlist_level = (0 => "low", 1 => "message", 2 => "private", 3 => "highlight");
@@ -129,18 +102,12 @@ my @whitelist_buffers = "";
 my @buffers_focus = ();
 
 # --------------------------------[ init ]--------------------------------------
-
 weechat::register("buffers", "SÃ©bastien Helleu <flashcode\@flashtux.org>", $version,
                   "GPL3", "Sidebar with list of buffers", "", "");
+my $weechat_version = weechat::info_get("version_number", "") || 0;
 
-foreach my $option (keys %default_options)
-{
-    if (!weechat::config_is_set_plugin($option))
-    {
-        weechat::config_set_plugin($option, $default_options{$option});
-    }
-}
-buffers_read_options();
+buffers_config_init();
+buffers_config_read();
 
 weechat::bar_item_new("buffers", "build_buffers", "");
 weechat::bar_new("buffers", "0", "0", "root", "", "left", "horizontal",
@@ -148,9 +115,7 @@ weechat::bar_new("buffers", "0", "0", "root", "", "left", "horizontal",
                  "buffers");
 weechat::hook_signal("buffer_*", "buffers_signal_buffer", "");
 weechat::hook_signal("hotlist_*", "buffers_signal_hotlist", "");
-weechat::hook_config("plugins.var.perl.buffers.*", "buffers_signal_config", "");
 weechat::bar_item_update("buffers");
-my $weechat_version = weechat::info_get("version_number", "") || 0;
 if ($weechat_version >= 0x00030600)
 {
     weechat::hook_focus("buffers", "buffers_focus_buffers", "");
@@ -158,21 +123,185 @@ if ($weechat_version >= 0x00030600)
     weechat::key_bind("mouse", \%mouse_keys);
 }
 
-# ------------------------------------------------------------------------------
-
-sub buffers_read_options
+# -------------------------------- [ config ] --------------------------------
+sub buffers_config_read
 {
-    foreach my $option (keys %default_options)
+    return weechat::config_read($buffers_config_file) if ($buffers_config_file ne "");
+}
+sub buffers_config_write
+{
+    return weechat::config_write($buffers_config_file) if ($buffers_config_file ne "");
+}
+sub buffers_config_reload_cb
+{
+    my ($data,$config_file) = ($_[0], $_[1]);
+    return weechat::config_read($config_file)
+}
+sub buffers_config_init
+{
+    $buffers_config_file = weechat::config_new($BUFFERS_CONFIG_FILE_NAME,"buffers_config_reload_cb","");
+    return if ($buffers_config_file eq "");
+
+    # section "color"
+    my $section_color = weechat::config_new_section($buffers_config_file,"color", 0, 0, "", "", "", "", "", "", "", "", "", "");
+    if ($section_color eq "")
     {
-        $options{$option} = weechat::config_get_plugin($option);
+        weechat::config_free($buffers_config_file);
+        return;
     }
-    @whitelist_buffers = split(/,/, $options{color_whitelist_buffers});
+    $options{"color_current_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "current_fg", "color", "foreground color for current buffer", "", 0, 0,
+        "lightcyan", "lightcyan", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_current_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "current_bg", "color", "background color for current buffer", "", 0, 0,
+        "red", "red", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_default_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "default_fg", "color", "default foreground color for buffer name", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_default_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "default_bg", "color", "default background color for buffer name", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_highlight_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_highlight_fg", "color", "change foreground color of buffer name if a highlight messaged received", "", 0, 0,
+        "magenta", "magenta", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_highlight_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_highlight_bg", "color", "change background color of buffer name if a highlight messaged received", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_low_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_low_fg", "color", "change foreground color of buffer name if a low message received", "", 0, 0,
+        "white", "white", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_low_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_low_bg", "color", "change background color of buffer name if a low message received", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_message_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_message_fg", "color", "change foreground color of buffer name if a normal message received", "", 0, 0,
+        "yellow", "yellow", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_message_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_message_bg", "color", "change background color of buffer name if a normal message received", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_private_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_private_fg", "color", "change foreground color of buffer name if a private message received", "", 0, 0,
+        "lightgreen", "lightgreen", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_hotlist_private_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "hotlist_private_bg", "color", "change background color of buffer name if a private message received", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_number"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "number", "color", "color for buffer number", "", 0, 0,
+        "lightgreen", "lightgreen", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_number_char"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "number_char", "color", "color for buffer number char", "", 0, 0,
+        "lightgreen", "lightgreen", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_default"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_default", "color", "default color for whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_low_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_low_fg", "color", "low color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_low_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_low_bg", "color", "low color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_message_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_message_fg", "color", "message color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_message_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_message_bg", "color", "message color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_private_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_private_fg", "color", "private color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_private_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_private_bg", "color", "private color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_highlight_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_highlight_fg", "color", "highlight color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_whitelist_highlight_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "whitelist_highlight_bg", "color", "highlight color of whitelist buffer name", "", 0, 0,
+        "", "", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_none_channel_fg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "none_channel_fg", "color", "foreground color for none channel buffer (e.g.: core/server/plugin buffer)", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"color_none_channel_bg"} = weechat::config_new_option(
+        $buffers_config_file, $section_color,
+        "none_channel_bg", "color", "background color for none channel buffer (e.g.: core/server/plugin buffer)", "", 0, 0,
+        "default", "default", 0, "", "", "buffers_signal_config", "", "", "");
+
+    # section "look"
+    my $section_look = weechat::config_new_section($buffers_config_file,"look", 0, 0, "", "", "", "", "", "", "", "", "", "");
+    if ($section_look eq "")
+    {
+        weechat::config_free($buffers_config_file);
+        return;
+    }
+    $options{"color_whitelist_buffers"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "whitelist_buffers", "string", "comma separated list of buffers for using a differnt color scheme (for example: freenode.#weechat,freenode.#weechat-fr)", "", 0, 0,"", "", 0, "", "", "buffers_signal_config_whitelist", "", "", "");
+    $options{"hide_merged_buffers"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "hide_merged_buffers", "boolean", "hide merged buffers", "", 0, 0,
+        "off", "off", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"indenting"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "indenting", "integer", "use indenting for some buffers like IRC channels", "off|on|under_name", 0, 0,
+        "off", "off", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"indenting_number"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "indenting_number", "boolean", "use indenting for numbers", "", 0, 0,
+        "on", "on", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"short_names"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "short_names", "boolean", "display short names (remove text before first \".\" in buffer name)", "", 0, 0,
+        "on", "on", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"show_number"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "show_number", "boolean", "display channel number in front of buffername", "", 0, 0,
+        "on", "on", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"show_number_char"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "number_char", "string", "display a char after channel number", "", 0, 0,
+        ".", ".", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"show_prefix"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "prefix", "boolean", "show your prefix for channel", "", 0, 0,
+        "off", "off", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"show_prefix_empty"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "prefix_empty", "boolean", "use a placeholder for channels without prefix", "", 0, 0,
+        "on", "on", 0, "", "", "buffers_signal_config", "", "", "");
+    $options{"sort"} = weechat::config_new_option(
+        $buffers_config_file, $section_look,
+        "sort", "integer", "sort buffer-list by \"number\" or \"name\"", "number|name", 0, 0,
+        "number", "number", 0, "", "", "buffers_signal_config", "", "", "");
 }
 
 sub build_buffers
 {
     my $str = "";
-    
+
     # get bar position (left/right/top/bottom)
     my $position = "left";
     my $option_position = weechat::config_get("weechat.bar.buffers.position");
@@ -180,7 +309,7 @@ sub build_buffers
     {
         $position = weechat::config_string($option_position);
     }
-    
+
     # read hotlist
     my %hotlist;
     my $infolist = weechat::infolist_get("hotlist", "", "");
@@ -190,7 +319,7 @@ sub build_buffers
             weechat::infolist_integer($infolist, "priority");
     }
     weechat::infolist_free($infolist);
-    
+
     # read buffers list
     @buffers_focus = ();
     my @buffers;
@@ -245,7 +374,7 @@ sub build_buffers
     }
     @buffers = (@buffers, @current2, @current1);
     weechat::infolist_free($infolist);
-    
+
     # sort buffers by number, name or shortname
     my %sorted_buffers;
     if (1)
@@ -254,10 +383,10 @@ sub build_buffers
         for my $buffer (@buffers)
         {
             my $key;
-            if ($options{"sort"} eq "name")
+            if (weechat::config_integer( $options{"sort"} ) eq 1) # number = 0, name = 1
             {
                 my $name = $buffer->{"name"};
-                $name = $buffer->{"short_name"} if ($options{"short_names"} eq "on");
+                $name = $buffer->{"short_name"} if (weechat::config_boolean( $options{"short_names"} ) eq 1);
                 $key = sprintf("%s%08d", lc($name), $buffer->{"number"});
             }
             else
@@ -268,70 +397,61 @@ sub build_buffers
             $number++;
         }
     }
-    
+
     # build string with buffers
     $old_number = -1;
     foreach my $key (sort keys %sorted_buffers)
     {
         my $buffer = $sorted_buffers{$key};
-        if (($options{"hide_merged_buffers"} eq "on") && (! $buffer->{"active"}))
+        if ( (weechat::config_boolean( $options{"hide_merged_buffers"} ) eq 1) && (! $buffer->{"active"}) )
         {
             next;
         }
-        
+
         push(@buffers_focus, $buffer);
         my $color = "";
-        # whitelist buffer?
-        if (grep /^$buffer->{"name"}$/, @whitelist_buffers)
+        my $bg = "";
+
+        $color = weechat::config_color( $options{"color_default_fg"} );
+        $bg = weechat::config_color( $options{"color_default_bg"} );
+        # check for none channel and private buffer
+        if ( (weechat::buffer_get_string($buffer->{"pointer"}, "localvar_type") ne "channel" ) and ( weechat::buffer_get_string($buffer->{"pointer"}, "localvar_type") ne "private") )
         {
-            # options empty?
-            if ($options{"color_whitelist_default"} eq "")
-            {
-                $color = $options{"color_default"};
-            }
-            else
-            {
-                # use color
-                $color = $options{"color_whitelist_default"};
-            }
+            $color = weechat::config_color( $options{"color_none_channel_fg"} );
+            $bg = weechat::config_color( $options{"color_none_channel_bg"} );
         }
-        else
+        # default whitelist buffer?
+        if (grep {$_ eq $buffer->{"name"}} @whitelist_buffers)
         {
-            # no whitelist buffer
-            $color = $options{"color_default"};
+            $color = weechat::config_color( $options{"color_whitelist_default"} );
         }
 
         $color = "default" if ($color eq "");
-        my $bg = "";
 
         if (exists $hotlist{$buffer->{"pointer"}})
         {
-            if (grep /^$buffer->{"name"}$/, @whitelist_buffers)
+            if (grep {$_ eq $buffer->{"name"}} @whitelist_buffers)
             {
-                if ($options{"color_whitelist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}} eq "")    # no color in settings
-                {
-                    $color = $options{"color_hotlist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}};     # use standard colors
-                }
-                else
-                {
-                    $color = $options{"color_whitelist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}};
-                }
+                $bg = weechat::config_color( $options{"color_whitelist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}."_bg"} );
+                $color = weechat::config_color( $options{"color_whitelist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}."_fg"}  );
             }
             else
             {
-                $color = $options{"color_hotlist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}};
+                $bg = weechat::config_color( $options{"color_hotlist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}."_bg"} );
+                $color = weechat::config_color( $options{"color_hotlist_".$hotlist_level{$hotlist{$buffer->{"pointer"}}}."_fg"}  );
             }
         }
+
         if ($buffer->{"current_buffer"})
         {
-            $color = $options{"color_current"};
-            $bg = $1 if ($color =~ /.*,(.*)/);
+            $color = weechat::config_color( $options{"color_current_fg"} );
+            $bg = weechat::config_color( $options{"color_current_bg"} );
         }
         my $color_bg = "";
         $color_bg = weechat::color(",".$bg) if ($bg ne "");
-        if ($options{"show_number"} eq "on")
+        if ( weechat::config_boolean( $options{"show_number"} ) eq 1)
         {
-            if (($options{"indenting_number"} eq "on")
+            if (( weechat::config_boolean( $options{"indenting_number"} ) eq 1)
                 && (($position eq "left") || ($position eq "right")))
             {
                 $str .= weechat::color("default").$color_bg
@@ -339,12 +459,14 @@ sub build_buffers
             }
             if ($old_number ne $buffer->{"number"})
             {
-                $str .= weechat::color($options{"color_number"})
+                $str .= weechat::color( weechat::config_color( $options{"color_number"} ) )
                     .$color_bg
                     .$buffer->{"number"}
                     .weechat::color("default")
                     .$color_bg
-                    .".";
+                    .weechat::color( weechat::config_color( $options{"color_number_char"} ) )
+                    .weechat::config_string( $options{"show_number_char"} )
+                    .$color_bg;
             }
             else
             {
@@ -355,16 +477,23 @@ sub build_buffers
                     .$indent;
             }
         }
-        if (($options{"indenting"} eq "on")
+        if (( weechat::config_integer( $options{"indenting"} ) ne 0 )            # indenting NOT off
             && (($position eq "left") || ($position eq "right")))
         {
             my $type = weechat::buffer_get_string($buffer->{"pointer"}, "localvar_type");
             if (($type eq "channel") || ($type eq "private"))
             {
-                $str .= "  ";
+                if ( weechat::config_integer( $options{"indenting"} ) eq 1 )
+                {
+                    $str .= "  ";
+                }
+                elsif ( (weechat::config_integer($options{"indenting"}) eq 2) and (weechat::config_integer($options{"indenting_number"}) eq 0) )
+                {
+                    $str .= ( (" " x ( $max_number_digits - length($buffer->{"number"}) ))." " );
+                }
             }
         }
-        if ($options{"show_prefix"} eq "on")
+        if (weechat::config_boolean( $options{"show_prefix"} ) eq 1)
         {
             my $nickname = weechat::buffer_get_string($buffer->{"pointer"}, "localvar_nick");
             if ($nickname ne "")
@@ -382,7 +511,7 @@ sub build_buffers
                             && (weechat::infolist_string($infolist_nick, "name") eq $nickname))
                         {
                             my $prefix = weechat::infolist_string($infolist_nick, "prefix");
-                            if (($prefix ne " ") or ($options{"show_prefix_empty"} eq "on"))
+                            if (($prefix ne " ") or (weechat::config_boolean( $options{"show_prefix_empty"} ) eq 1))
                             {
                                 # with version >= 0.3.5, it is now a color name (for older versions: option name with color)
                                 if (int($version) >= 0x00030500)
@@ -404,8 +533,8 @@ sub build_buffers
                 }
             }
         }
-        $str .= weechat::color($color);
-        if ($options{"short_names"} eq "on")
+        $str .= weechat::color($color) . weechat::color(",".$bg);
+        if (weechat::config_boolean( $options{"short_names"} ) eq 1)
         {
             $str .= $buffer->{"short_name"};
         }
@@ -416,8 +545,7 @@ sub build_buffers
         $str .= "\n";
         $old_number = $buffer->{"number"};
     }
-    
-    
+
     return $str;
 }
 
@@ -433,9 +561,16 @@ sub buffers_signal_hotlist
     return weechat::WEECHAT_RC_OK;
 }
 
+
+sub buffers_signal_config_whitelist
+{
+    @whitelist_buffers = split( /,/, weechat::config_string( $options{"color_whitelist_buffers"} ) );
+    weechat::bar_item_update("buffers");
+    return weechat::WEECHAT_RC_OK;
+}
+
 sub buffers_signal_config
 {
-    buffers_read_options();
     weechat::bar_item_update("buffers");
     return weechat::WEECHAT_RC_OK;
 }
@@ -488,3 +623,4 @@ sub buffers_hsignal_mouse
         weechat::buffer_set($ptrbuf, "display", "1");
     }
 }
+
