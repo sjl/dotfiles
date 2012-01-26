@@ -111,3 +111,5 @@ function gn() {
 
     echo growlnotify -sm "'$*'" | at now + $MINS $UNITS
 }
+
+alias lc='longcat | lolcat'
