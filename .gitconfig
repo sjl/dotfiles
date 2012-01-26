@@ -20,6 +20,9 @@
     ci = commit
     cm = commit -m
 
+    d = diff
+    di = diff --cached
+
     co = checkout
     id = rev-parse
 
