@@ -58,8 +58,18 @@ set backupskip=/tmp/*,/private/tmp/*"
 au FocusLost * :wa
 
 " Resize splits when the window is resized
-au VimResized * exe "normal! \<c-w>="
+au VimResized * :wincmd =
 
+" Trailing whitespace {{{
+" Only shown when not in insert mode so I don't go insane.
+
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:⌴
+    au InsertLeave * :set listchars+=trail:⌴
+augroup END
+
+" }}}
 " Wildmenu completion {{{
 
 set wildmenu
@@ -867,13 +877,6 @@ inoremap <c-f> <c-x><c-f>
 " }}}
 
 " }}}
-" Training mappings ------------------------------------------------------- {{{
-
-" Use L, dammit.
-nnoremap Ajk <nop>
-nnoremap A<esc> <nop>
-
-" }}}
 " CTags ------------------------------------------------------------------- {{{
 
 " For some reason ctags refuses to ignore Python variables, so I'll just hack
@@ -926,7 +929,7 @@ let ctrlp_filter_greps = "".
     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
-    \ "lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
     \ ")'"
 
 let my_ctrlp_user_command = "" . 

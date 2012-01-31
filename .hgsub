@@ -5,7 +5,6 @@ vim/bundle/gundo = [hg]http://bitbucket.org/sjl/gundo.vim/
 vim/bundle/html5 = [git]git://github.com/othree/html5.vim.git
 vim/bundle/markdown = [git]git://github.com/tpope/vim-markdown.git
 vim/bundle/vim-commentary = [git]git://github.com/tpope/vim-commentary.git
-vim/bundle/vim-speeddating = [git]git://github.com/tpope/vim-speeddating.git
 vim/bundle/nerdtree = [git]git://github.com/scrooloose/nerdtree.git
 vim/bundle/surround = [git]git://github.com/tpope/vim-surround.git
 vim/bundle/sparkup = [git]git://github.com/sjl/vim-sparkup.git
