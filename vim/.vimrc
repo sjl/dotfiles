@@ -757,7 +757,7 @@ nnoremap <leader>V V`]
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc><right>
+nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
