@@ -9,7 +9,7 @@ highlight CmdOutput  font: normal 14px 'Menlo' !important;
 highlight CompItem   font: normal 14px 'Menlo' !important;
 
 set passkeys+=duckduckgo.com:jk<cr>
-set defsearch=duckduckgo-ssl
+"set defsearch=duckduckgo-ssl
 set runtimepath=/Users/sjl/.pentadactyl
 set editor='/usr/local/bin/mvim -f +<line> <file>'
 set followhints=1
