@@ -42,6 +42,7 @@ syn keyword cssTagName article aside header hgroup footer section nav figure
 syn keyword cssTagName figcaption mark summary command datalist details output
 syn keyword cssTagName progress meter time embed keygen wbr audio video canvas
 
+
 syn match cssTagName "@page\>" nextgroup=cssDefinition
 
 syn match cssSelectorOp "[+>.]"
@@ -49,7 +50,7 @@ syn match cssSelectorOp2 "[~|]\?=" contained
 syn region cssAttributeSelector matchgroup=cssSelectorOp start="\[" end="]" transparent contains=cssUnicodeEscape,cssSelectorOp2,cssStringQ,cssStringQQ
 
 try
-syn match cssIdentifier "#[A-Za-zÀ-ÿ_@][A-Za-zÀ-ÿ0-9_@-]*"
+syn match cssIdentifier "#[A-Za-zÃ€-Ã¿_@][A-Za-zÃ€-Ã¿0-9_@-]*"
 catch /^.*/
 syn match cssIdentifier "#[A-Za-z_@][A-Za-z0-9_@-]*"
 endtry
@@ -187,7 +188,7 @@ syn keyword cssTableAttr contained fixed collapse separate show hide once always
 
 
 syn match lessComment "//.*$" contains=@Spell
-syn match lessVariable "@[A-Za-z_-][A-Za-z0-9_-]*" contained
+syn match lessVariable "@[A-Za-z_-][A-Za-z0-9_-]*"
 syn region lessVariableDefinition start="^@" end=";" contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape,cssDefinition,cssClassName,cssTagName,cssIdentifier,lessComment,lessVariable,lessFunction
 
 " captures both the definition and the call
@@ -307,4 +308,5 @@ endif
 
 
 " vim: ts=8
+
 

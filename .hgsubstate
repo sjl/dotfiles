@@ -1,5 +1,5 @@
 c711681883f3419b85494e3b285b988e8e2dcbca keymando/Plugins/abbrev
-c060c94622e92e091b2c67499fdda16d91b68c01 mercurial/templates
+4d95cb18a3b420154ef978c53de1d2e692f8343d mercurial/templates
 d2bb7878622e4c16203acf1c92a0f4bc7ac58003 vim/bundle/AnsiEsc.vim
 a41d5d52c39a31128e969e69acf800b198cb07f9 vim/bundle/ack
 420174fc537ba986a716964db7af0bd189252944 vim/bundle/ctrlp
@@ -15,7 +15,7 @@ b7889db57c90824ff5092da4fdde9e05689f24fa vim/bundle/nosecompiler
 4df0cdc009e590c1d6ec32a2a3c12ff8deeb6f25 vim/bundle/powerline
 67033ee4b9ee6d4916752da5e360b65ddf2fb525 vim/bundle/python-mode
 fa3563dda862c1dc46ddac32d8a9f939e9077379 vim/bundle/rainbow-parentheses
-94be465cea8433908caaeea74422e1d28322a43e vim/bundle/slimv
+f5b2b1945dd65b0a3a6d75f9e8cdfe32011a180d vim/bundle/slimv
 c6197a10ace82e0fe0c08e5cf5c017b7069a978e vim/bundle/sparkup
 6eec2c131213850ed65fd6da494dfd1a0d620a4e vim/bundle/strftimedammit
 ac395b57fec47f034cba151d01669d134ac7041b vim/bundle/supertab

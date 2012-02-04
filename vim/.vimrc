@@ -139,7 +139,8 @@ let maplocalleader = "\\"
 
 syntax on
 set background=dark
-colorscheme molokai
+" colorscheme molokai
+colorscheme badwolf
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -360,23 +361,33 @@ augroup ft_clojure
     au FileType clojure call TurnOnClojureFolding()
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
-    au FileType clojure nnoremap <buffer> o jI<cr><esc>kA
-    au FileType clojure nnoremap <buffer> O I<cr><esc>kA
 
-    au BufWinEnter        Slimv.REPL.clj setlocal winfixwidth
-    au BufNewFile,BufRead Slimv.REPL.clj setlocal nowrap
-    au BufNewFile,BufRead Slimv.REPL.clj setlocal foldlevel=99
-    au BufNewFile,BufRead Slimv.REPL.clj nnoremap <buffer> A GA
-    au BufNewFile,BufRead Slimv.REPL.clj nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
+    au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
+    au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
+    au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
+    au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
     " Fix the eval mapping.
     au FileType clojure nmap <buffer> \ee \ed
 
+    " And the inspect mapping.
+    au FileType clojure nmap <buffer> \i \di
+
     " Indent top-level form.
     au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+augroup END
 
-    " Use a swank command that works, and doesn't require new app windows.
-    au FileType clojure let g:slimv_swank_cmd='!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+" }}}
+" Clojurescript {{{
+
+augroup ft_clojurescript
+    au!
+
+    au BufNewFile,BufRead *.cljs set filetype=clojurescript
+    au FileType clojurescript call TurnOnClojureFolding()
+
+    " Send current toplevel form to dtach.
+    au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
 augroup END
 
 " }}}
@@ -691,6 +702,7 @@ nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
 nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
 nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
 nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
+nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
 nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
 nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
@@ -832,6 +844,9 @@ set pastetoggle=<F8>
 " Quickreturn
 inoremap <c-cr> <esc>A<cr>
 inoremap <s-cr> <esc>A:<cr>
+
+" Toggle [I]nvisible Characters
+nnoremap <leader>I :set list!<cr>
 
 " Indent Guides {{{
 
@@ -1131,9 +1146,13 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 " }}}
 " SLIMV {{{
 
-"let g:slimv_lisp = '"java -cp `lein classpath` clojure.main"'
+let g:slimv_repl_name = 'SLIMV.REPL'
 let g:slimv_repl_split = 4
 let g:slimv_repl_syntax = 1
+let g:slimv_repl_wrap = 0
+
+" Use a swank command that works, and doesn't require new app windows.
+let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
 
 " }}}}
 " Sparkup {{{
@@ -1559,7 +1578,24 @@ command! NyanMe call NyanMe()
 " }}}
 " Dtach ------------------------------------------------------------------- {{{
 
-vnoremap <localleader>e :<c-u>silent '<,'>w !dtach -s /tmp/target<cr>:silent !echo \| dtach -s /tmp/target<cr>
-nnoremap <localleader>e ^vg_:<c-u>silent '<,'>w !dtach -s /tmp/target<cr>
+function! SendToDtach(visual)
+    if a:visual
+        silent '<,'>w !dtach -s /tmp/target
+        silent !echo \| dtach -s /tmp/target
+    else
+        normal! ^vg_
+        silent '<,'>w !dtach -s /tmp/target
+        execute "normal! <esc>"
+    endif
+endfunction
+
+function! SelectToplevelForm()
+    " lol
+    silent! normal vabababababababababababababababababababababababababab
+endfunction
+
+
+nnoremap <localleader>e :call SendToDtach(0)
+vnoremap <localleader>e :call SendToDtach(1)
 
 " }}}

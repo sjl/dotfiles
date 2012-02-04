@@ -26,8 +26,14 @@ nnoremap J :tn<CR>
 nnoremap K :tp<CR>
 
 " Finally I can overwrite the stupid fucking Firebug toggling correctly.
-nnoremap <c-f> <f12>
-nnoremap <c-g> <s-f12>
+" nnoremap <c-f> <f12>
+" nnoremap <c-g> <s-f12>
+
+nnoremap <c-g> <m-a-k>
+inoremap <c-g> <esc><m-a-k>
+
+nnoremap <c-f> <m-a-i>
+inoremap <c-f> <esc><m-a-i>
 
 " Shift is hard.
 nnoremap ; :
