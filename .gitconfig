@@ -1,6 +1,6 @@
 [user]
-	name = Steve Losh
-	email = steve@stevelosh.com
+    name = Steve Losh
+    email = steve@stevelosh.com
 
 [core]
     pager = cat
@@ -32,7 +32,7 @@
     unstage = reset HEAD
     uns = reset HEAD
 
-    currentbranch = !git branch --contains HEAD | tr -s ' ' | cut -d ' ' -f2
+    currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
     fo = fetch origin
     fu = fetch upstream
     po = push origin
@@ -41,7 +41,7 @@
     uo = !git merge --ff-only origin/`git currentbranch`
 
 [push]
-	default = current
+    default = current
 
 [color]
     branch = auto
@@ -65,4 +65,4 @@
     cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
 [web]
-	browser = open
+    browser = open

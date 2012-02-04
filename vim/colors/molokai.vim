@@ -8,8 +8,6 @@
 " by Hamish Stuart Macpherson
 "
 
-hi clear
-
 set background=dark
 let g:colors_name="molokai"
 
