@@ -8,8 +8,8 @@ highlight CmdLine    padding: 1px !important; font: normal 16px 'Menlo' !importa
 highlight CmdOutput  font: normal 14px 'Menlo' !important;
 highlight CompItem   font: normal 14px 'Menlo' !important;
 
-set passkeys+=duckduckgo.com:jk<cr>
-"set defsearch=duckduckgo-ssl
+highlight Find   background: #d6c149; color: #000;
+
 set runtimepath=/Users/sjl/.pentadactyl
 set editor='/usr/local/bin/mvim -f +<line> <file>'
 set followhints=1
@@ -21,6 +21,9 @@ set mapleader=','
 nnoremap j 3j
 nnoremap k 3k
 
+nnoremap gI 2gi
+nnoremap gO gn
+
 " Switch tabs with J and K
 nnoremap J :tn<CR>
 nnoremap K :tp<CR>
@@ -29,8 +32,8 @@ nnoremap K :tp<CR>
 " nnoremap <c-f> <f12>
 " nnoremap <c-g> <s-f12>
 
-nnoremap <c-g> <m-a-k>
-inoremap <c-g> <esc><m-a-k>
+nnoremap <c-g> <m-a-k><esc>
+inoremap <c-g> <esc><m-a-k><esc>
 
 nnoremap <c-f> <m-a-i>
 inoremap <c-f> <esc><m-a-i>
