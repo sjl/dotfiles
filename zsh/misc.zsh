@@ -85,7 +85,7 @@ alias us-solr='wo unisubs && dtach -A /tmp/dtach-unisubs-solr.sock -r winch pyth
 alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'
 
 function fack () {
-    find . $@ | grep -v '/\.hg\|/\.git'
+    find . -name $@ | grep -v '/\.hg\|/\.git'
 }
 
 alias collapse="sed -e 's/  */ /g'"

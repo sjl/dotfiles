@@ -31,7 +31,6 @@ set laststatus=2
 set history=1000
 set undofile
 set undoreload=10000
-set cpoptions+=J
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set shell=/bin/bash
@@ -40,7 +39,7 @@ set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿
+set fillchars=diff:⣿,vert:│
 set ttimeout
 set notimeout
 set nottimeout
@@ -60,6 +59,15 @@ au FocusLost * :wa
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" cpoptions+=J, dammit {{{
+
+" Something occasionally removes this.  If I manage to find it I'm going to
+" comment out the line and replace all its characters with 'FUCK'.
+augroup twospace
+    au BufRead * :set cpoptions+=J
+augroup END
+
+" }}}
 " Trailing whitespace {{{
 " Only shown when not in insert mode so I don't go insane.
 
@@ -139,7 +147,6 @@ let maplocalleader = "\\"
 
 syntax on
 set background=dark
-" colorscheme molokai
 colorscheme badwolf
 
 " Highlight VCS conflict markers
@@ -512,6 +519,9 @@ augroup ft_html
 
     " Use <localleader>f to fold the current tag.
     au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+
+    " Use <localleader>t to fold the current templatetag.
+    au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
 
     " Use Shift-Return to turn this:
     "     <tag>|</tag>
@@ -1005,6 +1015,8 @@ vnoremap <leader>H :Gbrowse<cr>
 nnoremap <F5> :GundoToggle<CR>
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
+let g:gundo_tree_statusline = "Gundo"
+let g:gundo_preview_statusline = "Gundo Preview"
 
 " }}}
 " Haskellmode {{{
@@ -1417,7 +1429,6 @@ if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
     " Use a line-drawing char for pretty vertical splits.
-    set fillchars+=vert:│
 
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0

@@ -1,0 +1,1 @@
+dev.universalsubtitles.org.js
