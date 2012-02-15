@@ -374,8 +374,9 @@ augroup ft_clojure
     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
-    " Fix the eval mapping.
-    au FileType clojure nmap <buffer> \ee \ed
+    " Fix the eval mappings.
+    au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
+    au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
 
     " And the inspect mapping.
     au FileType clojure nmap <buffer> \i \di
@@ -581,6 +582,15 @@ augroup ft_lisp
 augroup END
 
 " }}}
+" Mail {{{
+
+augroup ft_mail
+    au!
+
+    au Filetype mail setlocal spell
+augroup END
+
+" }}}
 " Markdown {{{
 
 augroup ft_markdown
@@ -682,6 +692,16 @@ augroup END
 augroup ft_ruby
     au!
     au Filetype ruby setlocal foldmethod=syntax
+augroup END
+
+" }}}
+" Scheme {{{
+
+augroup ft_scheme
+    au!
+
+    " Send current toplevel form to dtach.
+    au FileType scheme nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
 augroup END
 
 " }}}
@@ -1233,10 +1253,10 @@ endfunction
 
 " Shortcut for [] {{{
 
-onoremap id i[
-onoremap ad a[
-vnoremap id i[
-vnoremap ad a[
+onoremap ir i[
+onoremap ar a[
+vnoremap ir i[
+vnoremap ar a[
 
 " }}}
 " Next and Last {{{
@@ -1261,7 +1281,7 @@ function! s:NextTextObject(motion, dir)
       let c = "("
   elseif c ==# "B"
       let c = "{"
-  elseif c ==# "d"
+  elseif c ==# "r"
       let c = "["
   endif
 
@@ -1606,7 +1626,15 @@ function! SelectToplevelForm()
 endfunction
 
 
-nnoremap <localleader>e :call SendToDtach(0)
-vnoremap <localleader>e :call SendToDtach(1)
+nnoremap <localleader>ee :call SendToDtach(0)
+vnoremap <localleader>ee :call SendToDtach(1)
+nnoremap <localleader>eb mqggvG:call SendToDtach(1)`q
+
+" }}}
+" Fake Paredit ------------------------------------------------------------ {{{
+
+" TODO: Make this stuff not suck.
+nnoremap <leader>> xEp
+nnoremap <leader>< xgEp
 
 " }}}

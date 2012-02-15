@@ -17,3 +17,5 @@
 --exclude=venv
 --exclude=static-cache
 --exclude=closure-library
+
+--langmap=Lisp:+.clj

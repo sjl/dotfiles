@@ -80,6 +80,7 @@ function whatthehelldididoon() {
 alias dv='dvtm -m "^f"'
 alias dvt='dtach -A /tmp/dvtm-session.sock -r winch dvtm -m "^f"'
 alias swank='dtach -A /tmp/dtach-swank.sock -r winch lein swank'
+alias target='dtach -A /tmp/target -r winch zsh'
 alias us-solr='wo unisubs && dtach -A /tmp/dtach-unisubs-solr.sock -r winch python manage.py run_solr --settings=dev_settings'
 
 alias goawayswapfilesyouareswapfilesidontevenneedyou='rm ~/.vim/tmp/swap/*'

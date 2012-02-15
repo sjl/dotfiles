@@ -15,14 +15,20 @@ set editor='/usr/local/bin/mvim -f +<line> <file>'
 set followhints=1
 set showtabline=multitab
 set showstatuslinks=command
+
 set mapleader=','
 
 " FASTER PLEASE
 nnoremap j 3j
 nnoremap k 3k
 
+" Go to the second input field.
+" Useful for skipping over search fields, etc.
 nnoremap gI 2gi
-nnoremap gO gn
+
+" I never use marks, but always use quickmarks.
+nnoremap "'" go
+nnoremap '"' gn
 
 " Switch tabs with J and K
 nnoremap J :tn<CR>
@@ -32,9 +38,11 @@ nnoremap K :tp<CR>
 " nnoremap <c-f> <f12>
 " nnoremap <c-g> <s-f12>
 
+" Console toggle
 nnoremap <c-g> <m-a-k><esc>
 inoremap <c-g> <esc><m-a-k><esc>
 
+" Inspect element toggle
 nnoremap <c-f> <m-a-i>
 inoremap <c-f> <esc><m-a-i>
 
