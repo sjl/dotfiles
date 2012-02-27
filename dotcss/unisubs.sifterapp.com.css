@@ -1,21 +1,12 @@
-#switcher {
-    display: none !important;
+tr.group td {
+    padding: 6px 0px 4px 5px !important;
 }
-.issue .meta a {
-    color: #666 !important;
+tr.issue td {
+    padding: 8px 8px 6px 0px !important;
 }
-.issue .meta {
-    display: none !important;
-}
-.issue ul.people {
-    margin-top: 13px !important;
-}
-.issue ul.people li:nth-child(2) {
+tr.issue td.subject span.assignee {
     display: none;
 }
-.issue .new-priority {
-    padding-left: 6px !important;
-}
-.issue h2 {
-    margin-top: 2px;
+tr.issue td {
+    border-bottom: 1px solid #eee !important;
 }
