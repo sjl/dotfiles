@@ -20,6 +20,8 @@ let folded_forms = [
             \ 'defentity',
             \ 'defdb',
             \ 'defproject',
+            \ 'defsynth',
+            \ 'definst',
             \ 'ns'
             \ ]
 let s:form_re      = '\v^\((' . join(folded_forms, '|') . ')\s'

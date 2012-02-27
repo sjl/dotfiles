@@ -40,6 +40,9 @@
     mo = !git merge --no-ff origin/`git currentbranch`
     uo = !git merge --ff-only origin/`git currentbranch`
 
+    addremove = !git add . && git add -u
+    addrem = !git addremove
+
 [push]
     default = current
 

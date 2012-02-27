@@ -51,10 +51,10 @@ set linebreak
 set dictionary=/usr/share/dict/words
 
 " Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*" 
+set backupskip=/tmp/*,/private/tmp/*"
 
 " Save when losing focus
-au FocusLost * :wa
+au FocusLost * :silent! wall
 
 " Resize splits when the window is resized
 au VimResized * :wincmd =
@@ -178,6 +178,19 @@ iabbrev lhap ಥ‿ಥ
 
 iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
+
+inoremap <c-l>a <c-k>a*
+inoremap <c-l>b <c-k>b*
+inoremap <c-l>g <c-k>g*
+inoremap <c-l>d <c-k>d*
+inoremap <c-l>e <c-k>e*
+inoremap <c-l>l <c-k>l*
+inoremap <c-l>y <c-k>y*
+inoremap <c-l>h <c-k>h*
+inoremap <c-l>m <c-k>m*
+inoremap <c-l>r <c-k>r*
+inoremap <c-l>p <c-k>p*
+inoremap <c-l>f <c-k>f*
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -657,13 +670,15 @@ augroup ft_python
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
-    
+
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     " Jesus, Python.  Five characters of punctuation for a damn string?
     au FileType python inoremap <buffer> <d-'> _(u'')<left><left>
+
+    au FileType python inoremap <buffer> <d-"> """"""<left><left><left>
 augroup END
 
 " }}}
@@ -776,9 +791,6 @@ vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 " Change case
 nnoremap <C-u> gUiw
 inoremap <C-u> <esc>gUiwea
-
-" Substitute
-nnoremap <leader>s :%s//<left>
 
 " Emacs bindings in command line mode
 cnoremap <c-a> <home>
@@ -1096,7 +1108,8 @@ let g:org_debug = 1
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme = 'sjl'
+" let g:Powerline_theme = 'derp'
+" let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{
