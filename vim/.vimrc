@@ -21,7 +21,6 @@ set showmode
 set showcmd
 set hidden
 set visualbell
-set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -59,11 +58,22 @@ au FocusLost * :silent! wall
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" Cursorline {{{
+" Only show cursorline in the current window 
+
+augroup cline
+    au!
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter * set cursorline
+augroup END
+
+" }}}
 " cpoptions+=J, dammit {{{
 
 " Something occasionally removes this.  If I manage to find it I'm going to
 " comment out the line and replace all its characters with 'FUCK'.
 augroup twospace
+    au!
     au BufRead * :set cpoptions+=J
 augroup END
 
@@ -347,20 +357,7 @@ endfunction " }}}
 set foldtext=MyFoldText()
 
 " }}}
-" Destroy infuriating keys ------------------------------------------------ {{{
-
-" Fuck you, help key.
-noremap  <F1> :set invfullscreen<CR>
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-
-" Fuck you too, manual key.
-nnoremap K <nop>
-
-" Stop it, hash key.
-inoremap # X<BS>#
-
-" }}}
-" Various filetype-specific stuff ----------------------------------------- {{{
+" Filetype-specific ------------------------------------------------------- {{{
 
 " C {{{
 
@@ -741,39 +738,23 @@ augroup END
 " }}}
 
 " }}}
-" Quick editing ----------------------------------------------------------- {{{
-
-nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
-nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
-nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
-nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
-nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
-nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
-nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
-
-" }}}
-" Shell ------------------------------------------------------------------- {{{
-
-function! s:ExecuteInShell(command) " {{{
-    let command = join(map(split(a:command), 'expand(v:val)'))
-    let winnr = bufwinnr('^' . command . '$')
-    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
-    echo 'Execute ' . command . '...'
-    silent! execute 'silent %!'. command
-    silent! redraw
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell 
-
-" }}}
 " Convenience mappings ---------------------------------------------------- {{{
+
+" Fuck you, help key.
+noremap  <F1> :set invfullscreen<CR>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+
+" Fuck you too, manual key.
+nnoremap K <nop>
+
+" Stop it, hash key.
+inoremap # X<BS>#
+
+" For some reason ctags refuses to ignore Python variables, so I'll just hack
+" the tags file with sed and strip them out myself.
+"
+" Sigh.
+nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>
 
 " Highlight Group
 nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -871,6 +852,26 @@ command! -bang WQ wq<bang>
 nnoremap <localleader>= ==
 vnoremap - =
 
+" Toggle paste
+set pastetoggle=<F8>
+
+" Quickreturn
+inoremap <c-cr> <esc>A<cr>
+inoremap <s-cr> <esc>A:<cr>
+
+" Toggle [i]nvisible characters
+nnoremap <leader>i :set list!<cr>
+
+" Drag Lines {{{
+
+noremap <D-j> :m+<CR>
+noremap <D-k> :m-2<CR>
+inoremap <D-j> <Esc>:m+<CR>
+inoremap <D-k> <Esc>:m-2<CR>
+vnoremap <D-j> :m'>+<CR>gv
+vnoremap <D-k> :m-2<CR>gv
+
+" }}}
 " Easy filetype switching {{{
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
@@ -879,68 +880,24 @@ nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
 " }}}
-
-" Toggle paste
-set pastetoggle=<F8>
-
-" Quickreturn
-inoremap <c-cr> <esc>A<cr>
-inoremap <s-cr> <esc>A:<cr>
-
-" Toggle [I]nvisible Characters
-nnoremap <leader>I :set list!<cr>
-
-" Indent Guides {{{
-
-let g:indentguides_state = 0
-function! IndentGuides() " {{{
-    if g:indentguides_state
-        let g:indentguides_state = 0
-        2match None
-    else
-        let g:indentguides_state = 1
-        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
-    endif
-endfunction " }}}
-nnoremap <leader>i :call IndentGuides()<cr>
-
-" }}}
-" Block Colors {{{
-
-let g:blockcolor_state = 0
-function! BlockColor() " {{{
-    if g:blockcolor_state
-        let g:blockcolor_state = 0
-        call matchdelete(77880)
-        call matchdelete(77881)
-        call matchdelete(77882)
-        call matchdelete(77883)
-    else
-        let g:blockcolor_state = 1
-        call matchadd("BlockColor1", '^ \{4}.*', 1, 77880)
-        call matchadd("BlockColor2", '^ \{8}.*', 2, 77881)
-        call matchadd("BlockColor3", '^ \{12}.*', 3, 77882)
-        call matchadd("BlockColor4", '^ \{16}.*', 4, 77883)
-    endif
-endfunction " }}}
-nnoremap <leader>B :call BlockColor()<cr>
-
-" }}}
 " Insert Mode Completion {{{
 
 inoremap <c-l> <c-x><c-l>
 inoremap <c-f> <c-x><c-f>
 
 " }}}
+" Quick editing {{{
+
+nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
+nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
+nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
+nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
+nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
+nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " }}}
-" CTags ------------------------------------------------------------------- {{{
-
-" For some reason ctags refuses to ignore Python variables, so I'll just hack
-" the tags file with sed and strip them out myself.
-"
-" Sigh.
-nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
@@ -1108,8 +1065,9 @@ let g:org_debug = 1
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_enabled = 0
 " let g:Powerline_theme = 'derp'
-" let g:Powerline_colorscheme = 'badwolf'
+let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{
@@ -1304,40 +1262,40 @@ endfunction
 " }}}
 
 " }}}
-" Ack motions ------------------------------------------------------------- {{{
+" Mini-plugins ------------------------------------------------------------ {{{
+" Stuff that should probably be broken out into plugins, but hasn't proved to be
+" worth the time to do so just yet.
 
-" Motions to Ack for things.  Works with pretty much everything, including:
-"
-"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
-"
-" Awesome.
-"
-" Note: If the text covered by a motion contains a newline it won't work.  Ack
-" searches line-by-line.
+" Synstack {{{
 
-nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
+function! SynStack() "{{{
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc "}}}
 
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
-    endif
-endfunction
-
-function! s:AckMotion(type) abort
-    let reg_save = @@
-
-    call s:CopyMotionForType(a:type)
-
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-    let @@ = reg_save
-endfunction
+nnoremap <F7> :call SynStack()<CR>
 
 " }}}
-" Error toggles ----------------------------------------------------------- {{{
+" Diffwhite Toggle {{{
+
+set diffopt-=iwhite
+let g:diffwhitespaceon = 1
+function! ToggleDiffWhitespace() "{{{
+    if g:diffwhitespaceon
+        set diffopt-=iwhite
+        let g:diffwhitespaceon = 0
+    else
+        set diffopt+=iwhite
+        let g:diffwhitespaceon = 1
+    endif
+    diffupdate
+endfunc "}}}
+
+nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
+
+" }}}
+" Error Toggles {{{
 
 command! ErrorsToggle call ErrorsToggle()
 function! ErrorsToggle() " {{{
@@ -1366,143 +1324,38 @@ nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
 
 " }}}
-" Utils ------------------------------------------------------------------- {{{
+" Fake Paredit {{{
 
-" Synstack {{{
-
-" Show the stack of syntax hilighting classes affecting whatever is under the
-" cursor.
-function! SynStack() "{{{
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc "}}}
-
-nnoremap <F7> :call SynStack()<CR>
+" TODO: Make this stuff not suck.
+nnoremap <leader>> xEp
+nnoremap <leader>< xgEp
 
 " }}}
-" Toggle whitespace in diffs {{{
+" Dtach {{{
 
-set diffopt-=iwhite
-let g:diffwhitespaceon = 1
-function! ToggleDiffWhitespace() "{{{
-    if g:diffwhitespaceon
-        set diffopt-=iwhite
-        let g:diffwhitespaceon = 0
+function! SendToDtach(visual)
+    if a:visual
+        silent '<,'>w !dtach -s /tmp/target
+        silent !echo \| dtach -s /tmp/target
     else
-        set diffopt+=iwhite
-        let g:diffwhitespaceon = 1
+        normal! ^vg_
+        silent '<,'>w !dtach -s /tmp/target
+        execute "normal! <esc>"
     endif
-    diffupdate
-endfunc "}}}
+endfunction
 
-nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
+function! SelectToplevelForm()
+    " lol
+    silent! normal vabababababababababababababababababababababababababab
+endfunction
 
-" }}}
 
-" }}}
-" Hg ---------------------------------------------------------------------- {{{
-
-function! s:HgDiff()
-    diffthis
-
-    let fn = expand('%:p')
-    let ft = &ft
-
-    wincmd v
-    edit __hgdiff_orig__
-
-    setlocal buftype=nofile
-
-    normal ggdG
-    execute "silent r!hg cat --rev . " . fn
-    normal ggdd
-
-    execute "setlocal ft=" . ft
-
-    diffthis
-    diffupdate
-endf
-command! -nargs=0 HgDiff call s:HgDiff()
-nnoremap <leader>hd :HgDiff<cr>
-
-function! s:HgBlame()
-    let fn = expand('%:p')
-
-    wincmd v
-    wincmd h
-    edit __hgblame__
-    vertical resize 28
-
-    setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
-
-    normal ggdG
-    execute "silent r!hg blame -undq " . fn
-    normal ggdd
-    execute ':%s/\v:.*$//'
-
-    wincmd l
-    setlocal scrollbind
-    syncbind
-endf
-command! -nargs=0 HgBlame call s:HgBlame()
-nnoremap <leader>hb :HgBlame<cr>
+nnoremap <localleader>ee :call SendToDtach(0)
+vnoremap <localleader>ee :call SendToDtach(1)
+nnoremap <localleader>eb mqggvG:call SendToDtach(1)`q
 
 " }}}
-" Environments (GUI/Console) ---------------------------------------------- {{{
-
-if has('gui_running')
-    set guifont=Menlo\ Regular\ for\ Powerline:h12
-
-    " Remove all the UI cruft
-    set go-=T
-    set go-=l
-    set go-=L
-    set go-=r
-    set go-=R
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Use a line-drawing char for pretty vertical splits.
-
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
-
-    if has("gui_macvim")
-        " Full screen means FULL screen
-        set fuoptions=maxvert,maxhorz
-
-        " Use the normal HIG movements, except for M-Up/Down
-        let macvim_skip_cmd_opt_movement = 1
-        no   <D-Left>       <Home>
-        no!  <D-Left>       <Home>
-        no   <M-Left>       <C-Left>
-        no!  <M-Left>       <C-Left>
-
-        no   <D-Right>      <End>
-        no!  <D-Right>      <End>
-        no   <M-Right>      <C-Right>
-        no!  <M-Right>      <C-Right>
-
-        no   <D-Up>         <C-Home>
-        ino  <D-Up>         <C-Home>
-        imap <M-Up>         <C-o>{
-
-        no   <D-Down>       <C-End>
-        ino  <D-Down>       <C-End>
-        imap <M-Down>       <C-o>}
-
-        imap <M-BS>         <C-w>
-        inoremap <D-BS>     <esc>my0c`y
-    else
-        " Non-MacVim GUI, like Gvim
-    end
-else
-    " Console Vim
-endif
-
-" }}}
-" Nyan! ------------------------------------------------------------------- {{{
+" Nyan! {{{
 
 function! NyanMe() " {{{
     hi NyanFur             guifg=#BBBBBB
@@ -1620,34 +1473,207 @@ endfunction " }}}
 command! NyanMe call NyanMe()
 
 " }}}
-" Dtach ------------------------------------------------------------------- {{{
+" Hg {{{
 
-function! SendToDtach(visual)
-    if a:visual
-        silent '<,'>w !dtach -s /tmp/target
-        silent !echo \| dtach -s /tmp/target
-    else
-        normal! ^vg_
-        silent '<,'>w !dtach -s /tmp/target
-        execute "normal! <esc>"
+function! s:HgDiff()
+    diffthis
+
+    let fn = expand('%:p')
+    let ft = &ft
+
+    wincmd v
+    edit __hgdiff_orig__
+
+    setlocal buftype=nofile
+
+    normal ggdG
+    execute "silent r!hg cat --rev . " . fn
+    normal ggdd
+
+    execute "setlocal ft=" . ft
+
+    diffthis
+    diffupdate
+endf
+command! -nargs=0 HgDiff call s:HgDiff()
+nnoremap <leader>hd :HgDiff<cr>
+
+function! s:HgBlame()
+    let fn = expand('%:p')
+
+    wincmd v
+    wincmd h
+    edit __hgblame__
+    vertical resize 28
+
+    setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
+
+    normal ggdG
+    execute "silent r!hg blame -undq " . fn
+    normal ggdd
+    execute ':%s/\v:.*$//'
+
+    wincmd l
+    setlocal scrollbind
+    syncbind
+endf
+command! -nargs=0 HgBlame call s:HgBlame()
+nnoremap <leader>hb :HgBlame<cr>
+
+" }}}
+" Ack motions {{{
+
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
     endif
 endfunction
 
-function! SelectToplevelForm()
-    " lol
-    silent! normal vabababababababababababababababababababababababababab
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+    let @@ = reg_save
 endfunction
 
+" }}}
+" Shell {{{
 
-nnoremap <localleader>ee :call SendToDtach(0)
-vnoremap <localleader>ee :call SendToDtach(1)
-nnoremap <localleader>eb mqggvG:call SendToDtach(1)`q
+function! s:ExecuteInShell(command) " {{{
+    let command = join(map(split(a:command), 'expand(v:val)'))
+    let winnr = bufwinnr('^' . command . '$')
+    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
+    echo 'Execute ' . command . '...'
+    silent! execute 'silent %!'. command
+    silent! redraw
+    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+    silent! execute 'AnsiEsc'
+    echo 'Shell command ' . command . ' executed.'
+endfunction " }}}
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+nnoremap <leader>! :Shell 
 
 " }}}
-" Fake Paredit ------------------------------------------------------------ {{{
+" Indent Guides {{{
 
-" TODO: Make this stuff not suck.
-nnoremap <leader>> xEp
-nnoremap <leader>< xgEp
+let g:indentguides_state = 0
+function! IndentGuides() " {{{
+    if g:indentguides_state
+        let g:indentguides_state = 0
+        2match None
+    else
+        let g:indentguides_state = 1
+        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+    endif
+endfunction " }}}
+hi def IndentGuides guibg=#303030
+nnoremap <leader>I :call IndentGuides()<cr>
+
+" }}}
+" Block Colors {{{
+
+let g:blockcolor_state = 0
+function! BlockColor() " {{{
+    if g:blockcolor_state
+        let g:blockcolor_state = 0
+        call matchdelete(77881)
+        call matchdelete(77882)
+        call matchdelete(77883)
+        call matchdelete(77884)
+        call matchdelete(77885)
+    else
+        let g:blockcolor_state = 1
+        call matchadd("BlockColor1", '^ \{4}.*', 1, 77881)
+        call matchadd("BlockColor2", '^ \{8}.*', 2, 77882)
+        call matchadd("BlockColor3", '^ \{12}.*', 3, 77883)
+        call matchadd("BlockColor4", '^ \{16}.*', 4, 77884)
+        call matchadd("BlockColor5", '^ \{20}.*', 5, 77885)
+    endif
+endfunction " }}}
+" Default highlights {{{
+hi def BlockColor1 guibg=#222222
+hi def BlockColor2 guibg=#2a2a2a
+hi def BlockColor3 guibg=#353535
+hi def BlockColor4 guibg=#3d3d3d
+hi def BlockColor5 guibg=#444444
+" }}}
+nnoremap <leader>B :call BlockColor()<cr>
+
+" }}}
+
+" }}}
+" Environments (GUI/Console) ---------------------------------------------- {{{
+
+if has('gui_running')
+    set guifont=Menlo\ Regular\ for\ Powerline:h12
+
+    " Remove all the UI cruft
+    set go-=T
+    set go-=l
+    set go-=L
+    set go-=r
+    set go-=R
+
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    " Use a line-drawing char for pretty vertical splits.
+
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
+
+    if has("gui_macvim")
+        " Full screen means FULL screen
+        set fuoptions=maxvert,maxhorz
+
+        " Use the normal HIG movements, except for M-Up/Down
+        let macvim_skip_cmd_opt_movement = 1
+        no   <D-Left>       <Home>
+        no!  <D-Left>       <Home>
+        no   <M-Left>       <C-Left>
+        no!  <M-Left>       <C-Left>
+
+        no   <D-Right>      <End>
+        no!  <D-Right>      <End>
+        no   <M-Right>      <C-Right>
+        no!  <M-Right>      <C-Right>
+
+        no   <D-Up>         <C-Home>
+        ino  <D-Up>         <C-Home>
+        imap <M-Up>         <C-o>{
+
+        no   <D-Down>       <C-End>
+        ino  <D-Down>       <C-End>
+        imap <M-Down>       <C-o>}
+
+        imap <M-BS>         <C-w>
+        inoremap <D-BS>     <esc>my0c`y
+    else
+        " Non-MacVim GUI, like Gvim
+    end
+else
+    " Console Vim
+endif
 
 " }}}
