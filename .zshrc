@@ -20,6 +20,8 @@ alias tm='tmux -u2'
 alias c='clear'
 alias bp='bpython'
 
+export DISABLE_AUTO_TITLE="true"
+
 # Environment variables ------------------------------------------------------
 export EDITOR='vim'
 export PATH="$HOME/.gem/ruby/1.8/bin:${PATH}"
