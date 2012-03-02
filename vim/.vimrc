@@ -39,15 +39,19 @@ set showbreak=↪
 set splitbelow
 set splitright
 set fillchars=diff:⣿,vert:│
-set ttimeout
 set notimeout
-set nottimeout
 set autowrite
 set shiftround
 set autoread
 set title
 set linebreak
 set dictionary=/usr/share/dict/words
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*"
@@ -750,6 +754,10 @@ nnoremap K <nop>
 " Stop it, hash key.
 inoremap # X<BS>#
 
+" Kill window
+nnoremap <c-c> :q<cr>
+inoremap <c-c> <esc>:q<cr>
+
 " For some reason ctags refuses to ignore Python variables, so I'll just hack
 " the tags file with sed and strip them out myself.
 "
@@ -770,7 +778,7 @@ vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
 vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 
 " Change case
-nnoremap <C-u> gUiw
+nnoremap U gUiw
 inoremap <C-u> <esc>gUiwea
 
 " Emacs bindings in command line mode
@@ -1065,9 +1073,9 @@ let g:org_debug = 1
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
-let g:Powerline_cache_enabled = 0
+" let g:Powerline_cache_enabled = 0
 " let g:Powerline_theme = 'derp'
-let g:Powerline_colorscheme = 'badwolf'
+" let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{
