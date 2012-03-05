@@ -63,12 +63,14 @@ au FocusLost * :silent! wall
 au VimResized * :wincmd =
 
 " Cursorline {{{
-" Only show cursorline in the current window 
+" Only show cursorline in the current window and in normal mode.
 
 augroup cline
     au!
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set cursorline
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+    au InsertEnter * set nocursorline
+    au InsertLeave * set cursorline
 augroup END
 
 " }}}
@@ -679,7 +681,7 @@ augroup ft_python
     " Jesus, Python.  Five characters of punctuation for a damn string?
     au FileType python inoremap <buffer> <d-'> _(u'')<left><left>
 
-    au FileType python inoremap <buffer> <d-"> """"""<left><left><left>
+    au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
 augroup END
 
 " }}}
@@ -755,8 +757,7 @@ nnoremap K <nop>
 inoremap # X<BS>#
 
 " Kill window
-nnoremap <c-c> :q<cr>
-inoremap <c-c> <esc>:q<cr>
+nnoremap K :q<cr>
 
 " For some reason ctags refuses to ignore Python variables, so I'll just hack
 " the tags file with sed and strip them out myself.
@@ -1052,7 +1053,12 @@ nnoremap \| :call MakeGreen('')<cr>
 noremap  <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
 
-au Filetype nerdtree setlocal nolist
+augroup ps_nerdtree
+    au!
+
+    au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> K :q<cr>
+augroup END
 
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db', 'tags.bak']
@@ -1083,8 +1089,10 @@ let g:Powerline_symbols = 'fancy'
 let g:pymode_doc = 1
 let g:pymode_doc_key = '<localleader>ds'
 let g:pydoc = 'pydoc'
-let g:pymode_syntax = 0
+let g:pymode_syntax = 1
 let g:pymode_syntax_all = 0
+let g:pymode_syntax_print_as_function = 0
+let g:pymode_syntax_space_errors = 0
 let g:pymode_run = 0
 let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
