@@ -39,7 +39,6 @@ set showbreak=↪
 set splitbelow
 set splitright
 set fillchars=diff:⣿,vert:│
-set notimeout
 set autowrite
 set shiftround
 set autoread
@@ -789,9 +788,6 @@ cnoremap <c-e> <end>
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
-" Yankring
-nnoremap <silent> <F6> :YRShow<cr>
-
 " Formatting, TextMate-style
 nnoremap Q gqip
 vnoremap Q gq
@@ -862,7 +858,7 @@ nnoremap <localleader>= ==
 vnoremap - =
 
 " Toggle paste
-set pastetoggle=<F8>
+set pastetoggle=<F6>
 
 " Quickreturn
 inoremap <c-cr> <esc>A<cr>
@@ -1079,8 +1075,7 @@ let g:org_debug = 1
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
-" let g:Powerline_cache_enabled = 0
-" let g:Powerline_theme = 'derp'
+let g:Powerline_cache_enabled = 1
 " let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
@@ -1091,6 +1086,7 @@ let g:pymode_doc_key = '<localleader>ds'
 let g:pydoc = 'pydoc'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 0
+let g:pymode_syntax_builtin_objs = 1
 let g:pymode_syntax_print_as_function = 0
 let g:pymode_syntax_space_errors = 0
 let g:pymode_run = 0
@@ -1690,6 +1686,16 @@ if has('gui_running')
     end
 else
     " Console Vim
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+    if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
 endif
 
 " }}}
