@@ -14,6 +14,7 @@ set nocompatible
 
 " }}}
 " Basic options ----------------------------------------------------------- {{{
+
 set encoding=utf-8
 set modelines=0
 set autoindent
@@ -235,21 +236,16 @@ map <tab> %
 " Made D behave
 nnoremap D d$
 
-" Keep search matches in the middle of the window and pulse the line when moving
-" to them.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
 " Don't move on *
 nnoremap * *<c-o>
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
-
-" Window resizing
-nnoremap <c-left> 5<c-w>>
-nnoremap <c-right> 5<c-w><
 
 " Easier to type, and I never use the default behavior.
 noremap H ^
@@ -260,10 +256,10 @@ inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
 
 " Open a Quickfix window for the last search.
-nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Ack for the last search.
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
 " Fix linewise visual selection of various text objects
 nnoremap VV V
@@ -272,23 +268,6 @@ nnoremap Vat vatV
 nnoremap Vab vabV
 nnoremap VaB vaBV
 
-" Error navigation {{{
-"
-"             Location List     QuickFix Window
-"            (e.g. Syntastic)     (e.g. Ack)
-"            ----------------------------------
-" Next      |     M-j               M-Down     |
-" Previous  |     M-k                M-Up      |
-"            ----------------------------------
-"
-nnoremap ∆ :lnext<cr>zvzz
-nnoremap ˚ :lprevious<cr>zvzz
-inoremap ∆ <esc>:lnext<cr>zvzz
-inoremap ˚ <esc>:lprevious<cr>zvzz
-nnoremap <m-Down> :cnext<cr>zvzz
-nnoremap <m-Up> :cprevious<cr>zvzz
-
-" }}}
 " Directional Keys {{{
 
 " It's 2011.
@@ -329,9 +308,6 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " Folding ----------------------------------------------------------------- {{{
 
 set foldlevelstart=0
-
-" Make the current location sane.
-nnoremap <c-cr> zvzt
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -408,9 +384,6 @@ augroup ft_clojurescript
 
     au BufNewFile,BufRead *.cljs set filetype=clojurescript
     au FileType clojurescript call TurnOnClojureFolding()
-
-    " Send current toplevel form to dtach.
-    au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
 augroup END
 
 " }}}
@@ -436,7 +409,6 @@ augroup ft_cram
     au BufNewFile,BufRead *.t set filetype=cram
     au Syntax cram setlocal foldlevel=1
 augroup END
-
 
 " }}}
 " CSS and LessCSS {{{
@@ -539,15 +511,6 @@ augroup ft_html
     " Use <localleader>t to fold the current templatetag.
     au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
 
-    " Use Shift-Return to turn this:
-    "     <tag>|</tag>
-    "
-    " into this:
-    "     <tag>
-    "         |
-    "     </tag>
-    au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
     " Smarter pasting
     au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
     au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
@@ -561,7 +524,7 @@ augroup ft_html
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+    au FileType jinja,htmldjango inoremap <buffer> <c-k> {{<space><space>}}<left><left><left>
 augroup END
 
 " }}}
@@ -678,7 +641,7 @@ augroup ft_python
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     " Jesus, Python.  Five characters of punctuation for a damn string?
-    au FileType python inoremap <buffer> <d-'> _(u'')<left><left>
+    au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
 
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
 augroup END
@@ -709,16 +672,6 @@ augroup END
 augroup ft_ruby
     au!
     au Filetype ruby setlocal foldmethod=syntax
-augroup END
-
-" }}}
-" Scheme {{{
-
-augroup ft_scheme
-    au!
-
-    " Send current toplevel form to dtach.
-    au FileType scheme nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
 augroup END
 
 " }}}
@@ -762,9 +715,9 @@ nnoremap K :q<cr>
 " the tags file with sed and strip them out myself.
 "
 " Sigh.
-nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>
+nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>:redraw!<cr>
 
-" Highlight Group
+" Highlight Group(s)
 nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -802,14 +755,6 @@ nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
-" Align text
-nnoremap <leader>Al :left<cr>
-nnoremap <leader>Ac :center<cr>
-nnoremap <leader>Ar :right<cr>
-vnoremap <leader>Al :left<cr>
-vnoremap <leader>Ac :center<cr>
-vnoremap <leader>Ar :right<cr>
-
 " Less chording
 nnoremap ; :
 
@@ -821,9 +766,6 @@ nnoremap <leader>2 :set cmdheight=2<cr>
 vnoremap <leader>S y:execute @@<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>
 
-" Replaste
-nnoremap <D-p> "_ddPV`]=
-
 " Marks and Quotes
 noremap ' `
 noremap æ '
@@ -832,9 +774,6 @@ noremap ` <C-^>
 " Select (charwise) the contents of the current line, excluding indentation.
 " Great for pasting Python lines into REPLs.
 nnoremap vv ^vg_
-
-" Calculator
-inoremap <C-B> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " Better Completion
 set completeopt=longest,menuone,preview
@@ -860,35 +799,35 @@ vnoremap - =
 " Toggle paste
 set pastetoggle=<F6>
 
-" Quickreturn
-inoremap <c-cr> <esc>A<cr>
-inoremap <s-cr> <esc>A:<cr>
-
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
 
 " Drag Lines {{{
 
-noremap <D-j> :m+<CR>
-noremap <D-k> :m-2<CR>
-inoremap <D-j> <Esc>:m+<CR>
-inoremap <D-k> <Esc>:m-2<CR>
-vnoremap <D-j> :m'>+<CR>gv
-vnoremap <D-k> :m-2<CR>gv
+" <m-j> and <m-k> to drag lines in any mode
+noremap ∆ :m+<CR>
+noremap ˚ :m-2<CR>
+inoremap ∆ <Esc>:m+<CR>
+inoremap ˚ <Esc>:m-2<CR>
+vnoremap ∆ :m'>+<CR>gv
+vnoremap ˚ :m-2<CR>gv
 
 " }}}
 " Easy filetype switching {{{
+
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
+
 " }}}
 " Insert Mode Completion {{{
 
 inoremap <c-l> <c-x><c-l>
 inoremap <c-f> <c-x><c-f>
+inoremap <c-]> <c-x><c-]>
 
 " }}}
 " Quick editing {{{
@@ -901,6 +840,7 @@ nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
 nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
 nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+nnoremap <leader>et <C-w>v<C-w>j:e ~/.tmux.conf<cr>
 
 " }}}
 
@@ -909,7 +849,7 @@ nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 
 " Ack {{{
 
-map <leader>a :Ack! 
+nnoremap <leader>a :Ack!<space>
 
 " }}}
 " Autoclose {{{
@@ -921,7 +861,11 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 nmap <leader>c <Plug>CommentaryLine
 xmap <leader>c <Plug>Commentary
-au FileType htmldjango setlocal commentstring={#\ %s\ #}
+
+augroup plugin_commentary
+    au!
+    au FileType htmldjango setlocal commentstring={#\ %s\ #}
+augroup END
 
 " }}}
 " Ctrl-P {{{
@@ -948,14 +892,14 @@ let ctrlp_filter_greps = "".
     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" . 
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
     \ ")'"
 
-let my_ctrlp_user_command = "" . 
+let my_ctrlp_user_command = "" .
     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
     \ ctrlp_filter_greps
 
-let my_ctrlp_git_command = "" . 
+let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files | " .
     \ ctrlp_filter_greps
 
@@ -1007,6 +951,7 @@ vnoremap <leader>H :Gbrowse<cr>
 " Gundo {{{
 
 nnoremap <F5> :GundoToggle<CR>
+
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
 let g:gundo_tree_statusline = "Gundo"
@@ -1056,8 +1001,10 @@ augroup ps_nerdtree
     au Filetype nerdtree nnoremap <buffer> K :q<cr>
 augroup END
 
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db', 'tags.bak']
+let NERDTreeHighlightCursorline = 1
+let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+                    \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
+                    \ '.*\.o$', 'db.db', 'tags.bak']
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -1146,15 +1093,15 @@ let g:rbpt_max = 16
 
 command! ScratchToggle call ScratchToggle()
 
-function! ScratchToggle() " {{{
-  if exists("w:is_scratch_window")
-    unlet w:is_scratch_window
-    exec "q"
-  else
-    exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
-    let w:is_scratch_window = 1
-  endif
-endfunction " }}}
+function! ScratchToggle()
+    if exists("w:is_scratch_window")
+        unlet w:is_scratch_window
+        exec "q"
+    else
+        exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
+        let w:is_scratch_window = 1
+    endif
+endfunction
 
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
@@ -1213,6 +1160,14 @@ let g:threesome_initial_scrollbind_path = 0
 let g:threesome_wrap = "nowrap"
 
 " }}}
+" tslime {{{
+
+let g:tslime_ensure_trailing_newlines = 1
+let g:tslime_normal_mapping = '<localleader>t'
+let g:tslime_visual_mapping = '<localleader>t'
+let g:tslime_vars_mapping = '<localleader>T'
+
+" }}}
 " VimClojure {{{
 
 let vimclojure#HighlightBuiltins = 1
@@ -1227,7 +1182,6 @@ function! YRRunAfterMaps()
     omap <expr> L YRMapsExpression("", "$")
     omap <expr> H YRMapsExpression("", "^")
 endfunction
-
 
 " }}}
 
@@ -1282,9 +1236,9 @@ endfunction
 
 " Show the stack of syntax hilighting classes affecting whatever is under the
 " cursor.
-function! SynStack() "{{{
+function! SynStack()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc "}}}
+endfunc
 
 nnoremap <F7> :call SynStack()<CR>
 
@@ -1293,7 +1247,7 @@ nnoremap <F7> :call SynStack()<CR>
 
 set diffopt-=iwhite
 let g:diffwhitespaceon = 1
-function! ToggleDiffWhitespace() "{{{
+function! ToggleDiffWhitespace()
     if g:diffwhitespaceon
         set diffopt-=iwhite
         let g:diffwhitespaceon = 0
@@ -1302,7 +1256,7 @@ function! ToggleDiffWhitespace() "{{{
         let g:diffwhitespaceon = 1
     endif
     diffupdate
-endfunc "}}}
+endfunc
 
 nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
 
@@ -1341,30 +1295,6 @@ nmap <silent> <f4> :QFixToggle<cr>
 " TODO: Make this stuff not suck.
 nnoremap <leader>> xEp
 nnoremap <leader>< xgEp
-
-" }}}
-" Dtach {{{
-
-function! SendToDtach(visual)
-    if a:visual
-        silent '<,'>w !dtach -s /tmp/target
-        silent !echo \| dtach -s /tmp/target
-    else
-        normal! ^vg_
-        silent '<,'>w !dtach -s /tmp/target
-        execute "normal! <esc>"
-    endif
-endfunction
-
-function! SelectToplevelForm()
-    " lol
-    silent! normal vabababababababababababababababababababababababababab
-endfunction
-
-
-nnoremap <localleader>ee :call SendToDtach(0)
-vnoremap <localleader>ee :call SendToDtach(1)
-nnoremap <localleader>eb mqggvG:call SendToDtach(1)`q
 
 " }}}
 " Nyan! {{{
@@ -1487,7 +1417,7 @@ command! NyanMe call NyanMe()
 " }}}
 " Hg {{{
 
-function! s:HgDiff()
+function! s:HgDiff() " {{{
     diffthis
 
     let fn = expand('%:p')
@@ -1506,11 +1436,11 @@ function! s:HgDiff()
 
     diffthis
     diffupdate
-endf
+endfunction " }}}
 command! -nargs=0 HgDiff call s:HgDiff()
 nnoremap <leader>hd :HgDiff<cr>
 
-function! s:HgBlame()
+function! s:HgBlame() " {{{
     let fn = expand('%:p')
 
     wincmd v
@@ -1528,7 +1458,7 @@ function! s:HgBlame()
     wincmd l
     setlocal scrollbind
     syncbind
-endf
+endfunction " }}}
 command! -nargs=0 HgBlame call s:HgBlame()
 nnoremap <leader>hb :HgBlame<cr>
 
@@ -1544,8 +1474,8 @@ nnoremap <leader>hb :HgBlame<cr>
 " Note: If the text covered by a motion contains a newline it won't work.  Ack
 " searches line-by-line.
 
-nnoremap <silent> \a :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> \a :<C-U>call <SID>AckMotion(visualmode())<CR>
+nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
 
 function! s:CopyMotionForType(type)
     if a:type ==# 'v'
@@ -1583,7 +1513,7 @@ function! s:ExecuteInShell(command) " {{{
     echo 'Shell command ' . command . ' executed.'
 endfunction " }}}
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell 
+nnoremap <leader>! :Shell<space>
 
 " }}}
 " Indent Guides {{{
@@ -1637,6 +1567,8 @@ nnoremap <leader>B :call BlockColor()<cr>
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
+    " GUI Vim
+
     set guifont=Menlo\ Regular\ for\ Powerline:h12
 
     " Remove all the UI cruft
@@ -1647,8 +1579,6 @@ if has('gui_running')
     set go-=R
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Use a line-drawing char for pretty vertical splits.
 
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
@@ -1686,15 +1616,28 @@ if has('gui_running')
     end
 else
     " Console Vim
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+    " Use a bar-shaped cursor for insert mode, even through tmux.
     if exists('$TMUX')
         let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
         let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
     else
         let &t_SI = "\<Esc>]50;CursorShape=1\x7"
         let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
+
+    " Save on losing focus.
+    if exists('$TMUX')
+        " let &t_ti = "\<Esc>Ptmux;\<Esc>" . &t_ti . "\e[?1004h" . "\<Esc>\\"
+        " let &t_te = "\<Esc>Ptmux;\<Esc>" . "\e[?1004l" . &t_te . "\<Esc>\\"
+
+        " noremap <ESC>[O :echom "TEST"<cr>
+    else
+        " if &term =~ "xterm.*"
+        "     let &t_ti = &t_ti . "\e[?1004h"
+        "     let &t_te = "\e[?1004l" . &t_te
+        "     noremap <ESC>[O :echom "TEST"<cr>
+        " endif
     endif
 endif
 

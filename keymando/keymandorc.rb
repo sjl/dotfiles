@@ -10,9 +10,8 @@ map "<Ctrl-Shift-R>", lambda { reload() }
 # Application Switching ------------------------------------------------------------
 map "<Ctrl-Shift-J>", lambda { activate('Firefox') }
 map "<Ctrl-Shift-P>", lambda { activate('Pixelmator') }
-map "<Ctrl-Shift-B>", lambda { activate('Pixen') }
-map "<Ctrl-Shift-K>", lambda { activate('MacVim') }
-map "<Ctrl-Shift-H>", lambda { activate('iTerm') }
+map "<Ctrl-Shift-H>", lambda { activate('Pixen') }
+map "<Ctrl-Shift-K>", lambda { activate('iTerm') }
 map "<Ctrl-Shift-O>", lambda { activate('Rdio') }
 map "<Ctrl-Shift-Y>", lambda { activate('Twitter') }
 

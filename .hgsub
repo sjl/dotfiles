@@ -18,7 +18,6 @@ vim/bundle/python-mode = [git]git://github.com/sjl/python-mode.git
 vim/bundle/slimv = [hg]https://bitbucket.org/sjl/slimv
 vim/bundle/threesome = [hg]https://bitbucket.org/sjl/threesome.vim
 vim/bundle/vim-makegreen = [git]git://github.com/sjl/vim-makegreen.git
-vim/bundle/vim-coffee-script = [git]https://github.com/kchmck/vim-coffee-script.git
 vim/bundle/supertab = [git]git://github.com/ervandew/supertab.git
 vim/bundle/linediff = [git]git://github.com/AndrewRadev/linediff.vim.git
 vim/bundle/indent-object = [git]git://github.com/michaeljsmith/vim-indent-object.git
@@ -29,5 +28,6 @@ vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
 vim/bundle/powerline = [git]git://github.com/Lokaltog/vim-powerline.git
 vim/bundle/yankring = [git]git://github.com/vim-scripts/YankRing.vim.git
 vim/bundle/badwolf = [hg]https://bitbucket.org/sjl/badwolf/
+vim/bundle/tslime = [git]git://github.com/sjl/tslime.vim.git
 
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
