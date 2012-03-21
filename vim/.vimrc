@@ -384,6 +384,9 @@ augroup ft_clojurescript
 
     au BufNewFile,BufRead *.cljs set filetype=clojurescript
     au FileType clojurescript call TurnOnClojureFolding()
+
+    " Indent top-level form.
+    au FileType clojurescript nmap <buffer> <localleader>= v((((((((((((=%
 augroup END
 
 " }}}
@@ -524,7 +527,7 @@ augroup ft_html
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-k> {{<space><space>}}<left><left><left>
+    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
 augroup END
 
 " }}}
@@ -702,14 +705,25 @@ augroup END
 noremap  <F1> :set invfullscreen<CR>
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 
-" Fuck you too, manual key.
-nnoremap K <nop>
-
 " Stop it, hash key.
 inoremap # X<BS>#
 
 " Kill window
 nnoremap K :q<cr>
+
+" Redraw
+nnoremap <leader>rr :redraw!<cr>
+
+" System clipboard interaction
+" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+noremap <leader>y "*y
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+
+" I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
+" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+vnoremap u <nop>
+vnoremap gu u
 
 " For some reason ctags refuses to ignore Python variables, so I'll just hack
 " the tags file with sed and strip them out myself.
@@ -727,8 +741,11 @@ nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
 
 " Send visual selection to gist.github.com as a private, filetyped Gist
 " Requires the gist command line too (brew install gist)
-vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
+" vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+" vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
+
+" Send visual selection to sprunge.us
+vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://sprunge.us' \| pbcopy<cr>
 
 " Change case
 nnoremap U gUiw
@@ -748,6 +765,9 @@ vnoremap Q gq
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
+" Keep the cursor in place while joining limes
+nnoremap J mzJ`z
+
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
@@ -763,8 +783,8 @@ nnoremap <leader>1 :set cmdheight=1<cr>
 nnoremap <leader>2 :set cmdheight=2<cr>
 
 " Source
-vnoremap <leader>S y:execute @@<cr>
-nnoremap <leader>S ^vg_y:execute @@<cr>
+vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
 " Marks and Quotes
 noremap ' `
@@ -857,6 +877,11 @@ nnoremap <leader>a :Ack!<space>
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 " }}}
+" Bad Wolf {{{
+
+let g:badwolf_html_link_underline = 0
+
+" }}}
 " Commentary {{{
 
 nmap <leader>c <Plug>CommentaryLine
@@ -865,6 +890,7 @@ xmap <leader>c <Plug>Commentary
 augroup plugin_commentary
     au!
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    au FileType clojurescript setlocal commentstring=;\ %s
 augroup END
 
 " }}}
@@ -1131,7 +1157,8 @@ let g:SuperTabLongestHighlight = 1
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_check_on_open = 1
+let g:syntastic_disabled_filetypes = ['html', 'rst']
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
