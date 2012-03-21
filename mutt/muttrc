@@ -87,7 +87,7 @@ mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.c
 
 # always sourced
 #source $alias_file                                             # required for functionality
-source ~/.mutt/colors.muttrc                                    # source colors file
+source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc             # source colors file
 source ~/.mutt/steve-stevelosh.com.muttrc                       # source gmail as default
 source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
 
@@ -127,7 +127,8 @@ macro index <esc>f     ":set date_format = \"%m/%d\"<enter>"                    
 macro index <esc>F     ":set date_format = \"%m/%d at %I:%M %P\"<enter>"               "long date format"
 
 # mailbox
-macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"          "go to stevelosh/INBOX"
+macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"     "go to stevelosh/INBOX"
+macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>"   "go to stevelosh/archive"
 
 # save a decoded copy in ~
 macro index,pager P   "<pipe-message>cat > ~/Desktop/"    "save message as"
