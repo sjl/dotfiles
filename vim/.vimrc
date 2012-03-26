@@ -74,6 +74,16 @@ augroup cline
 augroup END
 
 " }}}
+" Colorcolumn {{{
+" Only show colorcolumn in the current window.
+
+augroup ccol
+    au!
+    au WinLeave * setlocal colorcolumn=0
+    au WinEnter * setlocal colorcolumn=+1
+augroup END
+
+" }}}
 " cpoptions+=J, dammit {{{
 
 " Something occasionally removes this.  If I manage to find it I'm going to
@@ -207,6 +217,172 @@ inoremap <c-l>m <c-k>m*
 inoremap <c-l>r <c-k>r*
 inoremap <c-l>p <c-k>p*
 inoremap <c-l>f <c-k>f*
+
+" }}}
+" Convenience mappings ---------------------------------------------------- {{{
+
+" Fuck you, help key.
+noremap  <F1> :set invfullscreen<CR>
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+
+" Stop it, hash key.
+inoremap # X<BS>#
+
+" Kill window
+nnoremap K :q<cr>
+
+" Redraw
+nnoremap <leader>rr :redraw!<cr>
+
+" System clipboard interaction
+" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+noremap <leader>y "*y
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+
+" I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
+" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+vnoremap u <nop>
+vnoremap gu u
+
+" For some reason ctags refuses to ignore Python variables, so I'll just hack
+" the tags file with sed and strip them out myself.
+"
+" Sigh.
+nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>:redraw!<cr>
+
+" Highlight Group(s)
+nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Clean trailing whitespace
+nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
+" Send visual selection to gist.github.com as a private, filetyped Gist
+" Requires the gist command line too (brew install gist)
+" vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+" vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
+
+" Send visual selection to sprunge.us
+vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://sprunge.us' \| pbcopy<cr>
+
+" Change case
+nnoremap U gUiw
+inoremap <C-u> <esc>gUiwea
+
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Diffoff
+nnoremap <leader>D :diffoff!<cr>
+
+" Formatting, TextMate-style
+nnoremap Q gqip
+vnoremap Q gq
+
+" Easier linewise reselection
+nnoremap <leader>V V`]
+
+" Keep the cursor in place while joining limes
+nnoremap J mzJ`z
+
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
+" HTML tag closing
+inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+
+" Less chording
+nnoremap ; :
+
+" Cmdheight switching
+nnoremap <leader>1 :set cmdheight=1<cr>
+nnoremap <leader>2 :set cmdheight=2<cr>
+
+" Source
+vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+
+" Marks and Quotes
+noremap ' `
+noremap æ '
+noremap ` <C-^>
+
+" Select (charwise) the contents of the current line, excluding indentation.
+" Great for pasting Python lines into REPLs.
+nnoremap vv ^vg_
+
+" Better Completion
+set completeopt=longest,menuone,preview
+
+" Sudo to write
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Typos
+command! -bang E e<bang>
+command! -bang Q q<bang>
+command! -bang W w<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
+
+" I suck at typing.
+nnoremap <localleader>= ==
+vnoremap - =
+
+" Toggle paste
+set pastetoggle=<F6>
+
+" Toggle [i]nvisible characters
+nnoremap <leader>i :set list!<cr>
+
+" Drag Lines {{{
+
+" <m-j> and <m-k> to drag lines in any mode
+noremap ∆ :m+<CR>
+noremap ˚ :m-2<CR>
+inoremap ∆ <Esc>:m+<CR>
+inoremap ˚ <Esc>:m-2<CR>
+vnoremap ∆ :m'>+<CR>gv
+vnoremap ˚ :m-2<CR>gv
+
+" }}}
+" Easy filetype switching {{{
+
+nnoremap _md :set ft=markdown<CR>
+nnoremap _hd :set ft=htmldjango<CR>
+nnoremap _jt :set ft=htmljinja<CR>
+nnoremap _cw :set ft=confluencewiki<CR>
+nnoremap _pd :set ft=python.django<CR>
+nnoremap _d  :set ft=diff<CR>
+
+" }}}
+" Insert Mode Completion {{{
+
+inoremap <c-l> <c-x><c-l>
+inoremap <c-f> <c-x><c-f>
+inoremap <c-]> <c-x><c-]>
+
+" }}}
+" Quick editing {{{
+
+nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
+nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
+nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
+nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
+nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
+nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+nnoremap <leader>et <C-w>v<C-w>j:e ~/.tmux.conf<cr>
+
+" }}}
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -654,7 +830,7 @@ augroup END
 
 augroup ft_quickfix
     au!
-    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap
+    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
 augroup END
 
 " }}}
@@ -695,172 +871,6 @@ augroup ft_vim
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
-
-" }}}
-
-" }}}
-" Convenience mappings ---------------------------------------------------- {{{
-
-" Fuck you, help key.
-noremap  <F1> :set invfullscreen<CR>
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-
-" Stop it, hash key.
-inoremap # X<BS>#
-
-" Kill window
-nnoremap K :q<cr>
-
-" Redraw
-nnoremap <leader>rr :redraw!<cr>
-
-" System clipboard interaction
-" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
-noremap <leader>y "*y
-noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
-noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
-
-" I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
-" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
-vnoremap u <nop>
-vnoremap gu u
-
-" For some reason ctags refuses to ignore Python variables, so I'll just hack
-" the tags file with sed and strip them out myself.
-"
-" Sigh.
-nnoremap <leader><cr> :silent !/usr/local/bin/ctags -R . && sed -i .bak -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags<cr>:redraw!<cr>
-
-" Highlight Group(s)
-nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Clean trailing whitespace
-nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
-
-" Send visual selection to gist.github.com as a private, filetyped Gist
-" Requires the gist command line too (brew install gist)
-" vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-" vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
-
-" Send visual selection to sprunge.us
-vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://sprunge.us' \| pbcopy<cr>
-
-" Change case
-nnoremap U gUiw
-inoremap <C-u> <esc>gUiwea
-
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
-" Diffoff
-nnoremap <leader>D :diffoff!<cr>
-
-" Formatting, TextMate-style
-nnoremap Q gqip
-vnoremap Q gq
-
-" Easier linewise reselection
-nnoremap <leader>V V`]
-
-" Keep the cursor in place while joining limes
-nnoremap J mzJ`z
-
-" Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
-
-" HTML tag closing
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
-
-" Less chording
-nnoremap ; :
-
-" Cmdheight switching
-nnoremap <leader>1 :set cmdheight=1<cr>
-nnoremap <leader>2 :set cmdheight=2<cr>
-
-" Source
-vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
-nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
-
-" Marks and Quotes
-noremap ' `
-noremap æ '
-noremap ` <C-^>
-
-" Select (charwise) the contents of the current line, excluding indentation.
-" Great for pasting Python lines into REPLs.
-nnoremap vv ^vg_
-
-" Better Completion
-set completeopt=longest,menuone,preview
-
-" Sudo to write
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Typos
-command! -bang E e<bang>
-command! -bang Q q<bang>
-command! -bang W w<bang>
-command! -bang QA qa<bang>
-command! -bang Qa qa<bang>
-command! -bang Wa wa<bang>
-command! -bang WA wa<bang>
-command! -bang Wq wq<bang>
-command! -bang WQ wq<bang>
-
-" I suck at typing.
-nnoremap <localleader>= ==
-vnoremap - =
-
-" Toggle paste
-set pastetoggle=<F6>
-
-" Toggle [i]nvisible characters
-nnoremap <leader>i :set list!<cr>
-
-" Drag Lines {{{
-
-" <m-j> and <m-k> to drag lines in any mode
-noremap ∆ :m+<CR>
-noremap ˚ :m-2<CR>
-inoremap ∆ <Esc>:m+<CR>
-inoremap ˚ <Esc>:m-2<CR>
-vnoremap ∆ :m'>+<CR>gv
-vnoremap ˚ :m-2<CR>gv
-
-" }}}
-" Easy filetype switching {{{
-
-nnoremap _md :set ft=markdown<CR>
-nnoremap _hd :set ft=htmldjango<CR>
-nnoremap _jt :set ft=htmljinja<CR>
-nnoremap _cw :set ft=confluencewiki<CR>
-nnoremap _pd :set ft=python.django<CR>
-nnoremap _d  :set ft=diff<CR>
-
-" }}}
-" Insert Mode Completion {{{
-
-inoremap <c-l> <c-x><c-l>
-inoremap <c-f> <c-x><c-f>
-inoremap <c-]> <c-x><c-]>
-
-" }}}
-" Quick editing {{{
-
-nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
-nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
-nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
-nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
-nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
-nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
-nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
-nnoremap <leader>et <C-w>v<C-w>j:e ~/.tmux.conf<cr>
 
 " }}}
 
@@ -1250,6 +1260,38 @@ function! s:NextTextObject(motion, dir)
   endif
 
   exe "normal! ".a:dir.c."v".a:motion.c
+endfunction
+
+" }}}
+" Numbers {{{
+
+" Motion for numbers.  Great for CSS.  Lets you do things like this:
+"
+" margin-top: 200px; -> daN -> margin-top: px;
+"              ^                          ^
+" TODO: Handle floats.
+
+onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
+onoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap aN :<c-u>call <SID>NumberTextObject(1)<cr>
+onoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+xnoremap iN :<c-u>call <SID>NumberTextObject(1)<cr>
+
+function! s:NumberTextObject(whole)
+    normal! v
+
+    while getline('.')[col('.')] =~# '\v[0-9]'
+        normal! l
+    endwhile
+
+    if a:whole
+        normal! o
+
+        while col('.') > 1 && getline('.')[col('.') - 2] =~# '\v[0-9]'
+            normal! h
+        endwhile
+    endif
 endfunction
 
 " }}}
