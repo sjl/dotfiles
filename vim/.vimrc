@@ -1077,6 +1077,7 @@ let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
 let g:pymode_utils_whitespaces = 0
 let g:pymode_virtualenv = 0
+let g:pymode_folding = 0
 
 let g:pymode_options_indent = 0
 let g:pymode_options_fold = 0
