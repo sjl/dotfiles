@@ -23,11 +23,11 @@ vim/bundle/linediff = [git]git://github.com/AndrewRadev/linediff.vim.git
 vim/bundle/indent-object = [git]git://github.com/michaeljsmith/vim-indent-object.git
 vim/bundle/fugitive = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/nosecompiler = [git]git://github.com/olethanh/Vim-nosecompiler.git
-vim/bundle/rainbow-parentheses = [git]git://github.com/kien/rainbow_parentheses.vim.git
 vim/bundle/AnsiEsc.vim = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
 vim/bundle/powerline = [git]git://github.com/Lokaltog/vim-powerline.git
 vim/bundle/yankring = [git]git://github.com/vim-scripts/YankRing.vim.git
 vim/bundle/badwolf = [hg]https://bitbucket.org/sjl/badwolf/
 vim/bundle/tslime = [git]git://github.com/sjl/tslime.vim.git
+vim/bundle/smartinput = [git]git://github.com/kana/vim-smartinput.git
 
 keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git

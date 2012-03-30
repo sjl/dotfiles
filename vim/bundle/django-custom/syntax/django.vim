@@ -94,5 +94,3 @@ if version >= 508 || !exists("did_django_syn_inits")
 endif
 
 let b:current_syntax = "django"
-
-source $HOME/.vim/bundle/html5/syntax/html/html5.vim
