@@ -264,6 +264,5 @@ psubscmd = !"$HG" debugsub | grep '^path' | cut -d' ' -f2 | parallel -j10 -I SUB
 #     M lol.py
 sub = !grep = "`$HG root`/.hgsub" | cut -d' ' -f1 | grep "$1" | tr -d '\n ' | xargs -0 -I SUB $HG -R SUB $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12 $13 $14 $15 $16 $17 $18 $19 $20
 
-
 # Local settings
 %include ~/.hgrc_local
