@@ -3,6 +3,7 @@ c711681883f3419b85494e3b285b988e8e2dcbca keymando/Plugins/abbrev
 d2bb7878622e4c16203acf1c92a0f4bc7ac58003 vim/bundle/AnsiEsc.vim
 9895285042a2fd5691b2f6582aa979e4d1bdffea vim/bundle/ack
 7d5b26907ce4e4d6de7ddf033fee82930733718c vim/bundle/badwolf
+521f6d200d6feee5de8e86c57468f06335c6811d vim/bundle/clam
 c4fe3045653877518ddbe776a9cb7cbd4fdd0bc8 vim/bundle/ctrlp
 667a668e114e9ec0e5d4cbcb0962d835b23614c4 vim/bundle/easymotion
 4f7af188fec24330e7dff99c8758588ae9780347 vim/bundle/fugitive
