@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl -F 'sprunge=<-' http://paste.stevelosh.com | tr -d '\n' | pbcopy
