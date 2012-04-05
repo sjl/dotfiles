@@ -269,7 +269,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 
 " Send visual selection to paste.stevelosh.com
-vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy<cr>
+vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy<cr>
 
 " Change case
 inoremap <C-u> <esc>gUiwea
