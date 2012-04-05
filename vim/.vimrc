@@ -46,6 +46,7 @@ set autoread
 set title
 set linebreak
 set dictionary=/usr/share/dict/words
+set spellfile=~/.vim/custom-dictionary.utf-8.add
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
@@ -55,6 +56,9 @@ set ttimeoutlen=10
 
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*"
+
+" Better Completion
+set completeopt=longest,menuone,preview
 
 " Save when losing focus
 au FocusLost * :silent! wall
@@ -231,8 +235,8 @@ inoremap # X<BS>#
 " Kill window
 nnoremap K :q<cr>
 
-" Redraw
-nnoremap <leader>rr :redraw!<cr>
+" The "unfuck my screen" mapping.
+nnoremap <leader>U :syntax sync fromstart<cr>:redraw!<cr>
 
 " System clipboard interaction
 " From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -264,11 +268,10 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
 " vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 
-" Send visual selection to sprunge.us
-vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://sprunge.us' \| tr -d '\n ' \| pbcopy<cr>
+" Send visual selection to paste.stevelosh.com
+vnoremap <leader>G :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy<cr>
 
 " Change case
-nnoremap U gUiw
 inoremap <C-u> <esc>gUiwea
 
 " Emacs bindings in command line mode
@@ -315,9 +318,6 @@ noremap ` <C-^>
 " Great for pasting Python lines into REPLs.
 nnoremap vv ^vg_
 
-" Better Completion
-set completeopt=longest,menuone,preview
-
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
 
@@ -340,7 +340,7 @@ vnoremap - =
 set pastetoggle=<F6>
 
 " Toggle [i]nvisible characters
-nnoremap <leader>i :set list!<cr>
+  nnoremap <leader>i :set list!<cr>
 
 " Drag Lines {{{
 
@@ -365,22 +365,23 @@ nnoremap _d  :set ft=diff<CR>
 " }}}
 " Insert Mode Completion {{{
 
-inoremap <c-l> <c-x><c-l>
+inoremap <c-l><c-l> <c-x><c-l>
 inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 
 " }}}
 " Quick editing {{{
 
-nnoremap <leader>ev <C-w>v<C-w>j:e $MYVIMRC<cr>
-nnoremap <leader>es <C-w>v<C-w>j:e ~/.vim/snippets/<cr>
-nnoremap <leader>eo <C-w>v<C-w>j:e ~/Dropbox/Org<cr>4j
-nnoremap <leader>eh <C-w>v<C-w>j:e ~/.hgrc<cr>
-nnoremap <leader>ep <C-w>v<C-w>j:e ~/.pentadactylrc<cr>
-nnoremap <leader>em <C-w>v<C-w>j:e ~/.mutt/muttrc<cr>
-nnoremap <leader>ez <C-w>v<C-w>j:e ~/lib/dotfiles/zsh<cr>4j
-nnoremap <leader>ek <C-w>v<C-w>j:e ~/lib/dotfiles/keymando/keymandorc.rb<cr>
-nnoremap <leader>et <C-w>v<C-w>j:e ~/.tmux.conf<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
+nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
+nnoremap <leader>eh :vsplit ~/.hgrc<cr>
+nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
+nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
+nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 
 " }}}
 
@@ -903,6 +904,7 @@ let g:badwolf_html_link_underline = 0
 " Clam {{{
 
 nnoremap ! :Clam<space>
+let g:clam_autoreturn = 1
 
 " }}}
 " Commentary {{{

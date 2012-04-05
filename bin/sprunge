@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-curl -F 'sprunge=<-' http://sprunge.us | tr -d '\n' | pbcopy
