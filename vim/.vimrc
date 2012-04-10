@@ -235,8 +235,8 @@ inoremap # X<BS>#
 " Kill window
 nnoremap K :q<cr>
 
-" The "unfuck my screen" mapping.
-nnoremap <leader>U :syntax sync fromstart<cr>:redraw!<cr>
+" Unfuck my screen
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
 " System clipboard interaction
 " From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -269,7 +269,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
 
 " Send visual selection to paste.stevelosh.com
-vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy<cr>
+vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
 
 " Change case
 inoremap <C-u> <esc>gUiwea
@@ -340,7 +340,7 @@ vnoremap - =
 set pastetoggle=<F6>
 
 " Toggle [i]nvisible characters
-  nnoremap <leader>i :set list!<cr>
+nnoremap <leader>i :set list!<cr>
 
 " Drag Lines {{{
 
@@ -447,15 +447,15 @@ nnoremap VaB vaBV
 
 " Directional Keys {{{
 
-" It's 2011.
+" It's 2012.
 noremap j gj
 noremap k gk
 
 " Easy buffer navigation
-noremap <C-h>  <C-w>h
-noremap <C-j>  <C-w>j
-noremap <C-k>  <C-w>k
-noremap <C-l>  <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 noremap <leader>v <C-w>v
 
@@ -543,7 +543,7 @@ augroup ft_clojure
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
 
-    au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
+    au BufWinEnter            SLIMV.REPL setlocal nolist
     au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
@@ -1137,7 +1137,7 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 let g:slimv_repl_name = 'SLIMV.REPL'
 let g:slimv_repl_split = 4
-let g:slimv_repl_syntax = 1
+let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
 
 " Use a swank command that works, and doesn't require new app windows.
@@ -1667,6 +1667,7 @@ else
     endif
 
     " Save on losing focus.
+    " TODO: Make this work...
     if exists('$TMUX')
         " let &t_ti = "\<Esc>Ptmux;\<Esc>" . &t_ti . "\e[?1004h" . "\<Esc>\\"
         " let &t_te = "\<Esc>Ptmux;\<Esc>" . "\e[?1004l" . &t_te . "\<Esc>\\"
@@ -1682,3 +1683,4 @@ else
 endif
 
 " }}}
+
