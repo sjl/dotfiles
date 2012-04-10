@@ -177,6 +177,7 @@ let maplocalleader = "\\"
 
 syntax on
 set background=dark
+let g:badwolf_html_link_underline = 0
 colorscheme badwolf
 
 " Highlight VCS conflict markers
@@ -894,11 +895,6 @@ nnoremap <leader>a :Ack!<space>
 " Autoclose {{{
 
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
-
-" }}}
-" Bad Wolf {{{
-
-let g:badwolf_html_link_underline = 0
 
 " }}}
 " Clam {{{
