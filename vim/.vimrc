@@ -47,6 +47,7 @@ set title
 set linebreak
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
+set colorcolumn=+1
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
@@ -75,16 +76,6 @@ augroup cline
     au WinEnter * set cursorline
     au InsertEnter * set nocursorline
     au InsertLeave * set cursorline
-augroup END
-
-" }}}
-" Colorcolumn {{{
-" Only show colorcolumn in the current window.
-
-augroup ccol
-    au!
-    au WinLeave * setlocal colorcolumn=0
-    au WinEnter * setlocal colorcolumn=+1
 augroup END
 
 " }}}
@@ -148,7 +139,7 @@ augroup END
 " }}}
 " Tabs, spaces, wrapping {{{
 
-set tabstop=4
+set tabstop=8
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -237,7 +228,7 @@ inoremap # X<BS>#
 nnoremap K :q<cr>
 
 " Unfuck my screen
-nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
 " System clipboard interaction
 " From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -427,7 +418,8 @@ nnoremap g, g,zz
 
 " Easier to type, and I never use the default behavior.
 noremap H ^
-noremap L g_
+noremap L $
+vnoremap L g_
 
 " Heresy
 inoremap <c-a> <esc>I
@@ -446,11 +438,16 @@ nnoremap Vat vatV
 nnoremap Vab vabV
 nnoremap VaB vaBV
 
+" Toggle "keep current line in the center of the screen" mode
+nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
+
 " Directional Keys {{{
 
 " It's 2012.
 noremap j gj
 noremap k gk
+noremap gj j
+noremap gk k
 
 " Easy buffer navigation
 noremap <C-h> <C-w>h
@@ -1652,30 +1649,104 @@ if has('gui_running')
     end
 else
     " Console Vim
+    " For me, this means iTerm2, possibly through tmux
 
-    " Use a bar-shaped cursor for insert mode, even through tmux.
+    " Mouse support
+    set mouse=a
+
+    " iTerm2 allows you to turn "focus reporting" on and off with these
+    " sequences.
+    "
+    " When reporting is on, iTerm2 will send <Esc>[O when the window loses
+    " focus and <Esc>[I when it gains focus.
+    "
+    " TODO: Look into how this works with iTerm tabs.  Seems a bit wonky.
+    let enable_focus_reporting  = "\<Esc>[?1004h"
+    let disable_focus_reporting = "\<Esc>[?1004l"
+
+    " These sequences save/restore the screen.
+    " They should NOT be wrapped in tmux escape sequences for some reason!
+    let save_screen    = "\<Esc>[?1049h"
+    let restore_screen = "\<Esc>[?1049l"
+
+    " These sequences tell iTerm2 to change the cursor shape to a bar or block.
+    let cursor_to_bar   = "\<Esc>]50;CursorShape=1\x7"
+    let cursor_to_block = "\<Esc>]50;CursorShape=0\x7"
+
     if exists('$TMUX')
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+        " Some escape sequences (not all, lol) need to be properly escaped to
+        " get them through tmux without being eaten.
+        "
+        " To escape a sequence through tmux:
+        "
+        " * Wrap it in these sequences.
+        " * Any <Esc> characters inside it must be doubled.
+        let tmux_start = "\<Esc>Ptmux;"
+        let tmux_end   = "\<Esc>\\"
+
+        let enable_focus_reporting  = tmux_start . "\<Esc>" . enable_focus_reporting  . tmux_end
+        let disable_focus_reporting = tmux_start . "\<Esc>" . disable_focus_reporting . tmux_end
+
+        let cursor_to_bar   = tmux_start . "\<Esc>" . cursor_to_bar   . tmux_end
+        let cursor_to_block = tmux_start . "\<Esc>" . cursor_to_block . tmux_end
     endif
 
-    " Save on losing focus.
-    " TODO: Make this work...
-    if exists('$TMUX')
-        " let &t_ti = "\<Esc>Ptmux;\<Esc>" . &t_ti . "\e[?1004h" . "\<Esc>\\"
-        " let &t_te = "\<Esc>Ptmux;\<Esc>" . "\e[?1004l" . &t_te . "\<Esc>\\"
+    " When starting Vim, enable focus reporting and save the screen.
+    " When exiting Vim, disable focus reporting and save the screen.
+    "
+    " The "focus/save" and "nofocus/restore" each have to be in this order.
+    " Trust me, you don't want to go down this rabbit hole.  Just keep them in
+    " this order and no one gets hurt.
+    let &t_ti = enable_focus_reporting . save_screen
+    let &t_te = disable_focus_reporting . restore_screen
 
-        " noremap <ESC>[O :echom "TEST"<cr>
-    else
-        " if &term =~ "xterm.*"
-        "     let &t_ti = &t_ti . "\e[?1004h"
-        "     let &t_te = "\e[?1004l" . &t_te
-        "     noremap <ESC>[O :echom "TEST"<cr>
-        " endif
-    endif
+    " When entering insert mode, change the cursor to a bar.
+    " When exiting insert mode, change it back to a block.
+    let &t_SI = cursor_to_bar
+    let &t_EI = cursor_to_block
+
+    " Map some of Vim's unused keycodes to the sequences iTerm2 is going to send
+    " on focus lost/gained.
+    "
+    " If you're already using f24 or f25, change them to something else.  Vim
+    " support up to f37.
+    "
+    " Doing things this way is might nicer than just mapping the raw sequences
+    " directly, because Vim won't hang after a bare <Esc> waiting for the rest
+    " of the mapping.
+    execute "set <f24>=\<Esc>[O"
+    execute "set <f25>=\<Esc>[I"
+
+    " Handle the focus gained/lost signals in each mode separately.
+    "
+    " The goal should be to do what you need and restore the state to what it
+    " was before, so it functions like an autocommand.  This is easy for some
+    " modes and hard/impossible for others.
+    "
+    " If you don't need one it's best to map it to <nop> to be explicit (and
+    " prevent problems, especially in insert mode).
+    "
+    " EXAMPLES:
+    " nnoremap <f24> :echom "FOCUS LOST"<CR>
+    " nnoremap <f25> :echom "FOCUS GAINED"<CR>
+
+    " onoremap <f24> <esc>:echom "FOCUS LOST"<CR>
+    " onoremap <f25> <esc>:echom "FOCUS GAINED"<CR>
+
+    " vnoremap <f24> <esc>:echom "FOCUS LOST"<CR>gv
+    " vnoremap <f25> <esc>:echom "FOCUS GAINED"<CR>gv
+
+    " inoremap <f24> <esc>:echom "FOCUS LOST"<CR>a
+    " inoremap <f25> <esc>:echom "FOCUS GAINED"<CR>a
+
+    nnoremap <f24> :wa<CR>
+    nnoremap <f25> <nop>
+    onoremap <f24> <esc>:wa<CR>
+    onoremap <f25> <nop>
+    vnoremap <f24> <esc>:wa<CR>gv
+    vnoremap <f25> <nop>
+    inoremap <f24> <esc>:wa<CR>a
+    inoremap <f25> <nop>
 endif
 
 " }}}
