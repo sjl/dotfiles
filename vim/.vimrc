@@ -350,6 +350,7 @@ vnoremap ˚ :m-2<CR>gv
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _jt :set ft=htmljinja<CR>
+nnoremap _js :set ft=javascript<CR>
 nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
@@ -1719,34 +1720,21 @@ else
 
     " Handle the focus gained/lost signals in each mode separately.
     "
-    " The goal should be to do what you need and restore the state to what it
-    " was before, so it functions like an autocommand.  This is easy for some
-    " modes and hard/impossible for others.
-    "
-    " If you don't need one it's best to map it to <nop> to be explicit (and
-    " prevent problems, especially in insert mode).
+    " The goal is to fire the autocmd and restore the state as cleanly as
+    " possible.  This is easy for some modes and hard/impossible for others.
     "
     " EXAMPLES:
-    " nnoremap <f24> :echom "FOCUS LOST"<CR>
-    " nnoremap <f25> :echom "FOCUS GAINED"<CR>
+    nnoremap <silent> <f24> :doautocmd FocusLost %<cr>
+    nnoremap <silent> <f25> :doautocmd FocusGained %<cr>
 
-    " onoremap <f24> <esc>:echom "FOCUS LOST"<CR>
-    " onoremap <f25> <esc>:echom "FOCUS GAINED"<CR>
+    onoremap <silent> <f24> <esc>:doautocmd FocusLost %<cr>
+    onoremap <silent> <f25> <esc>:doautocmd FocusGained %<cr>
 
-    " vnoremap <f24> <esc>:echom "FOCUS LOST"<CR>gv
-    " vnoremap <f25> <esc>:echom "FOCUS GAINED"<CR>gv
+    vnoremap <silent> <f24> <esc>:doautocmd FocusLost %<cr>gv
+    vnoremap <silent> <f25> <esc>:doautocmd FocusGained %<cr>gv
 
-    " inoremap <f24> <esc>:echom "FOCUS LOST"<CR>a
-    " inoremap <f25> <esc>:echom "FOCUS GAINED"<CR>a
-
-    nnoremap <f24> :wa<CR>
-    nnoremap <f25> <nop>
-    onoremap <f24> <esc>:wa<CR>
-    onoremap <f25> <nop>
-    vnoremap <f24> <esc>:wa<CR>gv
-    vnoremap <f25> <nop>
-    inoremap <f24> <esc>:wa<CR>a
-    inoremap <f25> <nop>
+    inoremap <silent> <f24> <c-o>:doautocmd FocusLost %<cr>
+    inoremap <silent> <f25> <c-o>:doautocmd FocusGained %<cr>
 endif
 
 " }}}
