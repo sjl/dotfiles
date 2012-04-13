@@ -1,4 +1,7 @@
 mercurial/templates = [hg]https://bitbucket.org/sjl/mercurial-cli-templates
+mercurial/hg-prompt = [hg]https://bitbucket.org/sjl/hg-prompt
+mercurial/hggit = [hg]https://bitbucket.org/durin42/hggit
+mercurial/histedit = [hg]https://bitbucket.org/durin42/histedit
 
 vim/bundle/ack = [git]git://github.com/mileszs/ack.vim.git
 vim/bundle/gundo = [hg]https://bitbucket.org/sjl/gundo.vim/
@@ -31,5 +34,3 @@ vim/bundle/yankring = [git]git://github.com/vim-scripts/YankRing.vim.git
 vim/bundle/badwolf = [hg]https://bitbucket.org/sjl/badwolf/
 vim/bundle/tslime = [git]git://github.com/sjl/tslime.vim.git
 vim/bundle/smartinput = [git]git://github.com/kana/vim-smartinput.git
-
-keymando/Plugins/abbrev = [git]git://github.com/keymando/abbrev.git
