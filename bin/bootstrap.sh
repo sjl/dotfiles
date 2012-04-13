@@ -4,7 +4,7 @@
 
 set -e
 
-echo "prerequisites: python git pip dulwich"
+echo "prerequisites: python git pip dulwich tmux weechat offlineimap mutt hg ack zsh vim"
 
 function ensure_link {
     test -L "$HOME/$2" || ln -s "$HOME/$1" "$HOME/$2"
