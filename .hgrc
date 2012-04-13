@@ -19,11 +19,9 @@ parentrevspec =
 schemes = 
 progress =
 fetch =
-hgsubversion = ~/lib/hg/hgsubversion/hgsubversion
-prompt = ~/lib/hg/hg-prompt/prompt.py
-histedit = ~/lib/hg/histedit/hg_histedit.py
-hggit = ~/lib/hg/hg-git/hggit
-collapse = ~/lib/hg/hgcollapse/hgext/collapse.py
+prompt   = ~/lib/dotfiles/mercurial/hg-prompt/prompt.py
+histedit = ~/lib/dotfiles/mercurial/histedit/hg_histedit.py
+hggit    = ~/lib/dotfiles/mercurial/hg-git/hggit
 
 [progress]
 delay = 1.0
