@@ -9,8 +9,8 @@
 mkdir -p lib/hg
 mkdir -p lib/python
 mkdir -p lib/virtualenvs
-mkdir bin
-mkdir src
+mkdir -p ~/bin
+mkdir -p ~/src
 
 hg clone 'http://selenic.com/repo/hg#stable' ~/lib/hg/hg-stable
 cd ~/lib/hg/hg-stable

@@ -58,7 +58,7 @@ export PATH="$HOME/lib/hg/hg-stable:$PATH"
 export PYTHONPATH="$HOME/lib/hg/hg-stable:$PYTHONPATH"
 
 # Extra ----------------------------------------------------------------------
-source ~/lib/z/z.sh
+source `brew --prefix`/etc/profile.d/z.sh
 
 # Pre-Prompt Command ---------------------------------------------------------
 function precmd () {
