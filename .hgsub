@@ -1,6 +1,5 @@
 mercurial/templates = [hg]https://bitbucket.org/sjl/mercurial-cli-templates
 mercurial/hg-prompt = [hg]https://bitbucket.org/sjl/hg-prompt
-mercurial/hg-git = [hg]https://bitbucket.org/durin42/hg-git
 mercurial/histedit = [hg]https://bitbucket.org/durin42/histedit
 
 vim/bundle/ack = [git]git://github.com/mileszs/ack.vim.git
