@@ -1,7 +1,7 @@
 $(function() {
     if ($('body').hasClass('page-commits')) {
 
-        $('ul.pagehead-actions').prepend('<li><a class="minibutton btn-watch" href="#" id="toggle-merges-button"><span><span class="icon"></span><span class="text">Review</span></span></a></li>');
+        $('ul.pagehead-actions').prepend('<li><a class="minibutton btn-watch" href="#reviewing" id="toggle-merges-button"><span><span class="icon"></span><span class="text">Review</span></span></a></li>');
 
         $('#toggle-merges-button').toggle(function() {
             $('li.commit').each(function() {
@@ -36,9 +36,22 @@ $(function() {
                 }
             });
             $('span.text', this).text('Stop reviewing');
+            $('a#toggle-merges-button').attr('href', '#');
+
+            window.location.hash = '#reviewing';
+
+            return false;
         }, function() {
             $('li.commit').show();
             $('span.text', this).text('Review');
+
+            window.location.hash = '';
+
+            return false;
         });
+    }
+
+    if (window.location.hash === '#reviewing') {
+        $('a#toggle-merges-button').click();
     }
 });
