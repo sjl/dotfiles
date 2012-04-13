@@ -18,6 +18,7 @@ vim/bundle/vim-orgmode = [git]git://github.com/jceb/vim-orgmode.git
 vim/bundle/python-mode = [git]git://github.com/sjl/python-mode.git
 vim/bundle/slimv = [hg]https://bitbucket.org/sjl/slimv
 vim/bundle/threesome = [hg]https://bitbucket.org/sjl/threesome.vim
+vim/bundle/vitality = [hg]https://bitbucket.org/sjl/vitality.vim
 vim/bundle/vim-makegreen = [git]git://github.com/sjl/vim-makegreen.git
 vim/bundle/supertab = [git]git://github.com/ervandew/supertab.git
 vim/bundle/linediff = [git]git://github.com/AndrewRadev/linediff.vim.git
