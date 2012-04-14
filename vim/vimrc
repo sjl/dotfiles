@@ -433,6 +433,10 @@ vnoremap L g_
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
 
+" gi already moves to "last place you exited insert mode", so we'll map gI to
+" something similar: move to last change
+nnoremap gI `.
+
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
