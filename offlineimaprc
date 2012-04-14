@@ -2,16 +2,25 @@
 ui = TTY.TTYUI
 accounts = SteveLosh
 pythonfile=~/.mutt/offlineimap.py
+fsync = False
 
 [Account SteveLosh]
 localrepository = SteveLosh-Local
 remoterepository = SteveLosh-Remote
+status_backend = sqlite
 
 [Repository SteveLosh-Local]
 type = Maildir
 localfolders = ~/.mail/steve-stevelosh.com
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Trash',
+                            'archive': '[Gmail]/All Mail',
+                            }.get(folder, folder)
 
 [Repository SteveLosh-Remote]
+maxconnections = 1
 type = Gmail
 remoteuser = steve@stevelosh.com
 remotepasseval = get_keychain_pass(account="steve@stevelosh.com", server="imap.gmail.com")
