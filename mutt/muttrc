@@ -83,7 +83,7 @@ unignore from: to: cc: date: subject:                           # show only thes
 hdr_order from: to: cc: date: subject:                          # and in this order
 
 # boxes
-mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/django +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts
+mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts
 
 # always sourced
 #source $alias_file                                             # required for functionality
