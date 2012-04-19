@@ -297,9 +297,6 @@ nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
-" Less chording
-nnoremap ; :
-
 " Cmdheight switching
 nnoremap <leader>1 :set cmdheight=1<cr>
 nnoremap <leader>2 :set cmdheight=2<cr>
