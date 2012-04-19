@@ -39,5 +39,6 @@ ensure_link "lib/dotfiles/dotjs"          ".js"
 ensure_link "lib/dotfiles/dotcss"         ".css"
 ensure_link "lib/dotfiles/hgignore"       ".hgignore"
 ensure_link "lib/dotfiles/ctags"          ".ctags"
+ensure_link "lib/dotfiles/grc"            ".grc"
 
 echo completed

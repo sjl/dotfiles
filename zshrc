@@ -71,3 +71,6 @@ if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 
 # Emacs... -------------------------------------------------------------------
 alias e='emacsclient -nc .'
+
+# GRC
+source "`brew --prefix grc`/etc/grc.bashrc"

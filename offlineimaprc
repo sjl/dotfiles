@@ -36,5 +36,4 @@ folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
                                              'Flask',
                                              '[Gmail]/Important',
                                              '[Gmail]/Spam',
-                                             '[Gmail]/All Mail',
                                              ]
