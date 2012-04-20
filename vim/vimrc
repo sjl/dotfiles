@@ -305,6 +305,10 @@ nnoremap <leader>2 :set cmdheight=2<cr>
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
+" Back find-repeat
+" TODO: Why does this not work?
+nnoremap … dd
+
 " Marks and Quotes
 noremap ' `
 noremap æ '
@@ -337,6 +341,9 @@ set pastetoggle=<F6>
 
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
+
+" Has to be an autocommand because repeat.vim eats the mapping otherwise :(
+au VimEnter * :nnoremap U <c-r>
 
 " Drag Lines {{{
 
@@ -402,7 +409,7 @@ set sidescrolloff=10
 
 set virtualedit+=block
 
-noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 runtime macros/matchit.vim
 map <tab> %

@@ -28,6 +28,7 @@ application/pdf; ~/.mutt/view_attachment.sh %s pdf
 
 # HTML
 text/html; ~/.mutt/view_attachment.sh %s html
+ext/html; ~/.mutt/view_attachment.sh %s html
 
 # Unidentified.
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-" 
