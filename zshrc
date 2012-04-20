@@ -19,6 +19,7 @@ alias oldgcc='export CC=/usr/bin/gcc-4.0'
 alias tm='tmux -u2'
 alias c='clear'
 alias bp='bpython'
+alias oi='offlineimap'
 
 export DISABLE_AUTO_TITLE="true"
 
