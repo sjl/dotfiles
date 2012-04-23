@@ -266,9 +266,12 @@ vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '
 " Make backspace work sanely in visual mode
 vnoremap <bs> x
 
+" Insert the directory of the current buffer in command line mode
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " Select entire buffer
-vnoremap vaa ggvGg_
-vnoremap Vaa ggVG
+nnoremap vaa ggvGg_
+nnoremap Vaa ggVG
 
 " Change case
 inoremap <C-u> <esc>gUiwea
@@ -1175,28 +1178,28 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
-" Threesome {{{
+" Splice {{{
 
-let g:threesome_leader = "-"
+" let g:splice_leader = "-"
 
-let g:threesome_initial_mode = "grid"
+let g:splice_initial_mode = "grid"
 
-let g:threesome_initial_layout_grid = 1
-let g:threesome_initial_layout_loupe = 0
-let g:threesome_initial_layout_compare = 0
-let g:threesome_initial_layout_path = 0
+let g:splice_initial_layout_grid = 0
+let g:splice_initial_layout_loupe = 0
+let g:splice_initial_layout_compare = 0
+let g:splice_initial_layout_path = 0
 
-let g:threesome_initial_diff_grid = 1
-let g:threesome_initial_diff_loupe = 0
-let g:threesome_initial_diff_compare = 0
-let g:threesome_initial_diff_path = 0
+let g:splice_initial_diff_grid = 1
+let g:splice_initial_diff_loupe = 0
+let g:splice_initial_diff_compare = 1
+let g:splice_initial_diff_path = 0
 
-let g:threesome_initial_scrollbind_grid = 0
-let g:threesome_initial_scrollbind_loupe = 0
-let g:threesome_initial_scrollbind_compare = 0
-let g:threesome_initial_scrollbind_path = 0
+let g:splice_initial_scrollbind_grid = 0
+let g:splice_initial_scrollbind_loupe = 0
+let g:splice_initial_scrollbind_compare = 0
+let g:splice_initial_scrollbind_path = 0
 
-let g:threesome_wrap = "nowrap"
+let g:splice_wrap = "nowrap"
 
 " }}}
 " tslime {{{
