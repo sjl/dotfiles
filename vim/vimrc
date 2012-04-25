@@ -171,6 +171,12 @@ set background=dark
 let g:badwolf_html_link_underline = 0
 colorscheme badwolf
 
+" Reload the colorscheme whenever we write the file.
+augroup color_badwolf_dev
+    au!
+    au BufWritePost badwolf.vim color badwolf
+augroup END
+
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
@@ -295,7 +301,7 @@ nnoremap J mzJ`z
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc><right>mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
