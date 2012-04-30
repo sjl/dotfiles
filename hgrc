@@ -58,10 +58,10 @@ cmd.dd = diffuse
 opts.dd = 
 
 [merge-tools]
-threesome.executable = mvim
-threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
-threesome.premerge = keep
-threesome.priority = 1
+splice.executable = vim
+splice.args = -f $base $local $other $output -c 'SpliceInit'
+splice.premerge = keep
+splice.priority = 1
 
 keepthat.executable = sh
 keepthat.args = -c 'cp "$local" "$output.original" && cp "$other" "$output"'

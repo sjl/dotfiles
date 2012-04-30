@@ -24,7 +24,7 @@ image/png; ~/.mutt/view_attachment.sh %s png
 image/gif; ~/.mutt/view_attachment.sh %s gif
 
 # PDF
-application/pdf; ~/.mutt/view_attachment.sh %s pdf
+# application/pdf; ~/.mutt/view_attachment.sh %s pdf
 
 # HTML
 text/html; ~/.mutt/view_attachment.sh %s html

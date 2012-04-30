@@ -19,6 +19,7 @@ alias oldgcc='export CC=/usr/bin/gcc-4.0'
 alias tm='tmux -u2'
 alias c='clear'
 alias bp='bpython'
+alias oi='offlineimap'
 
 export DISABLE_AUTO_TITLE="true"
 
@@ -51,6 +52,7 @@ export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7.1/site-packages"
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python2.6/site-packages"
 export VEW_PATH="$HOME/lib/python/virtualenvwrapper/virtualenvwrapper.sh"
+export VEW_PATH="/usr/local/share/python/virtualenvwrapper.sh"
 export PYTHONPATH="$HOME/lib/python/see:$PYTHONPATH"
 export NODE_PATH="$NODE_PATH:/usr/local/lib/node:/usr/local/lib/node_modules"
 
@@ -71,3 +73,6 @@ if [[ -s $HOME/.zshrc_local ]] ; then source $HOME/.zshrc_local ; fi
 
 # Emacs... -------------------------------------------------------------------
 alias e='emacsclient -nc .'
+
+# GRC
+source "`brew --prefix grc`/etc/grc.bashrc"
