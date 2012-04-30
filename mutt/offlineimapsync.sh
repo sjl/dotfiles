@@ -5,11 +5,11 @@ ps aux | grep "[ ]$PID" && kill $PID
 
 function sync_normal {
     echo "NORMAL Sync"
-    /usr/local/bin/offlineimap -o -u quiet
+    /usr/local/share/python/offlineimap -o -u quiet
 }
 function sync_quick {
     echo "QUICK Sync"
-    /usr/local/bin/offlineimap -o -q -u quiet
+    /usr/local/share/python/offlineimap -o -q -u quiet
 }
 
 # This is silly.
