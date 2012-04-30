@@ -267,11 +267,14 @@ vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '
 vnoremap <bs> x
 
 " Select entire buffer
-vnoremap vaa ggvGg_
-vnoremap Vaa ggVG
+nnoremap vaa ggvGg_
+nnoremap Vaa ggVG
 
 " Change case
-inoremap <C-u> <esc>gUiwea
+inoremap <C-u> <esc>mzgUiw`za
+
+" Panic Button
+nnoremap <f9> mzggg?G`z
 
 " Emacs bindings in command line mode
 cnoremap <c-a> <home>
