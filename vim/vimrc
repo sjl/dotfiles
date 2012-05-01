@@ -233,6 +233,9 @@ inoremap # X<BS>#
 " Kill window
 nnoremap K :q<cr>
 
+" Toggle line numbers
+nnoremap <leader>n :setlocal number!<cr>
+
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 

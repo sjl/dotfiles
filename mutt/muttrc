@@ -1,135 +1,145 @@
 # directories and commands
-set alias_file          = ~/.mutt/alias                         # alias file
-set header_cache        = ~/.mutt/cache/headers                 # where to store headers
-set message_cachedir    = ~/.mutt/cache/bodies                  # where to store bodies
-set certificate_file    = ~/.mutt/certificates                  # where to store certs
-set mailcap_path        = ~/.mutt/mailcap                       # entrys for filetypes
-set signature           = ~/.mutt/sig                           # my signature file
-set tmpdir              = ~/.mutt/temp                          # where to keep temp files
-set editor              = "vim +/^$ +:s/^$/\\\\r\\\\r/ +:noh -c 'normal! k' -c 'set nolist' -c 'redraw'" # use vim
-set print_command       = /usr/bin/enscript                     # print with enscript
+set alias_file       = ~/.mutt/alias         # alias file
+set header_cache     = ~/.mutt/cache/headers # where to store headers
+set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
+set certificate_file = ~/.mutt/certificates  # where to store certs
+set mailcap_path     = ~/.mutt/mailcap       # entrys for filetypes
+set signature        = ~/.mutt/sig           # my signature file
+set tmpdir           = ~/.mutt/temp          # where to keep temp files
+set print_command    = /usr/bin/enscript     # print with enscript
 
-# address book
-set query_command       = "lbdbq '%s' | sed -e 's/(null)//g'"
+# Use Vim to compose email, with a few default options.
+set editor = "vim +/^$ +:s/^$/\\\\r\\\\r/ +:noh -c 'normal! k' -c 'set nolist' -c 'redraw'"
+
+# Use the OS X address book
+set query_command = "lbdbq '%s' | sed -e 's/(null)//g'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 
 # main options
-set mbox_type           = Maildir                               # mailbox type
-set folder              = ~/.mail                               # mailbox location
-set spoolfile           = "+steve-stevelosh.com/INBOX"          # GMail is default inbox
-set timeout             = 3                                     # idle time before scanning
-set mail_check          = 0                                     # minimum time between scans
-set sort_alias          = alias                                 # sort alias file by alias
-set reverse_alias                                               # show names from alias file in index
-unset move                                                      # gmail does that
-set delete                                                      # don't ask, just do
-unset confirmappend                                             # don't ask, just do!
-set quit                                                        # don't ask, just do!!
-unset mark_old                                                  # read/new is good enough for me
-set beep_new                                                    # bell on new mails
-set pipe_decode                                                 # strip headers and eval mimes when piping
-set thorough_search                                             # strip headers and eval mimes before searching
+set wait_key = no
+set mbox_type = Maildir  # mailbox type
+set folder = ~/.mail     # mailbox location
+set timeout = 3          # idle time before scanning
+set mail_check = 0       # minimum time between scans
+set sort_alias = alias   # sort alias file by alias
+set reverse_alias        # show names from alias file in index
+unset move               # gmail does that
+set delete               # don't ask, just do
+unset confirmappend      # don't ask, just do!
+set quit                 # don't ask, just do!!
+unset mark_old           # read/new is good enough for me
+set beep_new             # bell on new mails
+set pipe_decode          # strip headers and eval mimes when piping
+set thorough_search      # strip headers and eval mimes before searching
+set spoolfile  = "+steve-stevelosh.com/INBOX" # GMail is default inbox
 
 # index options
-set sort                = threads                               # like gmail
-set sort_aux            = reverse-last-date-received            # like gmail
-set uncollapse_jump                                             # don't collapse on an unread message
-set sort_re                                                     # thread based on regex
-set reply_regexp        = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # pager options
-set pager_index_lines   = 10                                    # number of index lines to show
-set pager_context       = 5                                     # number of context lines to show
-set pager_stop                                                  # don't go to next message automatically
-set menu_scroll                                                 # scroll in menus
-set smart_wrap                                                  # don't split words
-set tilde                                                       # show tildes like in vim
-unset markers                                                   # no ugly plus signs
-auto_view text/html                                             # view html automatically
-alternative_order text/plain text/enriched text/html            # save html for last
-set quote_regexp        = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 5      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set smart_wrap             # don't split words
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+auto_view text/html                                   # view html automatically
+alternative_order text/plain text/enriched text/html  # but prefer non-html
 
 # alternate emails
 alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com
 
 # formats
-set date_format         = "%m/%d"
-set index_format        = "[%Z]  %D  %-20.20F  %s"
-set status_format       = "-%r- %v ---[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
-set alias_format        = "%4n %t %-20a  %r"
+set date_format   = "%m/%d"
+set index_format  = "[%Z]  %D  %-20.20F  %s"
+set status_format = "-%r- %v ---[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
+set alias_format  = "%4n %t %-20a  %r"
 
 # composing mail
-set realname            = "Steve Losh"                          # who am i?
-set envelope_from                                               # which from?
-set sig_dashes                                                  # dashes before my sig... sweet
-set edit_headers                                                # show headers when composing
-set fast_reply                                                  # skip to compose when replying
-set sendmail_wait       = 0                                     # wait for sending, because Frontier is a steaming pile of fail
-set askcc                                                       # ask for CC:
-set fcc_attach                                                  # save attachments with the body
-unset mime_forward                                              # forward attachments as part of body
-set forward_format      = "Fwd: %s"                             # format for subject when forwarding
-set forward_decode                                              # decode when forwarding
-set attribution         = "On %d, %n wrote:"                    # set the attribution
-set reply_to                                                    # reply to Reply to: field
-set reverse_name                                                # reply as whomever it was to
-set include                                                     # include message in replies
-set forward_quote                                               # include message in forwards
+set realname = "Steve Losh"          # who am i?
+set envelope_from                    # which from?
+set sig_dashes                       # dashes before sig
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set sendmail_wait = 0                # wait for sending to successfully finish, because email is important
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+unset mime_forward                   # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
 
 # headers to show
-ignore *                                                        # ignore all headers
-unignore from: to: cc: date: subject:                           # show only these
-hdr_order from: to: cc: date: subject:                          # and in this order
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+hdr_order from: to: cc: date: subject:  # and in this order
 
 # boxes
 mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts
 
 # always sourced
-#source $alias_file                                             # required for functionality
-source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc             # source colors file
-source ~/.mutt/steve-stevelosh.com.muttrc                       # source gmail as default
-source ~/.mutt/sidebar.muttrc                                   # any muttng options are here
+source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc  # colorscheme
+source ~/.mutt/steve-stevelosh.com.muttrc            # stevelosh.com account detail
+source ~/.mutt/sidebar.muttrc                        # sidebar
 
 # account specific sources
-folder-hook steve-stevelosh.com/*        source ~/.mutt/steve-stevelosh.com.muttrc
+folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
 
-# these just give me headaches
+# unbind problematic keys
 bind index,pager \# noop
 bind index i        noop
 bind index w        noop
 
-# bindings
-bind index <tab>    sync-mailbox
-bind index k        previous-entry
-bind index j        next-entry
+# basic bindings
 bind pager i        exit
 bind pager /        search
 bind pager k        previous-line
 bind pager j        next-line
 bind pager gg       top
 bind pager G        bottom
+bind index,pager R  group-reply
+bind index <tab>    sync-mailbox
+bind index k        previous-entry
+bind index j        next-entry
 bind index gg       first-entry
 bind index G        last-entry
-bind index,pager R  group-reply
 bind index \Cp      recall-message
 bind index <space>  collapse-thread
 
-# macros
-macro index       \Co   "!offlineimap -q<enter>"                                "run offlineimap to sync mail"
-macro index       \Cr   "<tag-prefix><clear-flag>N"                                          "mark tagged messages as read"
-macro index       \CR   "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"         "mark all messages as read"
-macro index       B     "<limit>~b "                                                         "search message bodies"
-macro index       I     "<change-folder>!<enter>"                                            "go to Inbox"
-macro pager       \Cu   "|urlview<enter>"                                                    "call urlview to extract URLs out of a message"
-macro index,pager o     "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in vim"
+# Sync email
+macro index O "<shell-escape>offlineimap -q<enter>" "run offlineimap to sync mail"
 
-macro index <esc>f     ":set date_format = \"%m/%d\"<enter>"                           "short date format"
-macro index <esc>F     ":set date_format = \"%m/%d at %I:%M %P\"<enter>"               "long date format"
+# Searching bodies
+macro index B "<limit>~b " "search message bodies"
 
-# mailbox
-macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"     "go to stevelosh/INBOX"
-macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>"   "go to stevelosh/archive"
+# Opening links in mail
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+# Mark all as read
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+# Open message in MacVim
+macro index,pager o "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in macvim"
+
+# quickly change date formats
+macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date format"
+macro index <esc>F ":set date_format = \"%m/%d at %I:%M %P\"<enter>" "long date format"
+
+# quickly change mailboxes
+macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
+macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
 
 # save a decoded copy in ~
-macro index,pager P   "<pipe-message>cat > ~/Desktop/"    "save message as"
+macro index,pager P   "<pipe-message>cat > ~/Desktop/"  "save message as"
