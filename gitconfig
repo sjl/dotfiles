@@ -33,12 +33,18 @@
     uns = reset HEAD
 
     currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
+
     fo = fetch origin
     fu = fetch upstream
+
     po = push origin
-    lo = pull origin
+    ; lo = pull origin
+
     mo = !git merge --no-ff origin/`git currentbranch`
+    mu = !git merge --no-ff upstream/`git currentbranch`
+
     uo = !git merge --ff-only origin/`git currentbranch`
+    uu = !git merge --ff-only upstream/`git currentbranch`
 
     addremove = !git add . && git add -u
     addrem = !git addremove
