@@ -41,8 +41,8 @@ set splitbelow
 set splitright
 set fillchars=diff:⣿,vert:│
 set autowrite
-set shiftround
 set autoread
+set shiftround
 set title
 set linebreak
 set dictionary=/usr/share/dict/words
@@ -206,19 +206,7 @@ iabbrev lhap ಥ‿ಥ
 
 iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
-
-inoremap <c-l>a <c-k>a*
-inoremap <c-l>b <c-k>b*
-inoremap <c-l>g <c-k>g*
-inoremap <c-l>d <c-k>d*
-inoremap <c-l>e <c-k>e*
-inoremap <c-l>l <c-k>l*
-inoremap <c-l>y <c-k>y*
-inoremap <c-l>h <c-k>h*
-inoremap <c-l>m <c-k>m*
-inoremap <c-l>r <c-k>r*
-inoremap <c-l>p <c-k>p*
-inoremap <c-l>f <c-k>f*
+inoremap <c-l> <c-k>l*
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
@@ -384,7 +372,6 @@ nnoremap _d  :set ft=diff<CR>
 " }}}
 " Insert Mode Completion {{{
 
-inoremap <c-l><c-l> <c-x><c-l>
 inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 
