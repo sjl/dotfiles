@@ -1,2 +1,23 @@
 .native-clones { display: none; }
-.tree-browser td.content { font-family: Menlo; font-size: 12px; }
+.tree-browser td.content { font-family: Menlo; font-size: 12px; line-height: 18px; }
+span.mini-icon.directory { margin-top: 2px; }
+div.news span.mini-icon { display: none; }
+div.news div.alert { padding-left: 0; }
+ul.repo_list li .mini-icon { display: none; }
+#dashboard ul.repo_list li a { padding-left: 10px; }
+a.feed.tooltipped.leftwards { display: none; }
+.pagehead.tip { display: none; }
+#dashboard div.news { display: none; }
+div.filter-bar { overflow-x: hidden; }
+#dashboard #watched_repos {
+    float: left;
+    clear: none;
+    margin-right: 100px;
+}
+p.url-description {
+    display: none;
+}
+span.js-clippy { display: none !important; }
+div.repository-lang-stats-graph { display: none; }
+div.recently-touched-branches-wrapper { display: none; }
+p.last-commit { display: none; }
