@@ -788,6 +788,15 @@ augroup ft_markdown
 augroup END
 
 " }}}
+" Mercurial {{{
+
+augroup ft_mercurial
+    au!
+
+    au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
+augroup END
+
+" }}}
 " Nginx {{{
 
 augroup ft_nginx

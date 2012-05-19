@@ -1,5 +1,5 @@
-tr.group td {
-    padding: 6px 0px 4px 5px !important;
+table.grouped tr.group td {
+    padding: 6px 0px 4px 7px !important;
 }
 tr.issue td {
     padding: 8px 8px 6px 0px !important;
