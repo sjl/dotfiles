@@ -119,7 +119,8 @@ bind index \Cp      recall-message
 bind index <space>  collapse-thread
 
 # Sync email
-macro index O "<shell-escape>offlineimap -q<enter>" "run offlineimap to sync mail"
+macro index O "<shell-escape>offlineimap -q<enter>"                   "run offlineimap to sync mail in the foreground"
+macro index o "<shell-escape>offlineimap -q >/dev/null 2>&1 &<enter>" "run offlineimap to sync mail in the background"
 
 # Searching bodies
 macro index B "<limit>~b " "search message bodies"
@@ -131,7 +132,7 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
 # Open message in MacVim
-macro index,pager o "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"  "open in macvim"
+macro index,pager M "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' - >/dev/null<enter>"  "open in macvim"
 
 # quickly change date formats
 macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date format"

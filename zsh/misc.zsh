@@ -19,7 +19,7 @@ alias spotlight-wat='sudo fs_usage -w -f filesys mdworker | grep "open"'
 alias mutt='cd ~/Desktop; mutt'
 alias hi='pygmentize'
 
-function gimmeurjson() { curl "$*" | python -mjson.tool | pygmentize -l javascript; }
+function cj() { curl "$*" | python -mjson.tool | pygmentize -l javascript; }
 
 function mdown () {
     (echo '
