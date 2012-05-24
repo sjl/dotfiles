@@ -515,6 +515,9 @@ set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
 
+" "Refocus" folds
+nnoremap ,z zMzvzz
+
 " Make zO recursively open whatever top level fold we're in, no matter where the
 " cursor happens to be.
 nnoremap zO zCzO
@@ -556,7 +559,7 @@ augroup ft_clojure
     au!
 
     au BufNewFile,BufRead riemann.config set filetype=clojure
-    au FileType clojure call TurnOnClojureFolding()
+    au FileType clojure silent! call TurnOnClojureFolding()
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
 
