@@ -141,7 +141,7 @@ takeother = !"$HG" revert --rev 'p2()' $@ && "$HG" resolve -m $@
 d = diff -p --color=auto
 
 # Run a colored diff and pipe it to less.
-dl = !"$HG" diff -p --color=always | less -R
+dl = !"$HG" diff -p --color=always $@ | less -R
 
 # Kaleidoscope
 # Mnemonics: "kaleidoscope diff" and "kaleidoscope show"
