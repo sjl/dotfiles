@@ -49,6 +49,9 @@ set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 
+" Don't try to highlight lines longer than 500 characters.
+set synmaxcol=500
+
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
 set notimeout
@@ -227,11 +230,12 @@ nnoremap <leader>n :setlocal number!<cr>
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
-" System clipboard interaction
-" From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+" System clipboard interaction.  Mostly from:
+" https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
 noremap <leader>y "*y
 noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+vnoremap <leader>y "*ygv
 
 " I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
 " From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -259,9 +263,6 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Send visual selection to paste.stevelosh.com
 vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
-
-" Make backspace work sanely in visual mode
-vnoremap <bs> x
 
 " Insert the directory of the current buffer in command line mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -379,6 +380,7 @@ inoremap <c-]> <c-x><c-]>
 " Quick editing {{{
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ef :vsplit ~/.config/fish/config.fish<cr>
 nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
@@ -421,6 +423,9 @@ nnoremap D d$
 
 " Don't move on *
 nnoremap * *<c-o>
+
+" Use c-\ to do c-] but open it in a new split.
+nnoremap <c-\> <c-w>v<c-]>zvzz
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -692,6 +697,8 @@ augroup ft_fish
     au!
 
     au BufNewFile,BufRead *.fish setlocal filetype=fish
+
+    au FileType fish setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END
 
 " }}}
@@ -953,6 +960,7 @@ augroup plugin_commentary
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
+    au FileType fish setlocal commentstring=#\ %s
 augroup END
 
 " }}}
@@ -1573,6 +1581,9 @@ nnoremap <leader>hb :HgBlame<cr>
 
 nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
 xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
 
 function! s:CopyMotionForType(type)
     if a:type ==# 'v'

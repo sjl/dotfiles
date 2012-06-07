@@ -1,13 +1,13 @@
-# Basic ----------------------------------------------------------------------------
+# Basic -----------------------------------------------------------------------
 start_at_login
 
 disable "Remote Desktop Connection"
 disable /VirtualBox/
 
 map "<Ctrl-m>", "<Cmd-Shift-/>"
-map "<Ctrl-Shift-R>", lambda { reload() }
+# map "<Ctrl-Shift-R>", lambda { reload() }
 
-# Application Switching ------------------------------------------------------------
+# Application Switching -------------------------------------------------------
 map "<Ctrl-Shift-J>", lambda { activate('Firefox') }
 map "<Ctrl-Shift-P>", lambda { activate('Pixelmator') }
 map "<Ctrl-Shift-H>", lambda { activate('Pixen') }
@@ -24,16 +24,21 @@ map "<Ctrl-Shift-I>" do
     send('<Ctrl-f>1')
 end
 
-# Leader ---------------------------------------------------------------------------
+# Refresh ---------------------------------------------------------------------
+
+map "<Ctrl-Shift-R>" do
+  activate('Firefox')
+  send("<Cmd-r>")
+  send("<Cmd-Tab>")
+end
+
+# Leader ----------------------------------------------------------------------
 # map "<Ctrl-,>" do
 #     input()
 # end
 
-# Abbreviations --------------------------------------------------------------------
+# Abbreviations ---------------------------------------------------------------
 
 # abbrev 'ldis' do
-#   pasteBoard = NSPasteboard.generalPasteboard
-#   pasteBoard.declareTypes([NSStringPboardType], owner: nil)
-#   pasteBoard.setString('ಠ_ಠ', forType: NSStringPboardType)
-#   send('<Cmd-v>')
+#   send('ಠ_ಠ')
 # end
