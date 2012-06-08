@@ -70,55 +70,6 @@ function hg_prompt
     # hg prompt --angle-brackets $hg_promptstring 2>/dev/null
 end
 
-function git_prompt_status
-  set INDEX (git status --porcelain ^ /dev/null)
-  set STATUS ""
-
-  if echo "$INDEX" | grep '^?? ' > /dev/null ^&1
-  echo "$INDEX"
-    echo trolololol
-    set STATUS "lololol$STATUS"
-  end
-
-  if echo "$INDEX" | grep '^A  ' > /dev/null ^&1
-    set STATUS "+$STATUS"
-  else
-    if echo "$INDEX" | grep '^M  ' > /dev/null ^&1
-        set STATUS "+$STATUS"
-    end
-  end
-
-  if echo "$INDEX" | grep '^ M ' > /dev/null ^&1
-    set STATUS "!$STATUS"
-  else
-    if echo "$INDEX" | grep '^AM ' > /dev/null ^&1
-        set STATUS "!$STATUS"
-    else
-        if echo "$INDEX" | grep '^ T ' > /dev/null ^&1
-            set STATUS "!$STATUS"
-        end
-    end
-  end
-
-  if echo "$INDEX" | grep '^R  ' > /dev/null ^&1
-    set STATUS ">$STATUS"
-  end
-
-  if echo "$INDEX" | grep '^ D ' > /dev/null ^&1
-    set STATUS "-$STATUS"
-  else
-    if echo "$INDEX" | grep '^AD ' > /dev/null ^&1
-        set STATUS "-$STATUS"
-    end
-  end
-
-  if echo "$INDEX" | grep '^UU ' > /dev/null ^&1
-    set STATUS "C$STATUS"
-  end
-
-  echo -n $STATUS
-end
-
 function git_prompt
     if git root >/dev/null 2>&1
         set_color normal
@@ -126,12 +77,14 @@ function git_prompt
         set_color magenta
         printf '%s' (git currentbranch ^/dev/null)
         set_color green
-        # git_prompt_status
+        git_prompt_status
         set_color normal
     end
 end
 
 function fish_prompt
+    set last_status $status
+
     z --add "$PWD"
 
     echo
@@ -155,8 +108,13 @@ function fish_prompt
 
     echo
 
-    set_color white -o
-    printf '><> '
+    if test $last_status -eq 0
+        set_color white -o
+        printf '><((°> '
+    else
+        set_color red -o
+        printf '[%d] ><((ˣ> ' $last_status
+    end
 
     set_color normal
 end
@@ -191,6 +149,6 @@ end
 
 #normal }}}
 
-# if status --is-interactive
-#     command fortune -s | cowsay -n | lolcat
-# end
+if status --is-interactive
+    command fortune -s | cowsay -n | lolcat
+end

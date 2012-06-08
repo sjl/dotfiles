@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+INDEX=$(git status --porcelain 2> /dev/null)
+STATUS=""
+
+
+if $(echo "$INDEX" | grep '^UU ' &> /dev/null); then
+    STATUS="C$STATUS"
+fi
+
+if $(echo "$INDEX" | grep '^.[MD] ' &> /dev/null); then
+    STATUS="?$STATUS"
+elif $(echo "$INDEX" | grep '^?? ' &> /dev/null); then
+    STATUS="?$STATUS"
+fi
+
+if $(echo "$INDEX" | grep '^[AMDR]. ' &> /dev/null); then
+    STATUS="!$STATUS"
+fi
+
+echo -n $STATUS
