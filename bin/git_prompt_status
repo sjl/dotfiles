@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 INDEX=$(git status --porcelain 2> /dev/null)
 STATUS=""
