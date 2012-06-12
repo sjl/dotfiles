@@ -1,28 +1,40 @@
 # Useful aliases {{{
 
-alias fab     'fab -i ~/.ssh/stevelosh'
-alias oldgcc  'set -g CC /usr/bin/gcc-4.0'
-alias tm      'tmux -u2'
-alias c       'clear'
-alias ef      'vim ~/.config/fish/config.fish'
+alias fab 'fab -i ~/.ssh/stevelosh'
+alias oldgcc 'set -g CC /usr/bin/gcc-4.0'
+alias tm 'tmux -u2'
+alias c 'clear'
+alias hl 'less -R'
+
+alias ef 'vim ~/.config/fish/config.fish'
 
 alias h 'hg'
 alias g 'git'
 
-alias v 'vagrant'
+alias pbc 'pbcopy'
+alias pbp 'pbpaste'
+
+alias v 'vim'
+
 alias vu 'vagrant up'
 alias vs 'vagrant suspend'
+
+alias o 'open'
+alias oo 'open .'
 
 # }}}
 # Environment variables {{{
 
-set PATH "/usr/local/bin"         $PATH
-set PATH "/usr/local/sbin"        $PATH
-set PATH "$HOME/bin"              $PATH
-set PATH "$HOME/lib/dotfiles/bin" $PATH
-set PATH "/opt/local/bin"         $PATH
-set PATH "/opt/subversion/bin"    $PATH
-set PATH "$HOME/lib/hg/hg-stable" $PATH
+set PATH "/usr/local/bin"          $PATH
+set PATH "/usr/local/share/python" $PATH
+set PATH "/usr/local/sbin"         $PATH
+set PATH "$HOME/bin"               $PATH
+set PATH "$HOME/lib/dotfiles/bin"  $PATH
+set PATH "/opt/local/bin"          $PATH
+set PATH "/opt/subversion/bin"     $PATH
+set PATH "$HOME/lib/hg/hg"         $PATH
+
+set PATH "/usr/local/Cellar/ruby/1.9.3-p194/bin" $PATH
 
 set BROWSER open
 
@@ -49,7 +61,7 @@ set PYTHONPATH "$PYTHONPATH:/usr/local/lib/python2.7.1/site-packages"
 set PYTHONPATH "$PYTHONPATH:/usr/local/lib/python2.7/site-packages"
 set PYTHONPATH "$PYTHONPATH:/usr/local/lib/python2.6/site-packages"
 set PYTHONPATH "$HOME/lib/python/see:$PYTHONPATH"
-set PYTHONPATH "$HOME/lib/hg/hg-stable:$PYTHONPATH"
+set PYTHONPATH "$HOME/lib/hg/hg:$PYTHONPATH"
 
 # }}}
 # Z {{{
