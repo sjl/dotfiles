@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Disable menu bar transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
