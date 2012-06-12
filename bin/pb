@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
+set -e
+
 curl -F 'sprunge=<-' http://paste.stevelosh.com | tr -d '\n' | pbcopy
+echo
+curl -s "`pbpaste`"
+tput bold
+echo ""
+echo "`pbpaste`"
