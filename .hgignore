@@ -26,3 +26,4 @@ weechat/urls.log
 weechat/irc.conf
 vim/bundle/potion
 vim/custom-dictionary.utf-8.add.spl
+bin/http_load
