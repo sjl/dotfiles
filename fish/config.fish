@@ -1,10 +1,13 @@
 # Useful aliases {{{
 
+alias serve_this 'python -m SimpleHTTPServer'
 alias fab 'fab -i ~/.ssh/stevelosh'
 alias oldgcc 'set -g CC /usr/bin/gcc-4.0'
 alias tm 'tmux -u2'
 alias c 'clear'
 alias hl 'less -R'
+alias paththis 'set PATH (pwd) $PATH'
+alias clc './get-last-commit-url.py | pbcopy'
 
 alias ef 'vim ~/.config/fish/config.fish'
 
@@ -15,12 +18,16 @@ alias pbc 'pbcopy'
 alias pbp 'pbpaste'
 
 alias v 'vim'
+alias V 'vim .'
 
 alias vu 'vagrant up'
 alias vs 'vagrant suspend'
 
 alias o 'open'
 alias oo 'open .'
+
+alias wo 'workon'
+alias deact 'deactivate'
 
 # }}}
 # Environment variables {{{
@@ -33,6 +40,8 @@ set PATH "$HOME/lib/dotfiles/bin"  $PATH
 set PATH "/opt/local/bin"          $PATH
 set PATH "/opt/subversion/bin"     $PATH
 set PATH "$HOME/lib/hg/hg"         $PATH
+
+set PATH "$HOME/Library/Haskell/bin" $PATH
 
 set PATH "/usr/local/Cellar/ruby/1.9.3-p194/bin" $PATH
 
@@ -66,6 +75,9 @@ set PYTHONPATH "$PYTHONPATH:/usr/local/lib/python2.6/site-packages"
 set PYTHONPATH "$HOME/lib/python/see:$PYTHONPATH"
 set PYTHONPATH "$HOME/lib/hg/hg:$PYTHONPATH"
 
+set -gx WORKON_HOME "$HOME/lib/virtualenvs"
+. ~/.config/fish/virtualenv.fish
+
 # }}}
 # Z {{{
 
@@ -83,6 +95,12 @@ set green (set_color green)
 set gray (set_color -o black)
 set hg_promptstring "< on $magenta<branch>$normal>< at $yellow<tags|$normal, $yellow>$normal>$green<status|modified|unknown><update>$normal<
 patches: <patches|join( → )|pre_applied($yellow)|post_applied($normal)|pre_unapplied($gray)|post_unapplied($normal)>>" 2>/dev/null
+
+function virtualenv_prompt
+    if [ -n "$VIRTUAL_ENV" ]
+        printf '(%s) ' (basename "$VIRTUAL_ENV")
+    end
+end
 
 function hg_prompt
     # hg prompt --angle-brackets $hg_promptstring 2>/dev/null
@@ -125,6 +143,8 @@ function fish_prompt
     git_prompt
 
     echo
+
+    virtualenv_prompt
 
     if test $last_status -eq 0
         set_color white -o
