@@ -43,8 +43,8 @@ nnoremap <c-g> <m-a-k><esc>
 inoremap <c-g> <esc><m-a-k><esc>
 
 " Inspect element toggle
-nnoremap <c-f> <m-a-i>
-inoremap <c-f> <esc><m-a-i>
+nnoremap <c-s> <m-a-i>
+inoremap <c-s> <esc><m-a-i>
 
 " Shift is hard.
 nnoremap ; :
