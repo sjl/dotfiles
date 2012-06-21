@@ -14,6 +14,8 @@ alias ef 'vim ~/.config/fish/config.fish'
 alias h 'hg'
 alias g 'git'
 
+alias weechat 'weechat-curses'
+
 alias pbc 'pbcopy'
 alias pbp 'pbpaste'
 
@@ -177,6 +179,12 @@ alias ll3 'tree --dirsfirst -ChFupDaL 3'
 
 alias l  'l1'
 alias ll 'll1'
+
+# }}}
+# Misc {{{
+
+set MUTT_BIN (which mutt)
+alias mutt "cd ~/Desktop; $MUTT_BIN"
 
 # }}}
 # Local Settings {{{

@@ -291,7 +291,7 @@ vnoremap Q gq
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
-" Keep the cursor in place while joining limes
+" Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
 " Split line (sister to [J]oin lines)
@@ -434,6 +434,7 @@ nnoremap N Nzzzv
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
+nnoremap <c-o> <c-o>zz
 
 " Easier to type, and I never use the default behavior.
 noremap H ^
