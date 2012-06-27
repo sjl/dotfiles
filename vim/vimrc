@@ -1198,6 +1198,7 @@ let g:sparkupNextMapping = '<c-s>'
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabLongestHighlight = 1
+let g:SuperTabCrMapping = 1
 
 "}}}
 " Syntastic {{{
