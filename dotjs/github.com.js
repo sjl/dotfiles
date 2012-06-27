@@ -26,7 +26,7 @@ $(function() {
                     return;
                 }
                 t = $(this).find('a.message').text().substring(0, 65);
-                if (t === 'Updated transiflex translations -- through update_translations.sh') {
+                if (t === 'Updated transifex translations -- through update_translations.sh') {
                     $(this).hide();
                     return;
                 }
