@@ -8,7 +8,6 @@ plugins=(command-coloring pip fabric lein redis-cli vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
-
 # Custom options -------------------------------------------------------------
 unsetopt promptcr
 

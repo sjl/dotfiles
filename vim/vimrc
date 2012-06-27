@@ -377,11 +377,12 @@ inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 
 " }}}
+
+" }}}
 " Quick editing {{{
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ef :vsplit ~/.config/fish/config.fish<cr>
-nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
 nnoremap <leader>eh :vsplit ~/.hgrc<cr>
@@ -390,8 +391,6 @@ nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
-
-" }}}
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{

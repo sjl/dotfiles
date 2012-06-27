@@ -10,11 +10,33 @@ alias paththis 'set PATH (pwd) $PATH'
 alias clc './get-last-commit-url.py | pbcopy'
 
 alias ef 'vim ~/.config/fish/config.fish'
+alias ev 'vim ~/.vimrc'
+alias ed 'vim ~/.vim/custom-dictionary.utf-8.add'
+alias eo 'vim ~/Dropbox/Org'
+alias eh 'vim ~/.hgrc'
+alias ep 'vim ~/.pentadactylrc'
+alias em 'vim ~/.mutt/muttrc'
+alias ez 'vim ~/lib/dotfiles/zsh'
+alias ek 'vim ~/lib/dotfiles/keymando/keymandorc.rb'
+alias et 'vim ~/.tmux.conf'
+
+alias spotlight-off 'sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer'
+alias spotlight-on 'sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer'
+alias spotlight-wat 'sudo fs_usage -w -f filesys mdworker | grep "open"'
+
+set MUTT_BIN (which mutt)
+alias mutt "cd ~/Desktop; $MUTT_BIN"
 
 alias h 'hg'
 alias g 'git'
 
+alias pbc 'pbcopy'
+alias pbp 'pbpaste'
+
 alias weechat 'weechat-curses'
+
+alias collapse="sed -e 's/  */ /g'"
+alias cuts "cut -d' '"
 
 alias pbc 'pbcopy'
 alias pbp 'pbpaste'
@@ -30,6 +52,10 @@ alias oo 'open .'
 
 alias wo 'workon'
 alias deact 'deactivate'
+
+function psg -d "Grep for a running process, returning its PID and full string"
+    ps auxww | grep --color=always $argv | grep -v grep | collapse | cuts -f 2,11-
+end
 
 # }}}
 # Environment variables {{{
@@ -182,9 +208,6 @@ alias ll 'll1'
 
 # }}}
 # Misc {{{
-
-set MUTT_BIN (which mutt)
-alias mutt "cd ~/Desktop; $MUTT_BIN"
 
 # }}}
 # Local Settings {{{
