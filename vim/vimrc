@@ -227,6 +227,11 @@ nnoremap K :q<cr>
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
+" Front and center
+" Use :sus for the rare times I want to actually background Vim.
+nnoremap <c-z> zvzz
+vnoremap <c-z> <esc>zv`<ztgv
+
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
@@ -379,7 +384,7 @@ inoremap <c-]> <c-x><c-]>
 " }}}
 
 " }}}
-" Quick editing {{{
+" Quick editing ----------------------------------------------------------- {{{
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ef :vsplit ~/.config/fish/config.fish<cr>

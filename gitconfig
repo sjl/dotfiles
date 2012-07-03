@@ -12,6 +12,7 @@
     branches = branch -a
     remotes = remote -v
 
+    ; make-the-fucking-branch-point-at-this-fucking-commit = !sh -c "git checkout $1 && git reset --hard $2" -
     root = rev-parse --show-toplevel
 
     graft = cherry-pick -x
