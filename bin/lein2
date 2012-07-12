@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-LEIN_VERSION="2.0.0-preview4"
-export LEIN_VERSION
+export LEIN_VERSION="2.0.0-preview7"
 
 case $LEIN_VERSION in
     *SNAPSHOT) SNAPSHOT="YES" ;;
@@ -90,6 +89,7 @@ if [ -r "$BIN_DIR/../src/leiningen/version.clj" ]; then
     mkdir -p "$LEIN_DIR/target/classes"
     export LEIN_JVM_OPTS=${LEIN_JVM_OPTS:-"-Dclojure.compile.path=$LEIN_DIR/target/classes"}
     CLASSPATH="$LEIN_DIR/leiningen-core/src/"
+    CLASSPATH="$CLASSPATH:$LEIN_DIR/leiningen-core/resources/"
     CLASSPATH="$CLASSPATH:$(cat $LEIN_DIR/.lein-classpath 2> /dev/null)"
     CLASSPATH="$CLASSPATH:$LEIN_DIR/leiningen-core/lib/*"
     CLASSPATH="$CLASSPATH:$LEIN_DIR/test:$LEIN_DIR/target/classes"
@@ -112,12 +112,15 @@ else # Not running from a checkout
     fi
 fi
 
-HTTP_CLIENT=${HTTP_CLIENT:-"wget -O"}
-if type -p curl >/dev/null 2>&1; then
-    if [ "$https_proxy" != "" ]; then
-        CURL_PROXY="-x $https_proxy"
+if [ "$HTTP_CLIENT" = "" ]; then
+    if type -p curl >/dev/null 2>&1; then
+        if [ "$https_proxy" != "" ]; then
+            CURL_PROXY="-x $https_proxy"
+        fi
+        HTTP_CLIENT="curl $CURL_PROXY -f -L -o"
+    else
+        HTTP_CLIENT="wget -O"
     fi
-    HTTP_CLIENT="curl $CURL_PROXY -f -L -o"
 fi
 
 export JAVA_CMD=${JAVA_CMD:-"java"}
@@ -142,6 +145,10 @@ if [ "$1" = "self-install" ]; then
     $HTTP_CLIENT "$LEIN_JAR" "$LEIN_URL"
     if [ $? != 0 ]; then
         echo "Failed to download $LEIN_URL"
+        echo "If you have an old version of libssl you may not have the correct"
+        echo "certificate authority. Either upgrade or set HTTP_CLIENT to insecure:"
+        echo "  export HTTP_CLIENT=\"wget --no-check-certificate -O\" # or"
+        echo "  export HTTP_CLIENT=\"curl --insecure -f -L -o"
         if [ $SNAPSHOT = "YES" ]; then
             echo "If you have Maven installed, you can do"
             echo "mvn dependency:copy-dependencies; mv target/dependency lib"
@@ -173,6 +180,9 @@ elif [ "$1" = "upgrade" ]; then
                 echo
                 echo "Upgrading..."
                 TARGET="/tmp/lein-$$-upgrade"
+                if [ "$OSTYPE" = "cygwin" ]; then
+                    TARGET=`cygpath -w $TARGET`
+                fi
                 LEIN_SCRIPT_URL="https://github.com/technomancy/leiningen/raw/$TARGET_VERSION/bin/lein"
                 $HTTP_CLIENT "$TARGET" "$LEIN_SCRIPT_URL" \
                     && mv "$TARGET" "$SCRIPT" \
@@ -203,6 +213,8 @@ else
     $LEIN_JAVA_CMD \
         -client -XX:+TieredCompilation \
         $LEIN_JVM_OPTS \
+        -Dfile.encoding=UTF-8 \
+        -Dmaven.wagon.http.ssl.easy=false \
         -Dleiningen.original.pwd="$ORIGINAL_PWD" \
         -Dleiningen.trampoline-file=$TRAMPOLINE_FILE \
         -cp "$CLASSPATH" \

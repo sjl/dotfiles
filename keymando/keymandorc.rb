@@ -22,11 +22,13 @@ map "<Ctrl-Shift-M>" do
     activate('iTerm')
     send('<Cmd-Option-1>')
     send('<Ctrl-f>2')
+    send('2')
 end
 map "<Ctrl-Shift-I>" do
     activate('iTerm')
     send('<Cmd-Option-1>')
-    send('<Ctrl-f>1')
+    send('<Ctrl-f>')
+    send('1')
 end
 
 # Refresh ---------------------------------------------------------------------
