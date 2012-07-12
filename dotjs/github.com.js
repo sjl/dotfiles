@@ -1,5 +1,5 @@
 $(function() {
-    if ($('body').hasClass('page-commits')) {
+    if ($('li.commit').length) {
 
         $('ul.pagehead-actions').prepend('<li><a class="minibutton btn-watch" href="#reviewing" id="toggle-merges-button"><span><span class="icon"></span><span class="text">Review</span></span></a></li>');
 

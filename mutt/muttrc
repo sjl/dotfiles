@@ -12,7 +12,8 @@ set print_command    = /usr/bin/enscript     # print with enscript
 set editor = "vim +/^$ +:s/^$/\\\\r\\\\r/ +:noh -c 'normal! k' -c 'set nolist' -c 'redraw'"
 
 # Use the OS X address book
-set query_command = "lbdbq '%s' | sed -e 's/(null)//g'"
+# set query_command = "lbdbq '%s' | sed -e 's/(null)//g'"
+set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 

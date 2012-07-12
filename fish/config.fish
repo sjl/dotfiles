@@ -83,6 +83,8 @@ set -g -x COMMAND_MODE unix2003
 set -g -x RUBYOPT rubygems
 set -g -x CLASSPATH "$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar"
 
+set -g -x NODE_PATH "/usr/local/lib/node_modules"
+
 # }}}
 # Python variables {{{
 
