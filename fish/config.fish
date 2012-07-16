@@ -1,13 +1,15 @@
 # Useful aliases {{{
 
 alias serve_this 'python -m SimpleHTTPServer'
-alias fab 'fab -i ~/.ssh/stevelosh'
+# alias fab 'fab -i ~/.ssh/stevelosh'
 alias oldgcc 'set -g CC /usr/bin/gcc-4.0'
 alias tm 'tmux -u2'
 alias c 'clear'
 alias hl 'less -R'
 alias paththis 'set PATH (pwd) $PATH'
 alias clc './get-last-commit-url.py | pbcopy'
+
+alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein swank'
 
 alias ef 'vim ~/.config/fish/config.fish'
 alias ev 'vim ~/.vimrc'
@@ -55,6 +57,13 @@ alias deact 'deactivate'
 
 function psg -d "Grep for a running process, returning its PID and full string"
     ps auxww | grep --color=always $argv | grep -v grep | collapse | cuts -f 2,11-
+end
+
+# }}}
+# Bind Keys {{{
+
+function fish_user_keybindings
+    bind \cn accept-autosuggestion
 end
 
 # }}}
@@ -200,10 +209,16 @@ alias md 'mkdir -p'
 alias l1 'tree --dirsfirst -ChFL 1'
 alias l2 'tree --dirsfirst -ChFL 2'
 alias l3 'tree --dirsfirst -ChFL 3'
+alias l4 'tree --dirsfirst -ChFL 4'
+alias l5 'tree --dirsfirst -ChFL 5'
+alias l6 'tree --dirsfirst -ChFL 6'
 
 alias ll1 'tree --dirsfirst -ChFupDaL 1'
 alias ll2 'tree --dirsfirst -ChFupDaL 2'
 alias ll3 'tree --dirsfirst -ChFupDaL 3'
+alias ll4 'tree --dirsfirst -ChFupDaL 4'
+alias ll5 'tree --dirsfirst -ChFupDaL 5'
+alias ll6 'tree --dirsfirst -ChFupDaL 6'
 
 alias l  'l1'
 alias ll 'll1'
@@ -218,7 +233,7 @@ if test -s $HOME/.config/fish/local.fish
     source $HOME/.config/fish/local.fish
 end
 
-#normal }}}
+# }}}
 
 if status --is-interactive
     command fortune -s | cowsay -n | lolcat
