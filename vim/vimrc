@@ -93,12 +93,21 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
+" Save {{{
+
+" augroup its2012justfuckingsavealready
+"     au!
+"     au InsertLeave * :silent! wa
+"     au CursorHold * :silent! wa
+"     au CursorHoldI * :silent! wa
+" augroup END
+
+" }}}
 " Only shown when not in insert mode so I don't go insane.
 
 augroup trailing
     au!
     au InsertEnter * :set listchars-=trail:⌴
-    au InsertLeave * :set listchars+=trail:⌴
 augroup END
 
 " }}}
@@ -387,6 +396,7 @@ inoremap <c-]> <c-x><c-]>
 " Quick editing ----------------------------------------------------------- {{{
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>eV :vsplit scp://vagrant//<cr>
 nnoremap <leader>ef :vsplit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
@@ -562,6 +572,19 @@ augroup END
 " }}}
 " Clojure {{{
 
+" function! SlimvToggleRepl()
+"     if bufname('%') ==# 'SLIMV.REPL'
+"         let origin = b:pop_back_to
+"         q
+"         execute "" . origin . "wincmd w"
+"     else
+"         let origin = winnr()
+"         vertical botright split
+"         e SLIMV.REPL
+"         let b:pop_back_to = origin
+"     endif
+" endfunction
+
 let g:slimv_leader = '\'
 let g:slimv_keybindings = 2
 
@@ -584,6 +607,9 @@ augroup ft_clojure
 
     " And the inspect mapping.
     au FileType clojure nmap <buffer> \i \di
+
+    " And REPL-toggling mapping.
+    " au FileType clojure nnoremap <buffer> \rr :call SlimvToggleRepl()<cr>
 
     " Indent top-level form.
     au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
@@ -993,7 +1019,7 @@ let ctrlp_filter_greps = "".
     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
     \ ")'"
 
 let my_ctrlp_user_command = "" .
@@ -1187,7 +1213,7 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 let g:slimv_repl_name = 'SLIMV.REPL'
 let g:slimv_repl_split = 4
-let g:slimv_repl_syntax = 0
+" let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
 
 " Use a swank command that works, and doesn't require new app windows.
