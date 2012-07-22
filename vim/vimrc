@@ -302,6 +302,10 @@ nnoremap <leader>D :diffoff!<cr>
 nnoremap Q gqip
 vnoremap Q gq
 
+" Reformat line.
+" I never use l as a macro register anyway.
+nnoremap ql ^vg_gq
+
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
@@ -838,6 +842,17 @@ augroup ft_mercurial
 augroup END
 
 " }}}
+" Mutt {{{
+
+augroup ft_muttrc
+    au!
+
+    au BufRead,BufNewFile *.muttrc set ft=muttrc
+
+    au FileType muttrc setlocal foldmethod=marker foldmarker={{{,}}}
+augroup END
+
+" }}}
 " Nginx {{{
 
 augroup ft_nginx
@@ -1125,7 +1140,7 @@ augroup ps_nerdtree
     au!
 
     au Filetype nerdtree setlocal nolist
-    au Filetype nerdtree nnoremap <buffer> K :q<cr>
+    " au Filetype nerdtree nnoremap <buffer> K :q<cr>
 augroup END
 
 let NERDTreeHighlightCursorline = 1
@@ -1135,6 +1150,9 @@ let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeMapJumpFirstChild = 'gK'
 
 " }}}
 " OrgMode {{{

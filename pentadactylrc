@@ -16,47 +16,45 @@ set followhints=1
 set showtabline=multitab
 set showstatuslinks=command
 
-set mapleader=','
-
 " FASTER PLEASE
-nnoremap j 3j
-nnoremap k 3k
+nmap -builtin j 3j
+nmap -builtin k 3k
 
 " Go to the second input field.
 " Useful for skipping over search fields, etc.
-nnoremap gI 2gi
+nmap -builtin gI 2gi
 
 " I never use marks, but always use quickmarks.
-nnoremap "'" go
-nnoremap '"' gn
+nmap -builtin "'" go
+nmap -builtin '"' gn
 
 " Switch tabs with parens
-nnoremap ) :tn<CR>
-nnoremap ( :tp<CR>
+nmap -builtin ) :tn<CR>
+nmap -builtin ( :tp<CR>
 
 " Finally I can overwrite the stupid fucking Firebug toggling correctly.
-" nnoremap <c-f> <f12>
-" nnoremap <c-g> <s-f12>
+" nmap -builtin <c-f> <f12>
+" nmap -builtin <c-g> <s-f12>
 
 " Console toggle
-nnoremap <c-g> <m-a-k><esc>
-inoremap <c-g> <esc><m-a-k><esc>
+nmap -builtin <c-g> <m-a-k><esc>
+imap -builtin <c-g> <esc><m-a-k><esc>
 
 " Inspect element toggle
-nnoremap <c-s> <m-a-i>
-inoremap <c-s> <esc><m-a-i>
+nmap -builtin <c-s> <m-a-i>
+imap -builtin <c-s> <esc><m-a-i>
 
 " Shift is hard.
-nnoremap ; :
+nmap -builtin ; :
 
 " YES YES YES REMOVE THE IDIOCY
-nnoremap <bs> <nop>
+nmap -builtin <bs> <nop>
 
 " Highlight all search matches, not just the first.
 set hlfind
 
 " Clear search highlighting and normal highlighting.
-nnoremap <Leader><space> <esc>:noh<CR>
+nmap -builtin ,<space> <esc>:noh<CR>
 
 " Shut up.
 javascript dactyl.beep = function() { return false; }
