@@ -27,7 +27,7 @@ alias spotlight-on 'sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServi
 alias spotlight-wat 'sudo fs_usage -w -f filesys mdworker | grep "open"'
 
 set MUTT_BIN (which mutt)
-alias mutt "cd ~/Desktop; $MUTT_BIN"
+alias mutt "bash -c 'cd ~/Desktop; $MUTT_BIN'"
 
 alias h 'hg'
 alias g 'git'

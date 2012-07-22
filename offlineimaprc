@@ -8,6 +8,7 @@ fsync = False
 localrepository = SteveLosh-Local
 remoterepository = SteveLosh-Remote
 status_backend = sqlite
+postsynchook = notmuch new
 
 [Repository SteveLosh-Local]
 type = Maildir

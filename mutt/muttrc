@@ -1,30 +1,38 @@
-# directories and commands
+# Paths {{{
+
 set alias_file       = ~/.mutt/alias         # alias file
 set header_cache     = ~/.mutt/cache/headers # where to store headers
 set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
 set certificate_file = ~/.mutt/certificates  # where to store certs
-set mailcap_path     = ~/.mutt/mailcap       # entrys for filetypes
+set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
 set signature        = ~/.mutt/sig           # my signature file
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
-set print_command    = /usr/bin/enscript     # print with enscript
+
+# }}}
+# Editor {{{
 
 # Use Vim to compose email, with a few default options.
-set editor = "vim +/^$ +:s/^$/\\\\r\\\\r/ +:noh -c 'normal! k' -c 'set nolist' -c 'redraw'"
+set editor = "vim -c 'normal! }' -c 'redraw'"
+
+# }}}
+# Contacts {{{
 
 # Use the OS X address book
-# set query_command = "lbdbq '%s' | sed -e 's/(null)//g'"
 set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
 
-# main options
-set wait_key = no
+# }}}
+# Basic Options {{{
+
+source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc  # colorscheme
+source ~/.mutt/sidebar.muttrc                        # sidebar
+
+set wait_key = no        # shut up, mutt
 set mbox_type = Maildir  # mailbox type
 set folder = ~/.mail     # mailbox location
 set timeout = 3          # idle time before scanning
 set mail_check = 0       # minimum time between scans
-set sort_alias = alias   # sort alias file by alias
-set reverse_alias        # show names from alias file in index
 unset move               # gmail does that
 set delete               # don't ask, just do
 unset confirmappend      # don't ask, just do!
@@ -33,44 +41,44 @@ unset mark_old           # read/new is good enough for me
 set beep_new             # bell on new mails
 set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
-set spoolfile  = "+steve-stevelosh.com/INBOX" # GMail is default inbox
 
-# index options
+# }}}
+# Status Bar {{{
+
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# }}}
+# Index View Options {{{
+
+set date_format = "%m/%d"
+set index_format = "[%Z]  %D  %-20.20F  %s"
 set sort = threads                         # like gmail
 set sort_aux = reverse-last-date-received  # like gmail
 set uncollapse_jump                        # don't collapse on an unread message
 set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
-# pager options
+# }}}
+# Pager View Options {{{
+
 set pager_index_lines = 10 # number of index lines to show
-set pager_context = 5      # number of context lines to show
+set pager_context = 3      # number of context lines to show
 set pager_stop             # don't go to next message automatically
 set menu_scroll            # scroll in menus
-set smart_wrap             # don't split words
 set tilde                  # show tildes like in vim
 unset markers              # no ugly plus signs
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
 
-auto_view text/html                                   # view html automatically
-alternative_order text/plain text/enriched text/html  # but prefer non-html
+# }}}
+# Compose View Options {{{
 
-# alternate emails
-alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com
-
-# formats
-set date_format   = "%m/%d"
-set index_format  = "[%Z]  %D  %-20.20F  %s"
-set status_format = "-%r- %v ---[ Folder: %f, Msgs: %m%?n? New: %n?%?d? Del: %d?%?t? Tag: %t?%?l? %l? ]%?p?---- .: %p waiting to send :. ?--%>- (%P) ---"
-set alias_format  = "%4n %t %-20a  %r"
-
-# composing mail
 set realname = "Steve Losh"          # who am i?
 set envelope_from                    # which from?
 set sig_dashes                       # dashes before sig
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
-set sendmail_wait = 0                # wait for sending to successfully finish, because email is important
 set askcc                            # ask for CC:
 set fcc_attach                       # save attachments with the body
 unset mime_forward                   # forward attachments as part of body
@@ -82,66 +90,125 @@ set reverse_name                     # reply as whomever it was to
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
-# headers to show
+# }}}
+# Headers {{{
+
 ignore *                                # ignore all headers
 unignore from: to: cc: date: subject:   # show only these
 hdr_order from: to: cc: date: subject:  # and in this order
 
-# boxes
-mailboxes +steve-stevelosh.com/INBOX +steve-stevelosh.com/vim +steve-stevelosh.com/clojure +steve-stevelosh.com/python +steve-stevelosh.com/mercurial +steve-stevelosh.com/archive +steve-stevelosh.com/sent +steve-stevelosh.com/drafts
+# }}}
+# steve@stevelosh.com {{{
 
-# always sourced
-source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc  # colorscheme
-source ~/.mutt/steve-stevelosh.com.muttrc            # stevelosh.com account detail
-source ~/.mutt/sidebar.muttrc                        # sidebar
+# Default inbox.
+set spoolfile = "+steve-stevelosh.com/INBOX"
 
-# account specific sources
-folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
+# Alternate email addresses.
+alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com steve@pculture.org
 
-# unbind problematic keys
+# Mailboxes to show in the sidebar.
+mailboxes +steve-stevelosh.com/INBOX \
+          +steve-stevelosh.com/vim \
+          +steve-stevelosh.com/clojure \
+          +steve-stevelosh.com/python \
+          +steve-stevelosh.com/mercurial \
+          +steve-stevelosh.com/archive \
+          +steve-stevelosh.com/sent \
+          +steve-stevelosh.com/drafts \
+
+# Other special folders.
+set mbox      = "+steve-stevelosh.com/archive"
+set postponed = "+steve-stevelosh.com/drafts"
+
+# Sending email.
+set from     = "steve@stevelosh.com"
+set sendmail = "/usr/local/bin/msmtp -a stevelosh"
+set sendmail_wait = 0 # no please don't silently fail, email is important
+unset record
+
+# }}}
+# Account Hooks {{{
+
+# folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
+
+# }}}
+# Key Bindings {{{
+
+# Unbind Stupid Keys {{{
+
 bind index,pager \# noop
 bind index i        noop
 bind index w        noop
 
-# basic bindings
-bind pager i        exit
-bind pager /        search
-bind pager k        previous-line
-bind pager j        next-line
-bind pager gg       top
-bind pager G        bottom
-bind index,pager R  group-reply
+# }}}
+# Pager {{{
+
+bind pager i  exit
+bind pager /  search
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+bind pager R  group-reply
+
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
+
+# }}}
+# Index {{{
+
+bind index R  group-reply
 bind index <tab>    sync-mailbox
 bind index k        previous-entry
 bind index j        next-entry
 bind index gg       first-entry
 bind index G        last-entry
-bind index \Cp      recall-message
+bind index p        recall-message
 bind index <space>  collapse-thread
+macro index s "<pipe-message>cat > ~/Desktop/"  "save message as"
+
+# Mark all as read
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+# Quickly change date formats
+macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date format"
+macro index <esc>F ":set date_format = \"%m/%d at %I:%M %P\"<enter>" "long date format"
 
 # Sync email
 macro index O "<shell-escape>offlineimap -q<enter>"                   "run offlineimap to sync mail in the foreground"
 macro index o "<shell-escape>offlineimap -q >/dev/null 2>&1 &<enter>" "run offlineimap to sync mail in the background"
 
-# Searching bodies
-macro index B "<limit>~b " "search message bodies"
+# Saner copy/move dialogs
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
-# Opening links in mail
-macro pager \Cu "|urlview<enter>" "call urlview to open links"
-
-# Mark all as read
-macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-
-# Open message in MacVim
-macro index,pager M "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' - >/dev/null<enter>"  "open in macvim"
-
-# quickly change date formats
-macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date format"
-macro index <esc>F ":set date_format = \"%m/%d at %I:%M %P\"<enter>" "long date format"
-
-# quickly change mailboxes
+# Quickly change mailboxes
 macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
 macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
 
-# save a decoded copy in ~
-macro index,pager P   "<pipe-message>cat > ~/Desktop/"  "save message as"
+# Just use notmuch for everything
+macro index / "<enter-command>unset wait_key<enter><shell-escape>read -p 'notmuch query: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | tr '+' '.' | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\";print@a'\`\"<enter>" "show only messages matching a notmuch pattern"
+
+# Unlimit aka show [a]ll
+macro index a "<limit>all\n" "show all messages (undo limit)"
+
+# }}}
+# Compose {{{
+
+bind compose p postpone-message
+
+# }}}
+# Attachment {{{
+
+# View, god dammit!
+bind attach <return> view-mailcap
+
+# }}}
+# "Open in Vim" {{{
+
+macro index,pager V "|vim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' -<enter>"              "open in vim"
+macro index,pager M "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' - >/dev/null<enter>"  "open in macvim"
+
+# }}}
+
+# }}}
