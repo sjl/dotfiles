@@ -68,3 +68,15 @@ Vagrantfile
 dev
 repo
 hardcoded
+plaintext
+config
+Gmail
+keychain
+muttrc
+autocomplete
+XCode
+Homebrew
+dotfiles
+symlink
+Backblaze
+README

@@ -1,12 +1,12 @@
 # Paths {{{
 
-set alias_file       = ~/.mutt/alias         # alias file
+set alias_file       = ~/.mutt/alias         # where to store aliases
 set header_cache     = ~/.mutt/cache/headers # where to store headers
 set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
 set certificate_file = ~/.mutt/certificates  # where to store certs
 set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
-set signature        = ~/.mutt/sig           # my signature file
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
+set signature        = ~/.mutt/sig           # my signature file
 
 # }}}
 # Editor {{{
@@ -25,8 +25,7 @@ bind editor ^T    complete
 # }}}
 # Basic Options {{{
 
-source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc  # colorscheme
-source ~/.mutt/sidebar.muttrc                        # sidebar
+source ~/.vim/bundle/badwolf/contrib/badwolf.muttrc
 
 set wait_key = no        # shut up, mutt
 set mbox_type = Maildir  # mailbox type
@@ -41,6 +40,17 @@ unset mark_old           # read/new is good enough for me
 set beep_new             # bell on new mails
 set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
+
+# }}}
+# Sidebar Patch {{{
+
+set sidebar_delim   = '  │'
+set sidebar_visible = yes
+set sidebar_width   = 24
+color sidebar_new color221 color233
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
 
 # }}}
 # Status Bar {{{
