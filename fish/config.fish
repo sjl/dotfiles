@@ -59,6 +59,10 @@ function psg -d "Grep for a running process, returning its PID and full string"
     ps auxww | grep --color=always $argv | grep -v grep | collapse | cuts -f 2,11-
 end
 
+function hey_virtualbox_shut_down_or_i_will_fucking_cut_you
+    VBoxManage controlvm $argv poweroff
+end
+
 # }}}
 # Bind Keys {{{
 
