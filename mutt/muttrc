@@ -185,8 +185,8 @@ macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date
 macro index <esc>F ":set date_format = \"%m/%d at %I:%M %P\"<enter>" "long date format"
 
 # Sync email
-macro index O "<shell-escape>offlineimap -q<enter>"                   "run offlineimap to sync mail in the foreground"
-macro index o "<shell-escape>offlineimap -q >/dev/null 2>&1 &<enter>" "run offlineimap to sync mail in the background"
+macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
+macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
 
 # Saner copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"

@@ -2,6 +2,15 @@
 <root>
     <list>
         <item>
+            <name>sjl Simuletion (f+j simultaneously to delete, f+k to option-delete)</name>
+            <identifier>private.simuletion</identifier>
+            <autogen>--SimultaneousKeyPresses-- KeyCode::F, KeyCode::J, KeyCode::DELETE</autogen>
+            <autogen>--SimultaneousKeyPresses-- KeyCode::F, KeyCode::K, KeyCode::DELETE, ModifierFlag::OPTION_L</autogen>
+        </item>
+    </list>
+
+    <list>
+        <item>
             <name>sjl Swap parens and brackets</name>
             <identifier>private.swap_parens_and_brackets</identifier>
             <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT,  ModifierFlag::NONE, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
@@ -40,7 +49,7 @@
 
     <list>
         <item>
-            <name>sjl Use the correct goddamed shift keys.</name>
+            <name>sjl Use the correct goddamned shift keys.</name>
             <identifier>private.fucking_shift_keys_how_do_they_work</identifier>
 
             <autogen>--KeyToKey-- KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
