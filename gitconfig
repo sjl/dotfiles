@@ -31,8 +31,8 @@
     ci = commit
     cm = commit -m
 
-    d = diff
-    di = diff --cached
+    d = !git diff | vim -R -
+    di = !git diff --cached | vim -R -
 
     co = checkout
     id = rev-parse

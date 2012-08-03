@@ -23,6 +23,7 @@ function workon -d "Activate virtual environment in $WORKON_HOME"
        set -e PYTHONHOME
     end
 
+    cd -
     echo "activated $tgt"
   else
     echo "$tgt not found"
