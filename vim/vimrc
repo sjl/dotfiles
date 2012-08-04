@@ -620,7 +620,7 @@ augroup ft_clojure
     " au FileType clojure nnoremap <buffer> \rr :call SlimvToggleRepl()<cr>
 
     " Indent top-level form.
-    au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+    au FileType clojure nmap <buffer> <localleader>= mz99[(v%='z
 augroup END
 
 " }}}
@@ -1237,6 +1237,8 @@ let g:slimv_repl_name = 'SLIMV.REPL'
 let g:slimv_repl_split = 4
 " let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
+
+let g:paredit_mode = 0
 
 " Use a swank command that works, and doesn't require new app windows.
 let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
