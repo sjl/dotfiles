@@ -244,6 +244,9 @@ vnoremap <c-z> <esc>zv`<ztgv
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
+" Don't clobber the yank register when pasting over text in visual mode.
+vnoremap p pgvy
+
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
