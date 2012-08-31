@@ -8,6 +8,7 @@ alias c 'clear'
 alias hl 'less -R'
 alias paththis 'set PATH (pwd) $PATH'
 alias clc './get-last-commit-url.py | pbcopy'
+alias t '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt'
 
 alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein swank'
 
@@ -21,6 +22,8 @@ alias em 'vim ~/.mutt/muttrc'
 alias ez 'vim ~/lib/dotfiles/zsh'
 alias ek 'vim ~/lib/dotfiles/keymando/keymandorc.rb'
 alias et 'vim ~/.tmux.conf'
+alias eg 'vim ~/.gitconfig'
+
 
 alias spotlight-off 'sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer'
 alias spotlight-on 'sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer'
@@ -68,6 +71,11 @@ end
 
 function fish_user_keybindings
     bind \cn accept-autosuggestion
+
+    # Ignore iterm2 escape sequences.  Vim will handle them if needed.
+    bind \e\[I true
+    bind \e\[O true
+    # ]]
 end
 
 # }}}
