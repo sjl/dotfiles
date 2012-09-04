@@ -215,6 +215,7 @@ call MakeSpacelessIabbrev('ghs/', 'http://github.com/sjl/')
 iabbrev ldis ಠ_ಠ
 iabbrev lsad ಥ_ಥ
 iabbrev lhap ಥ‿ಥ
+iabbrev lmis ಠ‿ಠ
 
 iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
@@ -1049,7 +1050,7 @@ let my_ctrlp_user_command = "" .
     \ ctrlp_filter_greps
 
 let my_ctrlp_git_command = "" .
-    \ "cd %s && git ls-files | " .
+    \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
 let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
