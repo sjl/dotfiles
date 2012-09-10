@@ -245,9 +245,6 @@ vnoremap <c-z> <esc>zv`<ztgv
 " Unfuck my screen
 nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 
-" Don't clobber the yank register when pasting over text in visual mode.
-vnoremap p pgvy
-
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
@@ -909,9 +906,7 @@ augroup END
 augroup ft_python
     au!
 
-    " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
-    au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
@@ -1311,9 +1306,15 @@ let vimclojure#WantNailgun = 0
 " YankRing {{{
 
 function! YRRunAfterMaps()
+    " Make Y yank to end of line.
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+
+    " Fix L and H in operator-pending mode, so yH and such works.
     omap <expr> L YRMapsExpression("", "$")
     omap <expr> H YRMapsExpression("", "^")
+
+    " Don't clobber the yank register when pasting over text in visual mode.
+    vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
 endfunction
 
 " }}}
