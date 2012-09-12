@@ -37,6 +37,7 @@ alias g 'git'
 
 alias pbc 'pbcopy'
 alias pbp 'pbpaste'
+alias pbpb 'pbp | pb'
 
 alias weechat 'weechat-curses'
 

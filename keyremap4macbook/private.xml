@@ -2,10 +2,23 @@
 <root>
     <list>
         <item>
-            <name>sjl Simuletion (f+j simultaneously to delete, f+k to option-delete)</name>
-            <identifier>private.simuletion</identifier>
-            <autogen>--SimultaneousKeyPresses-- KeyCode::F, KeyCode::J, KeyCode::DELETE</autogen>
-            <autogen>--SimultaneousKeyPresses-- KeyCode::F, KeyCode::K, KeyCode::DELETE, ModifierFlag::OPTION_L</autogen>
+            <name>Space Cadet Mode</name>
+            <appendix>This mode emulates a few of the features of the Space Cadet keyboard.</appendix>
+
+            <item>
+                <name>Remap Left Control to Hyper</name>
+                <appendix>OS X doesn't have a Hyper. This maps Left Control to Control + Shift + Option + Command.</appendix>
+
+                <identifier>space_cadet.left_control_to_hyper</identifier>
+
+                <autogen>
+                    --KeyToKey--
+                    KeyCode::F19,
+
+                    KeyCode::COMMAND_L,
+                    ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
+                </autogen>
+            </item>
         </item>
     </list>
 
