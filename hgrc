@@ -115,6 +115,9 @@ st = status -SC
 fdiff = diff -U 10000000000000
 qfdiff = qdiff -U 10000000000000
 
+# Push to the git mirror at the same time.
+pg = !"$HG" push && "$HG" push git
+
 # Push the qparent revision (mnemonic: q push parent).
 qpp = push -r qparent
 
