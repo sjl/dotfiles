@@ -134,5 +134,11 @@ $(function() {
             document.location = $tickets.eq(num).attr('href');
         };
     }
+
+    $('div.comment').each(function (idx, el) {
+        var id = $(el).attr('id');
+        var link = '<a href="#' + id + '">permalink</a>';
+        $(el).find('.timestamp').append(link);
+    });
 });
 

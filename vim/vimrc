@@ -219,6 +219,8 @@ iabbrev lmis ಠ‿ಠ
 
 iabbrev sl@ steve@stevelosh.com
 iabbrev vrcf `~/.vimrc` file
+
+iabbrev pcf Participatory Culture Foundation
 inoremap <c-l> <c-k>l*
 
 " }}}
@@ -575,7 +577,7 @@ set foldtext=MyFoldText()
 
 augroup ft_c
     au!
-    au FileType c setlocal foldmethod=syntax
+    au FileType c setlocal foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
@@ -984,6 +986,7 @@ augroup END
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
@@ -1237,7 +1240,7 @@ let g:slimv_repl_split = 4
 " let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
 
-let g:paredit_mode = 0
+" let g:paredit_mode = 0
 
 " Use a swank command that works, and doesn't require new app windows.
 let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
