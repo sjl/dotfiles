@@ -67,6 +67,14 @@ function hey_virtualbox_shut_down_or_i_will_fucking_cut_you
     VBoxManage controlvm $argv poweroff
 end
 
+function a -d "Run Ag with appropriate options."
+    if test -f '.agignorevcs'
+        ag -U $argv
+    else
+        ag $argv
+    end
+end
+
 # }}}
 # Bind Keys {{{
 
