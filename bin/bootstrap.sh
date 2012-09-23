@@ -42,5 +42,6 @@ ensure_link "lib/dotfiles/ctags"               ".ctags"
 ensure_link "lib/dotfiles/grc"                 ".grc"
 ensure_link "lib/dotfiles/fish/config.fish"    ".config/fish/config.fish"
 ensure_link "lib/dotfiles/mutt/notmuch-config" ".notmuch-config"
+ensure_link "lib/dotfiles/bash_profile"        ".bash_profile"
 
 echo completed

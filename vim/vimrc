@@ -33,7 +33,7 @@ set undofile
 set undoreload=10000
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-set shell=/bin/bash
+set shell=/bin/bash\ --login
 set lazyredraw
 set matchtime=3
 set showbreak=↪
@@ -62,6 +62,7 @@ set ttimeoutlen=10
 set backupskip=/tmp/*,/private/tmp/*"
 
 " Better Completion
+set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
 
 " Save when losing focus
@@ -986,7 +987,7 @@ augroup END
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'a --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
@@ -1334,9 +1335,31 @@ vnoremap ar a[
 
 " }}}
 " Next and Last {{{
-
-" Motion for "next/last object". For example, "din(" would go to the next "()"
-" pair and delete its contents.
+"
+" Motion for "next/last object".  "Last" here means "previous", not "final".
+" Unfortunately the "p" motion was already taken for paragraphs.
+"
+" Next acts on the next object of the given type in the current line, last acts
+" on the previous object of the given type in the current line.
+"
+" Currently only works for (, [, {, b, r, B, ', and ".
+"
+" Some examples (C marks cursor positions, V means visually selected):
+"
+" din'  -> delete in next single quotes                foo = bar('spam')
+"                                                      C
+"                                                      foo = bar('')
+"                                                                C
+"
+" canb  -> change around next parens                   foo = bar('spam')
+"                                                      C
+"                                                      foo = bar
+"                                                               C
+"
+" vil"  -> select inside last double quotes            print "hello ", name
+"                                                                        C
+"                                                      print "hello ", name
+"                                                             VVVVVV
 
 onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
