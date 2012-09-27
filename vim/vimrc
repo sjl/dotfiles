@@ -76,10 +76,8 @@ au VimResized * :wincmd =
 
 augroup cline
     au!
-    au WinLeave * set nocursorline
-    au WinEnter * set cursorline
-    au InsertEnter * set nocursorline
-    au InsertLeave * set cursorline
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
 augroup END
 
 " }}}
@@ -245,9 +243,6 @@ nnoremap <leader>n :setlocal number!<cr>
 nnoremap <c-z> zvzz
 vnoremap <c-z> <esc>zv`<ztgv
 
-" Unfuck my screen
-nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
-
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
@@ -327,10 +322,6 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " HTML tag closing
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
-" Cmdheight switching
-nnoremap <leader>1 :set cmdheight=1<cr>
-nnoremap <leader>2 :set cmdheight=2<cr>
-
 " Source
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
@@ -371,9 +362,6 @@ set pastetoggle=<F6>
 
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
-
-" Has to be an autocommand because repeat.vim eats the mapping otherwise :(
-au VimEnter * :nnoremap U <c-r>
 
 " Drag Lines {{{
 
@@ -835,9 +823,9 @@ augroup ft_markdown
     au BufNewFile,BufRead *.m*down setlocal filetype=markdown
 
     " Use <localleader>1/2/3 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>3 mzI### `zllll <ESC>
 augroup END
 
 " }}}
@@ -936,10 +924,10 @@ augroup END
 augroup ft_rest
     au!
 
-    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
-    au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 augroup END
 
 " }}}
@@ -1052,7 +1040,9 @@ let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
+
+let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
 
@@ -1319,6 +1309,10 @@ function! YRRunAfterMaps()
 
     " Don't clobber the yank register when pasting over text in visual mode.
     vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
+
+    " Unfuck my screen
+    " nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
+    nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 endfunction
 
 " }}}
@@ -1438,7 +1432,7 @@ nnoremap <F7> :call SynStack()<CR>
 " Diffwhite Toggle {{{
 
 set diffopt-=iwhite
-let g:diffwhitespaceon = 1
+let g:diffwhitespaceon = 0
 function! ToggleDiffWhitespace()
     if g:diffwhitespaceon
         set diffopt-=iwhite
@@ -1480,13 +1474,6 @@ endfunction " }}}
 
 nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
-
-" }}}
-" Fake Paredit {{{
-
-" TODO: Make this stuff not suck.
-nnoremap <leader>> xEp
-nnoremap <leader>< xgEp
 
 " }}}
 " Nyan! {{{
