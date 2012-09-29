@@ -828,7 +828,7 @@ augroup ft_markdown
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
-    au Filetype markdown nnoremap <buffer> <localleader>3 mzI### `zllll <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
 augroup END
 
 " }}}
@@ -1045,7 +1045,7 @@ let my_ctrlp_git_command = "" .
 
 let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
+let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
 
