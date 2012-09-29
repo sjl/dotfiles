@@ -952,6 +952,15 @@ augroup ft_ruby
 augroup END
 
 " }}}
+" stevelosh.com Blog Entries {{{
+
+augroup ft_steveloshcom
+    au!
+    au BufRead,BufNewFile */stevelosh/content/blog/20*/*/*.html set ft=markdown
+    au BufRead,BufNewFile */stevelosh/content/projects/*.html set ft=markdown
+augroup END
+
+" }}}
 " Vagrant {{{
 
 augroup ft_vagrant
