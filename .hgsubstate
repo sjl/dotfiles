@@ -19,6 +19,7 @@ a1433c485eb254838c1db52e087d5ec4d1e77cfd vim/bundle/nerdtree
 f45b4529dd282393f2e08306ae161d77de0051a0 vim/bundle/orgmode
 20ab08c9a8fe6cdfb7c303aa3063f211d72f8b2f vim/bundle/powerline
 49ae47e66f51c92b0f467f9817d5d8745f627132 vim/bundle/python-mode
+613eb1c81261adfa5dead315089c432ff6dbbc51 vim/bundle/repeat
 61a7567a3cdd68cb65ceb3061071ce66d8110e65 vim/bundle/salt
 13c85f67a22848659f4365ae08567bb0d72bfc58 vim/bundle/slimv
 78ab4b3df24fa2753d3dfc1be75ed5a3df1565b8 vim/bundle/smartinput

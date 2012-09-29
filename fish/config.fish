@@ -7,7 +7,7 @@ alias tm 'tmux -u2'
 alias c 'clear'
 alias hl 'less -R'
 alias paththis 'set PATH (pwd) $PATH'
-alias clc './get-last-commit-url.py | pbcopy'
+alias clc './bin/get-last-commit-url.py | pbcopy'
 alias t '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt'
 
 alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein swank'

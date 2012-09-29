@@ -363,6 +363,9 @@ set pastetoggle=<F6>
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
 
+" Unfuck my screen
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+
 " Drag Lines {{{
 
 " <m-j> and <m-k> to drag lines in any mode
@@ -1309,10 +1312,6 @@ function! YRRunAfterMaps()
 
     " Don't clobber the yank register when pasting over text in visual mode.
     vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
-
-    " Unfuck my screen
-    " nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
-    nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 endfunction
 
 " }}}
