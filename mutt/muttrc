@@ -125,6 +125,7 @@ mailboxes +steve-stevelosh.com/INBOX \
           +steve-stevelosh.com/archive \
           +steve-stevelosh.com/sent \
           +steve-stevelosh.com/drafts \
+          +temporary/search \
 
 # Other special folders.
 set mbox      = "+steve-stevelosh.com/archive"
@@ -144,30 +145,10 @@ unset record
 # }}}
 # Key Bindings {{{
 
-# Unbind Stupid Keys {{{
-
-bind index,pager \# noop
-bind index i        noop
-bind index w        noop
-
-# }}}
-# Pager {{{
-
-bind pager i  exit
-bind pager /  search
-bind pager k  previous-line
-bind pager j  next-line
-bind pager gg top
-bind pager G  bottom
-bind pager R  group-reply
-
-macro pager \Cu "|urlview<enter>" "call urlview to open links"
-macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
-
-# }}}
 # Index {{{
 
-bind index R  group-reply
+bind index \#       noop
+bind index R        group-reply
 bind index <tab>    sync-mailbox
 bind index k        previous-entry
 bind index j        next-entry
@@ -175,14 +156,11 @@ bind index gg       first-entry
 bind index G        last-entry
 bind index p        recall-message
 bind index <space>  collapse-thread
+bind index N        search-opposite
 macro index s "<pipe-message>cat > ~/Desktop/"  "save message as"
 
 # Mark all as read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-
-# Quickly change date formats
-macro index <esc>f ":set date_format = \"%m/%d\"<enter>"             "short date format"
-macro index <esc>F ":set date_format = \"%m/%d at %I:%M %P\"<enter>" "long date format"
 
 # Sync email
 macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
@@ -196,11 +174,26 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
 macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
 
-# Just use notmuch for everything
-macro index / "<enter-command>unset wait_key<enter><shell-escape>read -p 'notmuch query: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | tr '+' '.' | perl -le '@a=<>;chomp@a;s/\^id:// for@a;$,=\"|\";print@a'\`\"<enter>" "show only messages matching a notmuch pattern"
+# Search with notmuch
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py -G ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 
-# Unlimit aka show [a]ll
+# Unlimit (show [a]ll)
 macro index a "<limit>all\n" "show all messages (undo limit)"
+
+# }}}
+# Pager {{{
+
+bind pager \# noop
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+
+bind pager R  group-reply
+bind pager N  search-opposite
+
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
 
 # }}}
 # Compose {{{

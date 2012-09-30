@@ -760,12 +760,6 @@ augroup ft_html
     " Use <localleader>t to fold the current templatetag.
     au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
 
-    " Smarter pasting
-    au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-    au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
-
     " Indent tag
     au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
 
@@ -956,8 +950,8 @@ augroup END
 
 augroup ft_steveloshcom
     au!
-    au BufRead,BufNewFile */stevelosh/content/blog/20*/*/*.html set ft=markdown
-    au BufRead,BufNewFile */stevelosh/content/projects/*.html set ft=markdown
+    au BufRead,BufNewFile */stevelosh/content/blog/20*/*/*.html set ft=markdown spell
+    au BufRead,BufNewFile */stevelosh/content/projects/*.html set ft=markdown spell
 augroup END
 
 " }}}
