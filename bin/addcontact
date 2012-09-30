@@ -25,6 +25,10 @@ osascript -e "tell application \"Address Book\"" \
 -e "    set contactEmailLabel to firstEmailParam" \
 -e "    set contactEmail to secondEmailParam" \
 -e "  end if" \
+-e "  set bracketOffset to (offset of \"<\" in contactEmail)" \
+-e "  if (bracketOffset is not equal to 0) then" \
+-e "    set contactEmail to text 2 thru -2 of contactEmail" \
+-e "  end if" \
 -e "  if (contactEmailLabel is equal to \"\") then" \
 -e "    set contactEmailLabel to \"Home\"" \
 -e "  end if" \

@@ -18,6 +18,7 @@ application/vnd.ms-excel; ~/.mutt/view_attachment.sh %s
 application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
 
 # Images
+image/jpg; ~/.mutt/view_attachment.sh %s jpg
 image/jpeg; ~/.mutt/view_attachment.sh %s jpg
 image/pjpeg; ~/.mutt/view_attachment.sh %s jpg
 image/png; ~/.mutt/view_attachment.sh %s png
