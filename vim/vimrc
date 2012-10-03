@@ -981,7 +981,7 @@ augroup END
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'a --nogroup --nocolor --column'
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
