@@ -105,6 +105,7 @@ set forward_quote                    # include message in forwards
 
 ignore *                                # ignore all headers
 unignore from: to: cc: date: subject:   # show only these
+unhdr_order *
 hdr_order from: to: cc: date: subject:  # and in this order
 
 # }}}
