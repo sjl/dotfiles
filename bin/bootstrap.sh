@@ -41,8 +41,9 @@ ensure_link "lib/dotfiles/hgignore"            ".hgignore"
 ensure_link "lib/dotfiles/ffignore"            ".ffignore"
 ensure_link "lib/dotfiles/ctags"               ".ctags"
 ensure_link "lib/dotfiles/grc"                 ".grc"
-ensure_link "lib/dotfiles/fish/config.fish"    ".config/fish/config.fish"
 ensure_link "lib/dotfiles/mutt/notmuch-config" ".notmuch-config"
 ensure_link "lib/dotfiles/bash_profile"        ".bash_profile"
+ensure_link "lib/dotfiles/inputrc"             ".inputrc"
+ensure_link "lib/dotfiles/fish/config.fish"    ".config/fish/config.fish"
 
 echo completed
