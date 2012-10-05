@@ -7,7 +7,6 @@ vim/bundle/badwolf        = [hg]https://bitbucket.org/sjl/badwolf/
 vim/bundle/clam           = [hg]https://bitbucket.org/sjl/clam.vim/
 vim/bundle/commentary     = [git]git://github.com/tpope/vim-commentary.git
 vim/bundle/ctrlp          = [git]git://github.com/kien/ctrlp.vim.git
-vim/bundle/easymotion     = [git]git://github.com/Lokaltog/vim-easymotion.git
 vim/bundle/fugitive       = [git]git://github.com/tpope/vim-fugitive.git
 vim/bundle/gundo          = [hg]https://bitbucket.org/sjl/gundo.vim/
 vim/bundle/html5          = [git]git://github.com/othree/html5.vim.git
