@@ -162,11 +162,23 @@ set colorcolumn=+1
 " }}}
 " Backups {{{
 
+set backup                        " enable backups
+set noswapfile                    " It's 2012, Vim.
+
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
-set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 
 " }}}
 " Leader {{{
@@ -466,12 +478,6 @@ inoremap <c-e> <esc>A
 " something similar: move to last change
 nnoremap gI `.
 
-" Open a Quickfix window for the last search.
-nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-
-" Ack for the last search.
-nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-
 " Fix linewise visual selection of various text objects
 nnoremap VV V
 nnoremap Vit vitVkoj
@@ -501,7 +507,6 @@ noremap <leader>v <C-w>v
 " }}}
 " Highlight word {{{
 
-nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
 nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
@@ -1051,22 +1056,6 @@ let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
-
-" }}}
-" Easymotion {{{
-
-let g:EasyMotion_do_mapping = 0
-
-nnoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-onoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-vnoremap <silent> <Leader>f :<C-U>call EasyMotion#F(1, 0)<CR>
-
-nnoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-onoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-vnoremap <silent> <Leader>F :<C-U>call EasyMotion#F(1, 1)<CR>
-
-onoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
-onoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
 
 " }}}
 " Fugitive {{{
