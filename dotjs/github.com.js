@@ -54,4 +54,19 @@ $(function() {
     if (window.location.hash === '#reviewing') {
         $('a#toggle-merges-button').click();
     }
+
+    if ($('.view-pull-request').length) {
+        var url = $('table.commits tr.commit .commit-meta a').attr('href');
+        var parts = url.split('/');
+        var repo = 'git://github.com/' + parts[1] + '/' + parts[2] + '.git';
+        $('#pull-head').append('<textarea id="goddamned-repo-url">' + repo + '</textarea>');
+        $('#goddamned-repo-url').css('width', '897px')
+                                .css('height', '20px')
+                                .css('border', '1px solid #ccc')
+                                .css('padding', '5px 0px 3px 4px')
+                                .css('margin', '3px 0px 5px 8px')
+                                .css('font-size', '18px')
+                                .css('color', '#555')
+                                .css('border-radius', '3px');
+    }
 });
