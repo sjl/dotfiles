@@ -4,10 +4,73 @@
         <item>
             <name>Space Cadet Mode</name>
             <appendix>This mode emulates a few of the features of the Space Cadet keyboard.</appendix>
+            <appendix>It also adds a few other helpful mappings.</appendix>
+            <appendix>It requires the Unicode Hex Input keyboard layout for the Greek and Math layers.</appendix>
 
+            <item>
+                <name>Force yourself to use the correct shift keys.</name>
+                <identifier>space_cadet.force_correct_shifts</identifier>
+
+                <autogen>--KeyToKey-- KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::W, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::R, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::T, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::A, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::S, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::D, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::F, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::G, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::Z, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::X, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::V, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
+
+                <autogen>--KeyToKey-- KeyCode::Y,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::U,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::I,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::O,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::P,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::H,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::J,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::K,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::L,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::SEMICOLON, ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::N,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::M,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::COMMA,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::DOT,       ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+                <autogen>--KeyToKey-- KeyCode::QUOTE,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
+            </item>
+            <item>
+                <name>Shifts to Parentheses</name>
+                <appendix>Shifts, when pressed alone, type parentheses.</appendix>
+                <appendix>When used with other keys they're normal shifts.</appendix>
+
+                <identifier>space_cadet.shifts_to_parens</identifier>
+
+                <!-- This is the basic mapping. -->
+                <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+                <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
+
+                <!--
+                    Remap the "rolls" of () and )( because it's too easy to hit one
+                    before finishing the other, and there's no other reason to be
+                    pressing both shift keys at once anyway
+                -->
+                <autogen>--KeyToKey-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+                <autogen>--KeyToKey-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+
+                <!--
+                    Remap Rshift+Space to ') ', because when typing an end paren and
+                    then a space I tend to hit space before I let go of rshift.
+                -->
+                <autogen>--KeyToKey-- KeyCode::SPACE, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::SPACE</autogen>
+            </item>
             <item>
                 <name>Remap Left Control to Hyper</name>
                 <appendix>OS X doesn't have a Hyper. This maps Left Control to Control + Shift + Option + Command.</appendix>
+                <appendix>You can use this key in your own custom keyboard shortcuts you create in apps.</appendix>
 
                 <identifier>space_cadet.left_control_to_hyper</identifier>
 
@@ -19,6 +82,42 @@
                     ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
                 </autogen>
             </item>
+            <item>
+                <name>Restore [Shift-]Opt-(Left/Right)</name>
+                <appendix>The Unicode Hex Input keyboard layout disables these keys for some reason.</appendix>
+
+                <identifier>space_cadet.fix_opt_arrows</identifier>
+
+                <autogen>
+                    --KeyToKey--
+                    KeyCode::CURSOR_LEFT, VK_OPTION | VK_SHIFT,
+
+                    KeyCode::B,
+                    ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
+                </autogen>
+                <autogen>
+                    --KeyToKey--
+                    KeyCode::CURSOR_LEFT, VK_OPTION,
+
+                    KeyCode::B,
+                    ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L
+                </autogen>
+                <autogen>
+                    --KeyToKey--
+                    KeyCode::CURSOR_RIGHT, VK_OPTION | VK_SHIFT,
+
+                    KeyCode::F,
+                    ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
+                </autogen>
+                <autogen>
+                    --KeyToKey--
+                    KeyCode::CURSOR_RIGHT, VK_OPTION,
+
+                    KeyCode::F,
+                    ModifierFlag::OPTION_L | ModifierFlag::CONTROL_L
+                </autogen>
+            </item>
+
             <item>
                 <name>Math Layer</name>
                 <appendix>Right Control key activates the Math key layer.</appendix>
@@ -159,26 +258,6 @@
                     KeyCode::KEY_2, ModifierFlag::OPTION_L,
                     KeyCode::KEY_1, ModifierFlag::OPTION_L,
                     KeyCode::A, ModifierFlag::OPTION_L,
-                </autogen>
-
-
-                <autogen>
-                    --KeyToKey--
-                    KeyCode::T, ModifierFlag::EXTRA3 | VK_SHIFT,
-                    KeyCode::KEY_2, ModifierFlag::OPTION_L,
-                    KeyCode::KEY_2, ModifierFlag::OPTION_L,
-                    KeyCode::A, ModifierFlag::OPTION_L,
-                    KeyCode::KEY_5, ModifierFlag::OPTION_L,
-                </autogen>
-
-
-                <autogen>
-                    --KeyToKey--
-                    KeyCode::T, ModifierFlag::EXTRA3,
-                    KeyCode::KEY_2, ModifierFlag::OPTION_L,
-                    KeyCode::KEY_2, ModifierFlag::OPTION_L,
-                    KeyCode::A, ModifierFlag::OPTION_L,
-                    KeyCode::KEY_2, ModifierFlag::OPTION_L,
                 </autogen>
 
 
@@ -1035,82 +1114,6 @@
                 </autogen>
 
             </item>
-        </item>
-    </list>
-
-    <list>
-        <item>
-            <name>sjl Swap parens and brackets</name>
-            <identifier>private.swap_parens_and_brackets</identifier>
-            <autogen>--KeyToKey-- KeyCode::BRACKET_LEFT,  ModifierFlag::NONE, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
-            <autogen>--KeyToKey-- KeyCode::BRACKET_RIGHT, ModifierFlag::NONE, KeyCode::KEY_0, ModifierFlag::SHIFT_R</autogen>
-            <autogen>--KeyToKey-- KeyCode::KEY_9,         ModifierFlag::SHIFT_L, KeyCode::BRACKET_LEFT</autogen>
-            <autogen>--KeyToKey-- KeyCode::KEY_0,         ModifierFlag::SHIFT_L, KeyCode::BRACKET_RIGHT</autogen>
-        </item>
-    </list>
-
-    <list>
-        <item>
-            <name>sjl Shifts to Parentheses</name>
-            <appendix>Shifts, when pressed alone, type parentheses.  When used with other keys they're normal shifts.</appendix>
-
-            <identifier>private.shifts_to_parens</identifier>
-
-            <!-- This is the basic mapping. -->
-            <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
-            <autogen>--KeyOverlaidModifier-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_R</autogen>
-
-            <!--
-                Remap the "rolls" of () and )( because it's too easy to hit one
-                before finishing the other, and there's no other reason to be
-                pressing both shift keys at once anyway
-            -->
-            <autogen>--KeyToKey-- KeyCode::SHIFT_L, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
-            <autogen>--KeyToKey-- KeyCode::SHIFT_R, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
-
-            <!--
-                Remap Rshift+Space to ') ', because when typing an end paren and
-                then a space I tend to hit space before I let go of rshift.
-            -->
-            <autogen>--KeyToKey-- KeyCode::SPACE, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::SPACE</autogen>
-        </item>
-    </list>
-
-    <list>
-        <item>
-            <name>sjl Use the correct goddamned shift keys.</name>
-            <identifier>private.fucking_shift_keys_how_do_they_work</identifier>
-
-            <autogen>--KeyToKey-- KeyCode::Q, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::W, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::E, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::R, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::T, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::A, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::S, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::D, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::F, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::G, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::Z, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::X, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::C, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::V, ModifierFlag::SHIFT_L, KeyCode::VK_NONE</autogen>
-
-            <autogen>--KeyToKey-- KeyCode::Y,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::U,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::I,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::O,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::P,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::H,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::J,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::K,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::L,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::SEMICOLON, ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::N,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::M,         ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::COMMA,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::DOT,       ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
-            <autogen>--KeyToKey-- KeyCode::QUOTE,     ModifierFlag::SHIFT_R, KeyCode::VK_NONE</autogen>
         </item>
     </list>
 </root>

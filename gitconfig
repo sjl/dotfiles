@@ -25,8 +25,9 @@
     pull = pull --ff-only
     up = merge --ff-only
 
-    merge = merge --no-ff
     join = merge --no-ff
+
+    discard-merge = reset --hard HEAD
 
     ci = commit
     cm = commit -m
