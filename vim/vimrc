@@ -658,6 +658,7 @@ augroup ft_cram
 
     au BufNewFile,BufRead *.t set filetype=cram
     au Syntax cram setlocal foldlevel=1
+    au FileType cram nnoremap <buffer> <localleader>ee :e<cr>
 augroup END
 
 " }}}
