@@ -8,7 +8,6 @@ alias c 'clear'
 alias hl 'less -R'
 alias paththis 'set PATH (pwd) $PATH'
 alias clc './bin/get-last-commit-url.py | pbcopy'
-alias t '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt'
 
 alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein swank'
 
@@ -95,6 +94,13 @@ function ag -d "Run Ag with appropriate options."
     else
         actual_ag --search-files $argv
     end
+end
+
+alias count_t_tasks '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt | wc -l'
+set -g T_TASK_COUNT (count_t_tasks)
+function t
+    ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt $argv
+    set -g T_TASK_COUNT (count_t_tasks)
 end
 
 # }}}
@@ -230,6 +236,8 @@ function fish_prompt
     echo
 
     virtualenv_prompt
+
+    printf "(%d) " $T_TASK_COUNT
 
     if test $last_status -eq 0
         set_color white -o
