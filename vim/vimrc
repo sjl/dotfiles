@@ -338,10 +338,6 @@ inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
-" Back find-repeat
-" TODO: Why does this not work?
-nnoremap … dd
-
 " Marks and Quotes
 noremap ' `
 noremap æ '
