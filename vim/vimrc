@@ -806,6 +806,11 @@ augroup END
 augroup ft_lisp
     au!
     au FileType lisp call TurnOnLispFolding()
+    " au FileType lisp nnoremap <buffer> <localleader>ee mz99[(va("ry:call Send_to_Tmux(@r)<cr>
+    au FileType lisp nnoremap <buffer> <localleader>ee mz99[(:call SlimvEvalExp()<cr>`z
+
+    au FileType lisp nnoremap <buffer> <localleader>tt mz99[(vab"ry:call Send_to_Tmux(@r)<cr>`z
+    au FileType lisp nnoremap <buffer> <localleader>tb mzggVG"ry:call Send_to_Tmux(@r)<cr>`z
 augroup END
 
 " }}}
