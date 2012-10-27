@@ -12,7 +12,7 @@ set signature        = ~/.mutt/sig           # my signature file
 # Editor {{{
 
 # Use Vim to compose email, with a few default options.
-set editor = "vim -c 'normal! }' -c 'redraw'"
+set editor = "/usr/local/bin/vim -c 'normal! }' -c 'redraw'"
 
 # }}}
 # Contacts {{{
