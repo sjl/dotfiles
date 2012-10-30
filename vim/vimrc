@@ -262,8 +262,8 @@ nnoremap <leader>) :tabnext<cr>
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
 noremap <leader>y "*y
-noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
-noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+noremap <leader>p :silent! set paste<CR>"*p:set nopaste<CR>
+noremap <leader>P :silent! set paste<CR>"*P:set nopaste<CR>
 vnoremap <leader>y "*ygv
 
 " I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
