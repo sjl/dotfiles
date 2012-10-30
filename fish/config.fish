@@ -103,6 +103,13 @@ function t
     set -g T_TASK_COUNT (count_t_tasks)
 end
 
+function packfor
+    cp ~/Dropbox/tasks/pack-archive ~/Dropbox/tasks/pack.txt
+end
+function p
+    ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=pack.txt $argv
+end
+
 # }}}
 # Bind Keys {{{
 
