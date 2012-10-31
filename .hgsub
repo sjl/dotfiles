@@ -1,7 +1,7 @@
 mercurial/hg-prompt       = [hg]https://bitbucket.org/sjl/hg-prompt
 mercurial/histedit        = [hg]https://bitbucket.org/durin42/histedit
 mercurial/templates       = [hg]https://bitbucket.org/sjl/mercurial-cli-templates
-vim/bundle/AnsiEsc.vim    = [git]git://github.com/vim-scripts/AnsiEsc.vim.git
+vim/bundle/AnsiEsc.vim    = [git]git://github.com/sjl/AnsiEsc.vim.git
 vim/bundle/ack            = [git]git://github.com/mileszs/ack.vim.git
 vim/bundle/badwolf        = [hg]https://bitbucket.org/sjl/badwolf/
 vim/bundle/clam           = [hg]https://bitbucket.org/sjl/clam.vim/
