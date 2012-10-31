@@ -252,19 +252,28 @@ nnoremap <leader>n :setlocal number!<cr>
 
 " Front and center
 " Use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> zvzz
+nnoremap <c-z> zMzvzz25<c-e>
 vnoremap <c-z> <esc>zv`<ztgv
+
+" Sort lines
+nnoremap <leader>s vip:!sort<cr>
+vnoremap <leader>s :!sort<cr>
 
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
 
-" System clipboard interaction.  Mostly from:
-" https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
-noremap <leader>y "*y
+" Copying text to the system clipboard.
+"
+" For some reason Vim no longer wants to talk to the OS X pasteboard through "*.
+" Computers are bullshit.
+function! g:FuckingCopyTheTextPlease()
+    normal! gv
+    silent '<,'>w !pbcopy
+endfunction
 noremap <leader>p :silent! set paste<CR>"*p:set nopaste<CR>
 noremap <leader>P :silent! set paste<CR>"*P:set nopaste<CR>
-vnoremap <leader>y "*ygv
+vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
 
 " I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
 " From https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -366,7 +375,10 @@ nnoremap <localleader>= ==
 vnoremap - =
 
 " Toggle paste
-set pastetoggle=<F6>
+" For some reason pastetoggle doesn't redraw the screen (thus the status bar
+" doesn't change) while :set paste! does, so I use that instead.
+" set pastetoggle=<F6>
+nnoremap <F6> :set paste!<cr>
 
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
@@ -538,9 +550,6 @@ set foldlevelstart=0
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
-
-" "Refocus" folds
-nnoremap ,z zMzvzz
 
 " Make zO recursively open whatever top level fold we're in, no matter where the
 " cursor happens to be.
@@ -1162,7 +1171,7 @@ let g:org_debug = 1
 
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
-" let g:Powerline_colorscheme = 'badwolf'
+let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{

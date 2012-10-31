@@ -1,7 +1,7 @@
 661dbd42f386611a1c03f3eaf82927d3f1b874d8 mercurial/hg-prompt
 b0da16490f168f68072973b45dbc27a74fb7b529 mercurial/histedit
 4d95cb18a3b420154ef978c53de1d2e692f8343d mercurial/templates
-d2bb7878622e4c16203acf1c92a0f4bc7ac58003 vim/bundle/AnsiEsc.vim
+64981213be2efd939e6e6e109e2b32c24e95fd95 vim/bundle/AnsiEsc.vim
 9895285042a2fd5691b2f6582aa979e4d1bdffea vim/bundle/ack
 89b93b086f099050eb5c5c5121cb18cc01b61f3e vim/bundle/badwolf
 8533fffd9fbb690dfc8e334f91a10c72e35a6dce vim/bundle/clam
@@ -16,7 +16,7 @@ cff78c3ab4605d490e6be8d8af02f1e7efd25c95 vim/bundle/fugitive
 dcdab0cd55da5e0b8655c000d99d96624cd6404c vim/bundle/markdown
 a1433c485eb254838c1db52e087d5ec4d1e77cfd vim/bundle/nerdtree
 f45b4529dd282393f2e08306ae161d77de0051a0 vim/bundle/orgmode
-20ab08c9a8fe6cdfb7c303aa3063f211d72f8b2f vim/bundle/powerline
+2af074850fde676743f655775e3e151925751adf vim/bundle/powerline
 49ae47e66f51c92b0f467f9817d5d8745f627132 vim/bundle/python-mode
 613eb1c81261adfa5dead315089c432ff6dbbc51 vim/bundle/repeat
 61a7567a3cdd68cb65ceb3061071ce66d8110e65 vim/bundle/salt

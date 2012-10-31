@@ -132,6 +132,11 @@ function prepend_to_path -d "Prepend the given dir to PATH if it exists and is n
         end
     end
 end
+set -gx PATH "/usr/X11R6/bin"
+prepend_to_path "/sbin"
+prepend_to_path "/usr/sbin"
+prepend_to_path "/bin"
+prepend_to_path "/usr/bin"
 prepend_to_path "/usr/local/bin"
 prepend_to_path "/usr/local/share/python"
 prepend_to_path "/usr/local/sbin"
