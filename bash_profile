@@ -15,7 +15,7 @@ function ag() {
     fi
 }
 
-export PATH=~/bin:~/lib/dotfiles/bin:/usr/local/share/python:$PATH
+export PATH=~/bin:~/lib/dotfiles/bin:/usr/local/share/python:/usr/local/bin/:$PATH
 
 alias h='hg'
 alias g='git'

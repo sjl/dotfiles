@@ -14,3 +14,4 @@ span.js-clippy { display: none !important; }
 div.repository-lang-stats-graph { display: none; }
 div.recently-touched-branches-wrapper { display: none; }
 p.last-commit { display: none; }
+pre, code, tt { font-family: Menlo; }
