@@ -10,16 +10,15 @@ syntax keyword potionFunction print join string
 
 syntax match potionComment "\v#.*$"
 
-syntax match potionOperatorBar "\v\*"
+syntax match potionOperator "\v\*"
+syntax match potionOperator "\v/\="
+syntax match potionOperator "\v\+"
+syntax match potionOperator "\v-"
+syntax match potionOperator "\v/"
 syntax match potionOperator "\v\*\="
-" syntax match potionOperator "\v/\="
-" syntax match potionOperator "\v\+\="
-" syntax match potionOperator "\v-\="
-" syntax match potionOperator "\v/"
-" syntax match potionOperator "\v\+"
-" syntax match potionOperator "\v-"
-" syntax match potionOperator "\v\?"
-" syntax match potionOperatorBaz "\v\="
+syntax match potionOperator "\v\+\="
+syntax match potionOperator "\v-\="
+syntax match potionOperator "\v\?"
 
 syntax region potionString start=/\v"/ skip=/\v\\./ end=/\v"/
 syntax region potionString start=/\v'/ skip=/\v\\./ end=/\v'/
