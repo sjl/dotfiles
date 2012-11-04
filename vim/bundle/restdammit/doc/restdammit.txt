@@ -198,7 +198,7 @@ the definition of that term.  The format of a definition list is: >
   what
     Definition lists associate a term with a definition.
 
-  *how*
+  how
     The term is a one-line phrase, and the definition is one or more
     paragraphs or body elements, indented relative to the term.
     Blank lines are not allowed between term and definition.
@@ -208,7 +208,7 @@ Results in: >
   what
     Definition lists associate a term with a definition.
 
-  *how*
+  how
     The term is a one-line phrase, and the definition is one or more
     paragraphs or body elements, indented relative to the term.
     Blank lines are not allowed between term and definition.
@@ -225,7 +225,7 @@ preformatted block.  For example: >
   An example::
 
       Whitespace, newlines, blank lines, and all kinds of markup
-        (like *this* or \this) is preserved by literal blocks.
+        (like this or \this) is preserved by literal blocks.
     Lookie here, I've dropped an indentation level
     (but not far enough)
 
@@ -236,7 +236,7 @@ Results in: >
   An example::
 
       Whitespace, newlines, blank lines, and all kinds of markup
-        (like *this* or \this) is preserved by literal blocks.
+        (like this or \this) is preserved by literal blocks.
     Lookie here, I've dropped an indentation level
     (but not far enough)
 
