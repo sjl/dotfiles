@@ -598,9 +598,6 @@ augroup END
 "     endif
 " endfunction
 
-let g:slimv_leader = '\'
-let g:slimv_keybindings = 2
-
 augroup ft_clojure
     au!
 
@@ -812,10 +809,17 @@ augroup ft_lisp
     au!
     au FileType lisp call TurnOnLispFolding()
     " au FileType lisp nnoremap <buffer> <localleader>ee mz99[(va("ry:call Send_to_Tmux(@r)<cr>
-    au FileType lisp nnoremap <buffer> <localleader>ee mz99[(:call SlimvEvalExp()<cr>`z
+    " au FileType lisp nnoremap <buffer> <localleader>ee mz99[(:call SlimvEvalExp()<cr>`z
+
+    " Fix the eval mappings.
+    au FileType lisp nnoremap <buffer> <localleader>ef :call SlimvEvalExp()<cr>
+    au FileType lisp nnoremap <buffer> <localleader>ee :call SlimvEvalDefun()<cr>
 
     au FileType lisp nnoremap <buffer> <localleader>tt mz0l99[(vab"ry:call Send_to_Tmux(@r)<cr>`z
     au FileType lisp nnoremap <buffer> <localleader>tb mzggVG"ry:call Send_to_Tmux(@r)<cr>`z
+
+    " Indent top-level form.
+    au FileType lisp nmap <buffer> <localleader>= mz99[(v%='z
 augroup END
 
 " }}}
@@ -1022,6 +1026,7 @@ augroup plugin_commentary
     au!
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
+    au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
 augroup END
@@ -1232,12 +1237,13 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 " }}}
 " SLIMV {{{
 
+let g:slimv_leader = '\'
+let g:slimv_keybindings = 2
 let g:slimv_repl_name = 'SLIMV.REPL'
 let g:slimv_repl_split = 4
 " let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
-
-" let g:paredit_mode = 0
+let g:slimv_preferred = 'clisp'
 
 " Use a swank command that works, and doesn't require new app windows.
 let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
