@@ -191,6 +191,7 @@ let maplocalleader = "\\"
 
 syntax on
 set background=dark
+let g:badwolf_tabline = 2
 let g:badwolf_html_link_underline = 0
 colorscheme badwolf
 
@@ -638,8 +639,9 @@ augroup ft_clojure
     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
     " Fix the eval mappings.
-    au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
-    au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
+    au FileType clojure nnoremap <buffer> <localleader>ef :call SlimvEvalExp()<cr>
+    au FileType clojure nnoremap <buffer> <localleader>ee :call SlimvEvalDefun()<cr>
+    au FileType clojure nnoremap <buffer> <localleader>en mzgg:call SlimvEvalDefun()<cr>`z
 
     " And the inspect mapping.
     au FileType clojure nmap <buffer> \i \di
