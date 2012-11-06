@@ -97,7 +97,7 @@ function ag -d "Run Ag with appropriate options."
 end
 
 alias count_t_tasks '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt | wc -l'
-set -g T_TASK_COUNT (count_t_tasks)
+# set -g T_TASK_COUNT (count_t_tasks)
 function t
     ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt $argv
     set -g T_TASK_COUNT (count_t_tasks)
@@ -248,8 +248,6 @@ function fish_prompt
     echo
 
     virtualenv_prompt
-
-    printf "(%d) " $T_TASK_COUNT
 
     if test $last_status -eq 0
         set_color white -o
