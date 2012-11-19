@@ -1772,6 +1772,11 @@ nnoremap <leader>B :call BlockColor()<cr>
 " Pulse Line {{{
 
 function! s:Pulse() " {{{
+    let current_window = winnr()
+    windo set nocursorline
+    execute current_window . 'wincmd w'
+    setlocal cursorline
+
     redir => old_hi
         silent execute 'hi CursorLine'
     redir END
