@@ -251,11 +251,6 @@ nnoremap K :q<cr>
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
-" Front and center
-" Use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> zMzvzz25<c-e>
-vnoremap <c-z> <esc>zv`<ztgv
-
 " Sort lines
 nnoremap <leader>s vip:!sort<cr>
 vnoremap <leader>s :!sort<cr>
@@ -579,6 +574,18 @@ vnoremap <Space> za
 " cursor happens to be.
 nnoremap zO zCzO
 
+" "Focus" the current line.  Basically:
+"
+" 1. Close all folds.
+" 2. Open just the folds containing the current line.
+" 3. Move the line to a little bit (15 lines) above the center of the screen.
+" 4. Pulse the cursor line.  My eyes are bad.
+"
+" This mapping wipes out the z mark, which I never use.
+"
+" I use :sus for the rare times I want to actually background Vim.
+nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
+
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
 
@@ -777,7 +784,7 @@ augroup ft_haskell
 augroup END
 
 " }}}
-" HTML and HTMLDjango {{{
+" HTML, Django, Jinja, Dram {{{
 
 let g:html_indent_tags = ['p', 'li']
 
@@ -785,6 +792,8 @@ augroup ft_html
     au!
 
     au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+    au BufNewFile,BufRead *.dram setlocal filetype=htmldjango
+
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
 
     " Use <localleader>f to fold the current tag.
@@ -862,7 +871,7 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
@@ -1653,7 +1662,7 @@ function! s:HgDiff() " {{{
     diffupdate
 endfunction " }}}
 command! -nargs=0 HgDiff call s:HgDiff()
-nnoremap <leader>hd :HgDiff<cr>
+" nnoremap <leader>hd :HgDiff<cr>
 
 function! s:HgBlame() " {{{
     let fn = expand('%:p')
@@ -1675,7 +1684,7 @@ function! s:HgBlame() " {{{
     syncbind
 endfunction " }}}
 command! -nargs=0 HgBlame call s:HgBlame()
-nnoremap <leader>hb :HgBlame<cr>
+" nnoremap <leader>hb :HgBlame<cr>
 
 " }}}
 " Ack motions {{{
@@ -1758,6 +1767,37 @@ hi def BlockColor4 guibg=#3d3d3d
 hi def BlockColor5 guibg=#444444
 " }}}
 nnoremap <leader>B :call BlockColor()<cr>
+
+" }}}
+" Pulse Line {{{
+
+function! s:Pulse() " {{{
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    let steps = 9
+    let width = 1
+    let start = width
+    let end = steps * width
+    let color = 233
+
+    for i in range(start, end, width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+    for i in range(end, start, -1 * width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+
+    execute 'hi ' . old_hi
+endfunction " }}}
+command! -nargs=0 Pulse call s:Pulse()
 
 " }}}
 
