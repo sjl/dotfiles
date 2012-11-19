@@ -114,3 +114,8 @@ subrepos
 repos
 plugin's
 VCS
+namespacing
+autocommands
+autocommand
+reindent
+Javascript
