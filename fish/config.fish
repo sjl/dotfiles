@@ -147,6 +147,7 @@ prepend_to_path "/opt/subversion/bin"
 prepend_to_path "$HOME/lib/hg/hg"
 prepend_to_path "$HOME/Library/Haskell/bin"
 prepend_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
+prepend_to_path "/Applications/Postgres.app/Contents/MacOS/bin"
 
 set BROWSER open
 
