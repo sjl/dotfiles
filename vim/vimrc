@@ -622,6 +622,14 @@ augroup END
 "     endif
 " endfunction
 
+function! s:DebullshitClojureStacktrace() " {{{
+    syntax match GarbageFrame '\v^ +\d+:.+:\d+ clojure\..+$'
+    syntax match GarbageFrame '\v^ +\d+:.+:\d+ swank\..+$'
+    hi link GarbageFrame Comment
+endfunction " }}}
+
+command! -nargs=0 DebullshitClojureStacktrace call s:DebullshitClojureStacktrace()
+
 augroup ft_clojure
     au!
 
@@ -1276,7 +1284,9 @@ let g:slimv_repl_wrap = 0
 let g:slimv_preferred = 'clisp'
 
 " Use a swank command that works, and doesn't require new app windows.
-let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein ritz 4005'
+" let g:slimv_swank_clojure = '! xterm -e lein ritz 4005 &'
+let g:slimv_swank_clojure = '!false'
 
 " }}}}
 " Sparkup {{{
