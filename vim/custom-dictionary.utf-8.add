@@ -114,6 +114,7 @@ subrepos
 repos
 plugin's
 VCS
+Vimscript's
 namespacing
 autocommands
 autocommand
