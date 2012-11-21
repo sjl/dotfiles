@@ -9,7 +9,7 @@ alias hl 'less -R'
 alias paththis 'set PATH (pwd) $PATH'
 alias clc './bin/get-last-commit-url.py | pbcopy'
 
-alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein swank'
+alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein ritz'
 
 alias ef 'vim ~/.config/fish/config.fish'
 alias ev 'vim ~/.vimrc'
