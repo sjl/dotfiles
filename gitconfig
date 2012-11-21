@@ -29,6 +29,8 @@
 
     discard-merge = reset --hard HEAD
 
+    ack = log --color=always --all --topo-order --pretty='format:%Cgreen%h%Creset %s%Cred%d%Creset %C(black bold)(by %an)%Creset' --full-history -S 
+
     ci = commit
     cm = commit -m
 
@@ -65,6 +67,9 @@
     addremove = !git add . && git add -u
     addrem = !git addremove
 
+    ksdiff = difftool -y -t Kaleidoscope
+    ksshow = "!sh -c 'git ksdiff $1^..$1;' -"
+
 [push]
     default = current
 
@@ -75,7 +80,7 @@
     status = auto
 
 [difftool "Kaleidoscope"]
-    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [difftool]
     prompt = false
@@ -84,11 +89,14 @@
     tool = Kaleidoscope
 
 [merge]
-    tool = splice
+    tool = Kaleidoscope
 
 [mergetool "splice"]
     cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
     trustExitCode = true
+
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 
 [web]
     browser = open

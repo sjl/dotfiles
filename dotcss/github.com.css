@@ -15,3 +15,6 @@ div.repository-lang-stats-graph { display: none; }
 div.recently-touched-branches-wrapper { display: none; }
 p.last-commit { display: none; }
 pre, code, tt { font-family: Menlo; }
+.header a.notification-indicator { display: none; }
+.header .divider-vertical { display: none; }
+.header .header-logo-blacktocat { margin-right: 7px; }
