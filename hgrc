@@ -50,12 +50,10 @@ git = True
 unified = 5
 
 [extdiff]
-cmd.vd = mvim
-opts.vd = -c 'set lines=70' -c 'set columns=240' -f '+next' '+execute "DirDiff" argv(0) argv(1)'
-cmd.ksdiff = /usr/local/bin/ksdiff-wrapper
-opts.ksdiff = hg
-cmd.dd = diffuse
-opts.dd = 
+cmd.vd = vim
+opts.vd = -c 'set lines=70' -c 'set columns=240' '+next' '+execute "DirDiff" argv(0) argv(1)'
+cmd.ksdiff = /usr/local/bin/ksdiff
+opts.ksdiff = --changeset --wait --filelist
 
 [merge-tools]
 splice.executable = vim
@@ -70,6 +68,9 @@ keepthat.premerge = True
 keepthis.executable = sh
 keepthis.args = -c 'cp "$other" "$output.incoming" && cp "$local" "$output"'
 keepthis.premerge = True
+
+kal.executable = /usr/local/bin/ksdiff
+kal.args = --merge --output $output --base $base -- $local $other
 
 [email]
 method = smtp

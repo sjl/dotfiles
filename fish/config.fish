@@ -113,7 +113,7 @@ end
 # }}}
 # Bind Keys {{{
 
-function fish_user_keybindings
+function fish_user_key_bindings
     bind \cn accept-autosuggestion
 
     # Ignore iterm2 escape sequences.  Vim will handle them if needed.
@@ -299,10 +299,5 @@ if test -s $HOME/.config/fish/local.fish
 end
 
 # }}}
-# Fortune {{{
 
-if status --is-interactive
-    command fortune -s | cowsay -n | lolcat
-end
-
-# }}}
+true

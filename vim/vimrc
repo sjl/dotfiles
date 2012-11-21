@@ -948,11 +948,6 @@ augroup ft_python
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
-    " Jesus, Python.  Five characters of punctuation for a damn string?
-    au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
-
-    au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
-
     au FileType python iabbrev <buffer> afo assert False, "Okay"
 augroup END
 
