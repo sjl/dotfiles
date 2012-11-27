@@ -623,8 +623,7 @@ augroup END
 " endfunction
 
 function! s:DebullshitClojureStacktrace() " {{{
-    syntax match GarbageFrame '\v^ +\d+:.+:\d+ clojure\..+$'
-    syntax match GarbageFrame '\v^ +\d+:.+:\d+ swank\..+$'
+    syntax match GarbageFrame '\v +.+\.(java|clj):\d+ (clojure|swank)\..+$'
     hi link GarbageFrame Comment
 endfunction " }}}
 
@@ -632,6 +631,8 @@ command! -nargs=0 DebullshitClojureStacktrace call s:DebullshitClojureStacktrace
 
 augroup ft_clojure
     au!
+
+    au FileType SLDB DebullshitClojureStacktrace
 
     au BufNewFile,BufRead riemann.config set filetype=clojure
     au FileType clojure silent! call TurnOnClojureFolding()
