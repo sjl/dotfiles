@@ -92,8 +92,14 @@ fi
 
 # if the type is empty then try to figure it out.
 if [ -z $type ]; then
-    file  $1
-    type=`file -bi $1 | cut -d"/" -f2`
+        # OS Detection as the file command has different options under OSX
+        if [ `uname -s` = 'Darwin' ]; then
+            type=`file -bI $1 | cut -d"/" -f2|cut -d\; -f1`
+        elif [ `uname -s` = 'Linux' ]; then
+            type=`file -bi $1 | cut -d"/" -f2|cut -d\; -f1`
+        else
+            type=`file -bi $1 | cut -d"/" -f2|cut -d\; -f1`
+        fi
 fi
 
 # if the type is '-' then we don't want to mess with type.
