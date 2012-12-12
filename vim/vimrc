@@ -248,6 +248,9 @@ inoremap # X<BS>#
 " Kill window
 nnoremap K :q<cr>
 
+" Man
+nnoremap M K
+
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
@@ -448,6 +451,7 @@ nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+nnoremap <leader>es :vsplit ~/.slate<cr>
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -473,6 +477,8 @@ noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 runtime macros/matchit.vim
 map <tab> %
+unmap [%
+unmap ]%
 
 " Made D behave
 nnoremap D d$
@@ -649,6 +655,16 @@ augroup ft_clojure
     au FileType clojure nnoremap <buffer> <localleader>ee :call SlimvEvalDefun()<cr>
     au FileType clojure nnoremap <buffer> <localleader>en mzgg:call SlimvEvalDefun()<cr>`z
 
+    " Friendlier Paredit mappings.
+    au FileType clojure noremap <buffer> () :<c-u>call PareditWrap("(", ")")<cr>
+    au FileType clojure noremap <buffer> )( :<c-u>call PareditSplice()<cr>
+    au FileType clojure noremap <buffer> (( :<c-u>call PareditMoveLeft()<cr>
+    au FileType clojure noremap <buffer> )) :<c-u>call PareditMoveRight()<cr>
+    au FileType clojure noremap <buffer> (j :<c-u>call PareditJoin()<cr>
+    au FileType clojure noremap <buffer> (s :<c-u>call PareditSplit()<cr>
+    au FileType clojure noremap <buffer> [ :<c-u>call PareditSmartJumpOpening(0)<cr>
+    au FileType clojure noremap <buffer> ] :<c-u>call PareditSmartJumpClosing(0)<cr>
+
     " And the inspect mapping.
     au FileType clojure nmap <buffer> \i \di
 
@@ -811,7 +827,7 @@ augroup ft_html
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+    au FileType jinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
 augroup END
 
 " }}}
@@ -1215,7 +1231,7 @@ let g:Powerline_colorscheme = 'badwolf'
 " Python-Mode {{{
 
 let g:pymode_doc = 1
-let g:pymode_doc_key = '<localleader>ds'
+let g:pymode_doc_key = 'M'
 let g:pydoc = 'pydoc'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 0
@@ -1278,6 +1294,7 @@ let g:slimv_repl_split = 4
 " let g:slimv_repl_syntax = 0
 let g:slimv_repl_wrap = 0
 let g:slimv_preferred = 'clisp'
+let g:paredit_smartjump = 1
 
 " Use a swank command that works, and doesn't require new app windows.
 let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein ritz 4005'

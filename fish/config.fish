@@ -22,6 +22,7 @@ alias ez 'vim ~/lib/dotfiles/zsh'
 alias ek 'vim ~/lib/dotfiles/keymando/keymandorc.rb'
 alias et 'vim ~/.tmux.conf'
 alias eg 'vim ~/.gitconfig'
+alias es 'vim ~/.slate'
 
 alias spotlight-off 'sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer'
 alias spotlight-on 'sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer'
@@ -220,6 +221,10 @@ function git_prompt
         git_prompt_status
         set_color normal
     end
+end
+
+function prompt_pwd --description 'Print the current working directory, shortend to fit the prompt'
+    echo $PWD | sed -e "s|^$HOME|~|"
 end
 
 function fish_prompt

@@ -25,6 +25,7 @@ ensure_link "lib/dulwich/dulwich" "lib/hg/hg/dulwich"
 
 test -d ~/lib/dotfiles || hg clone http://bitbucket.org/sjl/dotfiles ~/lib/dotfiles
 
+ensure_link "lib/dotfiles/slate"               ".slate"
 ensure_link "lib/dotfiles/tmux/tmux.conf"      ".tmux.conf"
 ensure_link "lib/dotfiles/vim"                 ".vim"
 ensure_link "lib/dotfiles/vim/vimrc"           ".vimrc"
