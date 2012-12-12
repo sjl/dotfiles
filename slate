@@ -1,0 +1,32 @@
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+config windowHintsSpread true
+config defaultToCurrentScreen true
+
+alias hyper ctrl;shift;alt;cmd
+
+alias full      move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias lefthalf  move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+
+alias thirdleft  move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
+alias thirdmid   move screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
+alias thirdright move 2*screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
+
+alias bigleft  move screenOriginX;screenOriginY 2*screenSizeX/3;screenSizeY
+alias bigmid   move screenSizeX/4;screenOriginY screenSizeX/2;screenSizeY
+alias bigright move screenSizeX/3;screenOriginY 2*screenSizeX/3;screenSizeY
+
+bind pad1:${hyper} ${bigleft}
+bind pad2:${hyper} ${bigmid}
+bind pad3:${hyper} ${bigright}
+bind pad4:${hyper} ${lefthalf}
+bind pad5:${hyper} ${full}
+bind pad6:${hyper} ${righthalf}
+bind pad7:${hyper} ${thirdleft}
+bind pad8:${hyper} ${thirdmid}
+bind pad9:${hyper} ${thirdright}
+
+bind ;:${hyper}      throw next
+bind space:${hyper}  hint ASDFJKLGHNMVC
+bind delete:${hyper} relaunch
