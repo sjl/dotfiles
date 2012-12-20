@@ -1325,7 +1325,7 @@ let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 " }}}
 " Splice {{{
 
-" let g:splice_leader = "-"
+let g:splice_prefix = "-"
 
 let g:splice_initial_mode = "grid"
 

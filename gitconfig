@@ -89,10 +89,10 @@
     tool = Kaleidoscope
 
 [merge]
-    tool = Kaleidoscope
+    tool = splice
 
 [mergetool "splice"]
-    cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
     trustExitCode = true
 
 [mergetool "Kaleidoscope"]

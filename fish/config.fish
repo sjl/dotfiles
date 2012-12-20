@@ -40,7 +40,7 @@ alias pbpb 'pbp | pb'
 
 alias weechat 'weechat-curses'
 
-alias collapse="sed -e 's/  */ /g'"
+alias collapse "sed -e 's/  */ /g'"
 alias cuts "cut -d' '"
 
 alias pbc 'pbcopy'
