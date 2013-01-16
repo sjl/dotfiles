@@ -94,7 +94,7 @@ augroup END
 " Trailing whitespace {{{
 " Save {{{
 
-" augroup its2012justfuckingsavealready
+" augroup its2013justfuckingsavealready
 "     au!
 "     au InsertLeave * :silent! wa
 "     au CursorHold * :silent! wa
@@ -163,7 +163,7 @@ set colorcolumn=+1
 " Backups {{{
 
 set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
+set noswapfile                    " It's 2013, Vim.
 
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
@@ -523,7 +523,7 @@ nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
 
 " Directional Keys {{{
 
-" It's 2012.
+" It's 2013.
 noremap j gj
 noremap k gk
 noremap gj j
