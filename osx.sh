@@ -189,3 +189,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # Kill affected applications
 for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" > /dev/null 2>&1; done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+defaults write com.tapbots.TweetbotMac TextAutomaticQuoteSubstitution -bool NO
+defaults write com.tapbots.TweetbotMac TextAutoCorrect -bool NO
+defaults write com.tapbots.TweetbotMac TextAutomaticTextReplacement -bool NO

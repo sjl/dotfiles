@@ -1,65 +1,62 @@
-# Useful aliases {{{
+# Useful function {{{; $argv; end
 
-alias serve_this 'python -m SimpleHTTPServer'
+function serve_this; python -m SimpleHTTPServer; end
 # alias fab 'fab -i ~/.ssh/stevelosh'
-alias oldgcc 'set -g CC /usr/bin/gcc-4.0'
-alias tm 'tmux -u2'
-alias c 'clear'
-alias hl 'less -R'
-alias paththis 'set PATH (pwd) $PATH'
-alias clc './bin/get-last-commit-url.py | pbcopy'
+function oldgcc; set -g CC /usr/bin/gcc-4.0 $argv; end
+function tm; tmux -u2 $argv; end
+function c; clear; end
+function hl; less -R; end
+function paththis; set PATH (pwd) $PATH $argv; end
+function clc; ./bin/get-last-commit-url.py | pbcopy; end
 
-alias swank 'dtach -A /tmp/dtach-swank.sock -r winch lein ritz'
+function swank; dtach -A /tmp/dtach-swank.sock -r winch lein ritz; end
 
-alias ef 'vim ~/.config/fish/config.fish'
-alias ev 'vim ~/.vimrc'
-alias ed 'vim ~/.vim/custom-dictionary.utf-8.add'
-alias eo 'vim ~/Dropbox/Org'
-alias eh 'vim ~/.hgrc'
-alias ep 'vim ~/.pentadactylrc'
-alias em 'vim ~/.mutt/muttrc'
-alias ez 'vim ~/lib/dotfiles/zsh'
-alias ek 'vim ~/lib/dotfiles/keymando/keymandorc.rb'
-alias et 'vim ~/.tmux.conf'
-alias eg 'vim ~/.gitconfig'
-alias es 'vim ~/.slate'
+function ef; vim ~/.config/fish/config.fish; end
+function ev; vim ~/.vimrc; end
+function ed; vim ~/.vim/custom-dictionary.utf-8.add; end
+function eo; vim ~/Dropbox/Org; end
+function eh; vim ~/.hgrc; end
+function ep; vim ~/.pentadactylrc; end
+function em; vim ~/.mutt/muttrc; end
+function ez; vim ~/lib/dotfiles/zsh; end
+function ek; vim ~/lib/dotfiles/keymando/keymandorc.rb; end
+function et; vim ~/.tmux.conf; end
+function eg; vim ~/.gitconfig; end
+function es; vim ~/.slate; end
 
-alias spotlight-off 'sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer'
-alias spotlight-on 'sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer'
-alias spotlight-wat 'sudo fs_usage -w -f filesys mdworker | grep "open"'
+function spotlight-off; sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer; end
+function spotlight-on; sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer; end
+function spotlight-wat; sudo fs_usage -w -f filesys mdworker | grep "open" ; end
 
 set MUTT_BIN (which mutt)
-alias mutt "bash --login -c 'cd ~/Desktop; $MUTT_BIN'"
+function mutt; bash --login -c 'cd ~/Desktop; $MUTT_BIN'; end
 
-alias h 'hg'
-alias g 'git'
+function h; hg $argv; end
+function g; git $argv; end
 
-alias pbc 'pbcopy'
-alias pbp 'pbpaste'
-alias pbpb 'pbp | pb'
+function pbc; pbcopy; end
+function pbp; pbpaste; end
+function pbpb; pbp | pb; end
 
-alias weechat 'weechat-curses'
+function weechat; weechat-curses $argv; end
 
-alias collapse "sed -e 's/  */ /g'"
-alias cuts "cut -d' '"
+function collapse; "sed -e 's/  */ /g'"; end
+function cuts; "cut -d' '"; end
 
-alias pbc 'pbcopy'
-alias pbp 'pbpaste'
+function v; vim $argv; end
+function V; vim . $argv; end
 
-alias v 'vim'
-alias V 'vim .'
+function vu; vagrant up; end
+function vs; vagrant suspend; end
 
-alias vu 'vagrant up'
-alias vs 'vagrant suspend'
+function o; open $argv; end
+function oo; open .; end
 
-alias o 'open'
-alias oo 'open .'
-
-alias wo 'workon'
-alias deact 'deactivate'
+function wo; workon $argv; end
+function deact; deactivate; end
 
 function psg -d "Grep for a running process, returning its PID and full string"
-    ps auxww | grep --color=always $argv | grep -v grep | collapse | cuts -f 2,11-
+    ps auxww | grep -i --color=always $argv | grep -v grep | collapse | cuts -f 2,11-
 end
 
 function hey_virtualbox_shut_down_or_i_will_fucking_cut_you
@@ -97,7 +94,7 @@ function ag -d "Run Ag with appropriate options."
     end
 end
 
-alias count_t_tasks '~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt | wc -l'
+function count_t_tasks; ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt | wc -l $argv; end
 # set -g T_TASK_COUNT (count_t_tasks)
 function t
     ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=tasks.txt $argv
@@ -188,7 +185,7 @@ set -gx WORKON_HOME "$HOME/lib/virtualenvs"
 
 . ~/src/z-fish/z.fish
 
-alias j 'z'
+function j; z $argv; end
 
 # }}}
 # Prompt {{{
@@ -269,29 +266,29 @@ end
 # }}}
 # Directories {{{
 
-alias ..    'cd ..'
-alias ...   'cd ../..'
-alias ....  'cd ../../..'
-alias ..... 'cd ../../../..'
+function ..;    cd ..; end
+function ...;   cd ../..; end
+function ....;  cd ../../..; end
+function .....; cd ../../../..; end
 
-alias md 'mkdir -p'
+function md; mkdir -p $argv; end
 
-alias l1 'tree --dirsfirst -ChFL 1'
-alias l2 'tree --dirsfirst -ChFL 2'
-alias l3 'tree --dirsfirst -ChFL 3'
-alias l4 'tree --dirsfirst -ChFL 4'
-alias l5 'tree --dirsfirst -ChFL 5'
-alias l6 'tree --dirsfirst -ChFL 6'
+function l1; tree --dirsfirst -ChFL 1 $argv; end
+function l2; tree --dirsfirst -ChFL 2 $argv; end
+function l3; tree --dirsfirst -ChFL 3 $argv; end
+function l4; tree --dirsfirst -ChFL 4 $argv; end
+function l5; tree --dirsfirst -ChFL 5 $argv; end
+function l6; tree --dirsfirst -ChFL 6 $argv; end
 
-alias ll1 'tree --dirsfirst -ChFupDaL 1'
-alias ll2 'tree --dirsfirst -ChFupDaL 2'
-alias ll3 'tree --dirsfirst -ChFupDaL 3'
-alias ll4 'tree --dirsfirst -ChFupDaL 4'
-alias ll5 'tree --dirsfirst -ChFupDaL 5'
-alias ll6 'tree --dirsfirst -ChFupDaL 6'
+function ll1; tree --dirsfirst -ChFupDaL 1 $argv; end
+function ll2; tree --dirsfirst -ChFupDaL 2 $argv; end
+function ll3; tree --dirsfirst -ChFupDaL 3 $argv; end
+function ll4; tree --dirsfirst -ChFupDaL 4 $argv; end
+function ll5; tree --dirsfirst -ChFupDaL 5 $argv; end
+function ll6; tree --dirsfirst -ChFupDaL 6 $argv; end
 
-alias l  'l1'
-alias ll 'll1'
+function l;  l1 $argv; end
+function ll; ll1 $argv; end
 
 # }}}
 # Misc {{{
