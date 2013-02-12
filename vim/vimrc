@@ -350,7 +350,7 @@ vnoremap Q gq
 
 " Reformat line.
 " I never use l as a macro register anyway.
-nnoremap ql ^vg_gq
+nnoremap ql gqq
 
 " Easier linewise reselection
 nnoremap <leader>V V`]

@@ -50,7 +50,7 @@
     delete-remote-branch = push origin --delete
     delete-local-reference-to-remote-branch = branch -rd
 
-    currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
+    currentbranch = rev-parse --abbrev-ref HEAD
 
     fo = fetch origin
     fu = fetch upstream

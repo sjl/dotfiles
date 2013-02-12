@@ -1,4 +1,4 @@
-# Useful function {{{; $argv; end
+# Useful functions {{{
 
 function serve_this; python -m SimpleHTTPServer; end
 # alias fab 'fab -i ~/.ssh/stevelosh'
@@ -24,12 +24,15 @@ function et; vim ~/.tmux.conf; end
 function eg; vim ~/.gitconfig; end
 function es; vim ~/.slate; end
 
+function ss; bcvi --wrap-ssh -- $argv; end
+function bcvid; dtach -A /tmp/bcvi.socket bcvi --listener; end
+
 function spotlight-off; sudo mdutil -a -i off ; and sudo mv /System/Library/CoreServices/Search.bundle/ /System/Library/CoreServices/SearchOff.bundle/ ; and killall SystemUIServer; end
 function spotlight-on; sudo mdutil -a -i on ; and sudo mv /System/Library/CoreServices/SearchOff.bundle/ /System/Library/CoreServices/Search.bundle/ ; and killall SystemUIServer; end
 function spotlight-wat; sudo fs_usage -w -f filesys mdworker | grep "open" ; end
 
 set MUTT_BIN (which mutt)
-function mutt; bash --login -c 'cd ~/Desktop; $MUTT_BIN'; end
+function mutt; bash --login -c "cd ~/Desktop; $MUTT_BIN"; end
 
 function h; hg $argv; end
 function g; git $argv; end
