@@ -3,11 +3,9 @@
 --fields=-s
 
 --languages=-html
+--languages=-javascript
 
 --exclude=flowplayer
---exclude=*.min.js
---exclude=jquery.*.js
---exclude=jquery-*.js
 --exclude=.hg
 --exclude=.ropeproject
 --exclude=libs
