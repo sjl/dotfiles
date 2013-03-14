@@ -1,0 +1,15 @@
+#network-stat-widget,
+#jobsForYou,
+#groupsForYou,
+#companiesForYou,
+#pymk,
+#today-news-wrapper,
+.guided-setup
+{
+    display: none;
+}
+
+.member-photo, .feed-photo {
+    margin-left: 10px !important;
+    border: 1px solid black !important;
+}

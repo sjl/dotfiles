@@ -196,6 +196,10 @@ bind pager N  search-opposite
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
 macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
 
+# Quickly change mailboxes
+macro pager \' "<exit><change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
+macro pager \" "<exit><change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
+
 # }}}
 # Compose {{{
 

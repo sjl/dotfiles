@@ -1,0 +1,7 @@
+h2 { display: none; }
+div.centered-text { display: none; }
+div { display: none; }
+div.topcontainer { display: block; }
+div.topcontainer div { display: block; }
+div.nfa { display: block; }
+div.ui-slider { display: block; }

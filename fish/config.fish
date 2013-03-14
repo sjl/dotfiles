@@ -24,6 +24,10 @@ function et; vim ~/.tmux.conf; end
 function eg; vim ~/.gitconfig; end
 function es; vim ~/.slate; end
 
+function fixopenwith
+    /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+end
+
 function ss; bcvi --wrap-ssh -- $argv; end
 function bcvid; dtach -A /tmp/bcvi.socket bcvi --listener; end
 
@@ -43,8 +47,8 @@ function pbpb; pbp | pb; end
 
 function weechat; weechat-curses $argv; end
 
-function collapse; "sed -e 's/  */ /g'"; end
-function cuts; "cut -d' '"; end
+function collapse; sed -e 's/  */ /g'; end
+function cuts; cut -d' '; end
 
 function v; vim $argv; end
 function V; vim . $argv; end

@@ -1,0 +1,6 @@
+
+.line-data, .file-data pre, .line-number {
+    font-family: Menlo;
+    line-height: 1.4;
+    font-size: 12px;
+}

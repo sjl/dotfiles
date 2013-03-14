@@ -58,3 +58,9 @@ nmap -builtin ,<space> <esc>:noh<CR>
 
 " Shut up.
 javascript dactyl.beep = function() { return false; }
+
+" Okay DDG let's see if I can stand you.
+" nope set defsearch=duckduckgo
+
+" Train myself to use t instead of cmd-t
+nmap -builtin <m-t> <nop>
