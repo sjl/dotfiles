@@ -118,12 +118,12 @@ end
 # }}}
 # Bind Keys {{{
 
-function fish_user_key_bindings
+function fish_user_keybindings
     bind \cn accept-autosuggestion
 
     # Ignore iterm2 escape sequences.  Vim will handle them if needed.
-    bind \e\[I true
-    bind \e\[O true
+    # bind \e\[I true
+    # bind \e\[O true
     # ]]
 end
 
