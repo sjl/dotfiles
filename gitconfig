@@ -70,6 +70,8 @@
     ksdiff = difftool -y -t Kaleidoscope
     ksshow = "!sh -c 'git ksdiff $1^..$1;' -"
 
+    sl = "!sh -c 'git show --color=always $1 | less -R' -"
+
 [push]
     default = current
 

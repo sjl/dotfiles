@@ -48,7 +48,7 @@ function pbpb; pbp | pb; end
 function weechat; weechat-curses $argv; end
 
 function collapse; sed -e 's/  */ /g'; end
-function cuts; cut -d' '; end
+function cuts; cut -d' ' $argv; end
 
 function v; vim $argv; end
 function V; vim . $argv; end
@@ -122,8 +122,8 @@ function fish_user_key_bindings
     bind \cn accept-autosuggestion
 
     # Ignore iterm2 escape sequences.  Vim will handle them if needed.
-    bind \e\[I true
-    bind \e\[O true
+    # bind \e\[I true
+    # bind \e\[O true
     # ]]
 end
 
