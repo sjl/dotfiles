@@ -48,7 +48,7 @@ function pbpb; pbp | pb; end
 function weechat; weechat-curses $argv; end
 
 function collapse; sed -e 's/  */ /g'; end
-function cuts; cut -d' '; end
+function cuts; cut -d' ' $argv; end
 
 function v; vim $argv; end
 function V; vim . $argv; end

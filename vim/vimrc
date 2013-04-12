@@ -71,6 +71,10 @@ au FocusLost * :silent! wall
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" Leader
+let mapleader = ","
+let maplocalleader = "\\"
+
 " Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
 
@@ -92,16 +96,6 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
-" Save {{{
-
-" augroup its2012justfuckingsavealready
-"     au!
-"     au InsertLeave * :silent! wa
-"     au CursorHold * :silent! wa
-"     au CursorHoldI * :silent! wa
-" augroup END
-
-" }}}
 " Only shown when not in insert mode so I don't go insane.
 
 augroup trailing
@@ -163,7 +157,7 @@ set colorcolumn=+1
 " Backups {{{
 
 set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
+set noswapfile                    " it's 2013, Vim.
 
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
@@ -179,12 +173,6 @@ endif
 if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
-
-" }}}
-" Leader {{{
-
-let mapleader = ","
-let maplocalleader = "\\"
 
 " }}}
 " Color scheme {{{
@@ -242,8 +230,8 @@ inoremap <c-l> <c-k>l*
 " Convenience mappings ---------------------------------------------------- {{{
 
 " Fuck you, help key.
-noremap  <F1> :set invfullscreen<CR>
-inoremap <F1> <ESC>:set invfullscreen<CR>a
+noremap  <F1> <nop>
+inoremap <F1> <nop>
 
 " Stop it, hash key.
 inoremap # X<BS>#
@@ -270,8 +258,10 @@ nnoremap <leader>) :tabnext<cr>
 " For some reason Vim no longer wants to talk to the OS X pasteboard through "*.
 " Computers are bullshit.
 function! g:FuckingCopyTheTextPlease()
-    normal! gv
-    silent '<,'>w !pbcopy
+    let old_z = @z
+    normal! gv"zy
+    call system('pbcopy', @z)
+    let @z = old_z
 endfunction
 noremap <leader>p :silent! set paste<CR>"*p:set nopaste<CR>
 noremap <leader>p :r!pbpaste<cr>
@@ -282,10 +272,7 @@ vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
 vnoremap u <nop>
 vnoremap gu u
 
-" For some reason ctags refuses to ignore Python variables, so I'll just hack
-" the tags file with sed and strip them out myself.
-"
-" Sigh.
+" Rebuild Ctags (mnemonic RC -> CR -> <cr>)
 nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 
 " Highlight Group(s)
@@ -296,16 +283,8 @@ nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
-" Send visual selection to gist.github.com as a private, filetyped Gist
-" Requires the gist command line too (brew install gist)
-" vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-" vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
-
 " Send visual selection to paste.stevelosh.com
 vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
-
-" Insert the directory of the current buffer in command line mode
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Select entire buffer
 nnoremap vaa ggvGg_
@@ -340,10 +319,6 @@ inoremap <C-u> <esc>mzgUiw`za
 " Panic Button
 nnoremap <f9> mzggg?G`z
 
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
@@ -366,7 +341,7 @@ nnoremap J mzJ`z
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " HTML tag closing
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 
 " Source
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
@@ -396,7 +371,6 @@ command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
 
 " I suck at typing.
-nnoremap <localleader>= ==
 vnoremap - =
 
 " Toggle paste
@@ -411,17 +385,6 @@ nnoremap <leader>i :set list!<cr>
 " Unfuck my screen
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
-" Drag Lines {{{
-
-" <m-j> and <m-k> to drag lines in any mode
-noremap ∆ :m+<CR>
-noremap ˚ :m-2<CR>
-inoremap ∆ <Esc>:m+<CR>
-inoremap ˚ <Esc>:m-2<CR>
-vnoremap ∆ :m'>+<CR>gv
-vnoremap ˚ :m-2<CR>gv
-
-" }}}
 " Easy filetype switching {{{
 
 nnoremap _md :set ft=markdown<CR>
@@ -518,6 +481,8 @@ vnoremap L g_
 " Heresy
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
 
 " gi already moves to "last place you exited insert mode", so we'll map gI to
 " something similar: move to last change
@@ -535,7 +500,7 @@ nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
 
 " Directional Keys {{{
 
-" It's 2012.
+" It's 2013.
 noremap j gj
 noremap k gk
 noremap gj j
@@ -1072,7 +1037,7 @@ augroup END
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
