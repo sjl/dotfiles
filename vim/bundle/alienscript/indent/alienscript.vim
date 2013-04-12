@@ -23,13 +23,11 @@ setlocal indentexpr=
 setlocal lisp
 
 " Special words go here.
-setlocal lispwords=function,macro,do,->,var
-setlocal lispwords+=if,cond,when,unless
-setlocal lispwords+=try
-setlocal lispwords+=loop,each,each2d,eachKey,reduce,map,for
+setlocal lispwords=def,fn,defn
+setlocal lispwords+=if
 
 " Custom:
-setlocal lispwords+=defn
+" setlocal lispwords+=defn
 
 let &cpo = s:save_cpo
 
