@@ -81,6 +81,8 @@ unset markers              # no ugly plus signs
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 alternative_order text/plain text/enriched text/html
 
+set display_filter = "clean_mail" # clean up shitty mail
+
 # }}}
 # Compose View Options {{{
 
@@ -99,6 +101,11 @@ set reply_to                         # reply to Reply to: field
 set reverse_name                     # reply as whomever it was to
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
+
+# }}}
+# Attachment View Options {{{
+
+set attach_format = "[%D %t] %2n [%-7.7m/%10.10M] %.40d %> [%s] "
 
 # }}}
 # Headers {{{

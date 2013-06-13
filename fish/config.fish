@@ -1,7 +1,7 @@
 # Useful functions {{{
 
 function serve_this; python -m SimpleHTTPServer; end
-# alias fab 'fab -i ~/.ssh/stevelosh'
+function fabric; fab -i ~/.ssh/stevelosh $argv; end
 function oldgcc; set -g CC /usr/bin/gcc-4.0 $argv; end
 function tm; tmux -u2 $argv; end
 function c; clear; end
@@ -23,6 +23,12 @@ function ek; vim ~/lib/dotfiles/keymando/keymandorc.rb; end
 function et; vim ~/.tmux.conf; end
 function eg; vim ~/.gitconfig; end
 function es; vim ~/.slate; end
+
+function vup
+    set -x VAGRANT_LOG debug
+    vagrant up $argv
+    set -e VAGRANT_LOG
+end
 
 function fixopenwith
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user

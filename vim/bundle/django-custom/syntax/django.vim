@@ -23,7 +23,7 @@ syn keyword djangoStatement contained autoescape csrf_token empty
 " syn keyword djangoStatement contained == != < > <= >=
 syn keyword djangoStatement contained and as block endblock by cycle debug else
 syn keyword djangoStatement contained extends filter endfilter firstof for
-syn keyword djangoStatement contained endfor if endif ifchanged endifchanged
+syn keyword djangoStatement contained endfor if elif endif ifchanged endifchanged
 syn keyword djangoStatement contained ifequal endifequal ifnotequal
 syn keyword djangoStatement contained endifnotequal in include load not now or
 syn keyword djangoStatement contained parsed regroup reversed spaceless

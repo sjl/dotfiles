@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import sys
+
+
+def next_line():
+    l = sys.stdin.readline()
+    if not l:
+        sys.exit(0)
+    return l
+
+# Skip headers
+l = next_line()
+while l.strip():
+    sys.stdout.write(l)
+    l = next_line()
+
+# One blank line in between headers and the start of the message
+while not l.strip():
+    l = next_line()
+
+sys.stdout.write('\n')
+sys.stdout.write(l)
+
+# Dump the rest straight through
+for l in sys.stdin.readlines():
+    sys.stdout.write(l)
+
