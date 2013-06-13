@@ -124,13 +124,16 @@ end
 # }}}
 # Bind Keys {{{
 
-function fish_user_keybindings
+# Backwards compatibility?  Screw that, it's more important that our function
+# names have underscores so they look pretty.
+function jesus_fucking_christ_bind_the_fucking_keys_fish
     bind \cn accept-autosuggestion
-
-    # Ignore iterm2 escape sequences.  Vim will handle them if needed.
-    # bind \e\[I true
-    # bind \e\[O true
-    # ]]
+end
+function fish_user_keybindings
+    jesus_fucking_christ_bind_the_fucking_keys_fish
+end
+function fish_user_key_bindings
+    jesus_fucking_christ_bind_the_fucking_keys_fish
 end
 
 # }}}

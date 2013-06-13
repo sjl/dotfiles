@@ -7,6 +7,26 @@
 
 " Preamble ---------------------------------------------------------------- {{{
 
+
+" Dear /bin/bash: fuck you and your bullshit, arcane command-line behaviour.
+"
+" Basically, I want to set this to a non-login, non-interactive bash shell.
+" Using a login/interactive bash as Vim's 'shell' breaks subtle things, like
+" ack.vim's command-line argument parsing.  However, I *do* want bash to load
+" ~/.bash_profile so my aliases get loaded and such.
+"
+" You might think you could do this with the --init-file command line option,
+" which is used to specify an init file.  Or with --rcfile.  But no, those only
+" get loaded for interactive/login shells.
+"
+" So how do we tell bash to source a goddamned file when it loads?  With an
+" *environment variable*.  Jesus, you have multiple command line options for
+" specifying files to load and none of them work?
+"
+" Computers are bullshit.
+let $BASH_ENV = "~/.bash_profile"
+set shell=/bin/bash
+
 filetype off
 call pathogen#infect()
 filetype plugin indent on
@@ -47,25 +67,6 @@ set linebreak
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
-
-" Dear /bin/bash: fuck you and your bullshit, arcane command-line behaviour.
-"
-" Basically, I want to set this to a non-login, non-interactive bash shell.
-" Using a login/interactive bash as Vim's 'shell' breaks subtle things, like
-" ack.vim's command-line argument parsing.  However, I *do* want bash to load
-" ~/.bash_profile so my aliases get loaded and such.
-"
-" You might think you could do this with the --init-file command line option,
-" which is used to specify an init file.  Or with --rcfile.  But no, those only
-" get loaded for interactive/login shells.
-"
-" So how do we tell bash to source a goddamned file when it loads?  With an
-" *environment variable*.  Jesus, you have multiple command line options for
-" specifying files to load and none of them work?
-"
-" Computers are bullshit.
-let $BASH_ENV = "~/.bash_profile"
-set shell=/bin/bash
 
 " Don't try to highlight lines longer than 800 characters.
 set synmaxcol=800

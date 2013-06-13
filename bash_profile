@@ -9,9 +9,9 @@ shopt -s expand_aliases
 AG_BIN="`which ag`"
 function ag() {
     if test -f '.agignore' && grep -q 'pragma: skipvcs' '.agignore'; then
-        $AG_BIN --search-files -U $*
+        $AG_BIN --search-files -U "$@"
     else
-        $AG_BIN --search-files $*
+        $AG_BIN --search-files "$@"
     fi
 }
 
