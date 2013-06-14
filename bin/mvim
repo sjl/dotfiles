@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+PATH=~/.vim/bullshit:$PATH $MVIM_BINARY "$@"

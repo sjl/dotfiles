@@ -56,6 +56,22 @@ function weechat; weechat-curses $argv; end
 function collapse; sed -e 's/  */ /g'; end
 function cuts; cut -d' ' $argv; end
 
+function emptytrash -d "Empty the OS X trash folders"
+    sudo rm -rfv /Volumes/*/.Trashes
+    sudo rm -rfv ~/.Trash
+    sudo rm -rfv /private/var/log/asl/*.asl
+end
+
+function urlencode
+    python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);" $argv
+end
+
+function fix_open_with -d "Fix the shitty OS X Open With menu duplicates"
+    /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user
+    killall Finder
+    echo "Open With has been rebuilt, Finder will relaunch"
+end
+
 function v; vim $argv; end
 function V; vim . $argv; end
 
@@ -175,12 +191,12 @@ set -g -x CLASSPATH "$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-
 set -g -x NODE_PATH "/usr/local/lib/node_modules"
 
 set -g -x VIM_BINARY "/usr/local/bin/vim"
+set -g -x MVIM_BINARY "/usr/local/bin/mvim"
 
 # }}}
 # Python variables {{{
 
 set -g -x PIP_DOWNLOAD_CACHE "$HOME/.pip/cache"
-set -g -x PYTHONSTARTUP "$HOME/.pythonrc.py"
 set -g -x WORKON_HOME "$HOME/lib/virtualenvs"
 
 prepend_to_path "/usr/local/share/python"
