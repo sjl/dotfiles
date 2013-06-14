@@ -174,6 +174,8 @@ set -g -x CLASSPATH "$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-
 
 set -g -x NODE_PATH "/usr/local/lib/node_modules"
 
+set -g -x VIM_BINARY "/usr/local/bin/vim"
+
 # }}}
 # Python variables {{{
 
