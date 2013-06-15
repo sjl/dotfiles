@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-# Ensure this file is executable via chmod a+x lein, then place it
+# Ensure this file is executable via `chmod a+x lein`, then place it
 # somewhere on your $PATH, like ~/bin. The rest of Leiningen will be
 # installed upon first run into the ~/.lein/self-installs directory.
 
-export LEIN_VERSION="2.0.0"
+export LEIN_VERSION="2.1.2"
 
 case $LEIN_VERSION in
     *SNAPSHOT) SNAPSHOT="YES" ;;
     *) SNAPSHOT="NO" ;;
 esac
 
-if [[ "$OSTYPE" == "cygwin" ]]; then
+if [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]]; then
     delimiter=";"
 else
     delimiter=":"
@@ -21,6 +21,8 @@ function make_native_path {
     # ensure we have native paths
     if [[ "$OSTYPE" == "cygwin" && "$1"  == /* ]]; then
     echo -n "$(cygpath -wp "$1")"
+    elif [[ "$OSTYPE" == "msys" && "$1"  == /* ]]; then
+    echo -n "$(sh -c "(cd $1 2</dev/null && pwd -W) || echo $1 | sed 's/^\\/\([a-z]\)/\\1:/g'")"
     else
     echo -n "$1"
     fi
@@ -89,18 +91,21 @@ done
 
 BIN_DIR="$(dirname "$SCRIPT")"
 
-# Try to make the default more sane for :eval-in :classloader.lein
-grep -E -q '^\s*:eval-in\s+:classloader\s*$' project.clj 2> /dev/null &&
-LEIN_JVM_OPTS="${LEIN_JVM_OPTS:-"-Xms64m -Xmx512m"}"
+export LEIN_JVM_OPTS="${LEIN_JVM_OPTS-"-XX:+TieredCompilation -XX:TieredStopAtLevel=1"}"
+
+# When :eval-in :classloader we need more memory
+grep -E -q '^\s*:eval-in\s+:classloader\s*$' project.clj 2> /dev/null && \
+    export LEIN_JVM_OPTS="$LEIN_JVM_OPTS -Xms64m -Xmx512m"
 
 if [ -r "$BIN_DIR/../src/leiningen/version.clj" ]; then
     # Running from source checkout
     LEIN_DIR="$(dirname "$BIN_DIR")"
 
-    # Need to use lein 1.x to bootstrap the leiningen-core library (for aether)
-    if [ "$(ls "$LEIN_DIR"/leiningen-core/lib/*)" = "" ]; then
+    # Need to use lein release to bootstrap the leiningen-core library (for aether)
+    if [ ! -r "$LEIN_DIR/leiningen-core/.lein-bootstrap" ]; then
         echo "Leiningen is missing its dependencies."
-        echo "Please see \"Building\" in CONTRIBUTING.md."
+        echo "Please run \"lein bootstrap\" in the leiningen-core/ directory"
+        echo "with a stable release of Leiningen. See CONTRIBUTING.md for details."
         exit 1
     fi
 
@@ -113,8 +118,7 @@ if [ -r "$BIN_DIR/../src/leiningen/version.clj" ]; then
         fi
     fi
 
-    # Use bin/lein to calculate its own classpath since src/ and
-    # leiningen-core/lib/*jar suffices to run the classpath task.
+    # Use bin/lein to calculate its own classpath.
     if [ ! -r "$LEIN_DIR/.lein-classpath" ] && [ "$1" != "classpath" ]; then
         echo "Recalculating Leiningen's classpath."
         ORIG_PWD="$PWD"
@@ -127,14 +131,14 @@ if [ -r "$BIN_DIR/../src/leiningen/version.clj" ]; then
     fi
 
     mkdir -p "$LEIN_DIR/target/classes"
-    export LEIN_JVM_OPTS="${LEIN_JVM_OPTS:-"-Xms64m -Xmx256m"} -Dclojure.compile.path=$LEIN_DIR/target/classes"
+    export LEIN_JVM_OPTS="$LEIN_JVM_OPTS -Dclojure.compile.path=$LEIN_DIR/target/classes"
     add_path CLASSPATH "$LEIN_DIR/leiningen-core/src/" "$LEIN_DIR/leiningen-core/resources/" \
-                          "$LEIN_DIR/test:$LEIN_DIR/target/classes" "$LEIN_DIR/src" ":$LEIN_DIR/resources"
+        "$LEIN_DIR/test:$LEIN_DIR/target/classes" "$LEIN_DIR/src" ":$LEIN_DIR/resources"
 
     if [ -r "$LEIN_DIR/.lein-classpath" ]; then
         add_path CLASSPATH "$(cat "$LEIN_DIR/.lein-classpath" 2> /dev/null)"
     else
-        add_path CLASSPATH "$LEIN_DIR/leiningen-core/lib/*"
+        add_path CLASSPATH "$(cat "$LEIN_DIR/leiningen-core/.lein-bootstrap" 2> /dev/null)"
     fi
 else # Not running from a checkout
     add_path CLASSPATH "$LEIN_JAR"
@@ -165,6 +169,8 @@ function download_failed_message {
     echo "to turn off certificate checks:"
     echo "  export HTTP_CLIENT=\"wget --no-check-certificate -O\" # or"
     echo "  export HTTP_CLIENT=\"curl --insecure -f -L -o\""
+    echo "It's also possible that you're behind a firewall haven't yet"
+    echo "set HTTP_PROXY and HTTPS_PROXY."
 }
 
 # TODO: explain what to do when Java is missing
@@ -182,7 +188,11 @@ export JVM_OPTS="${JVM_OPTS:-"$JAVA_OPTS"}"
 # If you're packaging this for a package manager (.deb, homebrew, etc)
 # you need to remove the self-install and upgrade functionality or see lein-pkg.
 if [ "$1" = "self-install" ]; then
-    if [ -r "$LEIN_JAR" ]; then
+    if [ -r "$BIN_DIR/../src/leiningen/version.clj" ]; then
+        echo "Running self-install from a checkout is not supported."
+        echo "See CONTRIBUTING.md for SNAPSHOT-specific build instructions."
+        exit 1
+    elif [ -r "$LEIN_JAR" ]; then
       echo "The self-install jar already exists at $LEIN_JAR."
       echo "If you wish to re-download, delete it and rerun \"$0 self-install\"."
       exit 1
@@ -197,9 +207,6 @@ if [ "$1" = "self-install" ]; then
     else
         rm "$LEIN_JAR.pending" 2> /dev/null
         download_failed_message "$LEIN_URL"
-        if [ $SNAPSHOT = "YES" ]; then
-            echo "See README.md for SNAPSHOT-specific build instructions."
-        fi
         exit 1
     fi
 elif [ "$1" = "upgrade" ]; then
@@ -216,8 +223,7 @@ elif [ "$1" = "upgrade" ]; then
         echo "You do not have permission to upgrade the installation in $SCRIPT"
         exit 1
     else
-        # TODO: change to stable when 2.0.0 is released
-        TARGET_VERSION="${2:-preview}"
+        TARGET_VERSION="${2:-stable}"
         echo "The script at $SCRIPT will be upgraded to the latest $TARGET_VERSION version."
         echo -n "Do you want to continue [Y/n]? "
         read RESP
@@ -262,7 +268,7 @@ else
 
     if ([ "$LEIN_FAST_TRAMPOLINE" != "" ] || [ -r .lein-fast-trampoline ]) &&
         [ -r project.clj ]; then
-        INPUTS="$@ $(cat project.clj) $(cat "$LEIN_HOME/profiles.clj")"
+        INPUTS="$@ $(cat project.clj) $LEIN_VERSION $(cat "$LEIN_HOME/profiles.clj")"
         INPUT_CHECKSUM=$(echo $INPUTS | shasum - | cut -f 1 -d " ")
         # Just don't change :target-path in project.clj, mkay?
         TRAMPOLINE_FILE="target/trampolines/$INPUT_CHECKSUM"
@@ -282,8 +288,7 @@ else
         exec sh -c "exec $(cat $TRAMPOLINE_FILE)"
     else
         export TRAMPOLINE_FILE
-        "$LEIN_JAVA_CMD" \
-            -client -XX:+TieredCompilation \
+        "$LEIN_JAVA_CMD" -client \
             "${BOOTCLASSPATH[@]}" \
             $LEIN_JVM_OPTS \
             -Dfile.encoding=UTF-8 \
