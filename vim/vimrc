@@ -613,45 +613,14 @@ augroup END
 " }}}
 " Clojure {{{
 
-" function! SlimvToggleRepl()
-"     if bufname('%') ==# 'SLIMV.REPL'
-"         let origin = b:pop_back_to
-"         q
-"         execute "" . origin . "wincmd w"
-"     else
-"         let origin = winnr()
-"         vertical botright split
-"         e SLIMV.REPL
-"         let b:pop_back_to = origin
-"     endif
-" endfunction
-
-function! s:DebullshitClojureStacktrace() " {{{
-    syntax match GarbageFrame '\v +.+\.(java|clj):\d+ (clojure|swank)\..+$'
-    hi link GarbageFrame Comment
-endfunction " }}}
-
-command! -nargs=0 DebullshitClojureStacktrace call s:DebullshitClojureStacktrace()
-
 augroup ft_clojure
     au!
-
-    au FileType SLDB DebullshitClojureStacktrace
 
     au BufNewFile,BufRead riemann.config set filetype=clojure
     au FileType clojure silent! call TurnOnClojureFolding()
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
-
-    au BufWinEnter            SLIMV.REPL setlocal nolist
-    au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
-    au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
-    au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
-
-    " Fix the eval mappings.
-    au FileType clojure nnoremap <buffer> <localleader>ef :call SlimvEvalExp()<cr>
-    au FileType clojure nnoremap <buffer> <localleader>ee :call SlimvEvalDefun()<cr>
-    au FileType clojure nnoremap <buffer> <localleader>en mzgg:call SlimvEvalDefun()<cr>`z
+    au FileType clojure RainbowParenthesesToggle
 
     " Friendlier Paredit mappings.
     au FileType clojure noremap <buffer> () :<c-u>call PareditWrap("(", ")")<cr>
@@ -662,15 +631,11 @@ augroup ft_clojure
     au FileType clojure noremap <buffer> (s :<c-u>call PareditSplit()<cr>
     au FileType clojure noremap <buffer> [ :<c-u>call PareditSmartJumpOpening(0)<cr>
     au FileType clojure noremap <buffer> ] :<c-u>call PareditSmartJumpClosing(0)<cr>
-
-    " And the inspect mapping.
-    au FileType clojure nmap <buffer> \i \di
-
-    " And REPL-toggling mapping.
-    " au FileType clojure nnoremap <buffer> \rr :call SlimvToggleRepl()<cr>
+    " )))
 
     " Indent top-level form.
     au FileType clojure nmap <buffer> <localleader>= mz99[(v%='z
+    " ])
 augroup END
 
 " }}}
@@ -1302,23 +1267,6 @@ endfunction
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
-" SLIMV {{{
-
-let g:slimv_leader = '\'
-let g:slimv_keybindings = 2
-let g:slimv_repl_name = 'SLIMV.REPL'
-let g:slimv_repl_split = 4
-" let g:slimv_repl_syntax = 0
-let g:slimv_repl_wrap = 0
-let g:slimv_preferred = 'clisp'
-let g:paredit_smartjump = 1
-
-" Use a swank command that works, and doesn't require new app windows.
-let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein ritz 4005'
-" let g:slimv_swank_clojure = '! xterm -e lein ritz 4005 &'
-let g:slimv_swank_clojure = '!false'
-
-" }}}}
 " Sparkup {{{
 
 let g:sparkupNextMapping = '<c-s>'
@@ -1377,13 +1325,6 @@ let g:tslime_ensure_trailing_newlines = 1
 let g:tslime_normal_mapping = '<localleader>t'
 let g:tslime_visual_mapping = '<localleader>t'
 let g:tslime_vars_mapping = '<localleader>T'
-
-" }}}
-" VimClojure {{{
-
-let vimclojure#HighlightBuiltins = 1
-let vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 0
 
 " }}}
 " YankRing {{{
