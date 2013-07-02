@@ -102,3 +102,6 @@
 
 [web]
     browser = open
+
+[include]
+    path = ~/.gitconfig_local

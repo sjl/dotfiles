@@ -46,11 +46,12 @@ set thorough_search      # strip headers and eval mimes before searching
 
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
-set sidebar_width   = 24
+set sidebar_width   = 26
 color sidebar_new color221 color233
 bind index,pager <down>   sidebar-next
 bind index,pager <up>     sidebar-prev
 bind index,pager <right>  sidebar-open
+set sidebar_format = "%B %> %S"
 
 # }}}
 # Status Bar {{{
@@ -118,30 +119,56 @@ hdr_order from: to: cc: date: subject:  # and in this order
 # }}}
 # steve@stevelosh.com {{{
 
+# # Default inbox.
+# set spoolfile = "+steve-stevelosh.com/INBOX"
+
+# # Alternate email addresses.
+# alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com steve@pculture.org
+
+# # Mailboxes to show in the sidebar.
+# mailboxes +steve-stevelosh.com/INBOX \
+#           +steve-stevelosh.com/vim \
+#           +steve-stevelosh.com/clojure \
+#           +steve-stevelosh.com/python \
+#           +steve-stevelosh.com/mercurial \
+#           +steve-stevelosh.com/archive \
+#           +steve-stevelosh.com/sent \
+#           +steve-stevelosh.com/drafts \
+#           +temporary/search \
+
+# # Other special folders.
+# set mbox      = "+steve-stevelosh.com/archive"
+# set postponed = "+steve-stevelosh.com/drafts"
+
+# # Sending email.
+# set from     = "steve@stevelosh.com"
+# set sendmail = "/usr/local/bin/msmtp -a stevelosh"
+# set sendmail_wait = 0 # no please don't silently fail, email is important
+# unset record
+
+# }}}
+# sjl@simple.com {{{
+
 # Default inbox.
-set spoolfile = "+steve-stevelosh.com/INBOX"
+set spoolfile = "+simple/INBOX"
 
 # Alternate email addresses.
-alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com steve@pculture.org
+alternates slj@simple.com
 
 # Mailboxes to show in the sidebar.
-mailboxes +steve-stevelosh.com/INBOX \
-          +steve-stevelosh.com/vim \
-          +steve-stevelosh.com/clojure \
-          +steve-stevelosh.com/python \
-          +steve-stevelosh.com/mercurial \
-          +steve-stevelosh.com/archive \
-          +steve-stevelosh.com/sent \
-          +steve-stevelosh.com/drafts \
-          +temporary/search \
+mailboxes +simple/INBOX \
+          +simple/archive \
+          +simple/sent \
+          +simple/drafts \
+          +search \
 
 # Other special folders.
-set mbox      = "+steve-stevelosh.com/archive"
-set postponed = "+steve-stevelosh.com/drafts"
+set mbox      = "+simple/archive"
+set postponed = "+simple/drafts"
 
 # Sending email.
-set from     = "steve@stevelosh.com"
-set sendmail = "/usr/local/bin/msmtp -a stevelosh"
+set from     = "sjl@simple.com"
+set sendmail = "/usr/local/bin/msmtp -a simple"
 set sendmail_wait = 0 # no please don't silently fail, email is important
 unset record
 
@@ -179,11 +206,11 @@ macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 # Quickly change mailboxes
-macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
-macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
+macro index \' "<change-folder>+simple/INBOX<enter>"   "go to INBOX"
+macro index \" "<change-folder>+simple/archive<enter>" "go to archive"
 
 # Search with notmuch
-macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py -G ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py -G ~/.mail/search<enter><change-folder-readonly>+search<enter>" "search mail (using notmuch)"
 
 # Unlimit (show [a]ll)
 macro index a "<limit>all\n" "show all messages (undo limit)"
@@ -204,8 +231,8 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
 
 # Quickly change mailboxes
-macro pager \' "<exit><change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
-macro pager \" "<exit><change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
+macro pager \' "<exit><change-folder>+sjl-simple.com/INBOX<enter>"   "go to INBOX"
+macro pager \" "<exit><change-folder>+sjl-simple.com/archive<enter>" "go to archive"
 
 # }}}
 # Compose {{{

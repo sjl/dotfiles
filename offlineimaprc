@@ -1,18 +1,54 @@
 [general]
 ui = TTY.TTYUI
-accounts = SteveLosh
+accounts = Simple
 pythonfile=~/.mutt/offlineimap.py
 fsync = False
 
-[Account SteveLosh]
-localrepository = SteveLosh-Local
-remoterepository = SteveLosh-Remote
+# [Account SteveLosh]
+# localrepository = SteveLosh-Local
+# remoterepository = SteveLosh-Remote
+# status_backend = sqlite
+# postsynchook = notmuch new
+# 
+# [Repository SteveLosh-Local]
+# type = Maildir
+# localfolders = ~/.mail/steve-stevelosh.com
+# nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+#                             'sent':    '[Gmail]/Sent Mail',
+#                             'flagged': '[Gmail]/Starred',
+#                             'trash':   '[Gmail]/Trash',
+#                             'archive': '[Gmail]/All Mail',
+#                             }.get(folder, folder)
+# 
+# [Repository SteveLosh-Remote]
+# maxconnections = 1
+# type = Gmail
+# remoteuser = steve@stevelosh.com
+# remotepasseval = get_keychain_pass(account="steve@stevelosh.com", server="imap.gmail.com")
+# realdelete = no
+# nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+#                             '[Gmail]/Sent Mail': 'sent',
+#                             '[Gmail]/Starred':   'flagged',
+#                             '[Gmail]/Trash':     'trash',
+#                             '[Gmail]/All Mail':  'archive',
+#                             }.get(folder, folder)
+# folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
+#                                              'Nagios',
+#                                              'Django',
+#                                              'Flask',
+#                                              '[Gmail]/Important',
+#                                              '[Gmail]/Spam',
+#                                              ]
+
+[Account Simple]
+localrepository = Simple-Local
+remoterepository = Simple-Remote
 status_backend = sqlite
 postsynchook = notmuch new
 
-[Repository SteveLosh-Local]
+[Repository Simple-Local]
 type = Maildir
-localfolders = ~/.mail/steve-stevelosh.com
+localfolders = ~/.mail/simple
 nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
                             'sent':    '[Gmail]/Sent Mail',
                             'flagged': '[Gmail]/Starred',
@@ -20,11 +56,11 @@ nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
                             'archive': '[Gmail]/All Mail',
                             }.get(folder, folder)
 
-[Repository SteveLosh-Remote]
+[Repository Simple-Remote]
 maxconnections = 1
 type = Gmail
-remoteuser = steve@stevelosh.com
-remotepasseval = get_keychain_pass(account="steve@stevelosh.com", server="imap.gmail.com")
+remoteuser = sjl@simple.com
+remotepasseval = get_keychain_pass(account="sjl@simple.com", server="imap.gmail.com")
 realdelete = no
 nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
                             '[Gmail]/Sent Mail': 'sent',
@@ -33,9 +69,6 @@ nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
                             '[Gmail]/All Mail':  'archive',
                             }.get(folder, folder)
 folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
-                                             'Nagios',
-                                             'Django',
-                                             'Flask',
                                              '[Gmail]/Important',
                                              '[Gmail]/Spam',
                                              ]

@@ -24,6 +24,10 @@ function et; vim ~/.tmux.conf; end
 function eg; vim ~/.gitconfig; end
 function es; vim ~/.slate; end
 
+function pj
+    python -m json.tool | pygmentize -l json
+end
+
 function vup
     set -x VAGRANT_LOG debug
     vagrant up $argv
@@ -171,6 +175,7 @@ prepend_to_path "/usr/bin"
 prepend_to_path "/usr/local/bin"
 prepend_to_path "/usr/local/share/python"
 prepend_to_path "/usr/local/sbin"
+prepend_to_path "/usr/local/share/npm/bin"
 prepend_to_path "$HOME/bin"
 prepend_to_path "$HOME/lib/dotfiles/bin"
 prepend_to_path "/opt/local/bin"
@@ -192,6 +197,8 @@ set -g -x NODE_PATH "/usr/local/lib/node_modules"
 
 set -g -x VIM_BINARY "/usr/local/bin/vim"
 set -g -x MVIM_BINARY "/usr/local/bin/mvim"
+
+set -g -x DRIP_SHUTDOWN 30
 
 # }}}
 # Python variables {{{
