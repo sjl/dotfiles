@@ -49,11 +49,11 @@ augroup map_good_fireplace_keys
     au Filetype clojure nmap <buffer> <localleader>s <Plug>FireplaceSource
 
     " Eval Form
-    " au Filetype clojure nmap <buffer> <localleader>ef
+    au Filetype clojure nmap <buffer> <localleader>ef <Plug>FireplacePrintab
 
     " Eval Top-Level Form
-    " au Filetype clojure nmap <buffer> <localleader>ee
+    au Filetype clojure nmap <buffer> <localleader>ee mz:call PareditFindDefunBck()<cr><Plug>FireplacePrintab'z
 
-    " Open clojure command line editor client thing
-    " au Filetype clojure nmap <buffer> <localleader>E
+    " Open clojure command line editor client window thing
+    au Filetype clojure exe 'nmap <buffer> <localleader>E <Plug>FireplacePrompt' . &cedit . 'i'
 augroup END

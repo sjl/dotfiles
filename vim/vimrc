@@ -621,6 +621,9 @@ augroup ft_clojure
     au FileType clojure compiler clojure
     au FileType clojure setlocal report=100000
     au FileType clojure RainbowParenthesesToggle
+    au FileType clojure RainbowParenthesesLoadRound
+    au FileType clojure RainbowParenthesesLoadSquare
+    au FileType clojure RainbowParenthesesLoadBraces
 
     " Friendlier Paredit mappings.
     au FileType clojure noremap <buffer> () :<c-u>call PareditWrap("(", ")")<cr>
