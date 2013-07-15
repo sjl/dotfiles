@@ -37,7 +37,8 @@ augroup map_good_fireplace_keys
     au Filetype clojure nmap <buffer> M <Plug>FireplaceK
 
     " Go to Definition
-    au Filetype clojure nmap <buffer> gd <Plug>FireplaceDjump
+    au Filetype clojure nmap <buffer> <c-]> <Plug>FireplaceDjumpmzzvzz15<c-e>'z:Pulse<cr>
+    au Filetype clojure nmap <buffer> <c-\> <c-w>v<Plug>FireplaceDjumpmzzMzvzz15<c-e>'z:Pulse<cr>
 
     " Require
     au Filetype clojure nnoremap <buffer> <localleader>r :Require<cr>
@@ -48,11 +49,14 @@ augroup map_good_fireplace_keys
     " Get [S]ource
     au Filetype clojure nmap <buffer> <localleader>s <Plug>FireplaceSource
 
+    " Eval Buffer
+    au Filetype clojure nnoremap <buffer> <localleader>eb :%Eval<cr>
+
     " Eval Form
     au Filetype clojure nmap <buffer> <localleader>ef <Plug>FireplacePrintab
 
     " Eval Top-Level Form
-    au Filetype clojure nmap <buffer> <localleader>ee mz:call PareditFindDefunBck()<cr><Plug>FireplacePrintab'z
+    au Filetype clojure nmap <buffer> <localleader>ee mz$:call PareditFindDefunBck()<cr><Plug>FireplacePrintab'z
 
     " Open clojure command line editor client window thing
     au Filetype clojure exe 'nmap <buffer> <localleader>E <Plug>FireplacePrompt' . &cedit . 'i'

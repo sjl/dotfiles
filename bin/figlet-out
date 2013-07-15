@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+echo
+echo ====================================================================
+FONT=$1
+echo $FONT
+shift
+figlet -w 1000 -f $FONT "$@"

@@ -58,7 +58,6 @@ set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿,vert:│
 set autowrite
 set autoread
 set shiftround
@@ -67,6 +66,12 @@ set linebreak
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
+
+" iTerm2 is currently slow as ball at rendering the nice unicode lines, so for
+" now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
+" myself when trying to move around a file.
+" set fillchars=diff:⣿,vert:│
+set fillchars=diff:⣿,vert:\|
 
 " Don't try to highlight lines longer than 800 characters.
 set synmaxcol=800
@@ -613,6 +618,37 @@ augroup END
 " }}}
 " Clojure {{{
 
+let g:clojure_fold_extra = [
+            \ 'defgauge',
+            \ 'defmeter',
+            \ 'defhistogram',
+            \ 'defcounter',
+            \ 'deftimer',
+            \
+            \ 'defdb',
+            \ 'defentity',
+            \ 'defaspect',
+            \ 'add-aspect',
+            \ 'defmigration',
+            \
+            \ 'defsynth',
+            \ 'definst',
+            \ 'defproject',
+            \
+            \ 'defroutes',
+            \
+            \ 'defrec',
+            \
+            \ 'defparser',
+            \
+            \ 'defform',
+            \ 'defform-',
+            \
+            \ 'defpage',
+            \ 'defsketch'
+            \
+            \ ]
+
 augroup ft_clojure
     au!
 
@@ -928,6 +964,17 @@ augroup ft_pentadactyl
 augroup END
 
 " }}}
+" Postgresql {{{
+
+augroup ft_postgres
+    au!
+
+    au BufNewFile,BufRead *.sql set filetype=pgsql
+    au FileType pgsql set foldmethod=indent
+    au FileType pgsql set softtabstop=2 shiftwidth=2
+augroup END
+
+" }}}
 " Puppet {{{
 
 augroup ft_puppet
@@ -997,6 +1044,8 @@ augroup END
 augroup ft_scala
     au!
     au Filetype scala setlocal foldmethod=indent
+    au Filetype scala compiler maven
+    au Filetype scala let b:dispatch = 'mvn -B package install'
 augroup END
 
 " }}}
@@ -1108,7 +1157,15 @@ let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
 
 " }}}
+" Dispatch {{{
+
+nnoremap <leader>d :Dispatch<cr>
+nnoremap <leader>m :Dispatch<cr>
+
+" }}}
 " Fugitive {{{
+
+let g:fugitive_github_domains = ['github.banksimple.com']
 
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
@@ -1171,6 +1228,11 @@ let g:lisp_rainbow = 1
 " Makegreen {{{
 
 nnoremap \| :call MakeGreen('')<cr>
+
+" }}}
+" Maven {{{
+
+let g:maven_disable_mappings = 1
 
 " }}}
 " NERD Tree {{{
@@ -1559,7 +1621,7 @@ function! ToggleDiffWhitespace()
     diffupdate
 endfunc
 
-nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
+nnoremap <leader>W :call ToggleDiffWhitespace()<CR>
 
 " }}}
 " Error Toggles {{{

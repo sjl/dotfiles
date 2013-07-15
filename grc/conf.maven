@@ -1,0 +1,56 @@
+regexp=.+ FAILURE!$
+colours=red bold
+=======
+regexp=^Expected: .+$
+colours=magenta
+=======
+regexp=^     got: .+$
+colours=magenta
+=======
+regexp=^     but: .+$
+colours=magenta
+=======
+regexp= T E S T S
+colours=cyan bold
+=======
+regexp=^Running \w+$
+colours=cyan bold
+=======
+regexp=^Tests run: \d+,
+colours=cyan bold
+=======
+regexp=^Failed tests:
+colours=red bold
+=======
+regexp=Skipped: \d+,
+colours=yellow bold
+=======
+regexp=(Failures|Errors): \d+,
+colours=red bold
+=======
+regexp=Skipped: 0,?
+colours=green bold
+=======
+regexp=(Failures|Errors): 0,
+colours=green bold
+=======
+regexp=^\[INFO\] .*$
+colours=black bold
+=======
+regexp=.*logback.classic pattern.*
+colours=black bold
+=======
+regexp=^\[INFO\] BUILD SUCCESS$
+colours=green bold
+=======
+regexp=^\[INFO\] BUILD FAILURE$
+colours=red bold
+=======
+regexp=^\[debug\] .*$
+colours=black bold
+=======
+regexp=^SLF4J: .*$
+colours=black bold
+=======
+regexp=^log4j:.*$
+colours=black bold

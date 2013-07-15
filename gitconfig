@@ -72,6 +72,10 @@
 
     sl = "!sh -c 'git show --color=always $1 | less -R' -"
 
+    find-merge = "!sh -c 'git log $1..master --merges -n1' -"
+
+    fuck-up-history-from = pull --rebase
+
 [push]
     default = current
 

@@ -24,6 +24,8 @@ function et; vim ~/.tmux.conf; end
 function eg; vim ~/.gitconfig; end
 function es; vim ~/.slate; end
 
+function sjoin -d "Join input lines into a single line with spaces"; tr '\n' ' '; end
+
 function pj
     python -m json.tool | pygmentize -l json
 end
@@ -141,6 +143,11 @@ function p
     ~/lib/t/t.py --task-dir="~/Dropbox/tasks" --list=pack.txt $argv
 end
 
+function s
+    ~/lib/t/t.py --task-dir="~/.simple-tasks" --list=tasks.txt $argv
+    set -g T_TASK_COUNT (count_t_tasks)
+end
+
 # }}}
 # Bind Keys {{{
 
@@ -184,6 +191,7 @@ prepend_to_path "$HOME/lib/hg/hg"
 prepend_to_path "$HOME/Library/Haskell/bin"
 prepend_to_path "/usr/local/Cellar/ruby/1.9.3-p194/bin"
 prepend_to_path "/Applications/Postgres.app/Contents/MacOS/bin"
+prepend_to_path "$HOME/.rbenv/shims"
 
 set BROWSER open
 
@@ -199,6 +207,8 @@ set -g -x VIM_BINARY "/usr/local/bin/vim"
 set -g -x MVIM_BINARY "/usr/local/bin/mvim"
 
 set -g -x DRIP_SHUTDOWN 30
+
+set -g -x MAVEN_OPTS "-Xmx512M -XX:MaxPermSize=512M"
 
 # }}}
 # Python variables {{{
@@ -221,6 +231,11 @@ set PYTHONPATH "$HOME/lib/hg/hg:$PYTHONPATH"
 
 set -gx WORKON_HOME "$HOME/lib/virtualenvs"
 . ~/.config/fish/virtualenv.fish
+
+# }}}
+# Rubby {{{
+
+/usr/local/bin/rbenv rehash 2>/dev/null
 
 # }}}
 # Z {{{
@@ -339,7 +354,7 @@ function ll; ll1 $argv; end
 # Local Settings {{{
 
 if test -s $HOME/.config/fish/local.fish
-    source $HOME/.config/fish/local.fish
+    . $HOME/.config/fish/local.fish
 end
 
 # }}}
