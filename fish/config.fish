@@ -235,7 +235,9 @@ set -gx WORKON_HOME "$HOME/lib/virtualenvs"
 # }}}
 # Rubby {{{
 
-/usr/local/bin/rbenv rehash 2>/dev/null
+if test -s /usr/local/bin/rbenv
+    /usr/local/bin/rbenv rehash 2>/dev/null
+end
 
 # }}}
 # Z {{{
