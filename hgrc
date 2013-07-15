@@ -236,8 +236,9 @@ todo = !~/lib/t/t.py --task-dir="`$HG root`" --list=TODO $@
 ignore = ![ -n "$@" ] && echo '$@' >> `$HG root`/.hgignore && \
           $HG commit `$HG root`/.hgignore -Am 'Add "$@" to .hgignore.'
 
-# Show in MacVim
-vshow = !$HG show $@ | mvim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
+# Show in Vim
+vshow = !$HG show $@ | vim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
+vdiff = !$HG diff -p --color=always $@ | vim -c ':AnsiEsc' -c 'setlocal buftype=nofile' -
 
 # Ack for non-ignored files
 ack = !$HG locate "set:not ignored()" | xargs ack $@

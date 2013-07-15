@@ -12,7 +12,7 @@
     branches = branch -a
     remotes = remote -v
 
-    make-the-fucking-branch-point-at-the-fucking-commit = !sh -c "git checkout $1 && git reset --hard $2" -
+    point-the-fucking-branch-at = "!sh -c 'git checkout $1 && git reset --hard $2' -"
     root = rev-parse --show-toplevel
 
     graft = cherry-pick -x
@@ -72,6 +72,10 @@
 
     sl = "!sh -c 'git show --color=always $1 | less -R' -"
 
+    find-merge = "!sh -c 'git log $1..master --merges -n1' -"
+
+    fuck-up-history-from = pull --rebase
+
 [push]
     default = current
 
@@ -102,3 +106,6 @@
 
 [web]
     browser = open
+
+[include]
+    path = ~/.gitconfig_local

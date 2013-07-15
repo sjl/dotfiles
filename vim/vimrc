@@ -58,7 +58,6 @@ set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿,vert:│
 set autowrite
 set autoread
 set shiftround
@@ -67,6 +66,12 @@ set linebreak
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
+
+" iTerm2 is currently slow as ball at rendering the nice unicode lines, so for
+" now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
+" myself when trying to move around a file.
+" set fillchars=diff:⣿,vert:│
+set fillchars=diff:⣿,vert:\|
 
 " Don't try to highlight lines longer than 800 characters.
 set synmaxcol=800
@@ -283,7 +288,7 @@ function! g:FuckingCopyTheTextPlease()
     let @z = old_z
 endfunction
 noremap <leader>p :silent! set paste<CR>"*p:set nopaste<CR>
-noremap <leader>p :r!pbpaste<cr>
+" noremap <leader>p mz:r!pbpaste<cr>`z
 vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
 
 " I constantly hit "u" in visual mode when I mean to "y". Use "gu" for those rare occasions.
@@ -349,8 +354,13 @@ vnoremap Q gq
 " I never use l as a macro register anyway.
 nnoremap ql gqq
 
-" Easier linewise reselection
+" Easier linewise reselection of what you just pasted.
 nnoremap <leader>V V`]
+
+" Indent/dedent/autoindent what you just pasted.
+nnoremap <lt>> V`]<
+nnoremap ><lt> V`]>
+nnoremap =- V`]=
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
@@ -514,9 +524,6 @@ nnoremap Vat vatV
 nnoremap Vab vabV
 nnoremap VaB vaBV
 
-" Toggle "keep current line in the center of the screen" mode
-nnoremap <leader>C :let &scrolloff=999-&scrolloff<cr>
-
 " Directional Keys {{{
 
 " It's 2013.
@@ -611,12 +618,49 @@ augroup END
 " }}}
 " Clojure {{{
 
+let g:clojure_fold_extra = [
+            \ 'defgauge',
+            \ 'defmeter',
+            \ 'defhistogram',
+            \ 'defcounter',
+            \ 'deftimer',
+            \
+            \ 'defdb',
+            \ 'defentity',
+            \ 'defaspect',
+            \ 'add-aspect',
+            \ 'defmigration',
+            \
+            \ 'defsynth',
+            \ 'definst',
+            \ 'defproject',
+            \
+            \ 'defroutes',
+            \
+            \ 'defrec',
+            \
+            \ 'defparser',
+            \
+            \ 'defform',
+            \ 'defform-',
+            \
+            \ 'defpage',
+            \ 'defsketch'
+            \
+            \ ]
+
 augroup ft_clojure
     au!
 
     au BufNewFile,BufRead riemann.config set filetype=clojure
-
     au FileType clojure silent! call TurnOnClojureFolding()
+    au FileType clojure compiler clojure
+    au FileType clojure setlocal report=100000
+
+    au FileType clojure RainbowParenthesesActivate
+    au syntax clojure RainbowParenthesesLoadRound
+    au syntax clojure RainbowParenthesesLoadSquare
+    au syntax clojure RainbowParenthesesLoadBraces
 
     " Friendlier Paredit mappings.
     au FileType clojure noremap <buffer> () :<c-u>call PareditWrap("(", ")")<cr>
@@ -627,10 +671,11 @@ augroup ft_clojure
     au FileType clojure noremap <buffer> (s :<c-u>call PareditSplit()<cr>
     au FileType clojure noremap <buffer> [ :<c-u>call PareditSmartJumpOpening(0)<cr>
     au FileType clojure noremap <buffer> ] :<c-u>call PareditSmartJumpClosing(0)<cr>
-    " ))))))))
+    " )))
 
     " Indent top-level form.
-    au FileType clojure nmap <buffer> <localleader>= mz:call PareditFindDefunBck()<cr>=ab'z
+    au FileType clojure nmap <buffer> <localleader>= mz99[(v%='z
+    " ])
 augroup END
 
 " }}}
@@ -899,6 +944,17 @@ augroup ft_pentadactyl
 augroup END
 
 " }}}
+" Postgresql {{{
+
+augroup ft_postgres
+    au!
+
+    au BufNewFile,BufRead *.sql set filetype=pgsql
+    au FileType pgsql set foldmethod=indent
+    au FileType pgsql set softtabstop=2 shiftwidth=2
+augroup END
+
+" }}}
 " Puppet {{{
 
 augroup ft_puppet
@@ -960,6 +1016,16 @@ augroup END
 augroup ft_ruby
     au!
     au Filetype ruby setlocal foldmethod=syntax
+augroup END
+
+" }}}
+" Scala {{{
+
+augroup ft_scala
+    au!
+    au Filetype scala setlocal foldmethod=indent
+    au Filetype scala compiler maven
+    au Filetype scala let b:dispatch = 'mvn -B package install'
 augroup END
 
 " }}}
@@ -1071,7 +1137,15 @@ let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
 
 " }}}
+" Dispatch {{{
+
+nnoremap <leader>d :Dispatch<cr>
+nnoremap <leader>m :Dispatch<cr>
+
+" }}}
 " Fugitive {{{
+
+let g:fugitive_github_domains = ['github.banksimple.com']
 
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
@@ -1129,6 +1203,11 @@ nnoremap <leader>L :LinediffReset<cr>
 " Makegreen {{{
 
 nnoremap \| :call MakeGreen('')<cr>
+
+" }}}
+" Maven {{{
+
+let g:maven_disable_mappings = 1
 
 " }}}
 " NERD Tree {{{
@@ -1251,9 +1330,16 @@ let g:SuperTabCrMapping = 1
 
 let g:syntastic_enable_signs = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_disabled_filetypes = ['html', 'rst']
+let g:syntastic_java_checker = 'javac'
+let g:syntastic_mode_map = {
+            \ "mode": "active",
+            \ "active_filetypes": [],
+            \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
+            \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+nnoremap <leader>C :SyntasticCheck<cr>
 
 " }}}
 " Splice {{{
@@ -1516,7 +1602,7 @@ function! ToggleDiffWhitespace()
     diffupdate
 endfunc
 
-nnoremap <leader>dw :call ToggleDiffWhitespace()<CR>
+nnoremap <leader>W :call ToggleDiffWhitespace()<CR>
 
 " }}}
 " Error Toggles {{{

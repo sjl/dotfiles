@@ -46,11 +46,12 @@ set thorough_search      # strip headers and eval mimes before searching
 
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
-set sidebar_width   = 24
+set sidebar_width   = 26
 color sidebar_new color221 color233
 bind index,pager <down>   sidebar-next
 bind index,pager <up>     sidebar-prev
 bind index,pager <right>  sidebar-open
+set sidebar_format = "%B %> %S"
 
 # }}}
 # Status Bar {{{
@@ -146,11 +147,6 @@ set sendmail_wait = 0 # no please don't silently fail, email is important
 unset record
 
 # }}}
-# Account Hooks {{{
-
-# folder-hook steve-stevelosh.com/* source ~/.mutt/steve-stevelosh.com.muttrc
-
-# }}}
 # Key Bindings {{{
 
 # Index {{{
@@ -179,11 +175,11 @@ macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 # Quickly change mailboxes
-macro index \' "<change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
-macro index \" "<change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
+macro index \' "<change-folder>+simple/INBOX<enter>"   "go to INBOX"
+macro index \" "<change-folder>+simple/archive<enter>" "go to archive"
 
 # Search with notmuch
-macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py -G ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py -G ~/.mail/search<enter><change-folder-readonly>+search<enter>" "search mail (using notmuch)"
 
 # Unlimit (show [a]ll)
 macro index a "<limit>all\n" "show all messages (undo limit)"
@@ -204,8 +200,8 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 macro pager s "<pipe-message>cat > ~/Desktop/"  "save message as"
 
 # Quickly change mailboxes
-macro pager \' "<exit><change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to stevelosh/INBOX"
-macro pager \" "<exit><change-folder>+steve-stevelosh.com/archive<enter>" "go to stevelosh/archive"
+macro pager \' "<exit><change-folder>+steve-stevelosh.com/INBOX<enter>"   "go to INBOX"
+macro pager \" "<exit><change-folder>+steve-stevelosh.com/archive<enter>" "go to archive"
 
 # }}}
 # Compose {{{
@@ -226,4 +222,7 @@ macro index,pager M "|mvim -c 'setlocal ft=mail' -c 'setlocal buftype=nofile' - 
 
 # }}}
 
+# }}}
+# Local Settings {{{
+    source `FILE=$HOME/.mutt-local; if [ ! -s "$FILE" ]; then FILE=/dev/null;fi;echo "$FILE"`
 # }}}

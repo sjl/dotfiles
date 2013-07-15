@@ -1,2 +1,5 @@
 syntax:literal
 .DS_Store
+
+syntax:regex
+^./target$

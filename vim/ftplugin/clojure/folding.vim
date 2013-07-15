@@ -3,47 +3,30 @@ if exists('loaded_clojurefolding') || &cp
 endif
 let loaded_clojurefolding=1
 
-let folded_forms = [
+if !exists('g:clojure_fold_extra')
+    let g:clojure_fold_extra = []
+endif
+
+let s:folded_forms = [
             \ 'def',
             \ 'defn',
             \ 'defn-',
-            \ 'defform',
-            \ 'defform-',
-            \ 'defrule',
             \ 'defprotocol',
-            \ 'defparser',
             \ 'defmacro',
             \ 'defmethod',
             \ 'defmulti',
             \ 'defonce',
-            \ 'defpage',
-            \ 'defmigration',
-            \ 'defsketch',
             \ 'defspec',
-            \ 'defremote',
             \ 'defrecord',
-            \ 'defrec',
             \ 'defpartial',
             \ 'extend-type',
             \ 'extend-protocol',
-            \ 'defgauge',
-            \ 'defmeter',
-            \ 'defhistogram',
-            \ 'defcounter',
-            \ 'deftimer',
             \ 'deftest',
-            \ 'defroutes',
-            \ 'defentity',
-            \ 'defaspect',
-            \ 'add-aspect',
-            \ 'defdb',
-            \ 'defproject',
-            \ 'defsynth',
-            \ 'definst',
             \ 'ns'
-            \ ]
-let s:form_re      = '\v^\((' . join(folded_forms, '|') . ')\s'
-let s:form_re_bare = '\v^\((' . join(folded_forms, '|') . ')$'
+            \ ] + g:clojure_fold_extra
+
+let s:form_re      = '\v^\((' . join(s:folded_forms, '|') . ')\s'
+let s:form_re_bare = '\v^\((' . join(s:folded_forms, '|') . ')$'
 
 function! s:NextNonBlankLineContents(start)
     let lnum = a:start
