@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-ls /usr/local/share/figlet/fonts/ | grep -e 'fl[fc]' | xargs -J FONT -n1 figlet-out FONT "$@"

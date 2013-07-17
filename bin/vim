@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-PATH=~/.vim/bullshit:$PATH $VIM_BINARY "$@"
